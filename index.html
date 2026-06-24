@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REEF Audio — Original music, sound design & sonic branding</title>
+<meta name="description" content="REEF Audio is a boutique audio production studio specializing in original music, sound design and sonic branding for advertising, branded content and screen productions." />
+<link rel="icon" href="assets/favicon.png" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="REEF Audio home">
+    <img class="brand__logo" src="assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
+  </a>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ===== MENU OVERLAY ===== -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu__shape">
+    <nav class="menu__nav" aria-label="Primary">
+      <a href="#work" data-num="01">Work</a>
+      <a href="#about" data-num="02">About</a>
+      <a href="#services" data-num="03">Capabilities</a>
+      <a href="#contact" data-num="04">Contact</a>
+    </nav>
+  </div>
+  <div class="menu__meta">
+    <a href="mailto:max@thereefaudio.com">max@thereefaudio.com</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero__media" aria-hidden="true">
+    <img src="assets/hero-home.jpg" alt="" />
+  </div>
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Boutique audio production studio for advertising</p>
+    <h1 class="hero__title">
+      <span class="w w1">We create</span>
+      <span class="w w2">original music,</span>
+      <span class="w w3">sound design</span>
+      <span class="w w4">&amp; sonic branding</span>
+      <span class="w w5">worldwide.</span>
+    </h1>
+    <a href="#contact" class="hero__cta">Get in touch
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+  <div class="hero__scrollhint" aria-hidden="true"><span></span>Scroll</div>
+</section>
+
+<!-- ===== WORK ===== -->
+<section class="work" id="work">
+  <div class="work__head">
+    <p class="eyebrow">Selected work</p>
+  </div>
+  <div class="work__grid" id="workGrid"></div>
+  <div class="work__more-wrap">
+    <button type="button" class="work__more" id="workMore">View more
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="about__body">
+    <p class="eyebrow">About</p>
+    <h2 class="about__lead reveal">REEF Audio is a boutique audio production studio specializing in original music, sound design and sonic branding for advertising, branded content and screen productions.</h2>
+    <p class="reveal">Founded by composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>, REEF combines over twenty years of advertising experience with a production approach shaped by both creative and agency-side expertise.</p>
+    <p class="reveal">We work as a trusted music partner for brands, agencies and production companies — helping shape, produce and deliver the musical side of projects from the earliest creative discussions through final delivery.</p>
+    <p class="reveal">At the core of every project is a commitment to musical quality. Whether creating an original score, a brand sonic identity or a production-driven campaign soundtrack, we focus on music that is distinctive, emotionally engaging and crafted to stand the test of time.</p>
+  </div>
+</section>
+
+<!-- ===== STAGE IMAGE BAND ===== -->
+<div class="stageband" aria-hidden="true">
+  <img src="assets/hero-about.jpg" alt="" loading="lazy" />
+</div>
+
+<!-- ===== CAPABILITIES ===== -->
+<section class="services" id="services">
+  <div class="services__head">
+    <p class="eyebrow">Capabilities</p>
+  </div>
+  <div class="services__list" id="servicesList">
+    <article class="service reveal">
+      <h3 class="service__title">Original Music</h3>
+      <p class="service__desc">Bespoke music for advertising, branded content and screen productions.</p>
+    </article>
+    <article class="service reveal">
+      <h3 class="service__title">Music Production</h3>
+      <p class="service__desc">Vocal casting, choirs, live musicians, orchestration and production management for projects that require a broader production approach.</p>
+    </article>
+    <article class="service reveal">
+      <h3 class="service__title">Sonic Branding</h3>
+      <p class="service__desc">Distinctive sonic identities and audio assets designed to strengthen brand recognition.</p>
+    </article>
+    <article class="service reveal">
+      <h3 class="service__title">Sound Design</h3>
+      <p class="service__desc">Music-led sound design where every sonic element is crafted to work with the score, not compete against it.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== CLIENTS ===== -->
+<section class="clients" id="clients">
+  <div class="clients__head">
+    <p class="eyebrow">Selected clients</p>
+  </div>
+  <ul class="clients__grid" id="clientList"></ul>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="contact__wall" aria-hidden="true"></div>
+  <div class="contact__inner">
+    <p class="eyebrow">Contact</p>
+    <h2 class="contact__title">
+      <span>Have</span> <span>a</span> <span>project?</span>
+    </h2>
+    <p class="contact__lead reveal">Whether you need original music, sound design, sonic branding or full-scale music production support, we'd love to hear about it.</p>
+    <div class="contact__actions reveal">
+      <a href="mailto:max@thereefaudio.com" class="contact__btn contact__btn--primary">Get in touch
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer__inner">
+    <a href="#top" class="brand brand--sm">
+      <img class="brand__logo" src="assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
+    </a>
+    <p class="footer__tag">Original music, sound design and sonic branding worldwide.</p>
+    <div class="footer__links">
+      <a href="mailto:max@thereefaudio.com">Email</a>
+      <a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a>
+      <a href="https://www.instagram.com/reef_audio" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> REEF Audio</span>
+    <span>Made with intent.</span>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WIDGET (scroll to top) ===== -->
+<a class="widget" id="widget" href="#top" aria-label="Back to top" title="Back to top">
+  <svg class="widget__arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</a>
+
+<script src="script.js"></script>
+</body>
+</html>
