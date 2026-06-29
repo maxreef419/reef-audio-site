@@ -193,13 +193,16 @@ if(contactSec) secIO.observe(contactSec);
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   v.muted = true; v.setAttribute('muted','');
   function reveal(){ v.classList.add('is-playing'); }
+  // reveal as soon as the first frame is actually rendering
   v.addEventListener('playing', reveal, {once:true});
+  v.addEventListener('timeupdate', function once(){ if(v.currentTime>0){ reveal(); v.removeEventListener('timeupdate', once); } });
   function tryPlay(){
     const p = v.play();
     if(p && p.catch){ p.catch(()=>{ /* autoplay blocked; poster stays */ }); }
+    if(!v.paused && v.currentTime>0) reveal();
   }
   if(v.readyState >= 2){ tryPlay(); }
-  else { v.addEventListener('canplay', tryPlay, {once:true}); }
+  else { v.addEventListener('loadeddata', tryPlay, {once:true}); v.addEventListener('canplay', tryPlay, {once:true}); }
   // resume if tab/scroll pauses it
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
 })();
