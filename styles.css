@@ -328,7 +328,7 @@ body.lb-open{overflow:hidden}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
-  .hero{padding-top:110px}
+  .hero{align-items:center;padding:120px clamp(20px,4vw,46px) 90px}
   .services__list{grid-template-columns:1fr}
 }
 @media (max-width:560px){
