@@ -292,6 +292,9 @@ body.lb-open{overflow:hidden}
 @media (max-width:600px){
   .clients__grid{gap:0 clamp(5px,1.6vw,9px)}
   .clients__grid li::after{margin-left:clamp(5px,1.6vw,9px)}
+  .hero__eyebrow{flex-wrap:wrap}
+  .hero__eyebrow-br{flex-basis:100%;margin-left:0}
+  .hero__eyebrow-br::before{content:"";display:none}
 }
 
 /* ===== CONTACT ===== */
