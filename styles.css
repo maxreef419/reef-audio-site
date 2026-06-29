@@ -240,7 +240,7 @@ body.lb-open{overflow:hidden}
 
 /* ===== STAGE IMAGE BAND ===== */
 .stageband{position:relative;width:100%;height:clamp(280px,46vw,620px);overflow:hidden;background:var(--bg)}
-.stageband img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.02) contrast(1.02)}
+.stageband img{position:absolute;left:0;top:-15%;width:100%;height:130%;object-fit:cover;display:block;filter:brightness(1.02) contrast(1.02);will-change:transform}
 .stageband::after{content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(12,16,18,.55),transparent 26%,transparent 72%,rgba(10,12,13,.85));}
 
