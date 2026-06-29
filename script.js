@@ -206,3 +206,25 @@ if(contactSec) secIO.observe(contactSec);
   // resume if tab/scroll pauses it
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
 })();
+
+// ===== HERO PARALLAX (background stays behind as page scrolls) =====
+(function(){
+  const layer = document.getElementById('heroParallax');
+  const hero = document.getElementById('hero');
+  if(!layer || !hero) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const FACTOR = 0.4; // background moves at 40% of scroll speed
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const y = window.scrollY || window.pageYOffset;
+    // only animate while hero is in/near view
+    if(y < window.innerHeight){
+      layer.style.transform = 'translate3d(0,' + (y * FACTOR).toFixed(1) + 'px,0)';
+    }
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ window.requestAnimationFrame(update); ticking = true; }
+  }, {passive:true});
+  update();
+})();
