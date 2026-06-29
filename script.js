@@ -78,12 +78,11 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
-// ===== HOVER / IN-VIEW PREVIEW LOOPS (Reels-style) =====
+// ===== HOVER PREVIEW LOOPS (play only on interaction) =====
 (function(){
   if(!grid) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce) return;
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   function loadAndPlay(item){
     const v = item.querySelector('.work__video');
@@ -100,41 +99,27 @@ if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.current
     try{ v.pause(); v.currentTime = 0; }catch(e){}
   }
 
-  if(canHover){
-    // DESKTOP: play on hover
-    grid.addEventListener('mouseenter', (e)=>{
-      const item = e.target.closest && e.target.closest('.work__item');
-      if(item) loadAndPlay(item);
-    }, true);
-    grid.addEventListener('mouseleave', (e)=>{
-      const item = e.target.closest && e.target.closest('.work__item');
-      if(item) stop(item);
-    }, true);
-  } else {
-    // MOBILE / TOUCH: play the card nearest screen center
-    let current = null;
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{
-        const item = en.target;
-        if(en.isIntersecting && en.intersectionRatio >= 0.6){
-          if(current && current !== item) stop(current);
-          current = item;
-          loadAndPlay(item);
-        } else if(item === current){
-          stop(item); current = null;
-        }
-      });
-    },{threshold:[0,0.6,1], rootMargin:'-15% 0px -15% 0px'});
-    window.__workPreviewIO = io;
-    // observe any cards already rendered before this observer existed
-    grid.querySelectorAll('.work__item').forEach(el=>{ if(!el.dataset.prevObserved){ el.dataset.prevObserved='1'; io.observe(el); }});
-  }
+  // DESKTOP: play on hover, stop on leave
+  grid.addEventListener('mouseenter', (e)=>{
+    const item = e.target.closest && e.target.closest('.work__item');
+    if(item) loadAndPlay(item);
+  }, true);
+  grid.addEventListener('mouseleave', (e)=>{
+    const item = e.target.closest && e.target.closest('.work__item');
+    if(item) stop(item);
+  }, true);
+
+  // TOUCH: first tap shows the live preview; stop others
+  let touchCurrent = null;
+  grid.addEventListener('touchstart', (e)=>{
+    const item = e.target.closest && e.target.closest('.work__item');
+    if(!item) return;
+    if(touchCurrent && touchCurrent !== item) stop(touchCurrent);
+    touchCurrent = item;
+    loadAndPlay(item);
+  }, {passive:true});
 })();
-function observePreviews(){
-  const io = window.__workPreviewIO;
-  if(!io) return;
-  grid.querySelectorAll('.work__item').forEach(el=>{ if(!el.dataset.prevObserved){ el.dataset.prevObserved='1'; io.observe(el); }});
-}
+function observePreviews(){}
 
 // ===== VIDEO LIGHTBOX =====
 (function(){
