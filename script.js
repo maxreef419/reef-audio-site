@@ -24,7 +24,7 @@ const WORK = [
   {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292"}
 ];
 
-const CLIENTS = ["McDonald's","Sony","Volkswagen","KIA","Coca-Cola","Visa","Burger King","Heinz","Toyota","AliExpress","Google","Lay's","Hyundai","BBC","Samsung","Fanta","Chevrolet","GSK","Lipton","Nokia","Kinder","Red Bull","IKEA","Danone","Xiaomi","Kaspersky","KFC","Bayer","Nivea","Jacobs","HBO","Yango","Haier","Tim Hortons","St Regis","Whole Foods","Kraft"];
+const CLIENTS = ["Google","McDonald's","Sony","Coca-Cola","Visa","Toyota","BBC","IKEA","Samsung","Red Bull","Volkswagen","Burger King","Yandex","KIA","HBO","Heinz","Danone","Lay's","KFC","St. Regis"];
 
 // ===== HERO ENTRANCE =====
 function startHero(){
