@@ -184,3 +184,22 @@ if(contactSec) secIO.observe(contactSec);
     });
   });
 })();
+
+// ===== HERO VIDEO BACKGROUND =====
+(function(){
+  const v = document.getElementById('heroVideo');
+  if(!v) return;
+  // respect reduced-motion: keep static poster
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  v.muted = true; v.setAttribute('muted','');
+  function reveal(){ v.classList.add('is-playing'); }
+  v.addEventListener('playing', reveal, {once:true});
+  function tryPlay(){
+    const p = v.play();
+    if(p && p.catch){ p.catch(()=>{ /* autoplay blocked; poster stays */ }); }
+  }
+  if(v.readyState >= 2){ tryPlay(); }
+  else { v.addEventListener('canplay', tryPlay, {once:true}); }
+  // resume if tab/scroll pauses it
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
+})();

@@ -147,7 +147,10 @@ body.menu-open .menu__meta{opacity:1}
 }
 .hero.in .hero__media{opacity:1;transform:none}
 .hero__media img{width:100%;height:100%;object-fit:cover;display:block}
-.hero__media::after{content:"";position:absolute;inset:0;
+.hero__poster{position:absolute;inset:0;z-index:0}
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1;opacity:0;transition:opacity 1s var(--ease)}
+.hero__video.is-playing{opacity:1}
+.hero__media::after{content:"";position:absolute;inset:0;z-index:2;
   background:linear-gradient(90deg,rgba(10,12,13,.92) 0%,rgba(10,12,13,.78) 32%,rgba(10,12,13,.4) 62%,rgba(10,12,13,.62) 100%),
   linear-gradient(180deg,rgba(10,12,13,.55),transparent 30%,rgba(10,12,13,.55));
 }
