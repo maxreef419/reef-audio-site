@@ -141,7 +141,9 @@ function observePreviews(){}
     lb.classList.add('open');
     lb.setAttribute('aria-hidden','false');
     document.body.classList.add('lb-open');
-    closeBtn.focus();
+    // focus for a11y but avoid a stray focus-ring flash on the close button
+    closeBtn.focus({preventScroll:true});
+    closeBtn.blur();
   }
   function close(){
     lb.classList.remove('open');

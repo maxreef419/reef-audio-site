@@ -213,8 +213,9 @@ body.lb-open{overflow:hidden}
   width:44px;height:44px;border-radius:100px;cursor:pointer;color:#fff;
   background:rgba(20,24,26,.92);border:1px solid rgba(255,255,255,.22);transition:background .3s,border-color .3s,transform .3s var(--ease)}
 .lightbox__close svg{width:20px;height:20px}
-.lightbox__close:hover{background:var(--cyan);border-color:var(--cyan);transform:rotate(90deg)}
-.lightbox__close:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.lightbox__close:hover{background:rgba(40,46,50,.96);border-color:rgba(255,255,255,.45);transform:rotate(90deg)}
+.lightbox__close:focus{outline:none}
+.lightbox__close:focus-visible{outline:2px solid rgba(255,255,255,.6);outline-offset:2px;border-color:rgba(255,255,255,.45)}
 .lightbox__title{margin:clamp(14px,1.6vw,20px) 2px 0;font-family:var(--font-display);font-weight:600;font-size:clamp(15px,1.4vw,20px);letter-spacing:-.01em;color:var(--text)}
 @keyframes lbFade{from{opacity:0}to{opacity:1}}
 @keyframes lbRise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
