@@ -259,7 +259,7 @@ body.lb-open{overflow:hidden}
 .clients__head{margin-bottom:clamp(32px,4vw,54px)}
 .clients__grid{
   list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
-  gap:0 clamp(12px,1.3vw,22px);
+  gap:0 clamp(6px,0.7vw,12px);
 }
 .clients__grid li{
   position:relative;display:inline-flex;align-items:baseline;
@@ -269,16 +269,16 @@ body.lb-open{overflow:hidden}
   transition:color .4s var(--ease);
 }
 .clients__grid li::after{
-  content:"";display:inline-block;width:3px;height:3px;border-radius:50%;
-  margin-left:clamp(12px,1.3vw,22px);transform:translateY(-.22em);
-  background:currentColor;opacity:.14;
+  content:"+";display:inline-block;
+  margin-left:clamp(6px,0.7vw,12px);
+  font-weight:500;color:currentColor;opacity:.32;
   transition:opacity .4s var(--ease);
 }
 .clients__grid li:last-child::after{display:none}
 .clients__grid li:hover{color:var(--text)}
 @media (max-width:600px){
-  .clients__grid{gap:0 clamp(10px,3vw,16px)}
-  .clients__grid li::after{margin-left:clamp(10px,3vw,16px)}
+  .clients__grid{gap:0 clamp(5px,1.6vw,9px)}
+  .clients__grid li::after{margin-left:clamp(5px,1.6vw,9px)}
 }
 
 /* ===== CONTACT ===== */
