@@ -58,7 +58,7 @@ a{color:inherit;text-decoration:none}
 .sl-brand .sl-extra{color:var(--muted-2);font-weight:500;font-size:.78em}
 .sl-type{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-top:2px}
 .sl-bar{flex:0 1 230px;height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;cursor:pointer}
-.sl-fill{display:block;width:0;height:100%;background:var(--grad);border-radius:99px}
+.sl-fill{display:block;width:100%;height:100%;background:var(--grad);border-radius:99px;transform:scaleX(0);transform-origin:left center;transition:transform .12s linear;will-change:transform}
 .sl-time{flex:none;width:42px;text-align:right;font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted-2)}
 
 /* footer */
@@ -450,12 +450,19 @@ a{color:inherit;text-decoration:none}
       cards.forEach(function(c){c.classList.remove('playing');});
       card.classList.add('playing');
     });
-    audio.addEventListener('pause',function(){card.classList.remove('playing');});
-    audio.addEventListener('ended',function(){card.classList.remove('playing');fill.style.width='0%';if(time)time.textContent='0:00';});
-    audio.addEventListener('timeupdate',function(){
-      if(audio.duration){fill.style.width=(audio.currentTime/audio.duration*100)+'%';}
-      if(time)time.textContent=fmt(audio.currentTime);
-    });
+    var raf=null;
+    function render(){
+      if(audio.duration){
+        var p=audio.currentTime/audio.duration;
+        fill.style.transform='scaleX('+p+')';
+        if(time)time.textContent=fmt(audio.currentTime);
+      }
+      if(!audio.paused){raf=requestAnimationFrame(render);}
+    }
+    audio.addEventListener('play',function(){if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(render);});
+    audio.addEventListener('pause',function(){card.classList.remove('playing');if(raf){cancelAnimationFrame(raf);raf=null;}render();});
+    audio.addEventListener('ended',function(){card.classList.remove('playing');if(raf){cancelAnimationFrame(raf);raf=null;}fill.style.transform='scaleX(0)';if(time)time.textContent='0:00';});
+    audio.addEventListener('seeked',render);
     audio.addEventListener('loadedmetadata',function(){if(time&&audio.paused)time.textContent=fmt(audio.duration);});
     bar.addEventListener('click',function(e){
       var r=bar.getBoundingClientRect();
