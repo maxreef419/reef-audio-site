@@ -369,6 +369,8 @@ body.lb-open{overflow:hidden}
 /* Landscape phones: hide scroll hint, respect notch safe-area on padded content */
 @media (max-height:560px) and (orientation:landscape){
   .hero__scrollhint{display:none}
+  .hero__eyebrow{display:block}
+  .hero__eyebrow-br{display:block}
 }
 @media (orientation:landscape){
   .hero,.services__head,.services__list,.work__head,.work__grid,.about__body,.footer__inner,.footer__bottom{
