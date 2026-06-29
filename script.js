@@ -53,9 +53,6 @@ function workCard(w){
   <button type="button" class="work__item work__item--new" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
     <img src="${w.img}" alt="${label} — REEF Audio project still" loading="lazy">
     <video class="work__video" data-prev="assets/work/preview/p-${w.vimeo}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-    <span class="work__play" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    </span>
     <div class="work__overlay"><span class="work__name">${label}</span></div>
   </button>`;
 }
@@ -160,18 +157,16 @@ function observePreviews(){}
     if(!item) return;
     e.preventDefault();
     if(isTouch){
-      // On touch: first tap starts the inline preview + shows the play icon.
+      // On touch: first tap starts the inline preview.
       // A second tap on the SAME card opens the full video.
       const cur = window.__workTouchCurrent && window.__workTouchCurrent();
       if(item.dataset.tapped !== '1' || cur !== item){
-        // first tap on this card -> preview + play icon hint
-        grid.querySelectorAll('.work__item[data-tapped]').forEach(el=>{ if(el!==item){ delete el.dataset.tapped; el.classList.remove('is-tapped'); }});
+        // first tap on this card -> just keep the preview playing
+        grid.querySelectorAll('.work__item[data-tapped]').forEach(el=>{ if(el!==item) delete el.dataset.tapped; });
         item.dataset.tapped = '1';
-        item.classList.add('is-tapped');
         return;
       }
       delete item.dataset.tapped;
-      item.classList.remove('is-tapped');
     }
     open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'));
   });
