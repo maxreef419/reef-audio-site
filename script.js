@@ -172,3 +172,15 @@ if(contactSec) secIO.observe(contactSec);
   });
   update(); window.addEventListener('scroll', update, {passive:true});
 })();
+
+// ===== CAPABILITIES ACCORDION =====
+(function(){
+  const heads = document.querySelectorAll('.service__head');
+  heads.forEach(h=>{
+    h.addEventListener('click', ()=>{
+      const open = h.getAttribute('aria-expanded') === 'true';
+      heads.forEach(o=>{ if(o!==h) o.setAttribute('aria-expanded','false'); });
+      h.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+})();

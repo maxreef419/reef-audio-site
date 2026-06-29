@@ -242,15 +242,28 @@ body.lb-open{overflow:hidden}
 .services{padding:clamp(100px,15vw,200px) clamp(20px,4vw,46px) clamp(40px,6vw,70px);max-width:var(--maxw);margin:0 auto}
 .services__head{margin-bottom:clamp(36px,5vw,60px)}
 .services__list{display:grid;grid-template-columns:1fr;gap:0}
-.service{
-  position:relative;padding:clamp(18px,2.6vw,30px) 0;
-  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,6vw,90px);align-items:start;
+.service{position:relative;border-top:1px solid var(--line-2)}
+.service:last-child{border-bottom:1px solid var(--line-2)}
+.service__head{
+  width:100%;background:none;border:0;cursor:pointer;text-align:left;
+  display:flex;align-items:baseline;gap:clamp(14px,1.8vw,28px);
+  padding:clamp(18px,2.6vw,30px) 0;color:var(--text);
+}
+.service__plus{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(24px,3.2vw,42px);line-height:1;color:var(--cyan);
+  flex:none;transition:transform .4s var(--ease),color .35s var(--ease);
 }
 .service__title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,52px);letter-spacing:-.025em;line-height:1.04;transition:color .35s var(--ease)}
-.service:hover .service__title{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text}
-.service__desc{color:var(--muted);font-size:clamp(15px,1.3vw,17.5px);line-height:1.6;max-width:52ch;padding-top:.35em}
+.service__head:hover .service__title,.service__head[aria-expanded="true"] .service__title{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text}
+.service__head[aria-expanded="true"] .service__plus{transform:rotate(45deg)}
+.service__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.service__head[aria-expanded="true"]+.service__panel{grid-template-rows:1fr}
+.service__panel>.service__desc{overflow:hidden;min-height:0}
+.service__desc{color:var(--muted);font-size:clamp(15px,1.3vw,17.5px);line-height:1.6;max-width:60ch;margin:0;padding:0 0 0 clamp(28px,5vw,70px);opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease) .05s,transform .4s var(--ease) .05s,padding-bottom .45s var(--ease)}
+.service__head[aria-expanded="true"]+.service__panel>.service__desc{opacity:1;transform:none;padding-bottom:clamp(20px,3vw,34px)}
 @media (max-width:760px){
-  .service{grid-template-columns:1fr;gap:14px}
+  .service__desc{padding-left:clamp(24px,8vw,40px)}
 }
 
 /* ===== CLIENTS ===== */
