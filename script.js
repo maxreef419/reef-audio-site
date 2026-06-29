@@ -212,7 +212,7 @@ if(contactSec) secIO.observe(contactSec);
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const heroLayer = document.getElementById('heroParallax');
   if(!heroLayer) return;
-  const FACTOR = 0.08; // barely perceptible — adds depth without drawing attention
+  const FACTOR = 0.15; // subtle depth — a touch stronger, still understated
   let ticking = false;
   function update(){
     ticking = false;

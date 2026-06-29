@@ -260,8 +260,8 @@ body.lb-open{overflow:hidden}
   font-size:clamp(24px,3.2vw,42px);line-height:1;color:var(--cyan);
   flex:none;transition:transform .4s var(--ease),color .35s var(--ease);
 }
-.service__title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,52px);letter-spacing:-.025em;line-height:1.04;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:var(--text);transition:-webkit-text-fill-color .3s var(--ease),color .3s var(--ease)}
-.service__head:hover .service__title,.service__head[aria-expanded="true"] .service__title{-webkit-text-fill-color:transparent;color:transparent}
+.service__title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,52px);letter-spacing:-.025em;line-height:1.04;color:#f4f6f6;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:#f4f6f6;transition:-webkit-text-fill-color .35s var(--ease)}
+.service__head:hover .service__title,.service__head[aria-expanded="true"] .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}
 .service__head[aria-expanded="true"] .service__plus{transform:rotate(45deg)}
 .service__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
 .service__head[aria-expanded="true"]+.service__panel{grid-template-rows:1fr}
