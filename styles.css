@@ -366,6 +366,16 @@ body.lb-open{overflow:hidden}
   .widget{width:50px;height:50px;right:16px;bottom:16px}
   .contact__title{font-size:clamp(44px,16vw,80px)}
 }
+/* Landscape phones: hide scroll hint, respect notch safe-area on padded content */
+@media (max-height:560px) and (orientation:landscape){
+  .hero__scrollhint{display:none}
+}
+@media (orientation:landscape){
+  .hero,.services__head,.services__list,.work__head,.work__grid,.about__body,.footer__inner,.footer__bottom{
+    padding-left:max(clamp(20px,4vw,46px),env(safe-area-inset-left,0px));
+    padding-right:max(clamp(20px,4vw,46px),env(safe-area-inset-right,0px));
+  }
+}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important}
   .hero__title .w,.reveal,.hero__media,.contact__title span,.work__item,.hero__rule{opacity:1!important;transform:none!important}
