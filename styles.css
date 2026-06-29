@@ -254,7 +254,8 @@ body.lb-open{overflow:hidden}
 }
 
 /* ===== CLIENTS ===== */
-.clients{padding:clamp(40px,6vw,70px) clamp(20px,4vw,56px) clamp(90px,12vw,150px);max-width:1500px;margin:0 auto}
+.clients{background:var(--bg-3);padding:clamp(56px,8vw,96px) 0 clamp(90px,12vw,150px)}
+.clients__inner{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,46px)}
 .clients__head{margin-bottom:clamp(32px,4vw,54px)}
 .clients__grid{
   list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
