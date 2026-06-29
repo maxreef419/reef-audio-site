@@ -207,35 +207,22 @@ if(contactSec) secIO.observe(contactSec);
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
 })();
 
-// ===== PARALLAX (hero background + stage band) =====
+// ===== HERO PARALLAX (subtle depth — background trails ~8% of scroll) =====
 (function(){
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const heroLayer = document.getElementById('heroParallax');
-  const stageBand = document.getElementById('stageband');
-  const stageImg  = document.getElementById('stagebandImg');
-  if(!heroLayer && !stageImg) return;
+  if(!heroLayer) return;
+  const FACTOR = 0.08; // barely perceptible — adds depth without drawing attention
   let ticking = false;
   function update(){
     ticking = false;
-    const vh = window.innerHeight;
     const y = window.scrollY || window.pageYOffset;
-    // hero: background trails at 40% of scroll speed
-    if(heroLayer && y < vh){
-      heroLayer.style.transform = 'translate3d(0,' + (y * 0.4).toFixed(1) + 'px,0)';
-    }
-    // stage band: shift image based on band position in viewport
-    if(stageBand && stageImg){
-      const r = stageBand.getBoundingClientRect();
-      if(r.bottom > 0 && r.top < vh){
-        // progress: -1 (band entering bottom) -> 1 (leaving top)
-        const progress = (vh - r.top) / (vh + r.height) * 2 - 1;
-        stageImg.style.transform = 'translate3d(0,' + (progress * -8).toFixed(1) + '%,0)';
-      }
+    if(y < window.innerHeight){
+      heroLayer.style.transform = 'translate3d(0,' + (y * FACTOR).toFixed(1) + 'px,0)';
     }
   }
   window.addEventListener('scroll', function(){
     if(!ticking){ window.requestAnimationFrame(update); ticking = true; }
   }, {passive:true});
-  window.addEventListener('resize', update, {passive:true});
   update();
 })();
