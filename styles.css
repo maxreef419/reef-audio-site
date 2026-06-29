@@ -327,19 +327,20 @@ body.lb-open{overflow:hidden}
 
 /* ===== FLOATING WIDGET (scroll to top) ===== */
 .widget{
-  position:fixed;right:24px;bottom:24px;z-index:90;
-  display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;
-  color:var(--text);background:rgba(13,18,20,.72);backdrop-filter:blur(10px);
-  border:1px solid var(--line);
-  opacity:0;transform:translateY(14px) scale(.85);pointer-events:none;
-  transition:opacity .45s var(--ease),transform .45s var(--ease),border-color .3s,background .3s;
+  position:fixed;right:26px;bottom:26px;z-index:90;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  color:rgba(255,255,255,.55);background:none;border:0;padding:6px 4px;
+  font-size:9px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .45s var(--ease),transform .45s var(--ease),color .3s;
 }
+.widget::before{content:"";width:2px;height:34px;border-radius:2px;background:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.08))}
 .widget.show{opacity:1;transform:none;pointer-events:auto}
-.widget__arrow{position:relative;z-index:2;animation:widgetFloat 2.4s var(--ease) infinite}
+.widget__arrow{position:relative;z-index:2;width:16px;height:16px;animation:widgetFloat 2.4s var(--ease) infinite}
 @keyframes widgetFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.widget:hover{border-color:var(--cyan);background:rgba(13,18,20,.92)}
-.widget:hover .widget__arrow{animation-duration:.9s;color:var(--cyan)}
-.widget:focus-visible{outline:none;border-color:var(--cyan)}
+.widget:hover{color:rgba(255,255,255,.95)}
+.widget:hover .widget__arrow{animation-duration:.9s}
+.widget:focus-visible{outline:none;color:rgba(255,255,255,.95)}
 
 /* ===== REVEAL ===== */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease-soft),transform 1s var(--ease-soft)}
@@ -358,7 +359,8 @@ body.lb-open{overflow:hidden}
   .work__item{aspect-ratio:16/10}
   .footer__inner{flex-direction:column;align-items:flex-start;gap:20px}
   .footer__bottom{justify-content:space-between;gap:14px;padding-right:60px}
-  .widget{width:50px;height:50px;right:16px;bottom:16px}
+  .widget{right:18px;bottom:18px}
+  .widget::before{height:28px}
   .contact__title{font-size:clamp(44px,16vw,80px)}
 }
 /* Landscape phones: hide scroll hint, respect notch safe-area on padded content */
