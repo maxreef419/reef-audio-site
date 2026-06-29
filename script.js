@@ -109,7 +109,7 @@ if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.current
     if(item) stop(item);
   }, true);
 
-  // TOUCH: first tap shows the live preview; stop others
+  // TOUCH: tap a card to start its preview immediately; tap a different card to switch
   let touchCurrent = null;
   grid.addEventListener('touchstart', (e)=>{
     const item = e.target.closest && e.target.closest('.work__item');
@@ -118,6 +118,8 @@ if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.current
     touchCurrent = item;
     loadAndPlay(item);
   }, {passive:true});
+  // expose for lightbox: which card is currently previewing on touch
+  window.__workTouchCurrent = ()=> touchCurrent;
 })();
 function observePreviews(){}
 
@@ -149,10 +151,23 @@ function observePreviews(){}
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   grid.addEventListener('click', (e)=>{
     const item = e.target.closest('.work__item');
     if(!item) return;
     e.preventDefault();
+    if(isTouch){
+      // On touch: first tap already started the inline preview (touchstart).
+      // Require a second tap on the SAME card to open the full video.
+      const cur = window.__workTouchCurrent && window.__workTouchCurrent();
+      if(item.dataset.tapped !== '1' || cur !== item){
+        // first tap on this card -> just keep the preview playing
+        grid.querySelectorAll('.work__item[data-tapped]').forEach(el=>{ if(el!==item) delete el.dataset.tapped; });
+        item.dataset.tapped = '1';
+        return;
+      }
+      delete item.dataset.tapped;
+    }
     open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'));
   });
   closeBtn.addEventListener('click', close);
