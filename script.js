@@ -48,13 +48,14 @@ const BATCH = 6;
 let shown = 0;
 
 function workCard(w){
+  const label = w.name.split('|')[0].trim();
   return `
-  <button type="button" class="work__item work__item--new" data-vimeo="${w.vimeo}" data-name="${w.name.replace(/"/g,'&quot;')}" aria-label="Play ${w.name.replace(/"/g,'&quot;')}">
-    <img src="${w.img}" alt="${w.name} — REEF Audio project still" loading="lazy">
+  <button type="button" class="work__item work__item--new" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
+    <img src="${w.img}" alt="${label} — REEF Audio project still" loading="lazy">
     <span class="work__play" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
     </span>
-    <div class="work__overlay"><span class="work__name">${w.name}</span></div>
+    <div class="work__overlay"><span class="work__name">${label}</span></div>
   </button>`;
 }
 // reveal work items as they scroll into view (not static)
