@@ -31,7 +31,15 @@ function startHero(){
   const hero = document.getElementById('hero');
   if(hero) requestAnimationFrame(()=> hero.classList.add('in'));
 }
-startHero();
+// Wait for fonts so the reveal animates in the final font (no swap reflow / judder)
+if(document.fonts && document.fonts.ready){
+  let started = false;
+  const go = ()=>{ if(started) return; started = true; startHero(); };
+  document.fonts.ready.then(go);
+  setTimeout(go, 1200); // safety fallback if fonts stall
+}else{
+  startHero();
+}
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
