@@ -118,6 +118,7 @@ body.menu-open .menu__meta{opacity:1}
 }
 .hero__title .w{display:block;opacity:0;transform:translateY(40px);transition:opacity 1.1s var(--ease-soft),transform 1.1s var(--ease-soft);will-change:transform,opacity;backface-visibility:hidden}
 .hero__title .w{color:var(--text)}
+.hero__title .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .hero.in .w{opacity:1;transform:none}
 .hero.in .w1{transition-delay:.05s}
 .hero.in .w2{transition-delay:.13s}
