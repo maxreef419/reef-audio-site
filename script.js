@@ -24,7 +24,7 @@ const WORK = [
   {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292"}
 ];
 
-const CLIENTS = ["McDonald's","Sony","Volkswagen","KIA","Coca-Cola","Visa","Burger King","Heinz","Toyota","AliExpress","Google","Lay's","Hyundai","BBC","Samsung","Fanta","Chevrolet","GSK","Lipton","Nokia","Kinder","Red Bull","IKEA","Danone","Xiaomi","Kaspersky","KFC","Bayer","Nivea","Jacobs","HBO","Yango"];
+const CLIENTS = ["McDonald's","Sony","Volkswagen","KIA","Coca-Cola","Visa","Burger King","Heinz","Toyota","AliExpress","Google","Lay's","Hyundai","BBC","Samsung","Fanta","Chevrolet","GSK","Lipton","Nokia","Kinder","Red Bull","IKEA","Danone","Xiaomi","Kaspersky","KFC","Bayer","Nivea","Jacobs","HBO","Yango","Haier","Tim Hortons","St Regis","Whole Foods","Kraft"];
 
 // ===== HERO ENTRANCE =====
 function startHero(){
@@ -52,9 +52,7 @@ function workCard(w){
   return `
   <button type="button" class="work__item work__item--new" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
     <img src="${w.img}" alt="${label} — REEF Audio project still" loading="lazy">
-    <span class="work__play" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    </span>
+    <video class="work__video" data-prev="assets/work/preview/p-${w.vimeo}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
     <div class="work__overlay"><span class="work__name">${label}</span></div>
   </button>`;
 }
@@ -68,6 +66,7 @@ function revealNewItems(){
     el.classList.remove('work__item--new');
     workIO.observe(el);
   });
+  if(typeof observePreviews === 'function') observePreviews();
 }
 function loadMoreWork(){
   const next = WORK.slice(shown, shown + BATCH);
@@ -78,6 +77,64 @@ function loadMoreWork(){
 }
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
+
+// ===== HOVER / IN-VIEW PREVIEW LOOPS (Reels-style) =====
+(function(){
+  if(!grid) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  function loadAndPlay(item){
+    const v = item.querySelector('.work__video');
+    if(!v) return;
+    if(!v.src){ const s = v.getAttribute('data-prev'); if(s) v.src = s; }
+    item.classList.add('is-previewing');
+    const p = v.play();
+    if(p && p.catch) p.catch(()=>{});
+  }
+  function stop(item){
+    const v = item.querySelector('.work__video');
+    if(!v) return;
+    item.classList.remove('is-previewing');
+    try{ v.pause(); v.currentTime = 0; }catch(e){}
+  }
+
+  if(canHover){
+    // DESKTOP: play on hover
+    grid.addEventListener('mouseenter', (e)=>{
+      const item = e.target.closest && e.target.closest('.work__item');
+      if(item) loadAndPlay(item);
+    }, true);
+    grid.addEventListener('mouseleave', (e)=>{
+      const item = e.target.closest && e.target.closest('.work__item');
+      if(item) stop(item);
+    }, true);
+  } else {
+    // MOBILE / TOUCH: play the card nearest screen center
+    let current = null;
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        const item = en.target;
+        if(en.isIntersecting && en.intersectionRatio >= 0.6){
+          if(current && current !== item) stop(current);
+          current = item;
+          loadAndPlay(item);
+        } else if(item === current){
+          stop(item); current = null;
+        }
+      });
+    },{threshold:[0,0.6,1], rootMargin:'-15% 0px -15% 0px'});
+    window.__workPreviewIO = io;
+    // observe any cards already rendered before this observer existed
+    grid.querySelectorAll('.work__item').forEach(el=>{ if(!el.dataset.prevObserved){ el.dataset.prevObserved='1'; io.observe(el); }});
+  }
+})();
+function observePreviews(){
+  const io = window.__workPreviewIO;
+  if(!io) return;
+  grid.querySelectorAll('.work__item').forEach(el=>{ if(!el.dataset.prevObserved){ el.dataset.prevObserved='1'; io.observe(el); }});
+}
 
 // ===== VIDEO LIGHTBOX =====
 (function(){
