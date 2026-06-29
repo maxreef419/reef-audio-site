@@ -1,12 +1,12 @@
 // ===== DATA =====
 const WORK = [
-  {name:"CA Realtors | Dear California Dream", img:"assets/work/v-849692144.jpg", vimeo:"849692144"},
-  {name:"YANGO Maps | A Perfect Way", img:"assets/work/v-882659457.jpg", vimeo:"882659457"},
+  {name:"California Realtors | Dear California Dream", img:"assets/work/v-849692144.jpg", vimeo:"849692144"},
+  {name:"Yango Maps | A Perfect Way", img:"assets/work/v-882659457.jpg", vimeo:"882659457"},
   {name:"Asian Games | Colors", img:"assets/work/v-264404893.jpg", vimeo:"264404893"},
-  {name:"KIA K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088"},
+  {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088"},
   {name:"InDrive | People Driven", img:"assets/work/v-848738556.jpg", vimeo:"848738556"},
   {name:"Haval H3 | A Brighter Life", img:"assets/work/v-969668366.jpg", vimeo:"969668366"},
-  {name:"SBER Investments", img:"assets/work/v-1158151394.jpg", vimeo:"1158151394"},
+  {name:"Sber Investment", img:"assets/work/v-1158151394.jpg", vimeo:"1158151394"},
   {name:"Adrenaline Gold | Baroque Bang", img:"assets/work/v-468648611.jpg", vimeo:"468648611"},
   {name:"Whole Foods | Food For Our Future", img:"assets/work/v-554243009.jpg", vimeo:"554243009"},
   {name:"Ostrovok!", img:"assets/work/v-1079291027.jpg", vimeo:"1079291027"},
