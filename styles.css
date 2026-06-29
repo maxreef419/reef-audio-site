@@ -333,7 +333,7 @@ body.lb-open{overflow:hidden}
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
   .hero{align-items:flex-start;padding:clamp(132px,24vh,210px) clamp(20px,4vw,46px) clamp(96px,14vh,140px)}
-  .hero__scrollhint{bottom:26px}
+  .hero__scrollhint{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   .services__list{grid-template-columns:1fr}
 }
 @media (max-width:560px){
