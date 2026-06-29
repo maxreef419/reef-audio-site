@@ -17,10 +17,12 @@
   --text:#f4f6f6;--muted:#b4b7b7;--muted-2:#888c8c;
   --cyan:#19b6e6;--green:#4ade80;
   --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
-  --font-display:'Cabinet Grotesk','Satoshi',system-ui,sans-serif;
-  --font-body:'Satoshi','Inter',system-ui,sans-serif;
+  --font-display:'Cabinet Grotesk','CabinetFallback',system-ui,sans-serif;
+  --font-body:'Satoshi','SatoshiFallback',system-ui,sans-serif;
   --maxw:980px;--ease:cubic-bezier(.16,1,.3,1);
 }
+@font-face{font-family:'CabinetFallback';src:local('Arial');size-adjust:97%;ascent-override:96%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:'SatoshiFallback';src:local('Arial');size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
