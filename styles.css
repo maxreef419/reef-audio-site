@@ -255,7 +255,8 @@ body.lb-open{overflow:hidden}
   flex:none;transition:transform .4s var(--ease),color .35s var(--ease);
 }
 .service__title{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,52px);letter-spacing:-.025em;line-height:1.04;color:#f4f6f6;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:#f4f6f6;transition:-webkit-text-fill-color .35s var(--ease)}
-.service__head:hover .service__title,.service__head[aria-expanded="true"] .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}
+.service__head[aria-expanded="true"] .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}
+@media (hover:hover){.service__head:hover .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}}
 .service__head[aria-expanded="true"] .service__plus{transform:rotate(45deg)}
 .service__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
 .service__head[aria-expanded="true"]+.service__panel{grid-template-rows:1fr}
@@ -282,7 +283,7 @@ body.lb-open{overflow:hidden}
   transition:color .4s var(--ease);
 }
 .clients__grid li::after{
-  content:"+";display:inline-block;
+  content:"\2022";display:inline-block;
   margin-left:clamp(6px,0.7vw,12px);
   font-weight:500;color:currentColor;opacity:.32;
   transition:opacity .4s var(--ease);
