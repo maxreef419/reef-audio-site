@@ -285,7 +285,8 @@ body.lb-open{overflow:hidden}
 .clients__grid li::after{
   content:"\2022";display:inline-block;
   margin-left:clamp(6px,0.7vw,12px);
-  font-weight:500;color:currentColor;opacity:.32;
+  font-weight:300;color:currentColor;opacity:.22;
+  font-size:.7em;vertical-align:middle;
   transition:opacity .4s var(--ease);
 }
 .clients__grid li:last-child::after{display:none}
