@@ -151,6 +151,16 @@ body.menu-open .menu__meta{opacity:1}
 .hero__scrolldown:hover{border-color:rgba(255,255,255,.6);color:#fff;background:rgba(255,255,255,.1)}
 .hero__scrolldown svg{animation:scrollArrow 2.4s var(--ease) infinite}
 @keyframes scrollArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+/* EXPLORE hint — mobile only, replaces the corner arrow */
+.hero__scrollhint{display:none;position:absolute;z-index:3;left:50%;bottom:clamp(30px,5vh,46px);transform:translateX(-50%) translateY(14px);flex-direction:column;align-items:center;gap:11px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.62);text-shadow:0 1px 8px rgba(0,0,0,.6);opacity:0;transition:opacity .6s var(--ease-soft) .5s,transform .6s var(--ease-soft) .5s,color .3s var(--ease)}
+.hero.in .hero__scrollhint{opacity:1;transform:translateX(-50%) translateY(0)}
+.hero__scrollhint span{width:2px;height:40px;border-radius:2px;background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.08));position:relative;overflow:hidden}
+.hero__scrollhint span::after{content:"";position:absolute;top:-50%;left:0;width:100%;height:50%;background:rgba(255,255,255,.85);animation:scrolldot 2s var(--ease) infinite}
+@keyframes scrolldot{0%{transform:translateY(0)}100%{transform:translateY(300%)}}
+@media (max-width:760px){
+  .hero__scrolldown{display:none}
+  .hero__scrollhint{display:inline-flex}
+}
 
 /* ===== WORK (carded grid) ===== */
 .work{position:relative;padding:clamp(60px,9vw,120px) 0 clamp(70px,10vw,130px);overflow:hidden}
