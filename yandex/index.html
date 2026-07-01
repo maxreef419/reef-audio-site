@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>REEF Audio × Яндекс — Музыкальное партнёрство</title>
+<meta name="description" content="Коммерческое предложение REEF Audio для Яндекса: музыкальное партнёрство для бренда, продуктов и внутренних команд." />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<meta name="theme-color" content="#2e2e2e" />
+<meta name="apple-mobile-web-app-title" content="REEF" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#2e2e2e;--bg-2:#292929;--bg-3:#242424;--surface:#383838;--surface-2:#3f3f3f;
+  --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.06);--line-3:rgba(255,255,255,.22);
+  --text:#f4f6f6;--muted:#c6c9c9;--muted-2:#9a9e9e;
+  --cyan:#19b6e6;--cyan-soft:#5fcbee;--cyan-deep:#0f8ab4;--green:#4ade80;
+  --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
+  --cream:#f4f2ea;--cream-2:#eceadf;--cream-line:rgba(30,30,30,.14);--ink:#232323;--ink-mute:#5a5a58;
+  --font-display:'Cabinet Grotesk','CabinetFallback',system-ui,sans-serif;
+  --font-body:'Satoshi','SatoshiFallback',system-ui,sans-serif;
+  --maxw:1240px;--pad:clamp(22px,5vw,88px);
+  --ease:cubic-bezier(.16,1,.3,1);--ease-soft:cubic-bezier(.22,.61,.36,1);
+}
+@font-face{font-family:'CabinetFallback';src:local('Arial');size-adjust:97%;ascent-override:96%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:'SatoshiFallback';src:local('Arial');size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font-body);font-size:16px;line-height:1.5;letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.accent{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ===== SCROLL DECK ===== */
+.deck{scroll-snap-type:y mandatory;height:100vh;height:100dvh;overflow-y:scroll;overflow-x:hidden}
+.deck::-webkit-scrollbar{width:0;height:0}
+.deck{scrollbar-width:none}
+
+.screen{
+  scroll-snap-align:start;scroll-snap-stop:always;
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(96px,12vh,140px) var(--pad) clamp(76px,10vh,104px);
+  overflow:hidden;
+}
+.screen__inner{position:relative;z-index:3;width:100%;max-width:var(--maxw);margin:0 auto}
+
+/* variants */
+.screen--deep{background:var(--bg-3)}
+.screen--cream{background:var(--cream);color:var(--ink)}
+.screen--blue{background:linear-gradient(155deg,#0f8ab4 0%,#0c789e 55%,#0a6a8c 100%);color:#fff}
+
+/* ambient glow on dark screens */
+.screen--dark::before,.screen--deep::before{
+  content:"";position:absolute;z-index:0;inset:0;pointer-events:none;
+  background:radial-gradient(90% 70% at 82% 12%,rgba(25,182,230,.14),transparent 55%),
+             radial-gradient(80% 70% at 8% 96%,rgba(74,222,128,.07),transparent 60%);
+}
+
+/* ===== SCREEN HEADER (persistent chrome per screen) ===== */
+.shead{
+  position:absolute;top:clamp(30px,4.4vh,46px);left:var(--pad);right:var(--pad);z-index:4;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.shead__logo{height:26px;width:auto;object-fit:contain}
+.screen--cream .shead__logo{filter:brightness(0) saturate(100%)}
+.shead__mid{display:none;align-items:center;gap:22px;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+.shead__doc{color:var(--muted-2)}
+.screen--cream .shead__doc{color:var(--ink-mute)}
+.shead__sec{display:inline-flex;align-items:center;gap:9px;color:var(--cyan)}
+.screen--blue .shead__sec{color:#fff}
+.screen--blue .shead__doc{color:rgba(255,255,255,.7)}
+.shead__dot{width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+.screen--blue .shead__dot{background:#fff}
+.shead__year{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--muted-2)}
+.screen--cream .shead__year{color:var(--ink-mute)}
+.screen--blue .shead__year{color:rgba(255,255,255,.7)}
+@media(min-width:820px){.shead__mid{display:flex}}
+
+/* ===== SCREEN FOOTER (page num + abbr) ===== */
+.sfoot{
+  position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(28px,4vh,40px);z-index:4;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.sfoot__rule{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(78px,9.5vh,96px);height:1px;background:var(--line);z-index:4}
+.screen--cream .sfoot__rule{background:var(--cream-line)}
+.screen--blue .sfoot__rule{background:rgba(255,255,255,.28)}
+.sfoot__num{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,3vw,34px);line-height:1;letter-spacing:.01em;color:var(--text)}
+.screen--cream .sfoot__num{color:var(--ink)}
+.screen--blue .sfoot__num{color:#fff}
+.sfoot__abbr{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,2.6vw,28px);color:var(--cyan)}
+.screen--cream .sfoot__abbr{color:var(--cyan-deep)}
+.screen--blue .sfoot__abbr{color:#fff}
+
+/* ===== TYPO PRIMITIVES ===== */
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--cyan)}
+.screen--cream .eyebrow{color:var(--cyan-deep)}
+.screen--blue .eyebrow{color:#fff;opacity:.85}
+.h-title{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.02;font-size:clamp(30px,4.6vw,54px)}
+.stmt{font-family:var(--font-display);font-weight:700;letter-spacing:-.018em;line-height:1.14;font-size:clamp(26px,4vw,50px)}
+.body{color:var(--muted);font-size:clamp(15px,1.15vw,18px);line-height:1.6}
+.screen--cream .body{color:var(--ink-mute)}
+.strong{color:var(--text);font-weight:700}
+.screen--cream .strong{color:var(--ink)}
+.mono-num{font-family:var(--font-display);font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+
+/* reveal-on-enter */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease-soft),transform 1s var(--ease-soft)}
+.screen.in .rv{opacity:1;transform:none}
+.screen.in .rv:nth-child(2){transition-delay:.06s}
+.screen.in .rv:nth-child(3){transition-delay:.12s}
+.screen.in .rv:nth-child(4){transition-delay:.18s}
+.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.19s}.d4{transition-delay:.26s}
+.d5{transition-delay:.33s}.d6{transition-delay:.4s}.d7{transition-delay:.47s}.d8{transition-delay:.54s}
+
+/* ===== 01 COVER ===== */
+.cover{justify-content:flex-start}
+.cover__pill{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--line);border-radius:100px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02);margin-bottom:clamp(30px,6vh,60px)}
+.cover__pdot{width:7px;height:7px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 14px rgba(25,182,230,.7)}
+.cover__title{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.94;font-size:clamp(52px,11vw,148px)}
+.cover__title .plus{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;font-weight:800}
+.cover__sub{margin-top:clamp(28px,5vh,52px);font-family:var(--font-display);font-weight:500;font-size:clamp(18px,2.1vw,28px);line-height:1.28;color:var(--muted);max-width:22ch;letter-spacing:-.01em}
+.cover__cred{position:absolute;left:var(--pad);bottom:clamp(28px,4vh,40px);z-index:4;font-size:clamp(13px,1vw,15px);color:var(--muted)}
+.cover__mark{position:absolute;right:var(--pad);bottom:clamp(24px,3.6vh,36px);z-index:4;font-family:var(--font-display);font-weight:800;font-size:clamp(22px,2.6vw,30px);color:var(--cyan)}
+
+/* ===== 02 INTRO ===== */
+.intro__grid{display:grid;grid-template-columns:44px 1fr;gap:clamp(20px,3vw,30px);align-items:start;max-width:820px;margin-top:clamp(26px,4vh,42px)}
+.intro__rule{height:2px;background:var(--grad);margin-top:14px}
+
+/* ===== 03 BIO ===== */
+.bio__roles{margin-top:14px;font-size:clamp(15px,1.3vw,19px);font-weight:500;color:var(--cyan-soft);line-height:1.5}
+.bio__cols{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(28px,4vw,56px);margin-top:clamp(30px,5vh,56px)}
+.bio__stat{display:flex;align-items:baseline;gap:12px}
+.bio__stat b{font-family:var(--font-display);font-size:clamp(48px,6vw,76px);font-weight:800;color:var(--cyan);line-height:.9}
+.bio__stat span{font-size:clamp(17px,1.6vw,24px);font-weight:700}
+.bio__div{border-left:1px solid var(--line);padding-left:clamp(22px,3vw,40px)}
+.bio__closer{margin-top:clamp(28px,4.5vh,46px);font-size:clamp(16px,1.5vw,20px);font-weight:700;line-height:1.5;max-width:900px}
+
+/* ===== 04 WHAT IS REEF (cream, 2col) ===== */
+.reef__grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:clamp(30px,5vw,64px);margin-top:clamp(24px,3.5vh,40px)}
+.reef__left{display:flex;flex-direction:column}
+.reef__callout{margin-top:clamp(24px,4vh,40px);padding-top:clamp(18px,3vh,26px);border-top:2px solid var(--cyan-deep);max-width:360px}
+.reef__callout p{font-size:clamp(15px,1.2vw,17px);font-weight:700;color:var(--ink);line-height:1.5}
+.idx-list{border-top:1px solid var(--cream-line)}
+.idx-row{display:grid;grid-template-columns:48px 1fr;align-items:center;gap:18px;padding:clamp(9px,1.4vh,13px) 0;border-bottom:1px solid var(--cream-line)}
+.idx-row .n{font-size:13px;font-weight:800;color:var(--cyan-deep);letter-spacing:.03em}
+.idx-row .t{font-size:clamp(15px,1.4vw,19px);font-weight:700;color:var(--ink)}
+
+/* ===== 05 CARDS ===== */
+.adv-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,1.5vw,22px);margin-top:clamp(28px,4vh,42px)}
+.adv{grid-column:span 2;background:var(--surface);padding:clamp(20px,2.4vw,28px);border-radius:14px;display:flex;flex-direction:column}
+.adv:nth-child(4),.adv:nth-child(5){grid-column:span 3}
+.adv__top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.adv__k{font-size:clamp(22px,2.4vw,28px);color:var(--cyan)}
+.adv__tick{flex:1;height:1px;background:var(--line)}
+.adv h3{font-family:var(--font-display);font-size:clamp(17px,1.5vw,21px);font-weight:800;line-height:1.12;margin-bottom:10px;letter-spacing:-.01em}
+.adv p{font-size:clamp(13px,1vw,15px);color:var(--muted);line-height:1.5}
+
+/* ===== 06 DO-LIST (blue) ===== */
+.do-list{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(30px,5vw,80px);margin-top:clamp(28px,4vh,44px)}
+.do-row{display:flex;align-items:center;gap:16px;padding:clamp(11px,1.6vh,16px) 0;border-bottom:1px solid rgba(255,255,255,.22)}
+.do-row .dash{font-family:var(--font-display);font-size:clamp(17px,1.6vw,21px);font-weight:800;opacity:.6}
+.do-row .t{font-size:clamp(16px,1.5vw,21px);font-weight:700}
+
+/* ===== 07 GALLERY ===== */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,24px);margin-top:clamp(22px,3vh,34px)}
+.gal__card{position:relative;aspect-ratio:16/9.4;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  background:linear-gradient(160deg,#343436 0%,#232325 100%);display:flex;align-items:center;justify-content:center}
+.gal__idx{position:absolute;left:16px;top:14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.gal__ring{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease),border-color .3s}
+.gal__card:hover .gal__ring{transform:scale(1.1)}
+.gal__tri{width:0;height:0;border-style:solid;border-width:8px 0 8px 13px;border-color:transparent transparent transparent var(--cyan);margin-left:3px}
+.gal__cap{position:absolute;left:16px;bottom:13px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-soft)}
+
+/* ===== 08 TIMELINE (cream) ===== */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(44px,8vh,68px) clamp(24px,3vw,40px);margin-top:clamp(30px,5vh,52px)}
+.tl__cell{position:relative}
+.tl__line{position:absolute;top:10px;left:30px;right:calc(-1*clamp(24px,3vw,40px));height:2px;background:repeating-linear-gradient(90deg,rgba(15,138,180,.55) 0 8px,transparent 8px 15px)}
+.tl__node{width:22px;height:22px;border-radius:50%;background:var(--cyan-deep);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;box-shadow:0 0 0 5px rgba(15,138,180,.12)}
+.tl__dot{width:7px;height:7px;border-radius:50%;background:var(--cream)}
+.tl__n{font-size:13px;font-weight:800;color:var(--cyan-deep);letter-spacing:.04em;margin-top:16px}
+.tl__lbl{font-size:clamp(14px,1.2vw,16px);font-weight:700;color:var(--ink);line-height:1.24;margin-top:6px}
+
+/* ===== 09 FORMATS ===== */
+.fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,24px);margin-top:clamp(30px,4.5vh,48px)}
+.fmt{position:relative;background:var(--surface);border-radius:14px;padding:clamp(24px,2.8vw,34px) clamp(20px,2.4vw,30px);display:flex;flex-direction:column;overflow:hidden;min-height:clamp(240px,34vh,320px)}
+.fmt__k{font-family:var(--font-display);font-size:clamp(46px,5.5vw,64px);font-weight:800;color:var(--cyan);line-height:.9}
+.fmt h3{font-family:var(--font-display);font-size:clamp(19px,1.9vw,24px);font-weight:800;text-transform:uppercase;line-height:1.08;margin-top:clamp(18px,3vh,26px);letter-spacing:-.005em}
+.fmt p{font-size:clamp(14px,1.1vw,16px);color:var(--muted);line-height:1.55;margin-top:14px}
+.fmt__bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--grad)}
+
+/* ===== 10 RETAINER (cream) ===== */
+.ret__top{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,48px);align-items:start}
+.ret__label{margin-top:clamp(26px,4vh,40px);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+.ret-list{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.4vh,12px) clamp(20px,3vw,32px);margin-top:16px}
+.ret-row{display:flex;align-items:baseline;gap:11px;padding:8px 0;border-bottom:1px solid var(--cream-line)}
+.ret-row .dash{font-family:var(--font-display);font-size:14px;font-weight:800;color:var(--cyan-deep)}
+.ret-row .t{font-size:clamp(13px,1.05vw,15px);font-weight:700;color:var(--ink);line-height:1.3}
+
+/* ===== 11 USEFUL (editorial rows) ===== */
+.use-list{border-top:1px solid var(--line);margin-top:clamp(24px,3.5vh,38px)}
+.use-row{display:grid;grid-template-columns:52px 0.9fr 1.4fr;align-items:baseline;gap:clamp(16px,2.4vw,26px);padding:clamp(13px,2vh,18px) 0;border-bottom:1px solid var(--line)}
+.use-row .n{font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em}
+.use-row .lbl{font-family:var(--font-display);font-size:clamp(17px,1.6vw,22px);font-weight:800;line-height:1.1}
+.use-row .de{font-size:clamp(14px,1.15vw,16px);color:var(--muted);line-height:1.5}
+
+/* ===== 12 TAKE (cream checklist) ===== */
+.take-list{display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,1.4vh,14px) clamp(30px,5vw,64px);margin-top:clamp(24px,3.5vh,34px)}
+.take-row{display:flex;align-items:center;gap:14px;padding:clamp(7px,1.1vh,10px) 0;border-bottom:1px solid var(--cream-line)}
+.take-row .chk{flex:none;width:20px;height:20px;border-radius:50%;background:var(--cyan-deep);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800}
+.take-row .t{font-size:clamp(14px,1.25vw,16px);font-weight:700;color:var(--ink);line-height:1.25}
+.take__bar{margin-top:clamp(24px,4vh,38px);background:var(--ink);color:#fff;padding:clamp(16px,2.6vh,22px);text-align:center;border-radius:8px;font-size:clamp(15px,1.5vw,18px);font-weight:700}
+.take__bar .em{color:var(--cyan-soft)}
+
+/* ===== 13 BRANDS ===== */
+.wall-lbl{margin-top:clamp(22px,3.5vh,32px);font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan)}
+.brands{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.5vw,20px) clamp(10px,1.4vw,16px);margin-top:16px}
+.brands .b{font-family:var(--font-display);font-size:clamp(15px,1.6vw,22px);font-weight:800;letter-spacing:.01em;text-transform:uppercase;color:var(--text);padding:12px 2px;border-bottom:1px solid var(--line)}
+.wall-div{height:1px;background:var(--line-3);margin-top:clamp(24px,3.5vh,34px)}
+.agencies{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.4vw,16px);margin-top:16px}
+.agencies .a{font-family:var(--font-display);font-size:clamp(14px,1.4vw,20px);font-weight:800;letter-spacing:.01em;text-transform:uppercase;color:var(--cyan-soft);padding:6px 2px}
+
+/* ===== 14 GETS ===== */
+.gets{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(30px,5vw,64px);border-top:1px solid var(--line);margin-top:clamp(24px,3.5vh,38px)}
+.gets-row{display:grid;grid-template-columns:60px 1fr;align-items:center;gap:20px;padding:clamp(14px,2.2vh,20px) 0;border-bottom:1px solid var(--line)}
+.gets-row .n{font-family:var(--font-display);font-size:clamp(28px,3.4vw,38px);font-weight:800;color:var(--cyan);line-height:1}
+.gets-row .t{font-size:clamp(15px,1.4vw,18px);font-weight:700;line-height:1.25}
+
+/* ===== 15 FINAL ===== */
+.final{align-items:center;text-align:center;justify-content:center}
+.final__inner{max-width:960px;margin:0 auto}
+.final__stmt{font-family:var(--font-display);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1.16;font-size:clamp(28px,4.6vw,52px)}
+.final__sub{margin-top:clamp(22px,4vh,32px);max-width:680px;margin-left:auto;margin-right:auto;color:var(--muted);font-size:clamp(15px,1.4vw,18px);line-height:1.55}
+
+/* ===== SIDE DOT NAV ===== */
+.dots{position:fixed;right:clamp(20px,2.4vw,32px);top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.4);box-shadow:0 0 0 1px rgba(0,0,0,.18);transition:transform .3s var(--ease),background .3s}
+.dots button.active{background:var(--cyan);transform:scale(1.45)}
+.dots button:hover{background:var(--cyan-soft)}
+@media(max-width:900px){.dots{display:none}}
+
+/* ===== PROGRESS BAR ===== */
+.prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:70;transition:width .2s var(--ease)}
+
+/* ===== SCROLL HINT (only on cover) ===== */
+.hint{position:absolute;left:50%;bottom:clamp(20px,4vh,34px);transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:9px;
+  font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:opacity .5s}
+.hint span{width:2px;height:34px;border-radius:2px;background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.06));position:relative;overflow:hidden}
+.hint span::after{content:"";position:absolute;top:-50%;left:0;width:100%;height:50%;background:rgba(255,255,255,.85);animation:sd 2s var(--ease) infinite}
+@keyframes sd{0%{transform:translateY(0)}100%{transform:translateY(300%)}}
+.deck.scrolled .hint{opacity:0;pointer-events:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .screen{min-height:auto;padding:clamp(88px,14vh,110px) var(--pad) clamp(84px,12vh,96px);scroll-snap-align:start}
+  .bio__cols{grid-template-columns:1fr;gap:26px}
+  .bio__div{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px}
+  .reef__grid{grid-template-columns:1fr;gap:30px}
+  .adv-grid{grid-template-columns:1fr}.adv,.adv:nth-child(4),.adv:nth-child(5){grid-column:auto}
+  .do-list{grid-template-columns:1fr}
+  .gal{grid-template-columns:1fr 1fr}
+  .tl{grid-template-columns:1fr 1fr;gap:34px 22px}.tl__line{display:none}
+  .fmt-grid{grid-template-columns:1fr}
+  .ret__top{grid-template-columns:1fr;gap:20px}.ret-list{grid-template-columns:1fr 1fr}
+  .use-row{grid-template-columns:40px 1fr;gap:6px 16px}.use-row .de{grid-column:1/-1}
+  .take-list{grid-template-columns:1fr}
+  .brands{grid-template-columns:repeat(2,1fr)}.agencies{grid-template-columns:repeat(2,1fr)}
+  .gets{grid-template-columns:1fr}
+  .cover__title{font-size:clamp(46px,15vw,84px)}
+}
+@media(max-width:560px){
+  .gal{grid-template-columns:1fr}.tl{grid-template-columns:1fr}
+  .ret-list{grid-template-columns:1fr}.brands{grid-template-columns:1fr}.agencies{grid-template-columns:1fr}
+  .shead__year{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{transition:none;opacity:1;transform:none}
+  .hint span::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+
+<nav class="dots" id="dots" aria-label="Навигация по слайдам"></nav>
+
+<div class="deck" id="deck">
+
+<!-- 01 COVER -->
+<section class="screen screen--dark cover" data-abbr="" id="s1">
+  <div class="shead">
+    <img class="shead__logo" src="assets/brand-logo.png" alt="REEF Audio" />
+    <span class="shead__year">2026</span>
+  </div>
+  <div class="screen__inner">
+    <span class="cover__pill rv"><span class="cover__pdot"></span>Коммерческое предложение</span>
+    <h1 class="cover__title rv d1">REEF&nbsp;Audio<br><span class="plus">+</span>&nbsp;Яндекс</h1>
+    <p class="cover__sub rv d2">Музыкальное партнёрство для бренда, продуктов и внутренних команд</p>
+  </div>
+  <div class="cover__cred"><span class="strong">Макс Кузниченков</span>&nbsp;&nbsp;·&nbsp;&nbsp;www.thereefaudio.com</div>
+  <div class="cover__mark">REEF.</div>
+  <div class="hint" id="hint"><span></span>Листайте</div>
+</section>
+
+<!-- 02 INTRO -->
+<section class="screen screen--deep" id="s2">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>О документе</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Введение</span>
+    <p class="stmt rv d1" style="margin-top:clamp(20px,3vh,30px);max-width:20ch;">Мы подготовили этот материал, чтобы показать, как <span class="accent">REEF</span> может стать долгосрочным музыкальным партнёром Яндекса.</p>
+    <div class="intro__grid rv d2">
+      <div class="intro__rule"></div>
+      <p class="body" style="font-size:clamp(16px,1.3vw,19px);">Не только создавать музыку для отдельных рекламных кампаний, но и помогать внутренним командам быстрее, проще и качественнее решать весь спектр музыкальных задач — от первых обсуждений идеи до финальной сдачи материалов.</p>
+    </div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">01</span><span class="sfoot__abbr">О.</span></div>
+</section>
+
+<!-- 03 BIO -->
+<section class="screen screen--dark" id="s3">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Основатель</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Кто я</span>
+    <h2 class="h-title rv d1" style="margin-top:clamp(12px,2vh,18px);">Макс Кузниченков</h2>
+    <p class="bio__roles rv d1">композитор&nbsp;/&nbsp;музыкальный продюсер&nbsp;/&nbsp;лектор ВШЭ<br>основатель REEF Audio</p>
+    <div class="bio__cols rv d2">
+      <div>
+        <div class="bio__stat"><b>20</b><span>лет в рекламе</span></div>
+        <p class="body" style="margin-top:14px;max-width:340px;font-size:clamp(14px,1.1vw,16px);">из которых 10 лет — внутри агентств Leo&nbsp;Burnett, Saatchi&nbsp;&amp;&nbsp;Saatchi и Grey.</p>
+      </div>
+      <div class="bio__div">
+        <p class="body" style="font-size:clamp(15px,1.25vw,17px);">За это время я понял не только как создавать музыку, но и как рождаются рекламные идеи, принимаются решения внутри брендов и агентств, проходят согласования и строится весь процесс производства.</p>
+      </div>
+    </div>
+    <p class="bio__closer rv d3">Сегодня этот опыт позволяет мне быть не просто композитором, а полноценным <span class="accent">музыкальным партнёром</span> команды.</p>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">02</span><span class="sfoot__abbr">К.Я.</span></div>
+</section>
+
+<!-- 04 WHAT IS REEF -->
+<section class="screen screen--cream" id="s4">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>О компании</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <div class="reef__grid">
+      <div class="reef__left rv">
+        <span class="eyebrow">Что такое REEF</span>
+        <h2 class="h-title" style="margin-top:16px;font-size:clamp(26px,3.4vw,40px);">Гибкая команда под задачу</h2>
+        <p class="body" style="margin-top:20px;max-width:340px;font-size:clamp(14px,1.1vw,16px);">Гибкая музыкальная команда, которая собирается под конкретную задачу. В зависимости от проекта мы&nbsp;подключаем:</p>
+        <div class="reef__callout"><p>Тем самым мы закрываем практически весь музыкальный контур проекта.</p></div>
+      </div>
+      <div class="idx-list rv d2" id="reef-list"></div>
+    </div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">03</span><span class="sfoot__abbr">R.</span></div>
+</section>
+
+<!-- 05 WHY US -->
+<section class="screen screen--dark" id="s5">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Преимущества</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div><span class="eyebrow">Почему мы</span><h2 class="h-title" style="margin-top:12px;font-size:clamp(26px,3.4vw,40px);">Почему с нами удобно</h2></div>
+    </div>
+    <div class="adv-grid" id="adv"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">04</span><span class="sfoot__abbr">П.</span></div>
+</section>
+
+<!-- 06 WHAT WE DO -->
+<section class="screen screen--blue" id="s6">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" style="filter:brightness(0) invert(1)" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Услуги</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <h2 class="h-title rv" style="font-size:clamp(30px,4.4vw,50px);">Что мы делаем</h2>
+    <div class="do-list rv d1" id="do-list"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">05</span><span class="sfoot__abbr">У.</span></div>
+</section>
+
+<!-- 07 WORKS -->
+<section class="screen screen--deep" id="s7">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Портфолио</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Примеры работ</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.4vw,40px);">Примеры работ</h2>
+    <p class="body rv d1" style="margin-top:14px;font-style:italic;color:var(--cyan-soft);">Подборка проектов, демонстрирующих разные подходы к работе с музыкой:</p>
+    <div class="gal rv d2" id="gal"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">06</span><span class="sfoot__abbr">П.Р.</span></div>
+</section>
+
+<!-- 08 TIMELINE -->
+<section class="screen screen--cream" id="s8">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Процесс</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Процесс</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.4vw,40px);">Как мы работаем</h2>
+    <p class="body rv d1" style="margin-top:16px;max-width:56ch;font-size:clamp(15px,1.2vw,18px);">Прозрачный процесс от первого брифа до передачи всех материалов — восемь шагов, на каждом из которых команда понимает, что происходит и что будет дальше.</p>
+    <div class="tl rv d2" id="tl"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">07</span><span class="sfoot__abbr">П.</span></div>
+</section>
+
+<!-- 09 FORMATS -->
+<section class="screen screen--dark" id="s9">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Форматы</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Форматы</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.4vw,40px);">Форматы сотрудничества</h2>
+    <div class="fmt-grid rv d2" id="fmt"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">08</span><span class="sfoot__abbr">Ф.</span></div>
+</section>
+
+<!-- 10 RETAINER -->
+<section class="screen screen--cream" id="s10">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Retainer</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <div class="ret__top rv">
+      <div><span class="eyebrow">Retainer Support</span><h2 class="h-title" style="margin-top:12px;font-size:clamp(24px,3vw,36px);">Внешний музыкальный департамент</h2></div>
+      <p class="body" style="font-size:clamp(14px,1.15vw,16px);padding-top:6px;">Вместо того чтобы каждый раз искать новых подрядчиков, писать брифы, организовывать кастинги, контролировать производство и управлять музыкальной частью проекта, команда получает <span class="strong">одного надёжного партнёра.</span></p>
+    </div>
+    <p class="ret__label rv d1">Мы можем взять на себя</p>
+    <div class="ret-list rv d2" id="retainer"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">09</span><span class="sfoot__abbr">R.S.</span></div>
+</section>
+
+<!-- 11 USEFUL -->
+<section class="screen screen--dark" id="s11">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Применение</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Где мы полезны</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.2vw,38px);">Где мы полезны Яндексу</h2>
+    <div class="use-list rv d2" id="useful"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">10</span><span class="sfoot__abbr">Я.</span></div>
+</section>
+
+<!-- 12 TAKE -->
+<section class="screen screen--cream" id="s12">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Задачи</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Что мы снимаем</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.2vw,38px);">Какие задачи мы снимаем</h2>
+    <div class="take-list rv d2" id="take"></div>
+    <div class="take__bar rv d3">Одна точка входа <span class="em">вместо множества исполнителей</span></div>
+  </div>
+  <div class="sfoot" style="bottom:clamp(20px,3vh,30px);"><span class="sfoot__num">11</span><span class="sfoot__abbr">З.</span></div>
+</section>
+
+<!-- 13 BRANDS -->
+<section class="screen screen--deep" id="s13">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Опыт</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Опыт</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.2vw,38px);">С кем мы работали</h2>
+    <p class="wall-lbl rv d2">Бренды</p>
+    <div class="brands rv d2" id="brands"></div>
+    <div class="wall-div rv d3"></div>
+    <p class="wall-lbl rv d3">Агентства</p>
+    <div class="agencies rv d4" id="agencies"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">12</span><span class="sfoot__abbr">О.</span></div>
+</section>
+
+<!-- 14 GETS -->
+<section class="screen screen--dark" id="s14">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><div class="shead__mid"><span class="shead__doc">Коммерческое предложение</span><span class="shead__sec"><span class="shead__dot"></span>Результат</span></div><span class="shead__year">2026</span></div>
+  <div class="screen__inner">
+    <span class="eyebrow rv">Результат</span>
+    <h2 class="h-title rv d1" style="margin-top:12px;font-size:clamp(26px,3.2vw,38px);">Что получает команда Яндекса</h2>
+    <div class="gets rv d2" id="gets"></div>
+  </div>
+  <div class="sfoot__rule"></div>
+  <div class="sfoot"><span class="sfoot__num">13</span><span class="sfoot__abbr">Р.</span></div>
+</section>
+
+<!-- 15 FINAL -->
+<section class="screen screen--deep final" id="s15">
+  <div class="shead"><img class="shead__logo" src="assets/brand-logo.png" alt="REEF" /><span class="shead__year">2026</span></div>
+  <div class="screen__inner final__inner">
+    <p class="final__stmt rv">Мы хотим стать не подрядчиком для отдельных проектов, а <span class="accent">долгосрочным музыкальным партнёром</span> Яндекса.</p>
+    <p class="final__sub rv d1">Партнёром, который помогает принимать лучшие музыкальные решения — от первых обсуждений идеи до финальной поставки всех материалов.</p>
+  </div>
+  <div class="cover__cred"><span class="strong">Макс Кузниченков</span>&nbsp;&nbsp;·&nbsp;&nbsp;www.thereefaudio.com</div>
+  <div class="cover__mark">REEF.</div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var el=function(tag,cls,html){var n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n};
+
+  /* 04 — reef roles */
+  (function(){var c=$("reef-list");if(!c)return;
+    ["Композиторов","Саунд-дизайнеров","Аранжировщиков","Вокалистов","Музыкантов","Хоры","Звукорежиссёров","Кастинг голосов","Лицензирование музыки"].forEach(function(r,i){
+      var row=el("div","idx-row");row.appendChild(el("span","n mono-num",String(i+1).padStart(2,"0")));row.appendChild(el("span","t",r));c.appendChild(row);});
+  })();
+
+  /* 05 — advantage cards */
+  (function(){var c=$("adv");if(!c)return;
+    [["01","Понимаем рекламный процесс","Не только музыку, но и то, как принимаются решения внутри брендов и агентств."],
+     ["02","Подключаемся на этапе идеи","Музыка становится частью концепции, а не появляется в последний момент."],
+     ["03","Один партнёр вместо многих","Музыка, саунд-дизайн, вокал, запись, лицензирование и продакшн — в одном месте."],
+     ["04","Быстро собираем команду","Под каждый проект формируется оптимальный состав специалистов."],
+     ["05","Говорим на языке бизнеса","Помогаем принимать решения, а не просто присылаем музыкальные варианты."]].forEach(function(a){
+      var card=el("div","adv");var top=el("div","adv__top");top.appendChild(el("span","adv__k mono-num",a[0]));top.appendChild(el("span","adv__tick"));
+      card.appendChild(top);card.appendChild(el("h3",null,a[1]));card.appendChild(el("p",null,a[2]));c.appendChild(card);});
+  })();
+
+  /* 06 — do list */
+  (function(){var c=$("do-list");if(!c)return;
+    ["Оригинальная музыка","Саунд-дизайн","Аудио-брендинг","Музыкальная стратегия","Сопровождение брендов","Лицензирование музыки","Запись музыкантов","Запись вокала","Адаптации","Микс","Мастеринг"].forEach(function(it){
+      var row=el("div","do-row");row.appendChild(el("span","dash","—"));row.appendChild(el("span","t",it));c.appendChild(row);});
+  })();
+
+  /* 07 — gallery */
+  (function(){var c=$("gal");if(!c)return;
+    ["Проект 01","Проект 02","Проект 03","Проект 04","Проект 05","Проект 06"].forEach(function(lb){
+      var card=el("div","gal__card");card.appendChild(el("span","gal__idx",lb));
+      var ring=el("div","gal__ring");ring.appendChild(el("span","gal__tri"));card.appendChild(ring);
+      card.appendChild(el("span","gal__cap","Превью скоро"));c.appendChild(card);});
+  })();
+
+  /* 08 — timeline */
+  (function(){var c=$("tl");if(!c)return;
+    ["Бриф","Совместный поиск направления","Несколько концепций","Разработка решения","Продакшн","Правки","Финальные версии","Передача материалов"].forEach(function(s,i){
+      var cell=el("div","tl__cell");if((i+1)%4!==0)cell.appendChild(el("span","tl__line"));
+      var node=el("div","tl__node");node.appendChild(el("span","tl__dot"));cell.appendChild(node);
+      cell.appendChild(el("div","tl__n mono-num",String(i+1).padStart(2,"0")));cell.appendChild(el("div","tl__lbl",s));c.appendChild(cell);});
+  })();
+
+  /* 09 — formats */
+  (function(){var c=$("fmt");if(!c)return;
+    [["01","Проектная работа","Музыка для отдельных рекламных кампаний и специальных проектов."],
+     ["02","Музыкальный партнёр","Подключаемся с самого начала проекта и сопровождаем его до финальной сдачи."],
+     ["03","Retainer Support","Постоянная музыкальная поддержка внутренних команд Яндекса."]].forEach(function(f){
+      var card=el("div","fmt");card.appendChild(el("span","fmt__k mono-num",f[0]));card.appendChild(el("h3",null,f[1]));card.appendChild(el("p",null,f[2]));card.appendChild(el("span","fmt__bar"));c.appendChild(card);});
+  })();
+
+  /* 10 — retainer */
+  (function(){var c=$("retainer");if(!c)return;
+    ["Музыкальные консультации","Поиск музыкального направления","Подбор подрядчиков","Написание оригинальной музыки","Саунд-дизайн","Запись вокала","Запись музыкантов","Музыкальный контроль проектов","Адаптации","Лицензирование","Подготовку финальных материалов"].forEach(function(it){
+      var row=el("div","ret-row");row.appendChild(el("span","dash","—"));row.appendChild(el("span","t",it));c.appendChild(row);});
+  })();
+
+  /* 11 — useful */
+  (function(){var c=$("useful");if(!c)return;
+    [["Рекламные кампании","Музыка для федеральных запусков и бренд-коммуникации."],
+     ["Бренд","Развитие и поддержка звуковой айдентики."],
+     ["Продукты","Музыка и звук для новых сервисов, продуктовых роликов и презентаций."],
+     ["Внутренние команды","Презентации, мероприятия, корпоративные фильмы и ежедневные задачи."],
+     ["Социальные сети","Большое количество коротких музыкальных адаптаций и контента."],
+     ["Спецпроекты","Любые нестандартные музыкальные задачи."]].forEach(function(r,i){
+      var row=el("div","use-row");row.appendChild(el("span","n mono-num",String(i+1).padStart(2,"0")));row.appendChild(el("span","lbl",r[0]));row.appendChild(el("span","de",r[1]));c.appendChild(row);});
+  })();
+
+  /* 12 — take */
+  (function(){var c=$("take");if(!c)return;
+    ["Поиск композиторов","Поиск подрядчиков","Музыкальную экспертизу","Коммуникацию с исполнителями","Контроль качества","Организацию записи","Контроль сроков","Лицензирование","Музыкальные правки","Подготовку всех финальных версий"].forEach(function(it){
+      var row=el("div","take-row");row.appendChild(el("span","chk","✓"));row.appendChild(el("span","t",it));c.appendChild(row);});
+  })();
+
+  /* 13 — brands + agencies */
+  (function(){var b=$("brands"),a=$("agencies");
+    if(b)["GOOGLE","TOYOTA","VISA","IKEA","SAMSUNG","NOVARTIS","McDONALD'S","RED BULL","DANONE","NESTLÉ"].forEach(function(x){b.appendChild(el("div","b",x))});
+    if(a)["BBDO","TBWA","PUBLICIS","LEO BURNETT","GREY","SAATCHI & SAATCHI"].forEach(function(x){a.appendChild(el("div","a",x))});
+  })();
+
+  /* 14 — gets */
+  (function(){var c=$("gets");if(!c)return;
+    ["Меньше времени на организацию музыкального производства","Более сильные музыкальные решения","Предсказуемые сроки и бюджеты","Быстрый доступ к нужным специалистам","Музыкальная экспертиза на ранних этапах проекта","Единый партнёр для любых музыкальных задач"].forEach(function(it,i){
+      var row=el("div","gets-row");row.appendChild(el("span","n mono-num",String(i+1).padStart(2,"0")));row.appendChild(el("span","t",it));c.appendChild(row);});
+  })();
+
+  /* ===== NAV, REVEAL, PROGRESS ===== */
+  var deck=$("deck");
+  var screens=Array.prototype.slice.call(document.querySelectorAll(".screen"));
+  var dotsWrap=$("dots"),prog=$("prog");
+
+  // build dots
+  screens.forEach(function(sc,i){
+    var btn=document.createElement("button");btn.setAttribute("aria-label","Слайд "+(i+1));
+    btn.addEventListener("click",function(){sc.scrollIntoView({behavior:"smooth"})});
+    dotsWrap.appendChild(btn);
+  });
+  var dots=Array.prototype.slice.call(dotsWrap.children);
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var i=screens.indexOf(e.target);
+      if(e.isIntersecting&&e.intersectionRatio>=0.5){
+        e.target.classList.add("in");
+        dots.forEach(function(d,j){d.classList.toggle("active",j===i)});
+      }
+    });
+  },{threshold:[0.5]});
+  screens.forEach(function(sc){io.observe(sc)});
+  screens[0].classList.add("in");dots[0].classList.add("active");
+
+  // progress + hint hide
+  deck.addEventListener("scroll",function(){
+    var max=deck.scrollHeight-deck.clientHeight;
+    prog.style.width=(max>0?(deck.scrollTop/max*100):0)+"%";
+    if(deck.scrollTop>40)deck.classList.add("scrolled");else deck.classList.remove("scrolled");
+  },{passive:true});
+
+  // keyboard arrows
+  document.addEventListener("keydown",function(e){
+    var cur=0;for(var i=0;i<screens.length;i++){if(screens[i].classList.contains("in")){cur=i;break}}
+    if(e.key==="ArrowDown"||e.key==="PageDown"||e.key===" "){e.preventDefault();if(screens[cur+1])screens[cur+1].scrollIntoView({behavior:"smooth"})}
+    if(e.key==="ArrowUp"||e.key==="PageUp"){e.preventDefault();if(screens[cur-1])screens[cur-1].scrollIntoView({behavior:"smooth"})}
+  });
+})();
+</script>
+</body>
+</html>
