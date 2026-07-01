@@ -364,9 +364,15 @@ body.lb-open{overflow:hidden}
 }
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
-  .hero{align-items:flex-start;padding:clamp(132px,24vh,210px) clamp(20px,4vw,46px) clamp(96px,14vh,140px)}
+  .hero{align-items:flex-start;padding:clamp(132px,24vh,210px) clamp(20px,4vw,46px) 56px}
   .hero__scrollhint{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
   .services__list{grid-template-columns:1fr}
+  /* Unified mobile vertical rhythm: HERO->WORK 120 | WORK->ABOUT 112 | ABOUT->SERVICES 112 | SERVICES->CLIENTS 72 | CLIENTS->CONTACT 120 */
+  .work{padding-top:64px;padding-bottom:56px}
+  .about{padding-top:56px;padding-bottom:56px}
+  .services{padding-top:56px;padding-bottom:36px}
+  .clients{padding-top:36px;padding-bottom:60px}
+  .contact{padding-top:60px;padding-bottom:60px}
 }
 @media (max-width:560px){
   body{font-size:16px}
