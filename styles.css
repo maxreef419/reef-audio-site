@@ -102,7 +102,7 @@ body.menu-open .menu__meta{opacity:1}
 .menu__meta a:hover{color:var(--cyan)}
 
 /* ===== HERO ===== */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;padding:120px clamp(20px,4vw,46px) clamp(72px,11vh,140px)}
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;padding:120px clamp(20px,4vw,46px) clamp(120px,20vh,220px)}
 .hero__wall{
   position:absolute;inset:0;z-index:0;opacity:.05;pointer-events:none;
   background-image:repeating-linear-gradient(0deg,transparent 0 78px,rgba(255,255,255,.5) 78px 80px);
