@@ -282,6 +282,10 @@ body.lb-open{overflow:hidden}
   color:var(--muted-2);cursor:default;
   transition:color .4s var(--ease);
 }
+@media (min-width:601px){
+  .clients__grid{max-width:760px}
+  .clients__grid li{font-size:19px;line-height:1.8}
+}
 .clients__grid li::after{
   content:"\2022";display:inline-block;
   margin-left:clamp(6px,0.7vw,12px);
