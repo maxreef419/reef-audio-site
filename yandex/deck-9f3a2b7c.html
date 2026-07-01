@@ -19,7 +19,7 @@
   --bg:#2e2e2e;--bg-2:#292929;--bg-3:#242424;--surface:#383838;--surface-2:#3f3f3f;
   --line:rgba(255,255,255,.16);--line-2:rgba(255,255,255,.06);--line-3:rgba(255,255,255,.22);
   --text:#f4f6f6;--muted:#c6c9c9;--muted-2:#9a9e9e;
-  --cyan:#19b6e6;--cyan-soft:#5fcbee;--cyan-deep:#0f8ab4;--green:#4ade80;
+  --cyan:#19b6e6;--cyan-soft:#5fcbee;--cyan-deep:#0a6d8f;--green:#4ade80;
   --cream:#f4f2ea;--cream-2:#eceadf;--cream-line:rgba(30,30,30,.14);--ink:#232323;--ink-mute:#5a5a58;
   --font-display:'Cabinet Grotesk','CabinetFallback',system-ui,sans-serif;
   --font-body:'Satoshi','SatoshiFallback',system-ui,sans-serif;
@@ -262,7 +262,13 @@ body[data-scr="blue"] .gfoot__num .tot{color:rgba(255,255,255,.75)}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-  .screen{min-height:auto;padding:clamp(88px,14vh,110px) var(--pad) clamp(84px,12vh,96px);scroll-snap-align:start}
+  /* mobile: natural document flow, no forced snap so nothing gets clipped */
+  .deck{scroll-snap-type:none;height:auto;min-height:100dvh;overflow-y:auto}
+  .screen{min-height:auto;height:auto;justify-content:flex-start;
+    scroll-snap-align:none;scroll-snap-stop:normal;overflow:visible;
+    padding:clamp(56px,9vh,76px) var(--pad) clamp(96px,15vh,120px)}
+  /* reserve room for the fixed footer on the last screen */
+  .screen:last-of-type{padding-bottom:clamp(112px,18vh,140px)}
   .bio__cols{grid-template-columns:1fr;gap:26px}
   .bio__div{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px}
   .reef__grid{grid-template-columns:1fr;gap:30px}
@@ -270,18 +276,27 @@ body[data-scr="blue"] .gfoot__num .tot{color:rgba(255,255,255,.75)}
   .do-list{grid-template-columns:1fr}
   .gal{grid-template-columns:1fr 1fr}
   .tl{grid-template-columns:1fr 1fr;gap:34px 22px}.tl__line{display:none}
-  .fmt-grid{grid-template-columns:1fr}
+  .fmt-grid{grid-template-columns:1fr}.fmt{min-height:auto}
   .ret__top{grid-template-columns:1fr;gap:20px}.ret-list{grid-template-columns:1fr 1fr}
   .use-row{grid-template-columns:40px 1fr;gap:6px 16px}.use-row .de{grid-column:1/-1}
   .take-list{grid-template-columns:1fr}
   .brands{grid-template-columns:repeat(2,1fr)}.agencies{grid-template-columns:repeat(2,1fr)}
   .gets{grid-template-columns:1fr}
-  .cover__title{font-size:clamp(46px,15vw,84px)}
+  .cover__title{font-size:clamp(46px,13vw,84px)}
+  /* cover credit flows inline on mobile instead of overlapping absolute */
+  .cover__cred{position:static;margin-top:clamp(30px,6vh,52px);left:auto;bottom:auto}
+  /* solid opaque footer on mobile so content scrolls cleanly underneath it */
+  .gfoot{height:clamp(56px,8.5vh,66px);background:var(--bg-3);border-top:1px solid rgba(255,255,255,.08);
+    box-shadow:0 -8px 20px rgba(0,0,0,.28)}
+  body[data-scr="cream"] .gfoot{background:var(--cream);border-top-color:var(--cream-line);box-shadow:0 -8px 20px rgba(0,0,0,.08)}
+  body[data-scr="blue"] .gfoot{background:#0c789e;border-top-color:rgba(255,255,255,.18);box-shadow:0 -8px 20px rgba(0,0,0,.18)}
 }
 @media(max-width:560px){
   .gal{grid-template-columns:1fr}.tl{grid-template-columns:1fr}
   .ret-list{grid-template-columns:1fr}.brands{grid-template-columns:1fr}.agencies{grid-template-columns:1fr}
   .shead__year{display:none}
+  .cover__sub{max-width:none}
+  .bio__social{margin-bottom:8px}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -646,23 +661,44 @@ body[data-scr="blue"] .gfoot__num .tot{color:rgba(255,255,255,.75)}
     document.body.setAttribute("data-scr",themeOf(screens[i]));
   }
 
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      var i=screens.indexOf(e.target);
-      if(e.isIntersecting&&e.intersectionRatio>=0.5){
-        e.target.classList.add("in");
-        setActive(i);
-      }
-    });
-  },{threshold:[0.5]});
-  screens.forEach(function(sc){io.observe(sc)});
-  screens[0].classList.add("in");setActive(0);
+  var isMobile=function(){return window.matchMedia("(max-width:900px)").matches};
 
-  // progress bar
-  deck.addEventListener("scroll",function(){
-    var max=deck.scrollHeight-deck.clientHeight;
-    prog.style.width=(max>0?(deck.scrollTop/max*100):0)+"%";
-  },{passive:true});
+  // reveal animation: once a screen enters, keep it revealed
+  var revIo=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add("in"); });
+  },{threshold:0.15});
+  screens.forEach(function(sc){revIo.observe(sc)});
+
+  // active-screen detection: the screen whose box crosses the viewport centre.
+  // works whether the .deck scrolls (desktop) or the window scrolls (mobile),
+  // and stays correct even when a screen is taller than the viewport.
+  function updateActive(){
+    var mid=window.innerHeight/2, best=0, bestDist=Infinity;
+    for(var i=0;i<screens.length;i++){
+      var r=screens[i].getBoundingClientRect();
+      if(r.bottom<=0||r.top>=window.innerHeight) continue;
+      var c=r.top+r.height/2, d=Math.abs(c-mid);
+      // prefer a screen that actually covers the centre line
+      if(r.top<=mid&&r.bottom>=mid){ best=i; break; }
+      if(d<bestDist){ bestDist=d; best=i; }
+    }
+    setActive(best);
+  }
+
+  function updateProgress(){
+    var el=isMobile()?(document.scrollingElement||document.documentElement):deck;
+    var max=el.scrollHeight-el.clientHeight;
+    prog.style.width=(max>0?(el.scrollTop/max*100):0)+"%";
+  }
+
+  function onScroll(){ updateActive(); updateProgress(); }
+  deck.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+
+  screens[0].classList.add("in");setActive(0);updateProgress();
+  // run once after layout settles (mobile flow)
+  setTimeout(onScroll,60);
 
   // keyboard arrows
   document.addEventListener("keydown",function(e){
