@@ -222,12 +222,24 @@ if(contactSec) secIO.observe(contactSec);
 (function(){
   const widget = document.getElementById('widget');
   if(!widget) return;
+  const work = document.getElementById('work');
+  let up = false;
   function update(){
-    widget.classList.toggle('show', window.scrollY > window.innerHeight*0.6);
+    // always visible; only its direction changes with scroll
+    widget.classList.add('show');
+    up = window.scrollY > window.innerHeight*0.6;
+    widget.classList.toggle('widget--up', up);
+    widget.setAttribute('aria-label', up ? 'Back to top' : 'Scroll down');
   }
   widget.addEventListener('click', e=>{
     e.preventDefault();
-    window.scrollTo({top:0, behavior:'smooth'});
+    if(up){
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else if(work){
+      work.scrollIntoView({behavior:'smooth'});
+    } else {
+      window.scrollTo({top:window.innerHeight, behavior:'smooth'});
+    }
   });
   update(); window.addEventListener('scroll', update, {passive:true});
 })();
