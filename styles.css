@@ -351,6 +351,17 @@ body.lb-open{overflow:hidden}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease-soft),transform 1s var(--ease-soft)}
 .reveal.in{opacity:1;transform:none}
 
+/* ===== UNIFIED VERTICAL RHYTHM (desktop) =====
+   One system for section-to-section gaps. Gap = bottom of section above + top of next.
+   HERO->WORK 140 | WORK->ABOUT 120 | ABOUT->SERVICES 120 | SERVICES->CLIENTS 80 | CLIENTS->CONTACT 140 */
+@media (min-width:901px){
+  .hero{padding-bottom:70px}
+  .work{padding-top:70px;padding-bottom:60px}
+  .about{padding-top:60px;padding-bottom:60px}
+  .services{padding-top:60px;padding-bottom:40px}
+  .clients{padding-top:40px;padding-bottom:70px}
+  .contact{padding-top:70px;padding-bottom:120px}
+}
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
   .hero{align-items:flex-start;padding:clamp(132px,24vh,210px) clamp(20px,4vw,46px) clamp(96px,14vh,140px)}
