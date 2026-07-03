@@ -15,8 +15,8 @@
   --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
   --grad-soft:linear-gradient(135deg,rgba(25,182,230,.16),rgba(74,222,128,.16));
 
-  --font-display:'Clash Display','Cabinet Grotesk','Satoshi',system-ui,sans-serif;
-  --font-body:'Satoshi','Inter',system-ui,sans-serif;
+  --font-display:'Clash Display','Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
   --maxw:1320px;
   --content:980px; /* Apple content column */
   --gutter:clamp(20px,4vw,46px);
@@ -36,7 +36,8 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
 .eyebrow{
-  font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  font-family:var(--font-body);
+  font-size:12px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
   color:var(--cyan);
 }
 .accent{
@@ -110,7 +111,7 @@ body.menu-open .menu__meta{opacity:1}
   opacity:1;
 }
 .hero__inner{position:relative;z-index:2;max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;width:100%;display:flex;flex-direction:column;align-items:flex-start;padding:0 var(--gutter)}
-.hero__eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);margin-bottom:clamp(28px,4vw,52px)}
+.hero__eyebrow{display:inline-flex;align-items:center;gap:11px;font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:clamp(28px,4vw,52px)}
 .hero__dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 16px rgba(25,182,230,.7)}
 .hero__rule{display:none}
 .hero__title{
