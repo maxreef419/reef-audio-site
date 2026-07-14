@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Page not found — REEF Audio</title>
+<meta name="description" content="The page you were looking for could not be found. Return to REEF Audio — original music, sound design and sonic branding." />
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#2e2e2e" />
+<meta name="apple-mobile-web-app-title" content="REEF" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+<style>
+  .nf{min-height:100vh;display:flex;flex-direction:column}
+  .nf__main{flex:1;position:relative;display:flex;align-items:center;overflow:hidden;
+    padding:clamp(120px,18vh,200px) clamp(20px,4vw,46px) clamp(80px,12vh,140px)}
+  .nf__wall{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(90% 80% at 78% 18%,rgba(25,182,230,.16),transparent 55%),
+               radial-gradient(80% 70% at 14% 92%,rgba(74,222,128,.13),transparent 60%)}
+  .nf__inner{position:relative;z-index:2;max-width:calc(var(--content) + 2*var(--gutter));
+    margin:0 auto;width:100%;padding:0 var(--gutter)}
+  .nf__eyebrow{display:inline-flex;align-items:center;gap:11px;font-family:var(--font-body);
+    font-size:13px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);
+    margin-bottom:clamp(22px,3vw,34px)}
+  .nf__dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--grad);
+    box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 16px rgba(25,182,230,.7)}
+  .nf__code{font-family:var(--font-display);font-weight:700;line-height:.9;letter-spacing:-.03em;
+    font-size:clamp(96px,20vw,240px);margin:0 0 clamp(8px,1.4vw,18px)}
+  .nf__code .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent}
+  .nf__title{font-family:var(--font-display);font-weight:700;line-height:1.02;letter-spacing:-.025em;
+    font-size:clamp(30px,5vw,58px);color:var(--text);max-width:16ch;margin:0 0 clamp(18px,2.4vw,26px)}
+  .nf__lead{color:var(--muted);font-size:clamp(15px,1.7vw,18px);line-height:1.55;
+    max-width:52ch;margin:0 0 clamp(34px,4vw,44px)}
+  .nf__actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .nf__link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);
+    font-size:15px;font-weight:600;color:var(--muted);transition:color .3s var(--ease)}
+  .nf__link svg{transition:transform .35s var(--ease)}
+  .nf__link:hover{color:var(--text)}
+  .nf__link:hover svg{transform:translateX(4px)}
+  .nf__sep{width:1px;height:18px;background:var(--line-2,rgba(255,255,255,.12))}
+  @media (max-width:600px){
+    .nf__actions{gap:10px 16px}
+    .nf__sep{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="nf">
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <a href="/" class="brand" aria-label="REEF Audio home">
+      <img class="brand__logo" src="/assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
+    </a>
+  </header>
+
+  <!-- ===== 404 ===== -->
+  <main class="nf__main">
+    <div class="nf__wall" aria-hidden="true"></div>
+    <div class="nf__inner">
+      <p class="nf__eyebrow"><span class="nf__dot" aria-hidden="true"></span>Error 404</p>
+      <h1 class="nf__code">4<span class="g">0</span>4</h1>
+      <p class="nf__title">This track isn&rsquo;t in the mix.</p>
+      <p class="nf__lead">The page you were looking for doesn&rsquo;t exist or may have moved. Let&rsquo;s get you back to the music.</p>
+      <div class="nf__actions">
+        <a href="/" class="nf__link">Back to home
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <span class="nf__sep" aria-hidden="true"></span>
+        <a href="/#work" class="nf__link">View work
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <span class="nf__sep" aria-hidden="true"></span>
+        <a href="mailto:max@thereefaudio.com" class="nf__link">Get in touch
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="/" class="brand brand--sm">
+        <img class="brand__logo" src="/assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
+      </a>
+      <p class="footer__tag">Original music, sound design and sonic branding worldwide.</p>
+      <div class="footer__links">
+        <a href="mailto:max@thereefaudio.com">Email</a>
+        <a href="https://vimeo.com/reefaudio" target="_blank" rel="noopener">Vimeo</a>
+        <a href="https://www.instagram.com/reef_audio" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; <span id="year"></span> REEF Audio</span>
+      <span>Made with intent.</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
