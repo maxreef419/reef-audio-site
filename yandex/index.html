@@ -39,7 +39,7 @@ a{color:inherit;text-decoration:none}
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
 .hdr__logo{display:flex;align-items:center;gap:12px}
-.hdr__logo img{height:clamp(26px,3.2vw,34px);width:auto}
+.hdr__logo img{height:38px;width:auto;object-fit:contain}
 .hdr__logo span{
   font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.4vw,18px);
   letter-spacing:.01em;color:var(--text)
@@ -148,15 +148,24 @@ a{color:inherit;text-decoration:none}
 /* ===== footer ===== */
 .foot{
   border-top:1px solid var(--line);
-  padding:clamp(28px,4vw,44px) var(--pad);
-  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  color:var(--muted);
-  font-size:clamp(12px,1vw,13px);
-  letter-spacing:.02em;
+  padding:clamp(60px,8vw,90px) var(--pad) 30px;
 }
-.foot a{color:var(--muted);border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
-.foot a:hover{color:var(--text);border-bottom-color:var(--text)}
-.foot__brand{font-family:var(--font-display);font-weight:700;font-size:clamp(13px,1.1vw,15px);letter-spacing:.01em;color:var(--text)}
+.foot__inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+  padding-bottom:34px;border-bottom:1px solid var(--line);
+}
+.foot__logo{display:flex;align-items:center}
+.foot__logo img{height:32px;width:auto;object-fit:contain}
+.foot__tag{color:var(--muted);font-size:14px;max-width:30ch}
+.foot__links{display:flex;gap:24px}
+.foot__links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .25s}
+.foot__links a:hover{color:var(--accent)}
+.foot__bottom{
+  max-width:var(--maxw);margin:24px auto 0;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted);letter-spacing:.02em;
+}
 
 /* ===== reveal ===== */
 .rv{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -177,8 +186,8 @@ a{color:inherit;text-decoration:none}
 <body>
 
 <header class="hdr">
-  <a href="https://www.thereefaudio.com" class="hdr__logo" target="_blank" rel="noopener" aria-label="REEF Audio">
-    <img src="/yandex/assets/reef-logo-light.png" alt="REEF Audio">
+  <a href="https://www.thereefaudio.com" class="hdr__logo" target="_blank" rel="noopener" aria-label="REEF Audio home">
+    <img src="/yandex/assets/brand-logo.png" alt="REEF Audio" width="404" height="175">
   </a>
   <div class="hdr__meta">Reel · 2026</div>
 </header>
@@ -191,11 +200,20 @@ a{color:inherit;text-decoration:none}
 <main class="reel" id="reel"></main>
 
 <footer class="foot">
-  <div class="foot__brand">REEF Audio</div>
-  <div>
-    <a href="https://www.thereefaudio.com" target="_blank" rel="noopener">thereefaudio.com</a>
-    &nbsp;·&nbsp;
-    <a href="mailto:max@thereefaudio.com">max@thereefaudio.com</a>
+  <div class="foot__inner">
+    <a href="https://www.thereefaudio.com" class="foot__logo" target="_blank" rel="noopener" aria-label="REEF Audio home">
+      <img src="/yandex/assets/brand-logo.png" alt="REEF Audio" width="404" height="175">
+    </a>
+    <p class="foot__tag">Original music, sound design and sonic branding worldwide.</p>
+    <div class="foot__links">
+      <a href="mailto:max@thereefaudio.com">Email</a>
+      <a href="https://vimeo.com/reefaudio" target="_blank" rel="noopener">Vimeo</a>
+      <a href="https://www.instagram.com/reef_audio" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="foot__bottom">
+    <span>© <span id="year"></span> REEF Audio</span>
+    <span>Made with intent.</span>
   </div>
 </footer>
 
@@ -267,6 +285,9 @@ document.querySelectorAll('.clip__play').forEach(btn=>{
     loadClip(btn.closest('.clip'));
   });
 });
+
+/* footer year */
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
