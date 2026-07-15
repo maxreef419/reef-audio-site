@@ -1,181 +1,268 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>REEF Audio × Яндекс</title>
-<meta name="robots" content="noindex, nofollow" />
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-<meta name="theme-color" content="#2e2e2e" />
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>REEF — reel for Яндекс</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/yandex/assets/favicon-32.png">
+<link rel="preconnect" href="https://player.vimeo.com" crossorigin>
+<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,700&display=swap">
 <style>
 :root{
-  --bg:#2e2e2e;--bg-3:#242424;--surface:#383838;
-  --line:rgba(255,255,255,.16);
-  --text:#f4f6f6;--muted:#c6c9c9;--muted-2:#9a9e9e;
-  --cyan:#19b6e6;--cyan-soft:#5fcbee;--cyan-deep:#0f8ab4;--green:#4ade80;
-  --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
-  --font-display:'Cabinet Grotesk','CabinetFallback',system-ui,sans-serif;
-  --font-body:'Satoshi','SatoshiFallback',system-ui,sans-serif;
-  --pad:clamp(22px,5vw,88px);
-  --ease:cubic-bezier(.16,1,.3,1);
+  --bg:#0e0e0f;
+  --surface:#161617;
+  --line:rgba(255,255,255,.08);
+  --text:#f4f6f6;
+  --muted:#8a8d8f;
+  --accent:#19b6e6;
+  --font-display:'Cabinet Grotesk','Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --font-body:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --maxw:1240px;
+  --pad:clamp(20px,4.5vw,64px);
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
-@font-face{font-family:'CabinetFallback';src:local('Arial');size-adjust:97%;ascent-override:96%;descent-override:24%;line-gap-override:0%}
-@font-face{font-family:'SatoshiFallback';src:local('Arial');size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{
-  background:var(--bg-3);color:var(--text);
-  font-family:var(--font-body);font-size:16px;line-height:1.5;letter-spacing:-.011em;
-  -webkit-font-smoothing:antialiased;overflow:hidden;
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{min-height:100dvh;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ===== header ===== */
+.hdr{
+  position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(14,14,15,.95) 0%,rgba(14,14,15,.75) 70%,rgba(14,14,15,0) 100%);
+  backdrop-filter:blur(8px);
+  padding:clamp(18px,2.6vw,28px) var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.hdr__logo{display:flex;align-items:center;gap:12px}
+.hdr__logo img{height:clamp(26px,3.2vw,34px);width:auto}
+.hdr__logo span{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.4vw,18px);
+  letter-spacing:.01em;color:var(--text)
+}
+.hdr__meta{
+  font-family:var(--font-body);font-weight:500;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
 }
 
-/* ===== GATE ===== */
-.gate{
-  position:fixed;inset:0;z-index:10;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(48px,10vh,110px) var(--pad);
-  background:var(--bg-3);overflow:hidden;
+/* ===== hero ===== */
+.hero{
+  max-width:var(--maxw);margin:0 auto;padding:clamp(48px,10vw,120px) var(--pad) clamp(32px,6vw,72px);
 }
-.gate::before{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(90% 70% at 82% 10%,rgba(25,182,230,.16),transparent 55%),
-             radial-gradient(80% 70% at 8% 96%,rgba(74,222,128,.08),transparent 60%);
+.hero h1{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(40px,7vw,96px);line-height:.98;letter-spacing:-.025em;
 }
-.gate__head{position:absolute;top:clamp(30px,4.4vh,46px);left:var(--pad);right:var(--pad);z-index:4;
-  display:flex;align-items:center;justify-content:space-between}
-.gate__logo{height:26px;width:auto;object-fit:contain}
-.gate__year{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--muted-2)}
-.gate__inner{position:relative;z-index:3;width:100%;max-width:520px;margin:0 auto}
-.gate__pill{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border:1px solid var(--line);border-radius:100px;
-  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02);margin-bottom:clamp(22px,4vh,34px)}
-.gate__pdot{width:7px;height:7px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 14px rgba(25,182,230,.7)}
-.gate__title{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.98;font-size:clamp(38px,7vw,72px)}
-.gate__title .plus{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;font-weight:800}
-.gate__sub{margin-top:clamp(16px,3vh,24px);color:var(--muted);font-size:clamp(15px,1.4vw,18px);line-height:1.5;max-width:34ch}
-.gate__form{margin-top:clamp(30px,5vh,44px);display:flex;flex-direction:column;gap:14px;max-width:400px}
-.gate__label{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2)}
-.gate__row{display:flex;gap:10px}
-.gate__input{
-  flex:1;background:var(--surface);border:1px solid var(--line);border-radius:12px;
-  padding:15px 16px;color:var(--text);font-family:var(--font-body);font-size:16px;letter-spacing:.02em;
-  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);outline:none;
+.hero h1 .cy{color:var(--accent)}
+.hero__sub{
+  margin-top:clamp(16px,2.4vw,28px);
+  max-width:56ch;
+  font-size:clamp(15px,1.3vw,18px);line-height:1.55;color:var(--muted);
 }
-.gate__input::placeholder{color:var(--muted-2)}
-.gate__input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(25,182,230,.16)}
-.gate__btn{
-  flex:none;border:0;cursor:pointer;border-radius:12px;padding:15px 26px;
-  font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:.01em;color:#0a2027;
-  background:var(--grad);transition:transform .2s var(--ease),filter .2s var(--ease);
-}
-.gate__btn:hover{filter:brightness(1.08)}
-.gate__btn:active{transform:scale(.97)}
-.gate__err{min-height:18px;font-size:13px;font-weight:600;color:#ff7a7a;opacity:0;transition:opacity .2s}
-.gate__err.show{opacity:1}
-.gate__foot{position:absolute;left:var(--pad);bottom:clamp(28px,4vh,40px);z-index:4;font-size:clamp(12px,1vw,14px);color:var(--muted-2)}
-.gate__mark{position:absolute;right:var(--pad);bottom:clamp(24px,3.6vh,36px);z-index:4;font-family:var(--font-display);font-weight:800;font-size:clamp(20px,2.4vw,28px);color:var(--cyan)}
-.shake{animation:shake .4s var(--ease)}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
 
-/* ===== DECK FRAME ===== */
-#deckFrame{position:fixed;inset:0;z-index:20;width:100%;height:100%;border:0;background:var(--bg-3);display:none}
-body.unlocked{overflow:hidden}
-body.unlocked .gate{display:none}
-body.unlocked #deckFrame{display:block}
+/* ===== reel ===== */
+.reel{
+  max-width:var(--maxw);margin:0 auto;padding:0 var(--pad) clamp(80px,12vw,140px);
+  display:flex;flex-direction:column;gap:clamp(56px,8vw,104px);
+}
+.clip{
+  display:flex;flex-direction:column;gap:clamp(14px,1.6vw,20px);
+}
+.clip__frame{
+  position:relative;width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7), 0 10px 30px -12px rgba(0,0,0,.5);
+}
+.clip__frame::before{
+  content:"";position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  background-image:var(--poster);
+  filter:brightness(.85);
+  transition:opacity .5s var(--ease);
+  z-index:1;
+}
+.clip.is-ready .clip__frame::before{opacity:0;pointer-events:none}
+.clip__frame iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2;
+  opacity:0;transition:opacity .5s var(--ease) .1s;
+}
+.clip.is-ready .clip__frame iframe{opacity:1}
+.clip__play{
+  position:absolute;inset:0;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;background:transparent;border:0;
+  transition:opacity .3s var(--ease);
+}
+.clip.is-ready .clip__play{opacity:0;pointer-events:none}
+.clip__ring{
+  width:clamp(64px,7vw,96px);height:clamp(64px,7vw,96px);
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.7);
+  background:rgba(0,0,0,.25);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .35s var(--ease),background .3s,border-color .3s;
+}
+.clip__play:hover .clip__ring{transform:scale(1.08);background:rgba(0,0,0,.4);border-color:#fff}
+.clip__tri{
+  width:0;height:0;
+  border-style:solid;
+  border-width:clamp(11px,1.1vw,14px) 0 clamp(11px,1.1vw,14px) clamp(17px,1.7vw,22px);
+  border-color:transparent transparent transparent #fff;
+  margin-left:4px;
+}
+.clip__caption{
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:0 2px;
+}
+.clip__num{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(13px,1.15vw,15px);
+  letter-spacing:.14em;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.clip__title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(20px,2.4vw,32px);
+  line-height:1.15;letter-spacing:-.01em;color:var(--text);
+  flex:1;min-width:0;
+}
+.clip__meta{
+  font-family:var(--font-body);font-weight:500;
+  font-size:clamp(12px,1vw,13px);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
 
-/* loading */
-.gate__btn.loading{pointer-events:none;opacity:.7}
-@media(prefers-reduced-motion:reduce){.shake{animation:none}}
+/* ===== footer ===== */
+.foot{
+  border-top:1px solid var(--line);
+  padding:clamp(28px,4vw,44px) var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  color:var(--muted);
+  font-size:clamp(12px,1vw,13px);
+  letter-spacing:.02em;
+}
+.foot a{color:var(--muted);border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.foot a:hover{color:var(--text);border-bottom-color:var(--text)}
+.foot__brand{font-family:var(--font-display);font-weight:700;font-size:clamp(13px,1.1vw,15px);letter-spacing:.01em;color:var(--text)}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+
+@media (max-width:640px){
+  .hdr{padding:14px var(--pad)}
+  .hero{padding-top:32px;padding-bottom:24px}
+  .hero__sub{max-width:none}
+  .clip__caption{flex-direction:row;align-items:baseline}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
+}
 </style>
 </head>
 <body>
 
-<section class="gate" id="gate">
-  <div class="gate__head">
-    <img class="gate__logo" src="assets/brand-logo.png" alt="REEF Audio" />
-    <span class="gate__year">2026</span>
-  </div>
+<header class="hdr">
+  <a href="https://www.thereefaudio.com" class="hdr__logo" target="_blank" rel="noopener" aria-label="REEF Audio">
+    <img src="/yandex/assets/reef-logo-light.png" alt="REEF Audio">
+  </a>
+  <div class="hdr__meta">Reel · 2026</div>
+</header>
 
-  <div class="gate__inner">
-    <span class="gate__pill"><span class="gate__pdot"></span>Коммерческое предложение</span>
-    <h1 class="gate__title">REEF&nbsp;Audio<br><span class="plus">+</span>&nbsp;Яндекс</h1>
-    <p class="gate__sub">Материал доступен по паролю. Введите его, чтобы открыть презентацию.</p>
-
-    <form class="gate__form" id="gateForm" autocomplete="off">
-      <label class="gate__label" for="pw">Пароль доступа</label>
-      <div class="gate__row">
-        <input class="gate__input" id="pw" type="password" placeholder="••••••••" autocomplete="off" autofocus aria-label="Пароль" />
-        <button class="gate__btn" type="submit" id="go">Открыть</button>
-      </div>
-      <div class="gate__err" id="err">Неверный пароль. Попробуйте ещё раз.</div>
-    </form>
-  </div>
-
-  <div class="gate__foot">Макс Кузниченков&nbsp;&nbsp;·&nbsp;&nbsp;www.thereefaudio.com</div>
-  <div class="gate__mark">REEF.</div>
+<section class="hero">
+  <h1 class="rv">Selected work<br><span class="cy">for Яндекс.</span></h1>
+  <p class="hero__sub rv">Подборка десяти проектов REEF Audio. Оригинальная музыка, саунд-дизайн, аудио-брендинг — для российских и международных брендов.</p>
 </section>
 
-<iframe id="deckFrame" title="REEF Audio × Яндекс — презентация"></iframe>
+<main class="reel" id="reel"></main>
+
+<footer class="foot">
+  <div class="foot__brand">REEF Audio</div>
+  <div>
+    <a href="https://www.thereefaudio.com" target="_blank" rel="noopener">thereefaudio.com</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:max@thereefaudio.com">max@thereefaudio.com</a>
+  </div>
+</footer>
 
 <script>
-(function(){
-  var HASH = "769b4c07a42b9b1c66541d22c83e210dc808527fb22a99f5ca66824a83c51923"; // sha256("REEF4YANDEX")
-  var DECK = "deck-9f3a2b7c.html";
-  var KEY  = "reef_yx_ok";
+const CLIPS = [
+  {id:"910327781", title:"Yandex Split", duration:20},
+  {id:"468648611", title:"Adrenaline Gold | Baroque Bang", duration:29},
+  {id:"882659457", title:"YANGO Maps | A Perfect Way", duration:33},
+  {id:"849692144", title:"CA Realtors | Dear California Dream", duration:60},
+  {id:"690914061", title:"KIA | The Flow", duration:94},
+  {id:"1158151394", title:"SBER Investments", duration:62},
+  {id:"652793889", title:"McDonald's | Alpine Taste", duration:30},
+  {id:"554243009", title:"Whole Foods | Food For Our Future", duration:53},
+  {id:"1053336088", title:"KIA K5", duration:70},
+  {id:"416039838", title:"Volkswagen | #togethersoon", duration:30}
+];
 
-  var form=document.getElementById("gateForm"),
-      pw=document.getElementById("pw"),
-      err=document.getElementById("err"),
-      btn=document.getElementById("go"),
-      inner=document.querySelector(".gate__inner"),
-      frame=document.getElementById("deckFrame");
+const fmtDur = s => {
+  const m = Math.floor(s/60), r = s%60;
+  return m>0 ? `${m}:${String(r).padStart(2,'0')}` : `0:${String(r).padStart(2,'0')}`;
+};
+const pad2 = n => String(n).padStart(2,'0');
+const posterUrl = id => `https://vumbnail.com/${id}.jpg`;
 
-  function sha256(str){
-    var buf=new TextEncoder().encode(str);
-    return crypto.subtle.digest("SHA-256",buf).then(function(hash){
-      return Array.prototype.map.call(new Uint8Array(hash),function(b){return b.toString(16).padStart(2,"0")}).join("");
-    });
-  }
+const reel = document.getElementById('reel');
+CLIPS.forEach((c, i) => {
+  const el = document.createElement('article');
+  el.className = 'clip rv';
+  el.dataset.id = c.id;
+  el.style.setProperty('--poster', `url("${posterUrl(c.id)}")`);
+  el.innerHTML = `
+    <div class="clip__frame">
+      <button class="clip__play" type="button" aria-label="Play ${c.title.replace(/"/g,'&quot;')}">
+        <span class="clip__ring"><span class="clip__tri"></span></span>
+      </button>
+    </div>
+    <div class="clip__caption">
+      <span class="clip__num">${pad2(i+1)} / 10</span>
+      <h2 class="clip__title">${c.title}</h2>
+      <span class="clip__meta">${fmtDur(c.duration)}</span>
+    </div>
+  `;
+  reel.appendChild(el);
+});
 
-  function loadDeck(){
-    return fetch(DECK,{cache:"no-store"}).then(function(r){
-      if(!r.ok) throw new Error("load");
-      return r.text();
-    }).then(function(html){
-      frame.setAttribute("srcdoc",html);
-      document.body.classList.add("unlocked");
-      try{ frame.focus(); }catch(e){}
-    });
-  }
+// reveal on scroll
+const revIo = new IntersectionObserver((entries)=>{
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); revIo.unobserve(e.target); } });
+},{rootMargin:"0px 0px -8% 0px",threshold:0.06});
+document.querySelectorAll('.rv').forEach(el => revIo.observe(el));
 
-  function fail(){
-    err.classList.add("show");
-    inner.classList.remove("shake"); void inner.offsetWidth; inner.classList.add("shake");
-    pw.value=""; pw.focus();
-    btn.classList.remove("loading"); btn.textContent="Открыть";
-  }
-
-  form.addEventListener("submit",function(e){
+// click-to-load iframe (keeps page lightweight — 10 vimeo players at once is heavy)
+function loadClip(clip){
+  if(clip.classList.contains('is-ready')) return;
+  const id = clip.dataset.id;
+  const frame = clip.querySelector('.clip__frame');
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://player.vimeo.com/video/${id}?app_id=122963&autoplay=1&title=0&byline=0&portrait=0&dnt=1&color=19b6e6`;
+  iframe.setAttribute('allow','autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+  iframe.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  iframe.setAttribute('title', clip.querySelector('.clip__title').textContent);
+  frame.appendChild(iframe);
+  clip.classList.add('is-ready');
+}
+document.querySelectorAll('.clip__play').forEach(btn=>{
+  btn.addEventListener('click', e => {
     e.preventDefault();
-    err.classList.remove("show");
-    btn.classList.add("loading"); btn.textContent="Проверяем…";
-    sha256(pw.value).then(function(h){
-      if(h===HASH){
-        try{ sessionStorage.setItem(KEY,"1"); }catch(e){}
-        loadDeck().catch(function(){ btn.classList.remove("loading"); btn.textContent="Открыть"; err.textContent="Не удалось загрузить. Обновите страницу."; err.classList.add("show"); });
-      } else { fail(); }
-    }).catch(fail);
+    loadClip(btn.closest('.clip'));
   });
-
-  // auto-unlock within the same browser session
-  try{
-    if(sessionStorage.getItem(KEY)==="1"){ loadDeck(); }
-  }catch(e){}
-})();
+});
 </script>
 </body>
 </html>
