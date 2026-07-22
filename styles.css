@@ -240,8 +240,11 @@ body.lb-open{overflow:hidden}
   .about__top{margin-bottom:clamp(80px,9vw,150px)}
   .about__lead{font-size:clamp(48px,5vw,78px);line-height:1;letter-spacing:-.025em;margin:22px 0 0;max-width:none}
   .about__cols{margin-left:auto;width:66%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,2.4vw,44px);align-items:start}
-  .about__cols p{max-width:none;margin:0;font-size:clamp(14px,0.98vw,15.5px);line-height:1.55}
+  .about__col p{max-width:none;margin:0;font-size:clamp(14px,0.98vw,15.5px);line-height:1.55}
 }
+.about__col-title{font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.05vw,17px);letter-spacing:-.005em;color:var(--text);margin:0 0 clamp(12px,1vw,16px);padding-top:clamp(14px,1vw,18px);border-top:1px solid var(--line-2)}
+.about__col + .about__col{margin-top:26px}
+@media (min-width:901px){.about__col + .about__col{margin-top:0}}
 .namelink{position:relative;color:var(--text);font-weight:600;white-space:nowrap;border-bottom:1px solid rgba(25,182,230,.5);transition:color .3s,border-color .3s}
 .namelink svg{display:inline-block;vertical-align:-1px;transition:transform .3s var(--ease)}
 .namelink:hover{color:var(--cyan)}
