@@ -84,11 +84,13 @@ a{color:inherit;text-decoration:none}
 }
 .clip__frame::before{
   content:"";position:absolute;inset:0;
-  background-size:calc(100% * var(--poster-zoom,1)) calc(100% * var(--poster-zoom,1));
+  background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   background-color:#000;
   background-image:var(--poster);
+  transform:scale(var(--poster-zoom,1));
+  transform-origin:center;
   filter:brightness(.85);
   transition:opacity .5s var(--ease);
   z-index:1;
