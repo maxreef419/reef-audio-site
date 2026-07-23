@@ -226,14 +226,14 @@ a{color:inherit;text-decoration:none}
 
 <script>
 const CLIPS = [
-  {id:"849692144", title:"California Realtors", duration:60},
-  {id:"1117757906", title:"Aeroflot", duration:67},
-  {id:"1048814701", title:"HAVAL H9", duration:60},
-  {id:"492040287", title:"Red Bull", duration:121},
-  {id:"1053336088", title:"KIA K5", duration:70},
-  {id:"215650034", title:"Toyota", duration:69},
-  {id:"264404893", title:"Asian Games", duration:60},
-  {id:"398762924", title:"Tim Hortons", duration:38}
+  {id:"849692144", title:"California Realtors", duration:60, poster:"https://i.vimeocdn.com/video/1703777150-5aca46a0a63208eb8390e57191b9194d24d758acb1a5c139b3e6aeab1c9627fc-d_1280?region=us"},
+  {id:"1117757906", title:"Aeroflot", duration:67, poster:"https://i.vimeocdn.com/video/2115197773-1a16527f36ad64d1c23ef08fafd9edfb48a3fad9ed886b6d3d7e1bf6b72997f6-d_1280?region=us"},
+  {id:"1048814701", title:"HAVAL H9", duration:60, poster:"https://i.vimeocdn.com/video/1973038952-8f0b737d29a52486acf06897fb6a33448185682f034d472006afc90d58daa06a-d_1280?region=us"},
+  {id:"492040287", title:"Red Bull", duration:121, poster:"https://i.vimeocdn.com/video/1017521750-5b03e67e89561a07ab2f706d1ce9ec8598332b86eb5761c5fd7deee7c29e2249-d_1280?region=us"},
+  {id:"1053336088", title:"KIA K5", duration:70, poster:"https://i.vimeocdn.com/video/1978487923-80a6b2c716ede09db4b2af9422686a12448635ac316e7144453ea819160b2d90-d_1280?region=us"},
+  {id:"215650034", title:"Toyota", duration:69, poster:"https://i.vimeocdn.com/video/632419692-202222c647232618f7165f7c799a343058eca9b918d70ad3e703f44cf363840e-d_1280?region=us"},
+  {id:"264404893", title:"Asian Games", duration:60, poster:"https://i.vimeocdn.com/video/694176483-d5d22cf57fa42a6ba4cbc502b0739eb3776846fd939b8e6494b14106e7f353b6-d_1280?region=us"},
+  {id:"398762924", title:"Tim Hortons", duration:38, poster:"https://i.vimeocdn.com/video/866525388-e749f9a9a2a80b66449f8fa6799077ae95fade9f4a86dd3ec8d1943383390715-d_1280?region=us"}
 ];
 
 const fmtDur = s => {
@@ -241,7 +241,8 @@ const fmtDur = s => {
   return m>0 ? `${m}:${String(r).padStart(2,'0')}` : `0:${String(r).padStart(2,'0')}`;
 };
 const pad2 = n => String(n).padStart(2,'0');
-const posterUrl = id => `https://vumbnail.com/${id}.jpg`;
+// Posters come straight from Vimeo's own CDN (i.vimeocdn.com), reachable without a VPN.
+const posterUrl = c => c.poster || `https://vumbnail.com/${c.id}.jpg`;
 
 const reel = document.getElementById('reel');
 const TOTAL = CLIPS.length;
@@ -249,7 +250,7 @@ CLIPS.forEach((c, i) => {
   const el = document.createElement('article');
   el.className = 'clip rv';
   el.dataset.id = c.id;
-  el.style.setProperty('--poster', `url("${posterUrl(c.id)}")`);
+  el.style.setProperty('--poster', `url("${posterUrl(c)}")`);
   if(c.posterZoom) el.style.setProperty('--poster-zoom', c.posterZoom);
   el.innerHTML = `
     <div class="clip__frame">
