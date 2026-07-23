@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<script src="https://player.vimeo.com/api/player.js"></script>
 <style>
 :root{
   --bg:#2e2e2e;
@@ -276,6 +277,8 @@ const revIo = new IntersectionObserver((entries)=>{
 document.querySelectorAll('.rv').forEach(el => revIo.observe(el));
 
 // click-to-load iframe (keeps page lightweight — 10 vimeo players at once is heavy)
+// Only one clip plays at a time: starting one pauses all others.
+const players = [];
 function loadClip(clip){
   if(clip.classList.contains('is-ready')) return;
   const id = clip.dataset.id;
@@ -287,6 +290,15 @@ function loadClip(clip){
   iframe.setAttribute('title', clip.querySelector('.clip__title').textContent);
   frame.appendChild(iframe);
   clip.classList.add('is-ready');
+
+  // Wire up the Vimeo SDK so we can pause other players when this one starts.
+  if(window.Vimeo && Vimeo.Player){
+    const player = new Vimeo.Player(iframe);
+    players.push(player);
+    player.on('play', () => {
+      players.forEach(p => { if(p !== player){ p.pause().catch(()=>{}); } });
+    });
+  }
 }
 document.querySelectorAll('.clip__play').forEach(btn=>{
   btn.addEventListener('click', e => {
