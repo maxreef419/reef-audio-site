@@ -15,8 +15,8 @@
   --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
   --grad-soft:linear-gradient(135deg,rgba(25,182,230,.16),rgba(74,222,128,.16));
 
-  --font-display:'Cabinet Grotesk','Clash Display','Inter',system-ui,sans-serif;
-  --font-body:'Inter',system-ui,sans-serif;
+  --font-display:'Schibsted Grotesk','Inter',system-ui,sans-serif;
+  --font-body:'Instrument Sans','Inter',system-ui,sans-serif;
   --maxw:1320px;
   --content:980px; /* Apple content column */
   --gutter:clamp(20px,4vw,46px);
