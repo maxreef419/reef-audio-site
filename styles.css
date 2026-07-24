@@ -230,7 +230,7 @@ body.lb-open{overflow:hidden}
 .about{position:relative;background:var(--bg-2);padding:clamp(90px,14vw,180px) 0}
 .about__body{position:relative;z-index:2;max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;width:100%;padding:0 var(--gutter)}
 .about__lead{font-family:var(--font-display);font-weight:700;font-size:clamp(25px,3.4vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--text);margin:18px 0 34px}
-.about__lead .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.about__lead .grad{color:var(--text)}
 .about__body p:not(.eyebrow){color:var(--muted);margin-bottom:18px;max-width:64ch;font-size:clamp(15px,1.25vw,16.5px);line-height:1.5;letter-spacing:-.011em}
 .about__body p:last-child{margin-bottom:0}
 /* Editorial two-column layout on desktop */
@@ -245,8 +245,10 @@ body.lb-open{overflow:hidden}
   .about__cols{margin-left:auto;width:66%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,2.4vw,44px);align-items:start}
   .about__col p{max-width:none;margin:0;font-size:clamp(14px,0.98vw,15.5px);line-height:1.55}
 }
-.about__col-title{font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.05vw,17px);letter-spacing:-.005em;color:var(--text);margin:0 0 clamp(12px,1vw,16px);padding-top:clamp(14px,1vw,18px);border-top:1px solid var(--line-2)}
-.about__col + .about__col{margin-top:26px}
+.about__col{padding-top:clamp(16px,1.4vw,22px);border-top:1px solid var(--line-2)}
+.about__col-num{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(12px,0.9vw,13px);letter-spacing:.14em;color:var(--cyan);margin:0 0 clamp(14px,1.4vw,20px)}
+.about__col-title{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,1.9vw,30px);line-height:1.1;letter-spacing:-.015em;color:var(--text);margin:0 0 clamp(14px,1.2vw,20px)}
+.about__col + .about__col{margin-top:44px}
 @media (min-width:901px){.about__col + .about__col{margin-top:0}}
 .namelink{position:relative;color:var(--text);font-weight:600;white-space:nowrap;border-bottom:1px solid rgba(25,182,230,.5);transition:color .3s,border-color .3s}
 .namelink svg{display:inline-block;vertical-align:-1px;transition:transform .3s var(--ease)}
