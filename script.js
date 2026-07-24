@@ -84,6 +84,28 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
+// Make every grid row exactly one column-width tall, so all tiles share one
+// uniform height: a single-column tile is a square, a two-column 'wide' tile is
+// one long horizontal frame of the same height. Recompute on resize.
+(function(){
+  if(!grid) return;
+  function sizeCells(){
+    // On the single-column phone layout the tiles use their own 16:9 aspect.
+    if(window.matchMedia('(max-width:560px)').matches){ grid.style.removeProperty('--cell'); return; }
+    const cols = window.matchMedia('(min-width:901px)').matches ? 3 : 2;
+    const cs = getComputedStyle(grid);
+    const gap = parseFloat(cs.columnGap || cs.gap || '0') || 0;
+    const inner = grid.clientWidth
+      - (parseFloat(cs.paddingLeft)||0)
+      - (parseFloat(cs.paddingRight)||0);
+    const colW = (inner - gap*(cols-1)) / cols;
+    if(colW>0) grid.style.setProperty('--cell', colW + 'px');
+  }
+  sizeCells();
+  window.addEventListener('resize', sizeCells, {passive:true});
+  window.addEventListener('load', sizeCells);
+})();
+
 // ===== AUTOPLAY PREVIEW LOOPS (play inline whenever a card is on screen) =====
 // Inspired by field.io: preview videos start looping as soon as the card scrolls
 // into view, with no hover needed. They pause when the card leaves the viewport
