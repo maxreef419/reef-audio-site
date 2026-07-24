@@ -175,7 +175,10 @@ body.menu-open .menu__meta{opacity:1}
 @media (max-width:560px){ .work__grid{column-count:1} }
 .work__item{
   position:relative;display:block;overflow:hidden;border-radius:0;
-  width:100%;margin:0 0 clamp(16px,1.7vw,30px);padding:0;border:0;background:none;text-align:left;cursor:pointer;color:inherit;font:inherit;
+  width:100%;margin:0 0 clamp(16px,1.7vw,30px);padding:0;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;
+  /* Dark card fill so any sub-pixel edge gap under the media stays invisible
+     (was showing as a thin light sliver on the right of tiles). */
+  background:#111;
   break-inside:avoid;-webkit-column-break-inside:avoid;
   /* Fade only — a translate transform on a CSS-column child paints a sliver in
      the adjacent gutter, which looked like stray pixels on the sides. */
@@ -187,9 +190,15 @@ body.menu-open .menu__meta{opacity:1}
 .work__item--tall{aspect-ratio:3/4}
 .work__item--square{aspect-ratio:1/1}
 .work__item.in{opacity:1;transform:none}
-.work__item img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .6s}
+/* Media is inflated ~1px beyond the box on every side so object-fit rounding
+   never leaves a hairline of background at an edge. */
+.work__item img,.work__item .work__video{
+  position:absolute;top:-1px;left:-1px;width:calc(100% + 2px);height:calc(100% + 2px);
+  object-fit:cover;
+}
+.work__item img{display:block;z-index:1;transition:transform .9s var(--ease),filter .6s}
 @media (hover:hover){.work__item:hover img{transform:scale(1.04)}}
-.work__video{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:cover;
+.work__video{z-index:2;
   opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
 .work__item.is-previewing .work__video{opacity:1}
 .work__item:focus-visible{outline:2px solid var(--cyan);outline-offset:-3px}
