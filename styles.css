@@ -160,35 +160,37 @@ body.menu-open .menu__meta{opacity:1}
   .hero__scrollhint{display:inline-flex}
 }
 
-/* ===== WORK (field.io-style staggered masonry) ===== */
+/* ===== WORK (square-cell grid with wide tiles merging two cells) ===== */
 .work{position:relative;padding:clamp(60px,9vw,120px) 0 clamp(70px,10vw,130px);overflow:hidden}
 .work__head{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto clamp(34px,5vw,56px);padding:0 clamp(20px,4vw,46px)}
-/* CSS multi-column masonry: columns pack independently so tiles of different
-   heights stagger vertically, exactly like field.io. */
+/* A grid of square cells. Most tiles fill one square; a few 'wide' tiles span
+   two columns (merging two squares into one long horizontal frame). dense flow
+   backfills the gaps so the layout stays tight and lively — not a flat row. */
 .work__grid{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,46px);
-  column-count:2;column-gap:clamp(16px,1.7vw,26px);overflow:hidden}
+  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.6vw,24px);grid-auto-flow:row dense;overflow:hidden}
 @media (min-width:901px){
   .work__head{max-width:1760px;padding:0 clamp(40px,4.5vw,80px)}
-  .work__grid{max-width:1760px;padding:0 clamp(40px,4.5vw,80px);column-count:3;column-gap:clamp(22px,1.7vw,30px)}
+  .work__grid{max-width:1760px;padding:0 clamp(40px,4.5vw,80px);grid-template-columns:repeat(4,1fr);gap:clamp(20px,1.7vw,30px)}
   .work__name{font-size:clamp(20px,1.5vw,27px)}
 }
-@media (max-width:560px){ .work__grid{column-count:1} }
+@media (max-width:560px){ .work__grid{grid-template-columns:1fr} }
 .work__item{
   position:relative;display:block;overflow:hidden;border-radius:0;
-  width:100%;margin:0 0 clamp(16px,1.7vw,30px);padding:0;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;
-  /* Dark card fill so any sub-pixel edge gap under the media stays invisible
-     (was showing as a thin light sliver on the right of tiles). */
+  width:100%;margin:0;padding:0;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;
   background:#111;
-  break-inside:avoid;-webkit-column-break-inside:avoid;
-  /* Fade only — a translate transform on a CSS-column child paints a sliver in
-     the adjacent gutter, which looked like stray pixels on the sides. */
+  aspect-ratio:1/1;                 /* default cell = square */
   opacity:0;
   transition:opacity 1s var(--ease-soft);
 }
-/* aspect ratios drive the staggered heights */
-.work__item--wide{aspect-ratio:16/9}
-.work__item--tall{aspect-ratio:3/4}
+/* Wide tile spans two columns and becomes one long horizontal frame that
+   occupies the area of two squares (roughly 2:1, matching a square-cell row). */
+.work__item--wide{grid-column:span 2;aspect-ratio:2/1}
 .work__item--square{aspect-ratio:1/1}
+/* On a single-column phone layout everything is a normal 16:9 tile. */
+@media (max-width:560px){
+  .work__item{aspect-ratio:16/9}
+  .work__item--wide{grid-column:auto;aspect-ratio:16/9}
+}
 .work__item.in{opacity:1;transform:none}
 /* Media is inflated ~1px beyond the box on every side so object-fit rounding
    never leaves a hairline of background at an edge. */

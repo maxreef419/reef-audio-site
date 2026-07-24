@@ -1,31 +1,31 @@
 // ===== DATA =====
-// ratio: aspect for the masonry tile — 'wide' (16:9) or 'square' (1:1).
-// Like field.io: mostly horizontal tiles, a few squares for a gentle stagger,
-// no portrait/vertical formats. Squares are spread across columns so the
-// three columns offset subtly rather than lining up.
+// ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
+// cells, one long horizontal frame). Mostly squares; wide tiles are dropped in
+// at varied spots so a horizontal role merges two squares here and there,
+// giving an editorial, non-uniform rhythm (not a flat row of identical tiles).
 const WORK = [
-  {name:"California Realtors | Dear California Dream", img:"assets/work/v-849692144.jpg", vimeo:"849692144", ratio:"wide"},
+  {name:"California Realtors | Dear California Dream", img:"assets/work/v-849692144.jpg", vimeo:"849692144", ratio:"square"},
   {name:"Adrenaline Gold | Baroque Bang", img:"assets/work/v-468648611.jpg", vimeo:"468648611", ratio:"square"},
   {name:"Haval H3 | A Brighter Life", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
-  {name:"St Regis | Wonder", img:"assets/work/v-394209969.jpg", vimeo:"394209969", ratio:"wide"},
-  {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"wide"},
+  {name:"St Regis | Wonder", img:"assets/work/v-394209969.jpg", vimeo:"394209969", ratio:"square"},
+  {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
   {name:"Whole Foods | Food For Our Future", img:"assets/work/v-554243009.jpg", vimeo:"554243009", ratio:"square"},
   {name:"Yango Maps | A Perfect Way", img:"assets/work/v-882659457.jpg", vimeo:"882659457", ratio:"wide"},
-  {name:"Toyota | The Boxer", img:"assets/work/v-215650034.jpg", vimeo:"215650034", ratio:"wide"},
-  {name:"InDrive | People Driven", img:"assets/work/v-848738556.jpg", vimeo:"848738556", ratio:"wide"},
+  {name:"Toyota | The Boxer", img:"assets/work/v-215650034.jpg", vimeo:"215650034", ratio:"square"},
+  {name:"InDrive | People Driven", img:"assets/work/v-848738556.jpg", vimeo:"848738556", ratio:"square"},
   {name:"Asian Games | Colors", img:"assets/work/v-264404893.jpg", vimeo:"264404893", ratio:"square"},
   {name:"Sber Investment", img:"assets/work/v-1158151394.jpg", vimeo:"1158151394", ratio:"wide"},
-  {name:"Ostrovok!", img:"assets/work/v-1079291027.jpg", vimeo:"1079291027", ratio:"wide"},
-  {name:"HBO | Westworld — Car Chase Scene [S03E05]", img:"assets/work/v-425890146.jpg", vimeo:"425890146", ratio:"wide"},
+  {name:"Ostrovok!", img:"assets/work/v-1079291027.jpg", vimeo:"1079291027", ratio:"square"},
+  {name:"HBO | Westworld — Car Chase Scene [S03E05]", img:"assets/work/v-425890146.jpg", vimeo:"425890146", ratio:"square"},
   {name:"TBank Premium", img:"assets/work/v-1055504210.jpg", vimeo:"1055504210", ratio:"square"},
   {name:"Yandex Split", img:"assets/work/v-910327781.jpg", vimeo:"910327781", ratio:"wide"},
-  {name:"McDonald's | Alpine Taste", img:"assets/work/v-652793889.jpg", vimeo:"652793889", ratio:"wide"},
-  {name:"Haval | Intellectual Freedom", img:"assets/work/v-453637501.jpg", vimeo:"453637501", ratio:"wide"},
+  {name:"McDonald's | Alpine Taste", img:"assets/work/v-652793889.jpg", vimeo:"652793889", ratio:"square"},
+  {name:"Haval | Intellectual Freedom", img:"assets/work/v-453637501.jpg", vimeo:"453637501", ratio:"square"},
   {name:"Danone | Simply Good", img:"assets/work/v-380886455.jpg", vimeo:"380886455", ratio:"square"},
   {name:"KIA | The Flow", img:"assets/work/v-690914061.jpg", vimeo:"690914061", ratio:"wide"},
-  {name:"Academy Sports | Further", img:"assets/work/v-568883704.jpg", vimeo:"568883704", ratio:"wide"},
-  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"wide"},
-  {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"square"}
+  {name:"Academy Sports | Further", img:"assets/work/v-568883704.jpg", vimeo:"568883704", ratio:"square"},
+  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"square"},
+  {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"}
 ];
 
 const CLIENTS = ["Google","Coca-Cola","Toyota","IKEA","Visa","McDonald's","Samsung","Red Bull","Volkswagen","Danone","Yandex","Burger King","KIA","Lay's","KFC","Novartis","HBO","Kaspersky","BBDO","TBWA","Publicis","McCann","Leo Burnett","Saatchi & Saatchi","Grey","Dentsu","Havas"];
