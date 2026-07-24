@@ -240,9 +240,9 @@ body.lb-open{overflow:hidden}
      grid above (same max-width and side padding). */
   .about__body{max-width:1760px;padding:0 clamp(40px,4.5vw,80px);display:block}
   .about .eyebrow{margin-top:0}
-  .about__top{margin-bottom:clamp(80px,9vw,150px)}
+  .about__top{margin-bottom:0}
   .about__lead{font-size:clamp(48px,5vw,78px);line-height:1;letter-spacing:-.025em;margin:22px 0 0;max-width:none}
-  .about__cols{margin-left:auto;width:66%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,2.4vw,44px);align-items:start}
+  .about__cols{margin:clamp(64px,7vw,110px) auto 0;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(24px,2.4vw,44px);align-items:start}
   .about__col p{max-width:none;margin:0;font-size:clamp(14px,0.98vw,15.5px);line-height:1.55}
 }
 .about__col{padding-top:clamp(16px,1.4vw,22px);border-top:1px solid var(--line-2)}
