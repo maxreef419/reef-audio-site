@@ -166,7 +166,7 @@ body.menu-open .menu__meta{opacity:1}
 /* CSS multi-column masonry: columns pack independently so tiles of different
    heights stagger vertically, exactly like field.io. */
 .work__grid{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,46px);
-  column-count:2;column-gap:clamp(16px,1.7vw,26px)}
+  column-count:2;column-gap:clamp(16px,1.7vw,26px);overflow:hidden}
 @media (min-width:901px){
   .work__head{max-width:1760px;padding:0 clamp(40px,4.5vw,80px)}
   .work__grid{max-width:1760px;padding:0 clamp(40px,4.5vw,80px);column-count:3;column-gap:clamp(22px,1.7vw,30px)}
@@ -177,8 +177,10 @@ body.menu-open .menu__meta{opacity:1}
   position:relative;display:block;overflow:hidden;border-radius:0;
   width:100%;margin:0 0 clamp(16px,1.7vw,30px);padding:0;border:0;background:none;text-align:left;cursor:pointer;color:inherit;font:inherit;
   break-inside:avoid;-webkit-column-break-inside:avoid;
-  opacity:0;transform:translateY(30px);
-  transition:opacity 1s var(--ease-soft),transform 1s var(--ease-soft);
+  /* Fade only — a translate transform on a CSS-column child paints a sliver in
+     the adjacent gutter, which looked like stray pixels on the sides. */
+  opacity:0;
+  transition:opacity 1s var(--ease-soft);
 }
 /* aspect ratios drive the staggered heights */
 .work__item--wide{aspect-ratio:16/9}

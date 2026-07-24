@@ -46,7 +46,8 @@ if(document.fonts && document.fonts.ready){
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
 const workMore = document.getElementById('workMore');
-const BATCH = 6;
+const FIRST_BATCH = 12;   // show a fuller grid up front
+const BATCH = 12;         // one "View more" loads the rest
 let shown = 0;
 
 function workCard(w){
