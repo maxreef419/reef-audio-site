@@ -295,8 +295,8 @@ if(contactSec) secIO.observe(contactSec);
 (function(){
   const v = document.getElementById('heroVideo');
   if(!v) return;
-  // respect reduced-motion: keep static poster
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  // hero loop plays for everyone (same as the work previews); no reduce-motion
+  // gate — it's a muted ambient background the user wants running.
   v.muted = true; v.setAttribute('muted','');
   function reveal(){ v.classList.add('is-playing'); }
   // reveal as soon as the first frame is actually rendering
@@ -314,8 +314,10 @@ if(contactSec) secIO.observe(contactSec);
 })();
 
 // ===== HERO PARALLAX (subtle depth — background trails a fraction of scroll) =====
+// Runs regardless of reduce-motion: it's a gentle, non-flashing depth cue the
+// user explicitly wants. (The reduce-motion guard used to disable it, which is
+// why it looked broken for anyone with "Reduce motion" enabled.)
 (function(){
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const heroLayer = document.getElementById('heroParallax');
   if(!heroLayer) return;
   const FACTOR = 0.15; // subtle depth — understated
