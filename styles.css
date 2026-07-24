@@ -175,10 +175,11 @@ body.menu-open .menu__meta{opacity:1}
 /* Wide tile spans two columns; height stays the single row height so it reads as
    one long horizontal frame flush with the squares around it. */
 .work__item--wide{grid-column:span 2}
-/* On a single-column phone layout everything is a normal 16:9 tile. */
+/* On a single-column phone layout every tile is square (1:1), including the
+   'wide' ones — no 16:9 on mobile. */
 @media (max-width:560px){
-  .work__item{aspect-ratio:16/9;height:auto}
-  .work__item--wide{grid-column:auto}
+  .work__item{aspect-ratio:1/1;height:auto}
+  .work__item--wide{grid-column:auto;aspect-ratio:1/1}
 }
 .work__item.in{opacity:1;transform:none}
 /* Media is over-scanned ~2px beyond the box on every side. Fractional tile
