@@ -313,4 +313,22 @@ if(contactSec) secIO.observe(contactSec);
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
 })();
 
-// ===== HERO PARALLAX removed — background stays fixed, no scroll motion =====
+// ===== HERO PARALLAX (subtle depth — background trails a fraction of scroll) =====
+(function(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const heroLayer = document.getElementById('heroParallax');
+  if(!heroLayer) return;
+  const FACTOR = 0.15; // subtle depth — understated
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const y = window.scrollY || window.pageYOffset;
+    if(y < window.innerHeight){
+      heroLayer.style.transform = 'translate3d(0,' + (y * FACTOR).toFixed(1) + 'px,0)';
+    }
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ window.requestAnimationFrame(update); ticking = true; }
+  }, {passive:true});
+  update();
+})();
