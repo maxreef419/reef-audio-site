@@ -290,10 +290,10 @@ body.lb-open{overflow:hidden}
 }
 .service__plus{
   font-family:var(--font-display);font-weight:500;
-  font-size:clamp(24px,3.2vw,42px);line-height:1;color:var(--cyan);
+  font-size:clamp(20px,1.8vw,28px);line-height:1;color:var(--cyan);
   flex:none;transition:transform .4s var(--ease),color .35s var(--ease);
 }
-.service__title{font-family:var(--font-display);font-weight:700;font-size:clamp(25px,3.4vw,40px);letter-spacing:-.02em;line-height:1.1;color:#f4f6f6;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:#f4f6f6;transition:-webkit-text-fill-color .35s var(--ease)}
+.service__title{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,1.9vw,30px);letter-spacing:-.015em;line-height:1.1;color:#f4f6f6;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:#f4f6f6;transition:-webkit-text-fill-color .35s var(--ease)}
 .service__head[aria-expanded="true"] .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}
 @media (hover:hover){.service__head:hover .service__title{-webkit-text-fill-color:rgba(244,246,246,0)}}
 .service__head[aria-expanded="true"] .service__plus{transform:rotate(45deg)}
