@@ -78,7 +78,11 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
-// ===== HOVER PREVIEW LOOPS (play only on interaction) =====
+// ===== AUTOPLAY PREVIEW LOOPS (play inline whenever a card is on screen) =====
+// Inspired by field.io: preview videos start looping as soon as the card scrolls
+// into view, with no hover needed. They pause when the card leaves the viewport
+// to keep bandwidth/CPU in check.
+var observePreviews = function(){};
 (function(){
   if(!grid) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -96,32 +100,42 @@ if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.current
     const v = item.querySelector('.work__video');
     if(!v) return;
     item.classList.remove('is-previewing');
-    try{ v.pause(); v.currentTime = 0; }catch(e){}
+    try{ v.pause(); }catch(e){}
   }
 
-  // DESKTOP: play on hover, stop on leave
-  grid.addEventListener('mouseenter', (e)=>{
-    const item = e.target.closest && e.target.closest('.work__item');
-    if(item) loadAndPlay(item);
-  }, true);
-  grid.addEventListener('mouseleave', (e)=>{
-    const item = e.target.closest && e.target.closest('.work__item');
-    if(item) stop(item);
-  }, true);
+  // Autoplay when visible, pause when not. A slightly generous threshold means the
+  // clip is already running by the time the card is comfortably in frame.
+  const previewIO = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      const item = en.target;
+      if(en.isIntersecting && en.intersectionRatio > 0.35){ loadAndPlay(item); }
+      else { stop(item); }
+    });
+  }, {threshold:[0, 0.35, 0.6], rootMargin:'0px 0px -8% 0px'});
 
-  // TOUCH: tap a card to start its preview immediately; tap a different card to switch
-  let touchCurrent = null;
-  grid.addEventListener('touchstart', (e)=>{
-    const item = e.target.closest && e.target.closest('.work__item');
-    if(!item) return;
-    if(touchCurrent && touchCurrent !== item) stop(touchCurrent);
-    touchCurrent = item;
-    loadAndPlay(item);
-  }, {passive:true});
-  // expose for lightbox: which card is currently previewing on touch
-  window.__workTouchCurrent = ()=> touchCurrent;
+  observePreviews = function(){
+    grid.querySelectorAll('.work__item').forEach(el=>{
+      if(el.dataset.prevObserved === '1') return;
+      el.dataset.prevObserved = '1';
+      previewIO.observe(el);
+    });
+  };
+  observePreviews();
+
+  // Pause everything while the tab is hidden; resume the visible ones on return.
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){
+      grid.querySelectorAll('.work__item.is-previewing .work__video').forEach(v=>{ try{v.pause();}catch(e){} });
+    } else {
+      grid.querySelectorAll('.work__item.is-previewing .work__video').forEach(v=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); });
+    }
+  });
+
+  // touch lightbox helper no longer gates on preview state
+  window.__workTouchCurrent = ()=> null;
 })();
-function observePreviews(){}
+// Observe any cards that were rendered before the autoplay observer was ready.
+observePreviews();
 
 // ===== VIDEO LIGHTBOX =====
 (function(){
@@ -153,23 +167,12 @@ function observePreviews(){}
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  // Previews already autoplay inline everywhere, so a single click/tap opens the
+  // full video on every device.
   grid.addEventListener('click', (e)=>{
     const item = e.target.closest('.work__item');
     if(!item) return;
     e.preventDefault();
-    if(isTouch){
-      // On touch: first tap starts the inline preview.
-      // A second tap on the SAME card opens the full video.
-      const cur = window.__workTouchCurrent && window.__workTouchCurrent();
-      if(item.dataset.tapped !== '1' || cur !== item){
-        // first tap on this card -> just keep the preview playing
-        grid.querySelectorAll('.work__item[data-tapped]').forEach(el=>{ if(el!==item) delete el.dataset.tapped; });
-        item.dataset.tapped = '1';
-        return;
-      }
-      delete item.dataset.tapped;
-    }
     open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'));
   });
   closeBtn.addEventListener('click', close);
