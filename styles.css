@@ -168,7 +168,7 @@ body.menu-open .menu__meta{opacity:1}
 }
 @media (max-width:560px){ .work__grid{grid-template-columns:1fr;grid-auto-rows:auto} }
 .work__item{
-  position:relative;display:block;overflow:hidden;border-radius:0;
+  position:relative;display:block;overflow:hidden;border-radius:14px;
   width:100%;height:100%;margin:0;padding:0;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;
   background:#111;
   opacity:0;
@@ -180,7 +180,7 @@ body.menu-open .menu__meta{opacity:1}
 /* On a single-column phone layout every tile is square (1:1), including the
    'wide' ones — no 16:9 on mobile. */
 @media (max-width:560px){
-  .work__item{aspect-ratio:1/1;height:auto}
+  .work__item{aspect-ratio:1/1;height:auto;border-radius:12px}
   .work__item--wide{grid-column:auto;aspect-ratio:1/1}
 }
 .work__item.in{opacity:1;transform:none}
