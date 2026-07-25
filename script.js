@@ -319,46 +319,4 @@ if(contactSec) secIO.observe(contactSec);
   });
 })();
 
-// ===== HERO VIDEO BACKGROUND =====
-(function(){
-  const v = document.getElementById('heroVideo');
-  if(!v) return;
-  // hero loop plays for everyone (same as the work previews); no reduce-motion
-  // gate — it's a muted ambient background the user wants running.
-  v.muted = true; v.setAttribute('muted','');
-  function reveal(){ v.classList.add('is-playing'); }
-  // reveal as soon as the first frame is actually rendering
-  v.addEventListener('playing', reveal, {once:true});
-  v.addEventListener('timeupdate', function once(){ if(v.currentTime>0){ reveal(); v.removeEventListener('timeupdate', once); } });
-  function tryPlay(){
-    const p = v.play();
-    if(p && p.catch){ p.catch(()=>{ /* autoplay blocked; poster stays */ }); }
-    if(!v.paused && v.currentTime>0) reveal();
-  }
-  if(v.readyState >= 2){ tryPlay(); }
-  else { v.addEventListener('loadeddata', tryPlay, {once:true}); v.addEventListener('canplay', tryPlay, {once:true}); }
-  // resume if tab/scroll pauses it
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && v.paused) tryPlay(); });
-})();
-
-// ===== HERO PARALLAX (subtle depth — background trails a fraction of scroll) =====
-// Runs regardless of reduce-motion: it's a gentle, non-flashing depth cue the
-// user explicitly wants. (The reduce-motion guard used to disable it, which is
-// why it looked broken for anyone with "Reduce motion" enabled.)
-(function(){
-  const heroLayer = document.getElementById('heroParallax');
-  if(!heroLayer) return;
-  const FACTOR = 0.15; // subtle depth — understated
-  let ticking = false;
-  function update(){
-    ticking = false;
-    const y = window.scrollY || window.pageYOffset;
-    if(y < window.innerHeight){
-      heroLayer.style.transform = 'translate3d(0,' + (y * FACTOR).toFixed(1) + 'px,0)';
-    }
-  }
-  window.addEventListener('scroll', function(){
-    if(!ticking){ window.requestAnimationFrame(update); ticking = true; }
-  }, {passive:true});
-  update();
-})();
+// Hero is now a fixed background image (no video, no parallax) — nothing to run here.
