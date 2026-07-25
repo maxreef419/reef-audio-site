@@ -28,7 +28,14 @@ const WORK = [
   {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"}
 ];
 
-const CLIENTS = ["Google","Coca-Cola","Toyota","IKEA","Visa","McDonald's","Samsung","Red Bull","Volkswagen","Danone","Yandex","Burger King","KIA","Lay's","KFC","Novartis","HBO","Kaspersky","BBDO","TBWA","Publicis","McCann","Leo Burnett","Saatchi & Saatchi","Grey","Dentsu","Havas"];
+const CLIENTS = [
+  {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"Toyota",f:"toyota"},{n:"IKEA",f:"ikea"},
+  {n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},{n:"Red Bull",f:"redbull"},{n:"Volkswagen",f:"volkswagen"},
+  {n:"Danone",f:"danone"},{n:"Yandex",f:"yandex"},{n:"Burger King",f:"burgerking"},{n:"KIA",f:"kia"},
+  {n:"Lay's",f:"lays"},{n:"HBO",f:"hbo"},{n:"Kaspersky",f:"kaspersky"},{n:"BBDO",f:"bbdo"},
+  {n:"TBWA",f:"tbwa"},{n:"Publicis",f:"publicis"},{n:"McCann",f:"mccann"},{n:"Leo Burnett",f:"leoburnett"},
+  {n:"Saatchi & Saatchi",f:"saatchi"},{n:"Grey",f:"grey"},{n:"Dentsu",f:"dentsu"},{n:"Havas",f:"havas"}
+];
 
 // ===== HERO ENTRANCE =====
 function startHero(){
@@ -208,9 +215,14 @@ observePreviews();
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) close(); });
 })();
 
-// ===== CLIENTS GRID =====
-const clientList = document.getElementById('clientList');
-if(clientList){ clientList.innerHTML = CLIENTS.map(c=>`<li>${c}</li>`).join(''); }
+// ===== CLIENTS MARQUEE =====
+const clientTrack = document.getElementById('clientTrack');
+if(clientTrack){
+  const item = c => `<div class="marquee__item"><img src="assets/clients/${c.f}.png" alt="${c.n}" loading="eager" decoding="async" draggable="false"></div>`;
+  const seq = CLIENTS.map(item).join('');
+  // duplicate the sequence twice for a seamless -50% loop
+  clientTrack.innerHTML = seq + seq;
+}
 
 // ===== YEAR =====
 document.getElementById('year').textContent = new Date().getFullYear();
