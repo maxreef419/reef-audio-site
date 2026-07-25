@@ -343,7 +343,10 @@ body.lb-open{overflow:hidden}
 .marquee__track.is-ready{
   animation:marquee-rtl 60s linear infinite;
 }
-.marquee:hover .marquee__track.is-ready{animation-play-state:paused}
+/* pause on hover only for real pointer devices; on touch the carousel never stops */
+@media (hover:hover) and (pointer:fine){
+  .marquee:hover .marquee__track.is-ready{animation-play-state:paused}
+}
 .marquee__item{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
   padding:0 clamp(26px,3.4vw,58px);
