@@ -328,16 +328,21 @@ body.lb-open{overflow:hidden}
 }
 .marquee__track{
   display:flex;width:max-content;
-  animation:marquee-rtl 60s linear infinite;
+  transform:translateX(0);
   will-change:transform;
 }
-.marquee:hover .marquee__track{animation-play-state:paused}
+/* animate only once all logos are loaded (added via JS) */
+.marquee__track.is-ready{
+  animation:marquee-rtl 60s linear infinite;
+}
+.marquee:hover .marquee__track.is-ready{animation-play-state:paused}
 .marquee__item{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
   padding:0 clamp(26px,3.4vw,58px);
 }
 .marquee__item img{
   height:clamp(26px,2.6vw,38px);width:auto;display:block;
+  min-width:40px;
   opacity:.62;filter:none;
   transition:opacity .35s var(--ease);
   -webkit-user-drag:none;user-select:none;

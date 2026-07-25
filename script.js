@@ -218,10 +218,26 @@ observePreviews();
 // ===== CLIENTS MARQUEE =====
 const clientTrack = document.getElementById('clientTrack');
 if(clientTrack){
-  const item = c => `<div class="marquee__item"><img src="assets/clients/${c.f}.png" alt="${c.n}" loading="eager" decoding="async" draggable="false"></div>`;
+  const item = c => `<div class="marquee__item"><img src="assets/clients/${c.f}.png" alt="${c.n}" decoding="async" draggable="false"></div>`;
   const seq = CLIENTS.map(item).join('');
   // duplicate the sequence twice for a seamless -50% loop
   clientTrack.innerHTML = seq + seq;
+
+  // Start the scroll only after every logo has fully loaded, so the track
+  // width is final and nothing appears to "disappear" or crawl on first view.
+  const imgs = Array.from(clientTrack.querySelectorAll('img'));
+  let done = 0;
+  const start = () => clientTrack.classList.add('is-ready');
+  const tick = () => { if(++done >= imgs.length) start(); };
+  imgs.forEach(img => {
+    if(img.complete && img.naturalWidth){ tick(); }
+    else {
+      img.addEventListener('load', tick, {once:true});
+      img.addEventListener('error', tick, {once:true});
+    }
+  });
+  // Safety net: never leave it stalled if a request hangs.
+  setTimeout(start, 3000);
 }
 
 // ===== YEAR =====
