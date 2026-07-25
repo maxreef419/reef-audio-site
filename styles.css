@@ -145,6 +145,17 @@ body.menu-open .menu__meta{opacity:1}
   linear-gradient(180deg,rgba(10,12,13,.55),transparent 30%,rgba(10,12,13,.55));
 }
 
+/* ===== MOBILE / TOUCH: disable background-attachment:fixed =====
+   iOS Safari does not support fixed backgrounds and instead stretches the
+   image over the full document height, which makes it look blurry and cropped.
+   On touch devices we pin each photo to its own section at screen size so it
+   stays sharp. (Desktop keeps the fixed-background effect.) */
+@media (hover:none) and (pointer:coarse){
+  .hero__media{background-attachment:scroll;background-size:cover;background-position:center center}
+  .about__bg{background-attachment:scroll,scroll;background-size:cover,cover;background-position:center,center}
+  .contact__wall{background-attachment:scroll,scroll,scroll,scroll;background-size:cover,cover,cover,cover;background-position:center,center,center,center}
+}
+
 
 
 /* ===== WORK (3-col grid, all tiles one uniform row height) ===== */
