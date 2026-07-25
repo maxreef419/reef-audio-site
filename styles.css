@@ -280,7 +280,15 @@ body.lb-open{overflow:hidden}
   background:linear-gradient(180deg,rgba(12,16,18,.55),transparent 26%,transparent 72%,rgba(10,12,13,.85));}
 
 /* ===== CAPABILITIES (frameless, airy) ===== */
-.services{padding:clamp(100px,15vw,200px) 0 clamp(40px,6vw,70px);max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.services{position:relative;padding:clamp(100px,15vw,200px) 0 clamp(40px,6vw,70px);max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.services__bg{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);z-index:0;overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(20,20,20,.92),rgba(20,20,20,.78) 30%,rgba(20,20,20,.8) 70%,rgba(20,20,20,.95)),
+    url('assets/hero-about.jpg') center/cover no-repeat;
+}
+.services__head,.services__list{position:relative;z-index:2}
+.services .eyebrow{text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.services .service__title,.services .service__desc{text-shadow:0 1px 10px rgba(0,0,0,.55)}
 .services__head{margin-bottom:clamp(36px,5vw,60px);padding:0}
 .services__list{display:grid;grid-template-columns:1fr;gap:0;padding:0}
 .service{position:relative;border-top:1px solid var(--line-2)}
