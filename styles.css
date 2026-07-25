@@ -342,7 +342,6 @@ body.lb-open{overflow:hidden}
 }
 .marquee__item img{
   height:clamp(26px,2.6vw,38px);width:auto;display:block;
-  min-width:40px;
   opacity:.62;filter:none;
   transition:opacity .35s var(--ease);
   -webkit-user-drag:none;user-select:none;
