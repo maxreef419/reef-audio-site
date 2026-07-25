@@ -40,7 +40,7 @@ if(document.fonts && document.fonts.ready){
   let started = false;
   const go = ()=>{ if(started) return; started = true; startHero(); };
   document.fonts.ready.then(go);
-  setTimeout(go, 1200); // safety fallback if fonts stall
+  setTimeout(go, 700); // safety fallback if fonts stall
 }else{
   startHero();
 }
