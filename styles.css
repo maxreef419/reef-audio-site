@@ -494,6 +494,9 @@ body.lb-open{overflow:hidden}
    under the section head at close to its native pixel density, then fades into
    flat dark for the rest of the section. */
 @media (max-width:900px){
+  /* Hero: dedicated portrait crop rendered at phone pixel size, so the browser
+     paints it 1:1 instead of stretching the wide frame ~1.5x. */
+  .hero__media{background-image:url('assets/hero-home-mobile.jpg')}
   .about__bg{
     background-attachment:scroll,scroll;
     background-size:auto,auto 560px;
