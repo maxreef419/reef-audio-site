@@ -327,7 +327,9 @@ body.lb-open{overflow:hidden}
 /* ===== CLIENTS ===== */
 .clients{background:var(--bg-3);padding:clamp(56px,8vw,96px) 0 clamp(90px,12vw,150px)}
 .clients__inner{max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
-.clients__head{margin-bottom:clamp(32px,4vw,54px)}
+.clients__head{margin-bottom:clamp(58px,9vw,86px)}
+/* breathing room around the logo row itself */
+.marquee{padding:clamp(6px,1.4vw,14px) 0}
 /* ---- marquee ---- */
 .marquee{
   position:relative;width:100%;overflow:hidden;
@@ -447,7 +449,7 @@ body.lb-open{overflow:hidden}
   .work{padding-top:70px;padding-bottom:60px}
   .about{padding-top:60px;padding-bottom:60px}
   .services{padding-top:60px;padding-bottom:40px}
-  .clients{padding-top:40px;padding-bottom:70px}
+  .clients{padding-top:56px;padding-bottom:96px}
   .contact{padding-top:70px;padding-bottom:120px}
 }
 /* ===== RESPONSIVE ===== */
@@ -461,7 +463,7 @@ body.lb-open{overflow:hidden}
   .work{padding-top:64px;padding-bottom:56px}
   .about{padding-top:56px;padding-bottom:56px}
   .services{padding-top:56px;padding-bottom:36px}
-  .clients{padding-top:36px;padding-bottom:60px}
+  .clients{padding-top:52px;padding-bottom:88px}
   .contact{padding-top:60px;padding-bottom:60px}
 }
 @media (max-width:560px){
