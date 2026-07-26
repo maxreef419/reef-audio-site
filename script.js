@@ -319,4 +319,42 @@ if(contactSec) secIO.observe(contactSec);
   });
 })();
 
-// Hero is now a fixed background image (no video, no parallax) — nothing to run here.
+/* ===== GENTLE PARALLAX ON THE STATIC PHOTO LAYERS =====
+   Transform-based, so it behaves the same on desktop and on mobile Safari
+   (background-attachment:fixed is unreliable on iOS). Each layer is scaled a
+   hair so the small vertical shift never exposes an edge. */
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  const layers = [
+    { el: document.querySelector('.hero__media'),   amp: 60, scale: 1.08 },
+    { el: document.querySelector('.about__bg'),     amp: 46, scale: 1.08 },
+    // the contact band is short, so it needs a bit more headroom to move in
+    { el: document.querySelector('.contact__wall'), amp: 70, scale: 1.14 }
+  ].filter(l => l.el);
+  if (!layers.length) return;
+
+  layers.forEach(l => { l.el.style.transform = `translate3d(0,0,0) scale(${l.scale})`; });
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    for (const l of layers) {
+      const r = l.el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) continue;
+      // -0.5 when the layer sits below the fold, +0.5 once it has scrolled past
+      const p = Math.max(-0.5, Math.min(0.5, (vh / 2 - (r.top + r.height / 2)) / (vh + r.height)));
+      const cap = (r.height * (l.scale - 1)) / 2 - 6;
+      const y = Math.max(-cap, Math.min(cap, p * l.amp)).toFixed(2);
+      l.el.style.transform = `translate3d(0,${y}px,0) scale(${l.scale})`;
+    }
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('orientationchange', onScroll, { passive: true });
+  update();
+})();
