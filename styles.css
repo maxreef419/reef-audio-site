@@ -273,6 +273,7 @@ body.lb-open{overflow:hidden}
 .about__col-title{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,1.9vw,30px);line-height:1.1;letter-spacing:-.015em;color:var(--text);margin:0 0 clamp(14px,1.2vw,20px)}
 .about__col + .about__col{margin-top:44px}
 @media (min-width:901px){.about__col + .about__col{margin-top:0}}
+.nowrap{white-space:nowrap}
 .namelink{position:relative;color:var(--text);font-weight:600;white-space:nowrap;border-bottom:1px solid rgba(25,182,230,.5);transition:color .3s,border-color .3s}
 .namelink svg{display:inline-block;vertical-align:-1px;transition:transform .3s var(--ease)}
 .namelink:hover{color:var(--cyan)}
