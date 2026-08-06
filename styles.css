@@ -137,7 +137,7 @@ body.menu-open .menu__meta{opacity:1}
 .hero__media{
   position:absolute;inset:0;z-index:1;overflow:hidden;
   opacity:1;                 /* visible immediately — no fade-in */
-  background:url('assets/hero-home-v2.jpg') center center / cover no-repeat;
+  background:url('assets/hero-home-v3.jpg') center center / cover no-repeat;
   /* gentle transform parallax is applied in script.js (works on desktop and mobile) */
   background-attachment:scroll;
   will-change:transform;backface-visibility:hidden
