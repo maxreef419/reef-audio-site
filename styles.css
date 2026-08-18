@@ -118,7 +118,7 @@ body.menu-open .menu__meta{opacity:1}
 .hero__dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 16px rgba(25,182,230,.7)}
 .hero__title{
   font-family:var(--font-display);font-weight:800;
-  font-size:clamp(46px,7.6vw,108px);line-height:.9;letter-spacing:-.02em;
+  font-size:clamp(41px,6.85vw,97px);line-height:.9;letter-spacing:-.02em;
   display:flex;flex-direction:column;max-width:14ch;
 }
 .hero__title .w{display:block;color:var(--text)}
