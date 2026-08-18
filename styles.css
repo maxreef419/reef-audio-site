@@ -137,14 +137,14 @@ body.menu-open .menu__meta{opacity:1}
 .hero__media{
   position:absolute;inset:0;z-index:1;overflow:hidden;
   opacity:1;                 /* visible immediately — no fade-in */
-  background:url('assets/hero-home-v5.jpg') center center / cover no-repeat;
+  background:url('assets/hero-home-v4.jpg') center center / cover no-repeat;
   /* gentle transform parallax is applied in script.js (works on desktop and mobile) */
   background-attachment:scroll;
   will-change:transform;backface-visibility:hidden
 }
 .hero__media::after{content:"";position:absolute;inset:0;z-index:2;
-  background:linear-gradient(90deg,rgba(10,12,13,.82) 0%,rgba(10,12,13,.6) 30%,rgba(10,12,13,.16) 60%,rgba(10,12,13,.34) 100%),
-  linear-gradient(180deg,rgba(10,12,13,.34),transparent 26%,rgba(10,12,13,.4));
+  background:linear-gradient(90deg,rgba(10,12,13,.92) 0%,rgba(10,12,13,.78) 32%,rgba(10,12,13,.4) 62%,rgba(10,12,13,.62) 100%),
+  linear-gradient(180deg,rgba(10,12,13,.55),transparent 30%,rgba(10,12,13,.55));
 }
 
 /* ===== WORK (3-col grid, all tiles one uniform row height) ===== */
