@@ -118,22 +118,21 @@ body.menu-open .menu__meta{opacity:1}
 .hero__dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(25,182,230,.16),0 0 16px rgba(25,182,230,.7)}
 .hero__title{
   font-family:var(--font-display);font-weight:800;
-  font-size:clamp(41px,6.85vw,97px);line-height:.9;letter-spacing:-.02em;
-  display:flex;flex-direction:column;max-width:14ch;
+  font-size:clamp(41px,6.85vw,97px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase;
+  display:flex;flex-direction:column;max-width:15ch;
 }
 .hero__title .w{display:block;color:var(--text)}
 .hero__title .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.hero__since{font-family:var(--font-body);font-size:clamp(13px,1vw,15px);font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:clamp(20px,2.4vw,30px)}
+.hero__sub{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,3vw,40px);line-height:1.02;letter-spacing:-.01em;color:var(--text);margin-top:clamp(20px,2.4vw,32px);max-width:20ch}
+.hero__lead{font-family:var(--font-body);font-size:clamp(15px,1.15vw,18px);font-weight:400;line-height:1.55;letter-spacing:.01em;color:var(--muted);margin-top:clamp(26px,3vw,40px);max-width:52ch}
 /* Hide hero copy until fonts are ready (JS adds #hero.in on document.fonts.ready) so the first paint is already in the final font — no swap/jump. */
-.hero__eyebrow,.hero__title .w,.hero__since{opacity:0;transform:translateY(14px);will-change:opacity,transform}
-#hero.in .hero__eyebrow,#hero.in .hero__title .w,#hero.in .hero__since{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
-#hero.in .hero__since{transition-delay:.42s}
-#hero.in .hero__eyebrow{transition-delay:.02s}
-#hero.in .hero__title .w1{transition-delay:.08s}
-#hero.in .hero__title .w2{transition-delay:.15s}
-#hero.in .hero__title .w3{transition-delay:.22s}
-#hero.in .hero__title .w4{transition-delay:.29s}
-#hero.in .hero__title .w5{transition-delay:.36s}
+.hero__title .w,.hero__sub,.hero__lead{opacity:0;transform:translateY(14px);will-change:opacity,transform}
+#hero.in .hero__title .w,#hero.in .hero__sub,#hero.in .hero__lead{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+#hero.in .hero__title .w1{transition-delay:.06s}
+#hero.in .hero__title .w2{transition-delay:.13s}
+#hero.in .hero__title .w3{transition-delay:.20s}
+#hero.in .hero__sub{transition-delay:.30s}
+#hero.in .hero__lead{transition-delay:.42s}
 
 /* ===== HERO MEDIA (fixed full-screen background image) ===== */
 .hero__media{
@@ -360,13 +359,8 @@ body.lb-open{overflow:hidden}
 @media (max-width:600px){
   .marquee__item{padding:0 clamp(18px,5vw,30px)}
   .marquee__item img{height:24px}
-  .hero__eyebrow{display:block;font-size:12px;letter-spacing:.26em}
-  .hero__eyebrow-line{display:block;white-space:nowrap}
-  .hero__eyebrow-br{display:block;white-space:nowrap}
-  .hero__eyebrow-br::before{content:none}
-}
-@media (max-width:360px){
-  .hero__eyebrow{font-size:11px;letter-spacing:.22em}
+  .hero__sub-br{display:none}
+  .hero__lead{max-width:38ch}
 }
 
 /* ===== CONTACT ===== */
@@ -464,10 +458,7 @@ body.lb-open{overflow:hidden}
 }
 /* Landscape phones: hide scroll hint, respect notch safe-area on padded content */
 @media (max-height:560px) and (orientation:landscape){
-  .hero__eyebrow{display:block}
-  .hero__eyebrow-line{display:block}
-  .hero__eyebrow-br{display:block}
-  .hero__eyebrow-br::before{content:none}
+  .hero__lead{display:none}
 }
 @media (orientation:landscape) and (max-width:900px){
   .hero,.services__head,.services__list,.work__head,.work__grid,.about__body,.footer__inner,.footer__bottom{
@@ -477,7 +468,7 @@ body.lb-open{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important}
-  .hero__eyebrow,.hero__title .w,.hero__since,.reveal,.hero__media,.contact__title span,.work__item{opacity:1!important;transform:none!important;transition:none!important}
+  .hero__title .w,.hero__sub,.hero__lead,.reveal,.hero__media,.contact__title span,.work__item{opacity:1!important;transform:none!important;transition:none!important}
 }
 
 /* ===== MOBILE / TOUCH: disable background-attachment:fixed =====
