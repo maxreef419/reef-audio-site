@@ -123,9 +123,11 @@ body.menu-open .menu__meta{opacity:1}
 }
 .hero__title .w{display:block;color:var(--text)}
 .hero__title .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero__since{font-family:var(--font-body);font-size:clamp(13px,1vw,15px);font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:clamp(20px,2.4vw,30px)}
 /* Hide hero copy until fonts are ready (JS adds #hero.in on document.fonts.ready) so the first paint is already in the final font — no swap/jump. */
-.hero__eyebrow,.hero__title .w{opacity:0;transform:translateY(14px);will-change:opacity,transform}
-#hero.in .hero__eyebrow,#hero.in .hero__title .w{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.hero__eyebrow,.hero__title .w,.hero__since{opacity:0;transform:translateY(14px);will-change:opacity,transform}
+#hero.in .hero__eyebrow,#hero.in .hero__title .w,#hero.in .hero__since{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+#hero.in .hero__since{transition-delay:.42s}
 #hero.in .hero__eyebrow{transition-delay:.02s}
 #hero.in .hero__title .w1{transition-delay:.08s}
 #hero.in .hero__title .w2{transition-delay:.15s}
@@ -475,7 +477,7 @@ body.lb-open{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important}
-  .hero__eyebrow,.hero__title .w,.reveal,.hero__media,.contact__title span,.work__item{opacity:1!important;transform:none!important;transition:none!important}
+  .hero__eyebrow,.hero__title .w,.hero__since,.reveal,.hero__media,.contact__title span,.work__item{opacity:1!important;transform:none!important;transition:none!important}
 }
 
 /* ===== MOBILE / TOUCH: disable background-attachment:fixed =====
