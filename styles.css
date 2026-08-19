@@ -253,7 +253,7 @@ body.lb-open{overflow:hidden}
 .about__lead,.about__col-title,.about__body p{text-shadow:0 1px 10px rgba(0,0,0,.55)}
 .about__body{position:relative;z-index:2;max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;width:100%;padding:0 var(--gutter)}
 .about__lead{font-family:var(--font-display);font-weight:700;font-size:clamp(25px,3.4vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--text);margin:18px 0 34px}
-.about__lead .grad{color:var(--text)}
+.about__lead .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none}
 .about__lead .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none}
 .about__body p:not(.eyebrow){color:var(--muted);margin-bottom:18px;max-width:64ch;font-size:clamp(15px,1.25vw,16.5px);line-height:1.5;letter-spacing:-.011em}
 .about__body p:last-child{margin-bottom:0}
@@ -458,7 +458,7 @@ body.lb-open{overflow:hidden}
 }
 /* Landscape phones: hide scroll hint, respect notch safe-area on padded content */
 @media (max-height:560px) and (orientation:landscape){
-  .hero__lead{display:none}
+  .hero__lead{max-width:60ch}
 }
 @media (orientation:landscape) and (max-width:900px){
   .hero,.services__head,.services__list,.work__head,.work__grid,.about__body,.footer__inner,.footer__bottom{
