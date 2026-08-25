@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PEQJ1SDGX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8PEQJ1SDGX');
+</script>
 <title>REEF — reel for Яндекс</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/png" href="/yandex/assets/favicon-32.png">
@@ -313,6 +321,7 @@ document.querySelectorAll('.rv').forEach(el => revIo.observe(el));
 
   function open(vimeoId, name){
     if(!vimeoId) return;
+    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: 'yandex'}); }
     lastFocus = document.activeElement;
     titleEl.textContent = name || '';
     const src = `https://player.vimeo.com/video/${vimeoId}?app_id=122963&autoplay=1&byline=0&title=0&portrait=0&dnt=1&color=19b6e6`;

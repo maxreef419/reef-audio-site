@@ -183,6 +183,7 @@ observePreviews();
 
   function open(vimeoId, name){
     if(!vimeoId) return;
+    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: 'home'}); }
     lastFocus = document.activeElement;
     titleEl.textContent = name || '';
     const src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0&dnt=1`;
