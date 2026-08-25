@@ -95,7 +95,7 @@ a{color:inherit;text-decoration:none}
 .clip__frame::before{
   content:"";position:absolute;top:-2px;left:-2px;
   width:calc(100% + 4px);height:calc(100% + 4px);
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-size:cover;background-position:var(--poster-pos,center);background-repeat:no-repeat;
   background-color:#000;background-image:var(--poster);
   transform:scale(var(--poster-zoom,1));transform-origin:center;
   transition:transform .9s var(--ease),opacity .5s var(--ease);
@@ -253,7 +253,7 @@ body.lb-open{overflow:hidden}
 
 <script>
 const CLIPS = [
-  {id:"910327781", title:"Yandex Split", duration:20, ratio:"wide", poster:"https://i.vimeocdn.com/video/1794258113-f1593deddd793c9f0b5125fe2a7aabb67dcc074a834212c93a4ef24d58b8fb18-d_1280?region=us"},
+  {id:"910327781", title:"Yandex Split", duration:20, ratio:"wide", posterPos:"center 22%", poster:"https://i.vimeocdn.com/video/1794258113-f1593deddd793c9f0b5125fe2a7aabb67dcc074a834212c93a4ef24d58b8fb18-d_1280?region=us"},
   {id:"1211741208", title:"Fonbet", duration:77, poster:"https://i.vimeocdn.com/video/2182751118-3c7da5faf1594ff634f24ecd2879f984658fd6b30ba329644ce6c3787bca853b-d_1280?region=us"},
   {id:"1212357476", title:"Sber", duration:55, poster:"https://i.vimeocdn.com/video/2182762473-e635b1f5256e4112a127fda3e5c0fc9c455d4ef0a8bb90dfab9738c5ef73d6e9-d_1280?region=us"},
   {id:"468648611", title:"Adrenaline Gold", duration:29, poster:"https://i.vimeocdn.com/video/975900000-f12a877a09a29ca1daa6ca261c6a6da8ff2ecbc1e078b968286ae47bca7b320c-d_1280?region=us"},
@@ -285,6 +285,7 @@ CLIPS.forEach((c, i) => {
   el.setAttribute('aria-label', `Play ${c.title}`);
   el.style.setProperty('--poster', `url("${posterUrl(c)}")`);
   if(c.posterZoom) el.style.setProperty('--poster-zoom', c.posterZoom);
+  if(c.posterPos) el.style.setProperty('--poster-pos', c.posterPos);
   el.innerHTML = `
     <div class="clip__frame"></div>
     <div class="clip__overlay">
