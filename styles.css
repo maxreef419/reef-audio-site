@@ -361,7 +361,7 @@ body.lb-open{overflow:hidden}
 @media (max-width:600px){
   .marquee__item{padding:0 clamp(18px,5vw,30px)}
   .marquee__item img{height:24px}
-  .hero__sub-br{display:none}
+  .hero__sub-br{display:inline}
   /* Mobile title line breaks: BOUTIQUE / MUSIC & SOUND / STUDIO FOR BRANDS. */
   .hero__title{font-size:clamp(23px,7.15vw,41px);max-width:none}
   .hero__title .br-desk{display:none}
