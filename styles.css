@@ -82,17 +82,39 @@ body::after{
 .brand__logo{height:38px;width:auto;object-fit:contain}
 .brand--sm .brand__logo{height:32px}
 .nav__toggle{
-  width:46px;height:46px;border-radius:50%;border:1px solid var(--line);
-  background:rgba(255,255,255,.02);cursor:pointer;
+  width:46px;height:46px;border:0;border-radius:0;
+  background:transparent;cursor:pointer;
+  position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  transition:border-color .3s,background .3s,transform .3s var(--ease);
+  transition:transform .3s var(--ease);
 }
-.nav__toggle:hover{border-color:var(--cyan);transform:scale(1.05)}
+.nav__toggle:hover{transform:scale(1.05)}
 .nav__toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:transform .35s var(--ease),opacity .25s}
 .nav__toggle span:nth-child(3){width:11px}
 body.menu-open .nav__toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
 body.menu-open .nav__toggle span:nth-child(3){width:18px;transform:translateY(-7px) rotate(-45deg)}
+
+/* ===== MOBILE BURGER = inverted REEF equalizer mark ===== */
+/* Three symmetric vertical bars with the logo's stroke proportions (~13:26
+   width-to-pitch, rounded caps) and cyan→green gradient. "Inverted": rounded
+   caps sit at the BOTTOM, bars hang down like a mirrored equalizer. No circle.
+   Bars fall back to the default horizontal spans above 600px. */
+@media (max-width:600px){
+  .nav__toggle{width:34px;height:30px;gap:0;flex-direction:row;align-items:flex-start;justify-content:center}
+  /* hide the horizontal spans, draw vertical bars via pseudo + spans repurposed */
+  .nav__toggle span{position:absolute;top:0;width:5px;height:22px;border-radius:0 0 3px 3px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,height .35s var(--ease),border-radius .35s}
+  /* symmetric spacing: 3 bars, pitch ~10px, centered */
+  .nav__toggle span:nth-child(1){left:calc(50% - 12px)}
+  .nav__toggle span:nth-child(2){left:calc(50% - 2.5px);width:5px}
+  .nav__toggle span:nth-child(3){left:calc(50% + 7px);width:5px;height:22px}
+  .nav__toggle:hover span{filter:brightness(1.12)}
+  /* open state = clean X (single-color) built from the two outer bars */
+  body.menu-open .nav__toggle span{background:var(--text)}
+  body.menu-open .nav__toggle span:nth-child(1){left:50%;top:50%;width:22px;height:2px;border-radius:2px;transform:translate(-50%,-50%) rotate(45deg)}
+  body.menu-open .nav__toggle span:nth-child(2){opacity:0}
+  body.menu-open .nav__toggle span:nth-child(3){left:50%;top:50%;width:22px;height:2px;border-radius:2px;transform:translate(-50%,-50%) rotate(-45deg)}
+}
 
 /* ===== MENU OVERLAY ===== */
 .menu{
