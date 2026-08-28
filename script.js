@@ -309,6 +309,36 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
+// ===== STICKY-OVERLAP: Capabilities slides over the pinned Work section =====
+// Work is position:sticky (pinned at top:0). As Capabilities scrolls up over it we
+// raise --work-cover 0->1 on <html>, which darkens (.work__dim) and sinks (scale)
+// Work so it reads as a layer sliding on top. Progress = how far the top edge of
+// Capabilities has travelled from the bottom of the viewport up to the top.
+(function(){
+  const services = document.getElementById('services');
+  const workSec = document.getElementById('work');
+  if(!services || !workSec) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){ workSec.style.position='relative'; return; } // no pin/overlap when reduced
+  const root = document.documentElement;
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const vh = window.innerHeight;
+    const top = services.getBoundingClientRect().top;
+    // Start covering once Capabilities' top enters the lower ~85% of the viewport,
+    // finish (cover=1) when it reaches the top. Clamp 0..1.
+    const startAt = vh * 0.85;
+    let p = (startAt - top) / startAt;
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    root.style.setProperty('--work-cover', p.toFixed(3));
+  }
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  update();
+})();
+
 // ===== SECTION ENTRANCE (hero/contact word choreography) =====
 const secIO = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
