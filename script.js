@@ -3,7 +3,8 @@
 // on a device (cache), the panel stays visible instead of vanishing. Also a temporary
 // visible build badge to confirm on-device whether the newest script.js is running.
 document.documentElement.classList.add('js-ready');
-(function(){try{var b=document.createElement('div');b.textContent='build 12';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 13 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+window.__setBadge=function(t){var b=document.getElementById('__buildbadge');if(b)b.textContent=t;};
 
 // ===== DATA =====
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
@@ -325,10 +326,26 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   if(!services) return;
   const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
   if(!isTouch) return; // desktop keeps its own sticky overlap
-  const panelIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ services.classList.add('panel-in'); panelIO.unobserve(e.target); }});
-  },{threshold:0, rootMargin:'0px 0px -18% 0px'});
-  panelIO.observe(services);
+  var touchTxt = isTouch ? 'touch' : 'no-touch';
+  if(window.__setBadge) window.__setBadge('build 13 | '+touchTxt+' | panel:no');
+  // Primary: IntersectionObserver. Simpler margin (no % that iOS sometimes mishandles).
+  var fired = false;
+  function trigger(src){ if(fired) return; fired = true; services.classList.add('panel-in');
+    if(window.__setBadge) window.__setBadge('build 13 | '+touchTxt+' | panel:YES('+src+')'); }
+  try{
+    const panelIO = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ trigger('io'); panelIO.unobserve(e.target); }});
+    },{threshold:0, rootMargin:'0px 0px -120px 0px'});
+    panelIO.observe(services);
+  }catch(e){ if(window.__setBadge) window.__setBadge('build 13 | IO-error'); }
+  // Fallback: plain scroll check, in case IntersectionObserver misbehaves on this device.
+  function scrollCheck(){
+    if(fired) return;
+    const top = services.getBoundingClientRect().top;
+    if(top < window.innerHeight * 0.9){ trigger('scroll'); window.removeEventListener('scroll', scrollCheck); }
+  }
+  window.addEventListener('scroll', scrollCheck, {passive:true});
+  scrollCheck();
 })();
 
 // ===== STICKY-OVERLAP: Capabilities slides over the pinned Work section =====
