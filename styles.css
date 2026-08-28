@@ -694,12 +694,12 @@ body.lb-open{overflow:hidden}
     }
   /* Only HIDE the panel for the entrance if the script actually ran (.js-ready on <html>).
      If script.js fails to load on a device, the panel stays fully visible — never blank. */
-  html.js-ready .services{opacity:0;transform:translateY(64px)}
-  /* Drive the entrance with a @keyframes ANIMATION, not a transition. iOS Safari with
-     Reduce Motion strips CSS transitions (so .panel-in just snapped, no slide) but plays
-     keyframe animations — this makes the slide-up actually run on the users device. */
-  html.js-ready .services.panel-in{animation:panelUp .55s var(--ease-soft) forwards}
-  @keyframes panelUp{from{opacity:0;transform:translateY(64px)}to{opacity:1;transform:none}}
+  html.js-ready .services{opacity:0;transform:translateY(64px);will-change:transform,opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  /* Drive the entrance with a @keyframes ANIMATION, not a transition. Force a compositing
+     layer (backface-visibility/translateZ) so iOS Safari actually moves this large section
+     — plain transforms on a very tall block were not being repainted on the users device. */
+  html.js-ready .services.panel-in{animation:panelUp .6s var(--ease-soft) forwards}
+  @keyframes panelUp{from{opacity:0;transform:translate3d(0,64px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 
   /* eyebrow appears ~200ms after the panel starts moving */
   .services.panel-in .services__head .eyebrow{transition-delay:.2s}

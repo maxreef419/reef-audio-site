@@ -3,8 +3,12 @@
 // on a device (cache), the panel stays visible instead of vanishing. Also a temporary
 // visible build badge to confirm on-device whether the newest script.js is running.
 document.documentElement.classList.add('js-ready');
-(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 15 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 16 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
 window.__setBadge=function(t){var b=document.getElementById('__buildbadge');if(b)b.textContent=t;};
+// Diagnostic: the badge itself runs a simple looping slide animation. If the badge visibly
+// moves up/down on the device but the Capabilities panel does not, the problem is specific
+// to animating that large section (size/compositing), not animations in general.
+(function(){try{var st=document.createElement('style');st.textContent='@keyframes badgeMove{0%{transform:translateY(0)}50%{transform:translateY(-22px)}100%{transform:translateY(0)}} #__buildbadge{animation:badgeMove 1.4s ease-in-out infinite}';document.addEventListener('DOMContentLoaded',function(){document.head.appendChild(st)});}catch(e){}})();
 
 // ===== DATA =====
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
@@ -327,11 +331,11 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
   if(!isTouch) return; // desktop keeps its own sticky overlap
   var touchTxt = isTouch ? 'touch' : 'no-touch';
-  if(window.__setBadge) window.__setBadge('build 15 | '+touchTxt+' | panel:no');
+  if(window.__setBadge) window.__setBadge('build 16 | '+touchTxt+' | panel:no');
   // Primary: IntersectionObserver. Simpler margin (no % that iOS sometimes mishandles).
   var fired = false;
   function trigger(src){ if(fired) return; fired = true; services.classList.add('panel-in');
-    if(window.__setBadge) window.__setBadge('build 15 | '+touchTxt+' | panel:YES('+src+')');
+    if(window.__setBadge) window.__setBadge('build 16 | '+touchTxt+' | panel:YES('+src+')');
     // Long safety net only: if the animation somehow never runs, ensure the panel is
     // visible eventually. Long enough (2s) not to cut off the 0.55s slide.
     setTimeout(function(){ services.style.opacity='1'; services.style.transform='none'; }, 2000); }
