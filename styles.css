@@ -41,12 +41,16 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%}
+/* overflow-x:clip (NOT hidden) prevents horizontal scroll WITHOUT turning html/body into a
+   scroll container. overflow-x:hidden on body forced overflow-y:auto, which made body the
+   scroller and broke position:sticky on iOS Safari during momentum scroll. clip on html
+   keeps no-horizontal-scroll while leaving the viewport as the scroller so sticky works. */
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
 html.lenis{scroll-behavior:auto}
 body{
   background:var(--bg);color:var(--text);
   font-family:var(--font-body);font-size:14px;line-height:1.3;letter-spacing:0;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
