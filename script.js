@@ -3,7 +3,7 @@
 // on a device (cache), the panel stays visible instead of vanishing. Also a temporary
 // visible build badge to confirm on-device whether the newest script.js is running.
 document.documentElement.classList.add('js-ready');
-(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 13 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 15 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
 window.__setBadge=function(t){var b=document.getElementById('__buildbadge');if(b)b.textContent=t;};
 
 // ===== DATA =====
@@ -327,22 +327,24 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
   if(!isTouch) return; // desktop keeps its own sticky overlap
   var touchTxt = isTouch ? 'touch' : 'no-touch';
-  if(window.__setBadge) window.__setBadge('build 13 | '+touchTxt+' | panel:no');
+  if(window.__setBadge) window.__setBadge('build 15 | '+touchTxt+' | panel:no');
   // Primary: IntersectionObserver. Simpler margin (no % that iOS sometimes mishandles).
   var fired = false;
   function trigger(src){ if(fired) return; fired = true; services.classList.add('panel-in');
-    if(window.__setBadge) window.__setBadge('build 13 | '+touchTxt+' | panel:YES('+src+')'); }
-  try{
-    const panelIO = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ trigger('io'); panelIO.unobserve(e.target); }});
-    },{threshold:0, rootMargin:'0px 0px -120px 0px'});
-    panelIO.observe(services);
-  }catch(e){ if(window.__setBadge) window.__setBadge('build 13 | IO-error'); }
-  // Fallback: plain scroll check, in case IntersectionObserver misbehaves on this device.
+    if(window.__setBadge) window.__setBadge('build 15 | '+touchTxt+' | panel:YES('+src+')');
+    // Long safety net only: if the animation somehow never runs, ensure the panel is
+    // visible eventually. Long enough (2s) not to cut off the 0.55s slide.
+    setTimeout(function(){ services.style.opacity='1'; services.style.transform='none'; }, 2000); }
+  // Fire the slide EXACTLY as the panel's top edge rises into the viewport, so the motion
+  // is on-screen and visible. Earlier it fired ~120px early / while off-screen, so the
+  // 0.55s slide finished before you could see it — looked like "nothing moved".
   function scrollCheck(){
     if(fired) return;
     const top = services.getBoundingClientRect().top;
-    if(top < window.innerHeight * 0.9){ trigger('scroll'); window.removeEventListener('scroll', scrollCheck); }
+    const vh = window.innerHeight;
+    // start when the top edge is between just-below-the-fold and ~40% up the screen
+    if(top < vh && top > vh * 0.35){ trigger('scroll'); window.removeEventListener('scroll', scrollCheck); }
+    else if(top <= vh * 0.35){ trigger('scroll-late'); window.removeEventListener('scroll', scrollCheck); }
   }
   window.addEventListener('scroll', scrollCheck, {passive:true});
   scrollCheck();
