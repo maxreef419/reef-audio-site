@@ -309,6 +309,21 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
+// ===== MOBILE PANEL ENTRANCE: Capabilities slides up as a sheet over black Work =====
+// transform+opacity only (the one thing iOS Safari reliably animates). Fires ONCE when
+// the panel nears the viewport, a bit early (rootMargin) so it's already moving as the
+// user reaches the seam. CSS (.services.panel-in) does the slide + staggered children.
+(function(){
+  const services = document.getElementById('services');
+  if(!services) return;
+  const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
+  if(!isTouch) return; // desktop keeps its own sticky overlap
+  const panelIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ services.classList.add('panel-in'); panelIO.unobserve(e.target); }});
+  },{threshold:0, rootMargin:'0px 0px -18% 0px'});
+  panelIO.observe(services);
+})();
+
 // ===== STICKY-OVERLAP: Capabilities slides over the pinned Work section =====
 // Work is position:sticky (pinned at top:0). As Capabilities scrolls up over it we
 // raise --work-cover 0->1 on <html>, which darkens (.work__dim) and sinks (scale)
