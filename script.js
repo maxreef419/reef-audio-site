@@ -379,16 +379,18 @@ if(contactSec) secIO.observe(contactSec);
   const g = document.getElementById('workGrid');
   if (!g) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // Width-only gate: >560px gets the pin motion. Pointer/hover fitness is left to
-  // the CSS transition rule; phones are excluded by width. This avoids brittle
-  // headless hover:hover mismatches while keeping the effect off on small screens.
-  const gate = window.matchMedia('(min-width:561px)');
+  // Runs on every width now (phones too). Only reduced-motion turns it off.
+  const phone = window.matchMedia('(max-width:560px)');
 
-  const MAX_SCALE = 0.035;  // peak grow (=> scale 1.035) at centre; stays within grid gap
-  const MAX_LIFT  = 8;      // peak upward lift in px at centre
-  const PLATEAU   = 0.16;   // fraction of travel around centre that stays maxed
+  // Gentler settle on phones (single-column, finger scrolling) than on desktop.
+  function params(){
+    return phone.matches
+      ? { scale: 0.022, lift: 5, plateau: 0.14 }   // subtle on mobile
+      : { scale: 0.035, lift: 8, plateau: 0.16 };  // desktop/tablet
+  }
+  let P = params();
 
-  let ticking = false, on = gate.matches && !reduce.matches;
+  let ticking = false, on = !reduce.matches;
 
   function clear(){
     g.querySelectorAll('.work__item').forEach(el => {
@@ -415,21 +417,22 @@ if(contactSec) secIO.observe(contactSec);
       let d = Math.abs(c - mid) / (vh / 2 + r.height / 2);
       d = Math.min(1, d);
       // centre plateau: keep the peak for a band around dead-centre
-      let t = d <= PLATEAU ? 0 : (d - PLATEAU) / (1 - PLATEAU);
+      let t = d <= P.plateau ? 0 : (d - P.plateau) / (1 - P.plateau);
       // ease-out so the settle feels soft, not linear
       const eased = 1 - Math.pow(t, 1.6);      // 1 at centre -> 0 at edge
-      const s = (1 + MAX_SCALE * eased).toFixed(4);
-      const y = (-MAX_LIFT * eased).toFixed(2);
+      const s = (1 + P.scale * eased).toFixed(4);
+      const y = (-P.lift * eased).toFixed(2);
       el.style.transform = 'scale(' + s + ') translateY(' + y + 'px)';
     }
   }
   const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
 
   function setGate(){
-    on = gate.matches && !reduce.matches;
+    P = params();
+    on = !reduce.matches;
     if (!on) clear(); else onScroll();
   }
-  (gate.addEventListener ? gate.addEventListener('change', setGate) : gate.addListener(setGate));
+  (phone.addEventListener ? phone.addEventListener('change', setGate) : phone.addListener(setGate));
   (reduce.addEventListener ? reduce.addEventListener('change', setGate) : reduce.addListener(setGate));
 
   window.addEventListener('scroll', onScroll, { passive: true });
