@@ -386,11 +386,12 @@ body.lb-open{overflow:hidden}
   .marquee__item img{height:24px}
   .hero__sub-br{display:inline}
   /* Mobile title line breaks: BOUTIQUE / MUSIC & SOUND / STUDIO FOR BRANDS. */
-  .hero__title{font-size:clamp(23px,7.15vw,41px);max-width:none}
+  .hero__title{font-size:clamp(30px,9.4vw,52px);max-width:none;line-height:.94}
   .hero__title .br-desk{display:none}
   .hero__title .br-mob{display:inline}
+  .hero__sub{font-size:clamp(24px,5.4vw,32px);margin-top:clamp(22px,4vw,30px)}
   /* Align description right edge with the title's "studio for brands." line */
-  .hero__lead{max-width:74.5vw}
+  .hero__lead{max-width:82vw;margin-top:clamp(22px,4.5vw,32px)}
 }
 
 /* ===== CONTACT ===== */
@@ -467,7 +468,7 @@ body.lb-open{overflow:hidden}
 }
 /* ===== RESPONSIVE ===== */
 @media (max-width:900px){
-  .hero{align-items:flex-start;padding:clamp(132px,24vh,210px) clamp(20px,4vw,46px) 56px}
+  .hero{align-items:center;padding:clamp(104px,13vh,150px) clamp(20px,4vw,46px) clamp(96px,13vh,150px)}
   /* hide the floating widget inside hero; reveal it (up-arrow) once scrolled past hero */
   .widget{display:none}
   .widget.widget--up{display:flex}
