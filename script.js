@@ -340,16 +340,26 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   ov.style.cssText = 'position:fixed;left:6px;right:6px;bottom:6px;z-index:99999;font:600 12px/1.5 monospace;color:#4ade80;background:rgba(0,0,0,.82);padding:8px 10px;border-radius:8px;pointer-events:none;white-space:pre-wrap;word-break:break-all';
   document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(ov); });
   var ticking = false;
-  var RANGE = 150, LIFT = 60;
+  // LIFT must equal the CSS margin-top pull (-90px): at prog 0 we translateY(+90) to cancel
+  // it (layout unchanged), at prog 1 translateY(0) so the grey panel overlaps Work by 90px.
+  var LIFT = 90;
   function update(){
     ticking = false;
     var vh = window.innerHeight;
+    // 'top' = the panel's rendered top edge (already shifted up 90px by margin-top).
     var top = services.getBoundingClientRect().top;
-    var p = (vh - top) / RANGE;
+    // Progress window is anchored to the CURRENT viewport so the motion happens ON SCREEN:
+    // start when the edge reaches the viewport BOTTOM (top = vh), finish when it has risen
+    // to ~60% of viewport height (top = vh*0.60). At prog 0.5 the edge sits at ~80% height
+    // -> clearly visible. The window (~40% of vh) is much larger than the 90px of travel,
+    // so the panel moves visibly SLOWER than normal document scroll (parallax feel).
+    var start = vh;          // begin as the seam touches the bottom of the screen
+    var end = vh * 0.60;     // done once the edge is well inside the screen
+    var p = (start - top) / (start - end);
     p = p < 0 ? 0 : p > 1 ? 1 : p;
     var eased = p * p * (3 - 2 * p);
     services.style.transform = 'translate3d(0,' + ((1 - eased) * LIFT).toFixed(2) + 'px,0)';
-    services.style.opacity = (0.85 + eased * 0.15).toFixed(3);
+    services.style.opacity = (0.9 + eased * 0.1).toFixed(3);
     // read back the diagnostics
     var inlineTf = services.style.transform;
     var compTf = getComputedStyle(services).transform;
@@ -362,7 +372,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     if(m){ var a3 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a3[13].toFixed(2); }
     else { m = compTf.match(/matrix\(([^)]+)\)/); if(m){ var a2 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a2[5].toFixed(2); } else if(compTf==='none'){ ty='0 (none)'; } }
     if(ov){ ov.textContent =
-      'build 19\n' +
+      'build 20\n' +
       '1 prog        = ' + p.toFixed(3) + '\n' +
       '2 inline tf   = ' + inlineTf + '\n' +
       '3 computed tf = ' + compTf + '\n' +

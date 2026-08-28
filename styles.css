@@ -684,9 +684,11 @@ body.lb-open{overflow:hidden}
   .work::after{height:clamp(160px,26vh,300px);z-index:3;
     background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,.78) 100%)}
 
-  /* Capabilities = a panel. Flat top edge, thin cyan→green hairline, opaque bg so it
-     reads as a new sheet laid over the black Work section. No black gap above it. */
-  .services{position:relative;z-index:4;margin-top:0;
+  /* Capabilities = a panel that ends up OVERLAPPING the black Work section by ~90px.
+     margin-top:-90px pulls it up over Work; JS starts it at translateY(90px) so the
+     initial layout looks unchanged, then animates 90->0 so the grey sheet visibly
+     slides up over the black tail. z-index:4 keeps it above Work. */
+  .services{position:relative;z-index:4;margin-top:-90px;
     border-top:1px solid transparent;
     background:
       linear-gradient(90deg,var(--cyan),var(--green)) top/100% 1px no-repeat,
