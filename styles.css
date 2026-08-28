@@ -95,25 +95,25 @@ body.menu-open .nav__toggle span:nth-child(1){transform:translateY(7px) rotate(4
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
 body.menu-open .nav__toggle span:nth-child(3){width:18px;transform:translateY(-7px) rotate(-45deg)}
 
-/* ===== MOBILE BURGER = inverted REEF equalizer mark ===== */
-/* Three symmetric vertical bars with the logo's stroke proportions (~13:26
-   width-to-pitch, rounded caps) and cyan→green gradient. "Inverted": rounded
-   caps sit at the BOTTOM, bars hang down like a mirrored equalizer. No circle.
-   Bars fall back to the default horizontal spans above 600px. */
+/* ===== MOBILE BURGER = REEF equalizer, laid horizontal ===== */
+/* Horizontal burger whose three bars have DIFFERENT lengths matching the logo's
+   bar-height ratios (1.0 / 0.64 / 0.97), the logo's stroke:pitch = 0.5 feel
+   (thin 2px strokes), rounded caps, cyan→green gradient, no circular border.
+   Longest bar = 22px (matches the logo's tallest). Falls back to default spans
+   above 600px. */
 @media (max-width:600px){
-  .nav__toggle{width:34px;height:30px;gap:0;flex-direction:row;align-items:flex-start;justify-content:center}
-  /* hide the horizontal spans, draw vertical bars via pseudo + spans repurposed */
-  .nav__toggle span{position:absolute;top:0;width:5px;height:22px;border-radius:0 0 3px 3px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,height .35s var(--ease),border-radius .35s}
-  /* symmetric spacing: 3 bars, pitch ~10px, centered */
-  .nav__toggle span:nth-child(1){left:calc(50% - 12px)}
-  .nav__toggle span:nth-child(2){left:calc(50% - 2.5px);width:5px}
-  .nav__toggle span:nth-child(3){left:calc(50% + 7px);width:5px;height:22px}
+  .nav__toggle{width:26px;height:30px;gap:6px;flex-direction:column;align-items:flex-start;justify-content:center}
+  .nav__toggle span{position:static;display:block;height:2px;border-radius:2px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,width .35s var(--ease),background .3s}
+  /* logo length ratios on a 22px base */
+  .nav__toggle span:nth-child(1){width:22px}   /* 1.00 */
+  .nav__toggle span:nth-child(2){width:14px}   /* 0.64 */
+  .nav__toggle span:nth-child(3){width:21px}   /* 0.97 */
   .nav__toggle:hover span{filter:brightness(1.12)}
-  /* open state = clean X (single-color) built from the two outer bars */
+  /* open state = clean single-color X from the outer two bars */
   body.menu-open .nav__toggle span{background:var(--text)}
-  body.menu-open .nav__toggle span:nth-child(1){left:50%;top:50%;width:22px;height:2px;border-radius:2px;transform:translate(-50%,-50%) rotate(45deg)}
+  body.menu-open .nav__toggle span:nth-child(1){width:24px;transform:translateY(8px) rotate(45deg)}
   body.menu-open .nav__toggle span:nth-child(2){opacity:0}
-  body.menu-open .nav__toggle span:nth-child(3){left:50%;top:50%;width:22px;height:2px;border-radius:2px;transform:translate(-50%,-50%) rotate(-45deg)}
+  body.menu-open .nav__toggle span:nth-child(3){width:24px;transform:translateY(-8px) rotate(-45deg)}
 }
 
 /* ===== MENU OVERLAY ===== */
