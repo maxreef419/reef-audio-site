@@ -270,6 +270,15 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   el.style.transitionDelay = (i % 4 * 0.06) + 's';
   io.observe(el);
 });
+// Per-group staggered cascade: siblings inside these groups reveal in local order
+// (0 / 80 / 160 / 240ms) so About columns and Capabilities rows read 1-2-3 cleanly.
+['.about__cols','.services__list'].forEach(sel=>{
+  const group = document.querySelector(sel);
+  if(!group) return;
+  Array.from(group.querySelectorAll('.reveal')).forEach((el,j)=>{
+    el.style.transitionDelay = Math.min(j,3) * 0.08 + 's';
+  });
+});
 
 // ===== SECTION ENTRANCE (hero/contact word choreography) =====
 const secIO = new IntersectionObserver((entries)=>{
