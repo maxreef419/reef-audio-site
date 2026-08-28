@@ -211,21 +211,13 @@ body.menu-open .menu__meta{opacity:1}
    crash-proof way: Capabilities (opaque bg + higher z-index) is pulled up with a negative
    margin so its top edge physically slides OVER the last tiles of Work as you scroll.
    A sticky, viewport-fixed veil darkens Work underneath, driven by --work-cover. */
+/* NOTE: the mobile overlap rules used to live here, but base .services{z-index:2} on line
+   ~413 comes LATER in source order and overrode them (equal specificity → last wins), so
+   Capabilities sat UNDER the trailer and nothing darkened on iOS. The authoritative mobile
+   overlap block now lives at the very END of this file so it wins the cascade. */
 @media (max-width:900px), (hover:none), (pointer:coarse){
-  .work{overflow:visible;position:relative;z-index:1}
   /* The JS-driven veil is desktop-only; hide it on mobile. */
   .work__dim{display:none}
-  /* Pure-CSS sticky trailer: as the LAST child of Work it pins to the BOTTOM of the
-     viewport (sticky/bottom:0) while Work's final screen is visible, then scrolls off with
-     Work. margin-top:-100vh cancels its flow height so it overlays Work instead of adding
-     space. The gradient darkens Work toward the seam. No JS, so iOS Safari paints it
-     natively during momentum scroll — the fixed/opacity approach didn't repaint on iOS. */
-  .work__dim-mobile{display:block;position:sticky;bottom:0;z-index:4;pointer-events:none;
-    height:100vh;height:100dvh;margin-top:-100vh;margin-top:-100dvh;
-    background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.4) 35%,rgba(0,0,0,.15) 65%,rgba(0,0,0,0) 100%)}
-  /* Capabilities (opaque bg, higher z-index) is pulled up so its top edge slides OVER the
-     darkened tail of Work as you scroll. */
-  .services{position:relative;margin-top:calc(-1 * clamp(70px,22vw,180px));z-index:5}
 }
 /* --- Desktop-only sticky overlap: Work pins and Capabilities slides over it.
    Disabled on tablet/mobile/touch where sticky + tall grid caused stacking bugs. --- */
@@ -673,4 +665,22 @@ body.lb-open{overflow:hidden}
       linear-gradient(180deg,rgba(20,20,20,.88) 0,rgba(20,20,20,.74) 20%,rgba(20,20,20,.86) 40%,#141414 55%),
       url('assets/hero-about-v2.jpg');
   }
+}
+
+/* =====================================================================
+   AUTHORITATIVE MOBILE OVERLAP (placed last so it wins the cascade).
+   Earlier copies were overridden by base .services{z-index:2}.
+   Pure CSS so iOS Safari composites it natively during momentum scroll.
+   ===================================================================== */
+@media (max-width:900px), (hover:none), (pointer:coarse){
+  .work{overflow:visible;position:relative;z-index:1}
+  .work__dim{display:none}
+  /* Sticky darkening trailer: LAST child of Work, pins to viewport bottom over Work's
+     final screen. margin-top:-100dvh cancels its flow height so it overlays, not adds. */
+  .work__dim-mobile{display:block;position:sticky;bottom:0;z-index:6;pointer-events:none;
+    height:100vh;height:100dvh;margin-top:-100vh;margin-top:-100dvh;
+    background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.45) 35%,rgba(0,0,0,.18) 65%,rgba(0,0,0,0) 100%)}
+  /* Capabilities pulled up + ABOVE the trailer so its opaque top edge slides over the
+     darkened Work tail. z-index must beat base .services{z-index:2}. */
+  .services{position:relative;margin-top:calc(-1 * clamp(70px,22vw,180px));z-index:7}
 }
