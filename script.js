@@ -318,9 +318,9 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   const services = document.getElementById('services');
   const workSec = document.getElementById('work');
   if(!services || !workSec) return;
-  // Only run on true desktop pointers, matching the CSS gate. On tablet/mobile/touch
-  // the sticky pin + tall grid caused stacking/scroll bugs, so the overlap is off there.
-  const desktopOverlap = window.matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)');
+  // Drives --work-cover 0->1 as Capabilities rises. Both desktop (pins + scales the whole
+  // Work) and mobile/touch (pins only a viewport-tall dim veil) consume it via their own
+  // CSS; only prefers-reduced-motion disables it entirely.
   const reduce = window.matchMedia('(prefers-reduced-motion:reduce)');
   const root = document.documentElement;
   let ticking = false, active = false;
@@ -337,7 +337,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   }
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
   function apply(){
-    const on = desktopOverlap.matches && !reduce.matches;
+    const on = !reduce.matches;
     if(on === active) return;
     active = on;
     if(on){
@@ -347,11 +347,10 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     } else {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
-      root.style.setProperty('--work-cover', '0'); // reset so mobile is never darkened/scaled
+      root.style.setProperty('--work-cover', '0'); // reset when motion is reduced
     }
   }
   apply();
-  desktopOverlap.addEventListener('change', apply);
   reduce.addEventListener('change', apply);
 })();
 
