@@ -309,13 +309,20 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
-// ===== MOBILE WORK -> CAPABILITIES CURTAIN WIPE (final) =====
-// Proven sticky architecture (verified on the real iPhone). A tall stage (.wtstage, ~210dvh)
-// wraps Work; a viewport-tall sticky pin (.wtpin) keeps Work stationary under the fixed
-// header. .services is moved INTO the pin as an absolute foreground layer (class .is-curtain),
-// starting fully below the viewport (translateY(100%)) and rising LINEARLY to translateY(0)
-// over ~110dvh of scroll, covering all of Work. Once fully covered, .services is released
-// back to normal flow so Capabilities scrolls naturally. Desktop is untouched.
+// ===== MOBILE WORK -> CAPABILITIES CURTAIN WIPE (final, freeze-and-cover) =====
+// A tall stage (.wtstage) wraps Work and adds 100dvh of scroll room after it. Work itself
+// is BOTTOM-anchored sticky inside the stage (CSS: .wtstage>.work{position:sticky;bottom:0}),
+// so the moment Work's last frame reaches the viewport bottom, Work FREEZES in place -- its
+// last frame stays at exactly the same screen coordinates for the entire 100dvh of extra
+// scroll room. During those same 100dvh, .wtpin (position:sticky;top:0;height:0) is pinned
+// at the top; .services is moved INTO the pin as an absolute foreground layer
+// (class .is-curtain) and rises translateY(100%)->0 linearly over 100dvh, covering the
+// frozen Work from the bottom up. Because Work is sticky-frozen, the wipe is a pure
+// one-sheet-over-another: at 50% progress the grey covers exactly the lower half of the
+// viewport and every visible pixel of Work in the upper half is in identically the same
+// place as it was at 0% progress. Once fully covered, .services is released back to normal
+// flow so Capabilities scrolls naturally. Work DOM / videos are never touched. Desktop is
+// untouched (.wtstage/.wtpin collapse via display:contents on desktop).
 (function(){
   const services = document.getElementById('services');
   const stage = document.getElementById('wtstage');
@@ -327,8 +334,10 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   const servicesHome = services.parentNode;      // original flow parent (main)
   const servicesAnchor = services.nextSibling;   // to restore original DOM position
 
-  // Wipe travel: the foreground rises over this many px of scroll. ~110dvh.
-  function travel(){ return Math.round(window.innerHeight * 1.1); }
+  // Wipe travel: the foreground rises over this many px of scroll. Must match the CSS
+  // padding-bottom on .wtstage (100dvh) so the wipe starts exactly when Work sticks and
+  // finishes exactly when Work unsticks.
+  function travel(){ return window.innerHeight; }
 
   function enterCurtain(){
     if(mode === 'curtain') return;
@@ -355,7 +364,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
       return;
     }
     const vh = window.innerHeight;
-    const T = travel();                       // wipe travel (~1.1 * vh), matches CSS padding-bottom
+    const T = travel();                       // wipe travel (= 1.0 * vh), matches CSS padding-bottom
     const stageRect = stage.getBoundingClientRect();
     // The pin sticks at top:0 once the stage bottom has come within (vh) of the top, i.e. the
     // wipe runs while the stage bottom travels from (vh + T) up to (vh). Progress is how far

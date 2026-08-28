@@ -695,11 +695,19 @@ body.lb-open{overflow:hidden}
   .work__dim{display:none}
   .work__dim-mobile{display:none}
 
-  /* Work is LEFT EXACTLY AS-IS (original natural flow + full height). We only WRAP it.
-     The stage is Work's natural height PLUS extra scroll room (padding-bottom) that gives
-     the sticky pin ~110dvh of travel to run the wipe. No overflow/transform/etc. here that
-     would clip Work or break the pin. */
-  .wtstage{position:relative;display:block;padding-bottom:110dvh}
+  /* Work is LEFT EXACTLY AS-IS (original natural flow + full height). We only WRAP it and
+     add BOTTOM-anchored stickiness so Work FREEZES the moment its last frame reaches the
+     viewport bottom, and stays perfectly still while the grey curtain rises over it. The
+     stage is Work's natural height PLUS 100dvh of scroll room; during those 100dvh both
+     stickies are pinned (Work bottom, pin top) so Work does not move by a single pixel
+     while the curtain wipes bottom->top over the frozen frame. No overflow/transform on
+     any ancestor, per iOS sticky rules. */
+  .wtstage{position:relative;display:block;padding-bottom:100dvh}
+  /* Bottom-anchored sticky: Work scrolls normally until its bottom hits the viewport
+     bottom, then sticks with its bottom pinned to viewport bottom (last frame frozen),
+     and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
+     touched. */
+  .wtstage > .work{position:sticky;position:-webkit-sticky;bottom:0}
   /* The pin sits AFTER Work; it holds only the curtain. It sticks under the header and
      stays for the length of the padding-bottom scroll room. Its own box is zero-height so
      it does not push layout; the curtain inside is viewport-sized. */
