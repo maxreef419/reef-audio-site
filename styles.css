@@ -239,7 +239,7 @@ body.menu-open .menu__meta{opacity:1}
              clip-path 1.05s cubic-bezier(.16,.68,.32,1);
   will-change:transform,clip-path;
 }
-.work__item.in .work__reveal{transform:translateY(0) scale(1);clip-path:inset(0 0 0 0)}
+.work__item.in .work__reveal{transform:translateY(0) scale(1);clip-path:inset(0 0 0 0);transition-delay:var(--rowdelay,0s)}
 /* The title is a separate 'titr': it rides up out of a vertical mask ~130ms
    AFTER the frame, so you read 'kadr, then caption', not 'another UI card'. */
 @media (prefers-reduced-motion:reduce){
@@ -279,8 +279,9 @@ body.menu-open .menu__meta{opacity:1}
   text-shadow:0 1px 18px rgba(0,0,0,.45);
   transform:translateY(110%);
   transition:transform .85s cubic-bezier(.16,.68,.32,1)}
-/* fires ~180ms after the frame begins: kadr first, then caption */
-.work__item.in .work__name{transform:translateY(0);transition-delay:.18s}
+/* fires ~180ms after the frame begins: kadr first, then caption.
+   The row cascade (--rowdelay) shifts the whole card, title included. */
+.work__item.in .work__name{transform:translateY(0);transition-delay:calc(var(--rowdelay,0s) + .18s)}
 @media (hover:hover){.work__item.in:hover .work__name{transform:translateY(-2px);transition-delay:0s;transition-duration:.4s}}
 .work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(44px,6vw,72px)}
 /* Typographic 'View more' in the spirit of the footer's START A PROJECT link:

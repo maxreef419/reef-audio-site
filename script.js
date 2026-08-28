@@ -72,8 +72,24 @@ function workCard(w){
   </button>`;
 }
 // reveal work items as they scroll into view (not static)
+// Within a row, cards cascade left -> right (a small per-column delay) instead of
+// all popping together. Column index = how many tiles share this tile's row top
+// but sit to its left. One column (mobile portrait) => delay 0 => unchanged.
+function rowIndex(el){
+  const top = el.offsetTop;
+  let i = 0;
+  grid.querySelectorAll('.work__item').forEach(sib=>{
+    if(sib===el) return;
+    if(Math.abs(sib.offsetTop - top) <= 4 && sib.offsetLeft < el.offsetLeft) i++;
+  });
+  return i;
+}
 const workIO = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); workIO.unobserve(e.target); }});
+  entries.forEach(e=>{ if(e.isIntersecting){
+    e.target.style.setProperty('--rowdelay', (rowIndex(e.target) * 0.11) + 's');
+    e.target.classList.add('in');
+    workIO.unobserve(e.target);
+  }});
 },{threshold:.16, rootMargin:'0px 0px -60px 0px'});
 function revealNewItems(){
   const fresh = grid.querySelectorAll('.work__item--new');
