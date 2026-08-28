@@ -45,7 +45,7 @@ html{-webkit-text-size-adjust:100%}
 html.lenis{scroll-behavior:auto}
 body{
   background:var(--bg);color:var(--text);
-  font-family:var(--font-body);font-size:15px;line-height:1.35;letter-spacing:0;
+  font-family:var(--font-body);font-size:14px;line-height:1.3;letter-spacing:0;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 img{max-width:100%;display:block}
@@ -151,7 +151,7 @@ body.menu-open .menu__meta{opacity:1}
 .hero__title .br-desk{display:inline}
 .hero__title .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .hero__sub{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,3vw,40px);line-height:1.02;letter-spacing:-.01em;color:var(--text);margin-top:clamp(20px,2.4vw,32px);max-width:20ch}
-.hero__lead{font-family:var(--font-body);font-size:clamp(15px,1.15vw,17px);font-weight:500;line-height:1.4;letter-spacing:0;color:var(--muted);margin-top:clamp(26px,3vw,40px);max-width:min(44.5vw,631px)}
+.hero__lead{font-family:var(--font-body);font-size:clamp(14px,1.05vw,15.5px);font-weight:500;line-height:1.36;letter-spacing:0;color:var(--muted);margin-top:clamp(26px,3vw,40px);max-width:min(44.5vw,631px)}
 /* Hide hero copy until fonts are ready (JS adds #hero.in on document.fonts.ready) so the first paint is already in the final font — no swap/jump. */
 .hero__title .w,.hero__sub,.hero__lead{opacity:0;transform:translateY(14px);will-change:opacity,transform}
 #hero.in .hero__title .w,#hero.in .hero__sub,#hero.in .hero__lead{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
@@ -291,7 +291,7 @@ body.lb-open{overflow:hidden}
 .about__lead{font-family:var(--font-display);font-weight:700;font-size:clamp(25px,3.4vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--text);margin:18px 0 34px}
 .about__lead .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none}
 .about__lead .amp{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-shadow:none}
-.about__body p:not(.eyebrow){color:var(--muted);margin-bottom:18px;max-width:64ch;font-size:clamp(15px,1.25vw,16.5px);line-height:1.4;letter-spacing:0}
+.about__body p:not(.eyebrow){color:var(--muted);margin-bottom:18px;max-width:64ch;font-size:clamp(14px,1.1vw,15.5px);line-height:1.38;letter-spacing:0}
 .about__body p:last-child{margin-bottom:0}
 /* Editorial two-column layout on desktop */
 @media (min-width:901px){
@@ -345,7 +345,7 @@ body.lb-open{overflow:hidden}
 .service__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
 .service__head[aria-expanded="true"]+.service__panel{grid-template-rows:1fr}
 .service__panel>.service__desc{overflow:hidden;min-height:0}
-.service__desc{color:var(--muted);font-size:clamp(14px,1.15vw,16px);line-height:1.45;max-width:60ch;margin:0;padding:0 0 0 clamp(28px,5vw,70px);opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease) .05s,transform .4s var(--ease) .05s,padding-bottom .45s var(--ease)}
+.service__desc{color:var(--muted);font-size:clamp(13.5px,1.05vw,15px);line-height:1.42;max-width:60ch;margin:0;padding:0 0 0 clamp(28px,5vw,70px);opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease) .05s,transform .4s var(--ease) .05s,padding-bottom .45s var(--ease)}
 .service__head[aria-expanded="true"]+.service__panel>.service__desc{opacity:1;transform:none;padding-bottom:clamp(20px,3vw,34px)}
 @media (max-width:760px){
   .service__desc{padding-left:clamp(24px,8vw,40px)}
