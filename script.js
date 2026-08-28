@@ -64,9 +64,11 @@ function workCard(w){
   const ratio = w.ratio || 'wide';
   return `
   <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
+    <span class="work__reveal">
     <img src="${w.img}" alt="${label} — REEF Audio project still" loading="lazy">
     <video class="work__video" data-prev="assets/work/preview/p-${w.vimeo}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-    <div class="work__overlay"><span class="work__name">${label}</span></div>
+    <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${label}</span></span></div>
+    </span>
   </button>`;
 }
 // reveal work items as they scroll into view (not static)
