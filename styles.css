@@ -677,10 +677,14 @@ body.lb-open{overflow:hidden}
   .work__dim{display:none}
   /* Sticky darkening trailer: LAST child of Work, pins to viewport bottom over Work's
      final screen. margin-top:-100dvh cancels its flow height so it overlays, not adds. */
-  .work__dim-mobile{display:block;position:sticky;bottom:0;z-index:6;pointer-events:none;
-    height:100vh;height:100dvh;margin-top:-100vh;margin-top:-100dvh;
-    background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.45) 35%,rgba(0,0,0,.18) 65%,rgba(0,0,0,0) 100%)}
-  /* Capabilities pulled up + ABOVE the trailer so its opaque top edge slides over the
-     darkened Work tail. z-index must beat base .services{z-index:2}. */
-  .services{position:relative;margin-top:calc(-1 * clamp(70px,22vw,180px));z-index:7}
+  /* sticky/fixed layers never rendered on the user's real iOS Safari (both orientations),
+     so the overlap is now a STATIC background gradient baked into Work's own ::after tail
+     — iOS always paints it because it's just section background, no compositing needed.
+     Trailer disabled; Capabilities back in normal flow (no negative-margin "zarez"). */
+  .work__dim-mobile{display:none}
+  .services{margin-top:0}
+  /* Strong, tall darkening baked onto Work's bottom so the last tiles visibly fade into a
+     dark seam before Capabilities. Fades to pure black at the very bottom of Work. */
+  .work::after{height:clamp(220px,42vh,520px);z-index:3;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.35) 45%,rgba(0,0,0,.7) 75%,rgba(0,0,0,.92) 100%)}
 }
