@@ -196,11 +196,17 @@ body.menu-open .menu__meta{opacity:1}
 /* Sticky-overlap: Work pins to the top of the viewport, then Capabilities
    (higher z-index, opaque bg) scrolls UP over it. A dim layer darkens Work and a
    subtle scale sinks it back as Capabilities covers it. JS drives --work-cover 0->1. */
-.work{position:sticky;top:0;z-index:1;background:#121212;padding:clamp(60px,9vw,120px) 0 clamp(70px,10vw,130px);overflow:hidden;
-  transform:scale(calc(1 - .03*var(--work-cover,0)));transform-origin:center top;
-  transition:transform .2s linear;will-change:transform}
-/* darkening veil that fades in as Capabilities slides over Work */
-.work__dim{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;background:#000;opacity:calc(.55*var(--work-cover,0));transition:opacity .2s linear}
+.work{position:relative;z-index:1;background:#121212;padding:clamp(60px,9vw,120px) 0 clamp(70px,10vw,130px);overflow:hidden}
+/* darkening veil (only active with the desktop overlap effect below) */
+.work__dim{position:absolute;inset:0;z-index:5;pointer-events:none;background:#000;opacity:0;transition:opacity .2s linear}
+/* --- Desktop-only sticky overlap: Work pins and Capabilities slides over it.
+   Disabled on tablet/mobile/touch where sticky + tall grid caused stacking bugs. --- */
+@media (min-width:901px) and (hover:hover) and (pointer:fine){
+  .work{position:sticky;top:0;overflow:hidden;
+    transform:scale(calc(1 - .03*var(--work-cover,0)));transform-origin:center top;
+    transition:transform .2s linear;will-change:transform}
+  .work__dim{opacity:calc(.55*var(--work-cover,0))}
+}
 /* Smooth the Work(dark) -> About transition so the darker Work doesn't create a new seam */
 .work::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(160px,24vh,320px);pointer-events:none;z-index:1;
   background:linear-gradient(180deg,rgba(18,18,18,0) 0%,rgba(18,18,18,.5) 60%,rgba(18,18,18,.85) 85%,rgba(18,18,18,1) 100%)}
@@ -377,9 +383,11 @@ body.lb-open{overflow:hidden}
 /* Sits ABOVE the sticky Work section and scrolls over it. Needs an opaque,
    full-bleed backdrop so Work is actually hidden behind it as it rises. */
 .services{position:relative;z-index:2;padding:clamp(100px,15vw,200px) 0 clamp(40px,6vw,70px);max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
-.services::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;background:var(--bg);
-  /* soft top edge + faint shadow so the overlap reads as a layer sliding over Work */
-  box-shadow:0 -24px 60px rgba(0,0,0,.45)}
+.services::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;background:var(--bg)}
+/* faint top shadow only when the desktop overlap is active, so it reads as a layer sliding over Work */
+@media (min-width:901px) and (hover:hover) and (pointer:fine){
+  .services::before{box-shadow:0 -24px 60px rgba(0,0,0,.45)}
+}
 .services__head{margin-bottom:var(--head-gap);padding:0}
 .services__list{display:grid;grid-template-columns:1fr;gap:0;padding:0}
 .service{position:relative;border-top:1px solid var(--line-2)}
