@@ -3,7 +3,7 @@
 // on a device (cache), the panel stays visible instead of vanishing. Also a temporary
 // visible build badge to confirm on-device whether the newest script.js is running.
 document.documentElement.classList.add('js-ready');
-(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 16 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 17 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
 window.__setBadge=function(t){var b=document.getElementById('__buildbadge');if(b)b.textContent=t;};
 // Diagnostic: the badge itself runs a simple looping slide animation. If the badge visibly
 // moves up/down on the device but the Capabilities panel does not, the problem is specific
@@ -321,37 +321,45 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
-// ===== MOBILE PANEL ENTRANCE: Capabilities slides up as a sheet over black Work =====
-// transform+opacity only (the one thing iOS Safari reliably animates). Fires ONCE when
-// the panel nears the viewport, a bit early (rootMargin) so it's already moving as the
-// user reaches the seam. CSS (.services.panel-in) does the slide + staggered children.
+// ===== MOBILE PANEL ENTRANCE (rebuilt, scroll-progress driven) =====
+// Rebuilt per iOS-Safari guidance: no sticky, no scroll-timeline, no fire-once keyframes.
+// Each scroll frame we compute progress 0..1 from getBoundingClientRect() vs the real
+// viewport height and set inline transform/opacity DIRECTLY. Per-frame inline transforms
+// are exactly what the device already animates (the diagnostic badge moved), so this drives
+// the panel by hand as the seam approaches. The badge shows live progress for on-device
+// verification. Desktop keeps its own sticky overlap and is untouched.
 (function(){
   const services = document.getElementById('services');
   if(!services) return;
   const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
   if(!isTouch) return; // desktop keeps its own sticky overlap
-  var touchTxt = isTouch ? 'touch' : 'no-touch';
-  if(window.__setBadge) window.__setBadge('build 16 | '+touchTxt+' | panel:no');
-  // Primary: IntersectionObserver. Simpler margin (no % that iOS sometimes mishandles).
-  var fired = false;
-  function trigger(src){ if(fired) return; fired = true; services.classList.add('panel-in');
-    if(window.__setBadge) window.__setBadge('build 16 | '+touchTxt+' | panel:YES('+src+')');
-    // Long safety net only: if the animation somehow never runs, ensure the panel is
-    // visible eventually. Long enough (2s) not to cut off the 0.55s slide.
-    setTimeout(function(){ services.style.opacity='1'; services.style.transform='none'; }, 2000); }
-  // Fire the slide EXACTLY as the panel's top edge rises into the viewport, so the motion
-  // is on-screen and visible. Earlier it fired ~120px early / while off-screen, so the
-  // 0.55s slide finished before you could see it — looked like "nothing moved".
-  function scrollCheck(){
-    if(fired) return;
-    const top = services.getBoundingClientRect().top;
-    const vh = window.innerHeight;
-    // start when the top edge is between just-below-the-fold and ~40% up the screen
-    if(top < vh && top > vh * 0.35){ trigger('scroll'); window.removeEventListener('scroll', scrollCheck); }
-    else if(top <= vh * 0.35){ trigger('scroll-late'); window.removeEventListener('scroll', scrollCheck); }
+  // This block owns the panel now: cancel the class-based keyframe entrance so the two
+  // mechanisms don't fight. We set opacity/transform inline every frame instead.
+  services.classList.remove('panel-in');
+  services.style.willChange = 'transform, opacity';
+  services.style.animation = 'none';
+  var ticking = false, done = false;
+  var RANGE = 150; // px of travel over which the panel eases in (the last ~150px before the seam)
+  var LIFT = 60;   // start 60px lower and rise to 0
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight; // real viewport, not 100vh
+    var top = services.getBoundingClientRect().top;
+    // progress 0 while the panel's top edge is still >= vh (below the fold),
+    // reaching 1 by the time that edge has risen RANGE px above the fold line.
+    var p = (vh - top) / RANGE;
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    var eased = p * p * (3 - 2 * p); // smoothstep
+    services.style.transform = 'translate3d(0,' + ((1 - eased) * LIFT).toFixed(2) + 'px,0)';
+    services.style.opacity = (0.85 + eased * 0.15).toFixed(3);
+    if(window.__setBadge) window.__setBadge('build 17 | prog ' + p.toFixed(2));
+    // once fully in, stop touching it so normal scrolling of the rest is untouched
+    if(p >= 1 && !done){ done = true; }
   }
-  window.addEventListener('scroll', scrollCheck, {passive:true});
-  scrollCheck();
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  update();
 })();
 
 // ===== STICKY-OVERLAP: Capabilities slides over the pinned Work section =====
