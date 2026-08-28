@@ -213,8 +213,10 @@ body.menu-open .menu__meta{opacity:1}
   position:relative;display:block;overflow:hidden;border-radius:14px;
   width:100%;height:100%;margin:0;padding:0;border:0;text-align:left;cursor:pointer;color:inherit;font:inherit;
   background:#111;
-  opacity:0;
-  transition:opacity 1s var(--ease-soft);
+  /* The item itself only fades — kept transform/clip-free so IntersectionObserver
+     reliably reports it (a transformed+clipped observed target can fail to fire).
+     The 'kadr' motion lives on the inner .work__reveal wrapper below. */
+  opacity:0;transition:opacity .6s var(--ease-soft);
 }
 /* Wide tile spans two columns; height stays the single row height so it reads as
    one long horizontal frame flush with the squares around it. */
@@ -226,10 +228,23 @@ body.menu-open .menu__meta{opacity:1}
   .work__item--wide{grid-column:auto;aspect-ratio:1/1}
 }
 .work__item.in{opacity:1}
-/* Inner-media scroll parallax lives on .work__item img/.work__video (see below);
-   the frame itself never transforms, so there is no edge-bleed or overlap. */
+/* 'Kadr' reveal on the inner wrapper (NOT the observed item): rises from below,
+   unclips bottom-up, settles 0.97 -> 1.00 over ~800ms. */
+.work__reveal{
+  position:absolute;inset:0;display:block;
+  transform:translateY(28px) scale(.97);clip-path:inset(90% 0 0 0);
+  transition:transform .8s cubic-bezier(.22,.61,.36,1),
+             clip-path .8s cubic-bezier(.22,.61,.36,1);
+  will-change:transform,clip-path;
+}
+.work__item.in .work__reveal{transform:translateY(0) scale(1);clip-path:inset(0 0 0 0)}
+/* The title is a separate 'titr': it rides up out of a vertical mask ~130ms
+   AFTER the frame, so you read 'kadr, then caption', not 'another UI card'. */
 @media (prefers-reduced-motion:reduce){
+  .work__item{transition:opacity .4s linear!important}
+  .work__reveal{transform:none!important;clip-path:none!important;transition:none!important}
   .work__item img,.work__item .work__video{transform:none!important}
+  .work__name{transform:none!important;transition:none!important}
 }
 /* Media is over-scanned ~2px beyond the box on every side. Fractional tile
    widths (e.g. 420.48px) made a 1px inflation round short on the right and
@@ -256,9 +271,15 @@ body.menu-open .menu__meta{opacity:1}
   opacity:1;transition:background .45s var(--ease);pointer-events:none;
 }
 .work__item:hover .work__overlay{background:linear-gradient(to top,rgba(8,10,11,.88),transparent 62%)}
-.work__name{font-family:var(--font-display);font-weight:700;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.015em;
-  text-shadow:0 1px 18px rgba(0,0,0,.45);transform:translateY(0);transition:transform .45s var(--ease)}
-.work__item:hover .work__name{transform:translateY(-2px)}
+/* Vertical mask the title rides up out of (the 'titr'). */
+.work__name-mask{display:block;overflow:hidden;padding-bottom:2px}
+.work__name{display:block;font-family:var(--font-display);font-weight:700;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.015em;
+  text-shadow:0 1px 18px rgba(0,0,0,.45);
+  transform:translateY(110%);
+  transition:transform .7s var(--kadr,cubic-bezier(.22,.61,.36,1))}
+/* fires ~130ms after the frame begins: kadr first, then caption */
+.work__item.in .work__name{transform:translateY(0);transition-delay:.13s}
+@media (hover:hover){.work__item.in:hover .work__name{transform:translateY(-2px);transition-delay:0s;transition-duration:.4s}}
 .work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(44px,6vw,72px)}
 /* Typographic 'View more' in the spirit of the footer's START A PROJECT link:
    uppercase display type, letter-spacing, diagonal arrow, gradient underline. */
@@ -482,11 +503,17 @@ body.lb-open{overflow:hidden}
 .footer__email{margin-top:26px;color:var(--muted);font-size:15px;transition:color .25s}
 .footer__email:hover{color:var(--cyan)}
 /* --- link columns --- */
-.footer__cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,64px);padding-top:10px}
+.footer__cols{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,4vw,64px);padding-top:10px}
 .footer__col{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .footer__col-label{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px}
 .footer__col a{font-size:16px;font-weight:500;color:var(--text);transition:color .25s,transform .25s var(--ease)}
 .footer__col a:hover{color:var(--cyan);transform:translateX(3px)}
+/* Left column slightly larger than the right, per reference */
+.footer__col--lg a{font-size:clamp(17px,1.5vw,21px)}
+.footer__col--sm a{font-size:14px;font-weight:400;color:var(--muted)}
+.footer__col--sm a:hover{color:var(--cyan)}
+/* Email sits at the BOTTOM of the right column as small text (reference) */
+.footer__col-email{margin-top:14px;font-size:14px;color:var(--muted);word-break:break-word}
 /* --- bottom bar --- */
 .footer__bottom{position:relative;z-index:2;max-width:var(--maxw);margin:clamp(48px,7vw,90px) auto 0;padding-top:24px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .footer__wordmark{font-family:var(--font-mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-2)}
