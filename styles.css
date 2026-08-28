@@ -536,8 +536,10 @@ body.lb-open{overflow:hidden}
 .footer__col--sm a{font-size:14px;font-weight:400;color:var(--muted)}
 .footer__col--sm a:hover{color:var(--cyan)}
 /* Email is just another item in the right column: same size/weight/color and the
-   same 14px row gap as Vimeo/Instagram — no extra offset, not pinned to the bottom. */
-.footer__col-email{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+   same 14px row gap as Vimeo/Instagram — no extra offset, not pinned to the bottom.
+   overflow-wrap:break-word only wraps as a last resort (never mid-word like
+   'anywhere' did); the column is sized wide enough to keep it on one line. */
+.footer__col-email{max-width:100%;overflow-wrap:break-word}
 /* --- bottom bar --- */
 .footer__bottom{position:relative;z-index:2;max-width:var(--maxw);margin:clamp(48px,7vw,90px) auto 0;padding-top:24px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .footer__wordmark{font-family:var(--font-mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-2)}
@@ -609,6 +611,9 @@ body.lb-open{overflow:hidden}
     padding-left:max(clamp(20px,4vw,46px),env(safe-area-inset-left,0px));
     padding-right:max(clamp(20px,4vw,46px),env(safe-area-inset-right,0px));
   }
+  /* Give the Follow column enough room for the full email on one line */
+  .footer__cols{grid-template-columns:1fr 1fr;gap:24px}
+  .footer__col-email{font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important}
