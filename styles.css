@@ -200,18 +200,25 @@ body.menu-open .menu__meta{opacity:1}
 /* darkening veil. Desktop: absolute over the pinned Work. Mobile/touch: a sticky
    viewport-tall layer (see block below) so Work darkens as Capabilities rises. */
 .work__dim{position:absolute;inset:0;z-index:5;pointer-events:none;background:#000;opacity:0;transition:opacity .2s linear}
-/* --- Mobile / touch sticky overlap ---
-   We can't pin the whole tall Work grid (that froze it on the first tile), so instead
-   we pin only a viewport-tall dim veil. As the reader nears the end of Work the veil
-   sticks to the top and darkens (driven by --work-cover), then Capabilities (opaque,
-   higher z-index) scrolls up and covers it — the overlap reads without pinning the grid. */
+/* --- Mobile / touch overlap ---
+   Pinning the whole tall Work grid froze it on the first tile, and a sticky veil inside
+   Work scrolled away instead of pinning. So on mobile the overlap is done the simple,
+   crash-proof way: Capabilities (opaque bg + higher z-index) is pulled up with a negative
+   margin so its top edge physically slides OVER the last tiles of Work as you scroll.
+   A sticky, viewport-fixed veil darkens Work underneath, driven by --work-cover. */
 @media (max-width:900px), (hover:none), (pointer:coarse){
-  .work{overflow:visible}
-  /* sticky veil: height:100vh keeps it viewport-tall, margin-bottom:-100vh cancels the
-     flow space it would otherwise reserve so the grid isn't pushed down. */
-  .work__dim{position:sticky;top:0;inset:auto;height:100vh;height:100dvh;
-    margin-bottom:-100vh;margin-bottom:-100dvh;width:100%;
-    opacity:calc(.5*var(--work-cover,0))}
+  /* Work must NOT create its own stacking context here, so the fixed veil's z-index can
+     compete at the root and sit BELOW Capabilities. */
+  .work{overflow:visible;position:static}
+  /* Dim veil = viewport-fixed (sticky was unreliable inside the tall grid on iOS).
+     It never moves; only its opacity changes with --work-veil (a band that peaks at the
+     Work/Capabilities seam and returns to 0), so it darkens Work exactly as Capabilities
+     rises and never lingers over later sections. z-index:2 keeps it above Work but below
+     Capabilities (z-index:3), which therefore stays at full brightness on top. */
+  .work__dim{position:fixed;inset:0;height:100vh;height:100dvh;width:100%;z-index:2;
+    opacity:calc(.55*var(--work-veil,0));transition:none}
+  /* Capabilities is pulled up so its opaque top edge slides OVER the tail of Work. */
+  .services{position:relative;margin-top:calc(-1 * clamp(60px,18vw,150px));z-index:3}
 }
 /* --- Desktop-only sticky overlap: Work pins and Capabilities slides over it.
    Disabled on tablet/mobile/touch where sticky + tall grid caused stacking bugs. --- */

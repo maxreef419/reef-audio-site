@@ -328,12 +328,22 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     ticking = false;
     const vh = window.innerHeight;
     const top = services.getBoundingClientRect().top;
-    // Start covering once Capabilities' top enters the lower ~85% of the viewport,
-    // finish (cover=1) when it reaches the top. Clamp 0..1.
+    // --work-cover (desktop): 0 while Capabilities is below, 1 once it reaches the top and
+    // stays 1 while Work is pinned behind it. Start covering at ~85% viewport height.
     const startAt = vh * 0.85;
     let p = (startAt - top) / startAt;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
     root.style.setProperty('--work-cover', p.toFixed(3));
+    // --work-veil (mobile): a BAND that rises 0->1 as the Work/Capabilities boundary comes
+    // up the screen, then falls 1->0 after it passes the top, so the fixed dim veil only
+    // darkens Work near the seam and never lingers over About/Clients/footer.
+    // 'top' is Capabilities' top edge; peak the veil while that edge is in the upper third.
+    let v;
+    if(top >= startAt){ v = 0; }                       // Capabilities still well below -> no veil
+    else if(top >= 0){ v = (startAt - top) / startAt; } // rising as it comes up
+    else { v = 1 - Math.min(1, (-top) / vh); }          // falling once it passes the top
+    v = v < 0 ? 0 : v > 1 ? 1 : v;
+    root.style.setProperty('--work-veil', v.toFixed(3));
   }
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
   function apply(){
