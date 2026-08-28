@@ -1,11 +1,3 @@
-// Mark that the fresh script is actually executing. CSS only hides the Capabilities panel
-// (for the slide-up entrance) when <html> has .js-ready — so if the script fails to load
-// on a device (cache), the panel stays visible instead of vanishing. Also a temporary
-// visible build badge to confirm on-device whether the newest script.js is running.
-document.documentElement.classList.add('js-ready');
-window.__setBadge=function(){};
-// (old looping badge animation removed — build 18 uses a full diagnostic overlay instead)
-
 // ===== DATA =====
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
 // cells, one long horizontal frame). Mostly squares; wide tiles are dropped in
@@ -317,71 +309,74 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
-// ===== MOBILE PANEL ENTRANCE (rebuilt, scroll-progress driven) =====
-// Rebuilt per iOS-Safari guidance: no sticky, no scroll-timeline, no fire-once keyframes.
-// Each scroll frame we compute progress 0..1 from getBoundingClientRect() vs the real
-// viewport height and set inline transform/opacity DIRECTLY. Per-frame inline transforms
-// are exactly what the device already animates (the diagnostic badge moved), so this drives
-// the panel by hand as the seam approaches. The badge shows live progress for on-device
-// verification. Desktop keeps its own sticky overlap and is untouched.
+// ===== MOBILE WORK -> CAPABILITIES CURTAIN WIPE (final) =====
+// Proven sticky architecture (verified on the real iPhone). A tall stage (.wtstage, ~210dvh)
+// wraps Work; a viewport-tall sticky pin (.wtpin) keeps Work stationary under the fixed
+// header. .services is moved INTO the pin as an absolute foreground layer (class .is-curtain),
+// starting fully below the viewport (translateY(100%)) and rising LINEARLY to translateY(0)
+// over ~110dvh of scroll, covering all of Work. Once fully covered, .services is released
+// back to normal flow so Capabilities scrolls naturally. Desktop is untouched.
 (function(){
   const services = document.getElementById('services');
-  if(!services) return;
-  const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
-  if(!isTouch) return; // desktop keeps its own sticky overlap
-  // DIAGNOSTIC BUILD 18: do NOT change DOM. Apply the inline transform to .services as before,
-  // and show a live on-screen overlay with the 4 values needed to localize why the visual move
-  // does not happen: prog, inline transform, computed transform, and rect.top.
-  services.style.animation = 'none';
-  services.style.willChange = 'transform, opacity';
-  // build overlay
-  var ov = document.createElement('div');
-  ov.id = '__dbg';
-  ov.style.cssText = 'position:fixed;left:6px;right:6px;bottom:6px;z-index:99999;font:600 12px/1.5 monospace;color:#4ade80;background:rgba(0,0,0,.82);padding:8px 10px;border-radius:8px;pointer-events:none;white-space:pre-wrap;word-break:break-all';
-  document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(ov); });
-  var ticking = false;
-  // LIFT must equal the CSS margin-top pull (-90px): at prog 0 we translateY(+90) to cancel
-  // it (layout unchanged), at prog 1 translateY(0) so the grey panel overlaps Work by 90px.
-  var LIFT = 90;
+  const stage = document.getElementById('wtstage');
+  const pin = document.getElementById('wtpin');
+  if(!services || !stage || !pin) return;
+  const mq = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)');
+
+  let ticking = false, mode = null; // mode: 'curtain' | 'released'
+  const servicesHome = services.parentNode;      // original flow parent (main)
+  const servicesAnchor = services.nextSibling;   // to restore original DOM position
+
+  // Wipe travel: the foreground rises over this many px of scroll. ~110dvh.
+  function travel(){ return Math.round(window.innerHeight * 1.1); }
+
+  function enterCurtain(){
+    if(mode === 'curtain') return;
+    // move .services into the pin as the foreground layer
+    if(services.parentNode !== pin) pin.appendChild(services);
+    services.classList.add('is-curtain');
+    mode = 'curtain';
+  }
+  function release(){
+    if(mode === 'released') return;
+    // put .services back in normal flow after the stage
+    services.classList.remove('is-curtain');
+    services.style.transform = '';
+    if(services.parentNode !== servicesHome){
+      servicesHome.insertBefore(services, servicesAnchor);
+    }
+    mode = 'released';
+  }
+
   function update(){
     ticking = false;
-    var vh = window.innerHeight;
-    // 'top' = the panel's rendered top edge (already shifted up 90px by margin-top).
-    var top = services.getBoundingClientRect().top;
-    // Progress window is anchored to the CURRENT viewport so the motion happens ON SCREEN:
-    // start when the edge reaches the viewport BOTTOM (top = vh), finish when it has risen
-    // to ~60% of viewport height (top = vh*0.60). At prog 0.5 the edge sits at ~80% height
-    // -> clearly visible. The window (~40% of vh) is much larger than the 90px of travel,
-    // so the panel moves visibly SLOWER than normal document scroll (parallax feel).
-    var start = vh;          // begin as the seam touches the bottom of the screen
-    var end = vh * 0.60;     // done once the edge is well inside the screen
-    var p = (start - top) / (start - end);
+    if(!mq.matches){ // desktop: ensure curtain is fully off
+      if(mode !== null){ release(); mode = null; }
+      return;
+    }
+    const stageRect = stage.getBoundingClientRect();
+    const T = travel();
+    // progress 0..1: 0 when the stage top reaches the viewport top (pin engages),
+    // 1 after T px of further scroll. Linear, no easing.
+    let p = (-stageRect.top) / T;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
-    var eased = p * p * (3 - 2 * p);
-    services.style.transform = 'translate3d(0,' + ((1 - eased) * LIFT).toFixed(2) + 'px,0)';
-    services.style.opacity = (0.9 + eased * 0.1).toFixed(3);
-    // read back the diagnostics
-    var inlineTf = services.style.transform;
-    var compTf = getComputedStyle(services).transform;
-    // extract the ACTUAL applied translateY from the computed matrix, so we know for certain
-    // whether Safari is applying the transform (independent of rect.top, which moves with
-    // normal scroll anyway). matrix(a,b,c,d,tx,ty) -> ty is the 6th value;
-    // matrix3d(...) -> ty is the 14th value.
-    var ty = 'n/a';
-    var m = compTf.match(/matrix3d\(([^)]+)\)/);
-    if(m){ var a3 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a3[13].toFixed(2); }
-    else { m = compTf.match(/matrix\(([^)]+)\)/); if(m){ var a2 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a2[5].toFixed(2); } else if(compTf==='none'){ ty='0 (none)'; } }
-    if(ov){ ov.textContent =
-      'build 20\n' +
-      '1 prog        = ' + p.toFixed(3) + '\n' +
-      '2 inline tf   = ' + inlineTf + '\n' +
-      '3 computed tf = ' + compTf + '\n' +
-      '4 rect.top    = ' + top.toFixed(1) + '\n' +
-      '5 real transY = ' + ty + ' px'; }
+
+    if(p >= 1){
+      // fully covered -> release into normal flow (only if the stage bottom has passed the
+      // pin, i.e. we are scrolling out the bottom; otherwise keep it pinned & fully up)
+      enterCurtain();
+      services.style.transform = 'translate3d(0,0,0)';
+      return;
+    }
+    enterCurtain();
+    // linear rise: translateY 100% -> 0
+    services.style.transform = 'translate3d(0,' + ((1 - p) * 100).toFixed(3) + '%,0)';
   }
+
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
+  if(mq.addEventListener) mq.addEventListener('change', onScroll);
   document.addEventListener('DOMContentLoaded', update);
   update();
 })();

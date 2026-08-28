@@ -41,16 +41,18 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-/* overflow-x:clip (NOT hidden) prevents horizontal scroll WITHOUT turning html/body into a
-   scroll container. overflow-x:hidden on body forced overflow-y:auto, which made body the
-   scroller and broke position:sticky on iOS Safari during momentum scroll. clip on html
-   keeps no-horizontal-scroll while leaving the viewport as the scroller so sticky works. */
-html{-webkit-text-size-adjust:100%;overflow-x:clip}
+/* IMPORTANT: NO overflow (incl. clip) on html/body. Any overflow value here establishes a
+   clip/scroll context that breaks position:sticky on descendants on iOS Safari (proven: the
+   isolated /stickytest/ page worked precisely because no ancestor had overflow). Horizontal
+   bleed is instead prevented per-section (each full-bleed section already has overflow:hidden
+   on itself, and max-width:100vw below is a final guard) so the viewport stays the scroller
+   and the curtain pin can stick. */
+html{-webkit-text-size-adjust:100%}
 html.lenis{scroll-behavior:auto}
 body{
   background:var(--bg);color:var(--text);
   font-family:var(--font-body);font-size:14px;line-height:1.3;letter-spacing:0;
-  -webkit-font-smoothing:antialiased;overflow-x:clip;
+  -webkit-font-smoothing:antialiased;max-width:100vw;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -676,29 +678,48 @@ body.lb-open{overflow:hidden}
    black Work tail, then eyebrow + rows stagger in. Triggered once by
    IntersectionObserver (.panel-in), not by continuous scroll.
    ===================================================================== */
+/* On DESKTOP the curtain wrapper must be invisible to layout so the existing desktop
+   sticky-overlap (Work pins + Capabilities scrolls over it) is completely untouched. */
+@media (min-width:901px) and (hover:hover) and (pointer:fine){
+  .wtstage,.wtpin{display:contents}
+}
+
+/* ===== MOBILE / TOUCH: full-viewport Work -> Capabilities CURTAIN WIPE =====
+   Proven sticky architecture (verified on real iPhone). A tall stage wraps Work; a
+   viewport-tall sticky pin keeps Work stationary while .services (moved inside the pin by
+   JS as a foreground layer) rises translateY(100% -> 0) over the stage's scroll length.
+   CRITICAL: no ancestor of .wtpin may have overflow (incl. clip)/transform/filter/
+   perspective/contain, or iOS sticky breaks. html/body overflow-x:clip is therefore
+   removed globally (see top of file) and horizontal bleed is contained per-section. */
 @media (max-width:900px), (hover:none), (pointer:coarse){
-  .work{overflow:visible;position:relative;z-index:1}
   .work__dim{display:none}
   .work__dim-mobile{display:none}
-  /* keep the existing gentle bottom fade on Work so the panel rises out of dark */
-  .work::after{height:clamp(160px,26vh,300px);z-index:3;
-    background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,.78) 100%)}
 
-  /* Capabilities = a panel that ends up OVERLAPPING the black Work section by ~90px.
-     margin-top:-90px pulls it up over Work; JS starts it at translateY(90px) so the
-     initial layout looks unchanged, then animates 90->0 so the grey sheet visibly
-     slides up over the black tail. z-index:4 keeps it above Work. */
-  .services{position:relative;z-index:4;margin-top:-90px;
+  /* The stage: taller than the viewport so there is scroll length to drive the wipe.
+     ~210dvh gives ~110dvh of wipe travel plus lead-in/out. */
+  .wtstage{position:relative;display:block;height:210dvh;background:#000}
+  /* The pin: stays fixed under the header while the stage scrolls past. */
+  .wtpin{position:sticky;position:-webkit-sticky;top:0;height:100dvh;overflow:hidden;
+    background:#121212}
+
+  /* Work is the stationary BACKGROUND layer, filling the pinned viewport. It no longer
+     scrolls on its own inside the pin; it just sits behind the rising curtain. */
+  .work{position:absolute;inset:0;z-index:1;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-start;
+    padding:calc(var(--navh,64px) + 24px) 0 24px}
+  .work__grid{flex:0 0 auto}
+  .work::after{height:clamp(120px,20vh,240px);z-index:3;
+    background:linear-gradient(180deg,rgba(18,18,18,0) 0%,rgba(18,18,18,.55) 70%,rgba(18,18,18,.9) 100%)}
+
+  /* Capabilities is the FOREGROUND curtain. While JS is driving the wipe it is
+     absolutely positioned inside the pin (class added by JS: .is-curtain), starting fully
+     below the viewport. Its opaque bg covers everything in Work as it rises. */
+  .services{position:relative;z-index:5;background:var(--bg)}
+  .services.is-curtain{position:absolute;left:0;right:0;top:0;bottom:0;
+    min-height:100dvh;overflow:hidden;
+    transform:translate3d(0,100%,0);   /* JS overrides per frame 100% -> 0 */
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
     border-top:1px solid transparent;
-    background:
-      linear-gradient(90deg,var(--cyan),var(--green)) top/100% 1px no-repeat,
-      var(--bg);
-    }
-  /* The entrance is now driven entirely by JS: each scroll frame sets inline
-     transform (translate3d) + opacity on .services from computed scroll progress.
-     No CSS hide / keyframes here — that fought the per-frame inline styles and, on a
-     very tall section, iOS did not repaint the one-shot keyframe. Per-frame inline
-     transforms are what the device actually moves. Backface hint keeps it composited. */
-  .services{-webkit-backface-visibility:hidden;backface-visibility:hidden}
+    background:linear-gradient(90deg,var(--cyan),var(--green)) top/100% 2px no-repeat,var(--bg)}
 }
 
