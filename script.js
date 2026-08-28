@@ -1,3 +1,10 @@
+// Mark that the fresh script is actually executing. CSS only hides the Capabilities panel
+// (for the slide-up entrance) when <html> has .js-ready — so if the script fails to load
+// on a device (cache), the panel stays visible instead of vanishing. Also a temporary
+// visible build badge to confirm on-device whether the newest script.js is running.
+document.documentElement.classList.add('js-ready');
+(function(){try{var b=document.createElement('div');b.textContent='build 12';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
+
 // ===== DATA =====
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
 // cells, one long horizontal frame). Mostly squares; wide tiles are dropped in

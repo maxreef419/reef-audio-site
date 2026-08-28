@@ -691,10 +691,11 @@ body.lb-open{overflow:hidden}
     background:
       linear-gradient(90deg,var(--cyan),var(--green)) top/100% 1px no-repeat,
       var(--bg);
-    /* start below + transparent; .panel-in animates it up into place */
-    opacity:0;transform:translateY(64px);
     transition:opacity .5s var(--ease-soft),transform .55s var(--ease-soft)}
-  .services.panel-in{opacity:1;transform:none}
+  /* Only HIDE the panel for the entrance if the script actually ran (.js-ready on <html>).
+     If script.js fails to load on a device, the panel stays fully visible — never blank. */
+  html.js-ready .services{opacity:0;transform:translateY(64px)}
+  html.js-ready .services.panel-in{opacity:1;transform:none}
 
   /* eyebrow appears ~200ms after the panel starts moving */
   .services.panel-in .services__head .eyebrow{transition-delay:.2s}
