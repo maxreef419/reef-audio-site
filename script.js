@@ -350,15 +350,24 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     var eased = p * p * (3 - 2 * p);
     services.style.transform = 'translate3d(0,' + ((1 - eased) * LIFT).toFixed(2) + 'px,0)';
     services.style.opacity = (0.85 + eased * 0.15).toFixed(3);
-    // read back the 4 diagnostics
+    // read back the diagnostics
     var inlineTf = services.style.transform;
     var compTf = getComputedStyle(services).transform;
+    // extract the ACTUAL applied translateY from the computed matrix, so we know for certain
+    // whether Safari is applying the transform (independent of rect.top, which moves with
+    // normal scroll anyway). matrix(a,b,c,d,tx,ty) -> ty is the 6th value;
+    // matrix3d(...) -> ty is the 14th value.
+    var ty = 'n/a';
+    var m = compTf.match(/matrix3d\(([^)]+)\)/);
+    if(m){ var a3 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a3[13].toFixed(2); }
+    else { m = compTf.match(/matrix\(([^)]+)\)/); if(m){ var a2 = m[1].split(',').map(function(s){return parseFloat(s);}); ty = a2[5].toFixed(2); } else if(compTf==='none'){ ty='0 (none)'; } }
     if(ov){ ov.textContent =
-      'build 18\n' +
+      'build 19\n' +
       '1 prog        = ' + p.toFixed(3) + '\n' +
       '2 inline tf   = ' + inlineTf + '\n' +
       '3 computed tf = ' + compTf + '\n' +
-      '4 rect.top    = ' + top.toFixed(1); }
+      '4 rect.top    = ' + top.toFixed(1) + '\n' +
+      '5 real transY = ' + ty + ' px'; }
   }
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, {passive:true});
