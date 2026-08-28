@@ -237,7 +237,16 @@ body.menu-open .menu__meta{opacity:1}
   .work__item{aspect-ratio:1/1;height:auto;border-radius:12px}
   .work__item--wide{grid-column:auto;aspect-ratio:1/1}
 }
-.work__item.in{opacity:1;transform:none}
+.work__item.in{opacity:1}
+/* ===== SCROLL PIN: each preview scales up & 'settles' as it nears viewport
+   centre, then eases back as it exits — echoing poison.studio's sticky-pin feel
+   on the grid. Driven by JS via --pin-s (scale) and --pin-y (px lift). ===== */
+@media (min-width:561px){
+  .work__item.in.is-pinned{transition:transform .12s linear;will-change:transform}
+}
+@media (prefers-reduced-motion:reduce){
+  .work__item.in.is-pinned{transition:none;transform:none!important}
+}
 /* Media is over-scanned ~2px beyond the box on every side. Fractional tile
    widths (e.g. 420.48px) made a 1px inflation round short on the right and
    expose a hairline of the dark card behind it; a 2px bleed absorbs any

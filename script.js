@@ -368,3 +368,72 @@ if(contactSec) secIO.observe(contactSec);
   window.addEventListener('orientationchange', onScroll, { passive: true });
   update();
 })();
+
+// ===== WORK GRID SCROLL-PIN =====
+// Poison.studio pins a video box dead-centre while the page scrolls past it.
+// Adapted to a masonry grid: each preview scales up and gently lifts as it
+// approaches viewport centre, holds through a centre plateau, then eases back
+// as it exits — so every tile feels like it 'settles and pins' on the way past.
+// Desktop/tablet + fine-pointer only; skipped for reduced-motion and phones.
+(() => {
+  const g = document.getElementById('workGrid');
+  if (!g) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  // Width-only gate: >560px gets the pin motion. Pointer/hover fitness is left to
+  // the CSS transition rule; phones are excluded by width. This avoids brittle
+  // headless hover:hover mismatches while keeping the effect off on small screens.
+  const gate = window.matchMedia('(min-width:561px)');
+
+  const MAX_SCALE = 0.035;  // peak grow (=> scale 1.035) at centre; stays within grid gap
+  const MAX_LIFT  = 8;      // peak upward lift in px at centre
+  const PLATEAU   = 0.16;   // fraction of travel around centre that stays maxed
+
+  let ticking = false, on = gate.matches && !reduce.matches;
+
+  function clear(){
+    g.querySelectorAll('.work__item').forEach(el => {
+      el.classList.remove('is-pinned');
+      el.style.transform = '';
+    });
+  }
+
+  function update(){
+    ticking = false;
+    if (!on) return;
+    const vh = window.innerHeight;
+    const mid = vh / 2;
+    const items = g.querySelectorAll('.work__item.in');
+    for (const el of items){
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > vh + 80){ // off-screen: rest state
+        el.style.transform = 'scale(1) translateY(0)';
+        continue;
+      }
+      if (!el.classList.contains('is-pinned')) el.classList.add('is-pinned');
+      const c = r.top + r.height / 2;          // tile centre
+      // 0 at viewport centre, 1 at the far edges of a full screen of travel
+      let d = Math.abs(c - mid) / (vh / 2 + r.height / 2);
+      d = Math.min(1, d);
+      // centre plateau: keep the peak for a band around dead-centre
+      let t = d <= PLATEAU ? 0 : (d - PLATEAU) / (1 - PLATEAU);
+      // ease-out so the settle feels soft, not linear
+      const eased = 1 - Math.pow(t, 1.6);      // 1 at centre -> 0 at edge
+      const s = (1 + MAX_SCALE * eased).toFixed(4);
+      const y = (-MAX_LIFT * eased).toFixed(2);
+      el.style.transform = 'scale(' + s + ') translateY(' + y + 'px)';
+    }
+  }
+  const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
+
+  function setGate(){
+    on = gate.matches && !reduce.matches;
+    if (!on) clear(); else onScroll();
+  }
+  (gate.addEventListener ? gate.addEventListener('change', setGate) : gate.addListener(setGate));
+  (reduce.addEventListener ? reduce.addEventListener('change', setGate) : reduce.addListener(setGate));
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('orientationchange', onScroll, { passive: true });
+  update();
+})();
