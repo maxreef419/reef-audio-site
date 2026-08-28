@@ -3,12 +3,8 @@
 // on a device (cache), the panel stays visible instead of vanishing. Also a temporary
 // visible build badge to confirm on-device whether the newest script.js is running.
 document.documentElement.classList.add('js-ready');
-(function(){try{var b=document.createElement('div');b.id='__buildbadge';b.textContent='build 17 | panel:no';b.style.cssText='position:fixed;left:8px;bottom:8px;z-index:99999;font:600 11px/1 monospace;color:#4ade80;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:6px;pointer-events:none';document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(b)});}catch(e){}})();
-window.__setBadge=function(t){var b=document.getElementById('__buildbadge');if(b)b.textContent=t;};
-// Diagnostic: the badge itself runs a simple looping slide animation. If the badge visibly
-// moves up/down on the device but the Capabilities panel does not, the problem is specific
-// to animating that large section (size/compositing), not animations in general.
-(function(){try{var st=document.createElement('style');st.textContent='@keyframes badgeMove{0%{transform:translateY(0)}50%{transform:translateY(-22px)}100%{transform:translateY(0)}} #__buildbadge{animation:badgeMove 1.4s ease-in-out infinite}';document.addEventListener('DOMContentLoaded',function(){document.head.appendChild(st)});}catch(e){}})();
+window.__setBadge=function(){};
+// (old looping badge animation removed — build 18 uses a full diagnostic overlay instead)
 
 // ===== DATA =====
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
@@ -333,32 +329,41 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   if(!services) return;
   const isTouch = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)').matches;
   if(!isTouch) return; // desktop keeps its own sticky overlap
-  // This block owns the panel now: cancel the class-based keyframe entrance so the two
-  // mechanisms don't fight. We set opacity/transform inline every frame instead.
-  services.classList.remove('panel-in');
-  services.style.willChange = 'transform, opacity';
+  // DIAGNOSTIC BUILD 18: do NOT change DOM. Apply the inline transform to .services as before,
+  // and show a live on-screen overlay with the 4 values needed to localize why the visual move
+  // does not happen: prog, inline transform, computed transform, and rect.top.
   services.style.animation = 'none';
-  var ticking = false, done = false;
-  var RANGE = 150; // px of travel over which the panel eases in (the last ~150px before the seam)
-  var LIFT = 60;   // start 60px lower and rise to 0
+  services.style.willChange = 'transform, opacity';
+  // build overlay
+  var ov = document.createElement('div');
+  ov.id = '__dbg';
+  ov.style.cssText = 'position:fixed;left:6px;right:6px;bottom:6px;z-index:99999;font:600 12px/1.5 monospace;color:#4ade80;background:rgba(0,0,0,.82);padding:8px 10px;border-radius:8px;pointer-events:none;white-space:pre-wrap;word-break:break-all';
+  document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(ov); });
+  var ticking = false;
+  var RANGE = 150, LIFT = 60;
   function update(){
     ticking = false;
-    var vh = window.innerHeight; // real viewport, not 100vh
+    var vh = window.innerHeight;
     var top = services.getBoundingClientRect().top;
-    // progress 0 while the panel's top edge is still >= vh (below the fold),
-    // reaching 1 by the time that edge has risen RANGE px above the fold line.
     var p = (vh - top) / RANGE;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
-    var eased = p * p * (3 - 2 * p); // smoothstep
+    var eased = p * p * (3 - 2 * p);
     services.style.transform = 'translate3d(0,' + ((1 - eased) * LIFT).toFixed(2) + 'px,0)';
     services.style.opacity = (0.85 + eased * 0.15).toFixed(3);
-    if(window.__setBadge) window.__setBadge('build 17 | prog ' + p.toFixed(2));
-    // once fully in, stop touching it so normal scrolling of the rest is untouched
-    if(p >= 1 && !done){ done = true; }
+    // read back the 4 diagnostics
+    var inlineTf = services.style.transform;
+    var compTf = getComputedStyle(services).transform;
+    if(ov){ ov.textContent =
+      'build 18\n' +
+      '1 prog        = ' + p.toFixed(3) + '\n' +
+      '2 inline tf   = ' + inlineTf + '\n' +
+      '3 computed tf = ' + compTf + '\n' +
+      '4 rect.top    = ' + top.toFixed(1); }
   }
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
+  document.addEventListener('DOMContentLoaded', update);
   update();
 })();
 
