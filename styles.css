@@ -232,9 +232,10 @@ body.menu-open .menu__meta{opacity:1}
    unclips bottom-up, settles 0.97 -> 1.00 over ~800ms. */
 .work__reveal{
   position:absolute;inset:0;display:block;
-  transform:translateY(28px) scale(.97);clip-path:inset(90% 0 0 0);
-  transition:transform .8s cubic-bezier(.22,.61,.36,1),
-             clip-path .8s cubic-bezier(.22,.61,.36,1);
+  transform:translateY(24px) scale(.975);clip-path:inset(88% 0 0 0);
+  /* softer, slightly longer settle so the frame eases open rather than snapping */
+  transition:transform 1.05s cubic-bezier(.16,.68,.32,1),
+             clip-path 1.05s cubic-bezier(.16,.68,.32,1);
   will-change:transform,clip-path;
 }
 .work__item.in .work__reveal{transform:translateY(0) scale(1);clip-path:inset(0 0 0 0)}
@@ -276,9 +277,9 @@ body.menu-open .menu__meta{opacity:1}
 .work__name{display:block;font-family:var(--font-display);font-weight:700;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.015em;
   text-shadow:0 1px 18px rgba(0,0,0,.45);
   transform:translateY(110%);
-  transition:transform .7s var(--kadr,cubic-bezier(.22,.61,.36,1))}
-/* fires ~130ms after the frame begins: kadr first, then caption */
-.work__item.in .work__name{transform:translateY(0);transition-delay:.13s}
+  transition:transform .85s cubic-bezier(.16,.68,.32,1)}
+/* fires ~180ms after the frame begins: kadr first, then caption */
+.work__item.in .work__name{transform:translateY(0);transition-delay:.18s}
 @media (hover:hover){.work__item.in:hover .work__name{transform:translateY(-2px);transition-delay:0s;transition-duration:.4s}}
 .work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(44px,6vw,72px)}
 /* Typographic 'View more' in the spirit of the footer's START A PROJECT link:

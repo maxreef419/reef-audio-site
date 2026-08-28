@@ -125,10 +125,17 @@ var observePreviews = function(){};
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce) return;
 
+  // Attach the source (and start decoding) BEFORE the card is fully in frame, so
+  // playback can begin the instant the reveal starts — no static-still gap.
+  function warm(item){
+    const v = item.querySelector('.work__video');
+    if(!v) return;
+    if(!v.src){ const s = v.getAttribute('data-prev'); if(s){ v.preload='auto'; v.src = s; try{v.load();}catch(e){} } }
+  }
   function loadAndPlay(item){
     const v = item.querySelector('.work__video');
     if(!v) return;
-    if(!v.src){ const s = v.getAttribute('data-prev'); if(s) v.src = s; }
+    warm(item);
     item.classList.add('is-previewing');
     const p = v.play();
     if(p && p.catch) p.catch(()=>{});
@@ -140,15 +147,19 @@ var observePreviews = function(){};
     try{ v.pause(); }catch(e){}
   }
 
-  // Autoplay when visible, pause when not. A slightly generous threshold means the
-  // clip is already running by the time the card is comfortably in frame.
+  // Autoplay tied to the reveal, not after it. The video is pre-warmed the moment
+  // a card starts peeking in, then plays as soon as ~12% is visible — the same
+  // point the 'kadr' reveal begins — so motion is already running as the frame
+  // opens (no static still). Pauses when the card leaves the viewport.
   const previewIO = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
       const item = en.target;
-      if(en.isIntersecting && en.intersectionRatio > 0.35){ loadAndPlay(item); }
-      else { stop(item); }
+      const r = en.intersectionRatio;
+      if(en.isIntersecting && r > 0){ warm(item); }
+      if(en.isIntersecting && r >= 0.12){ loadAndPlay(item); }
+      else if(!en.isIntersecting){ stop(item); }
     });
-  }, {threshold:[0, 0.35, 0.6], rootMargin:'0px 0px -8% 0px'});
+  }, {threshold:[0, 0.05, 0.12, 0.35, 0.6], rootMargin:'200px 0px 200px 0px'});
 
   observePreviews = function(){
     grid.querySelectorAll('.work__item').forEach(el=>{
