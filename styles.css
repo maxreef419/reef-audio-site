@@ -81,40 +81,28 @@ body::after{
 .brand{display:flex;align-items:center}
 .brand__logo{height:38px;width:auto;object-fit:contain}
 .brand--sm .brand__logo{height:32px}
+/* Single, consistent burger at ALL widths (portrait, landscape, desktop): three
+   bars whose lengths echo the logo's bar-height ratios (1.0 / 0.64 / 0.97),
+   thin 2px strokes, rounded caps, cyan→green gradient, no border. Previously the
+   gradient style was gated to <=600px, so landscape phones & desktop fell back to
+   a plain white 2-bar-looking icon — now unified. */
 .nav__toggle{
-  width:46px;height:46px;border:0;border-radius:0;
-  background:transparent;cursor:pointer;
-  position:relative;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  width:26px;height:30px;border:0;border-radius:0;
+  background:transparent;cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;
   transition:transform .3s var(--ease);
 }
 .nav__toggle:hover{transform:scale(1.05)}
-.nav__toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:transform .35s var(--ease),opacity .25s}
-.nav__toggle span:nth-child(3){width:11px}
-body.menu-open .nav__toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav__toggle span{position:static;display:block;height:2px;border-radius:2px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,width .35s var(--ease),background .3s}
+.nav__toggle span:nth-child(1){width:22px}   /* 1.00 */
+.nav__toggle span:nth-child(2){width:14px}   /* 0.64 */
+.nav__toggle span:nth-child(3){width:21px}   /* 0.97 */
+.nav__toggle:hover span{filter:brightness(1.12)}
+/* open state = clean single-colour X from the outer two bars */
+body.menu-open .nav__toggle span{background:var(--text)}
+body.menu-open .nav__toggle span:nth-child(1){width:24px;transform:translateY(8px) rotate(45deg)}
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
-body.menu-open .nav__toggle span:nth-child(3){width:18px;transform:translateY(-7px) rotate(-45deg)}
-
-/* ===== MOBILE BURGER = REEF equalizer, laid horizontal ===== */
-/* Horizontal burger whose three bars have DIFFERENT lengths matching the logo's
-   bar-height ratios (1.0 / 0.64 / 0.97), the logo's stroke:pitch = 0.5 feel
-   (thin 2px strokes), rounded caps, cyan→green gradient, no circular border.
-   Longest bar = 22px (matches the logo's tallest). Falls back to default spans
-   above 600px. */
-@media (max-width:600px){
-  .nav__toggle{width:26px;height:30px;gap:6px;flex-direction:column;align-items:flex-start;justify-content:center}
-  .nav__toggle span{position:static;display:block;height:2px;border-radius:2px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,width .35s var(--ease),background .3s}
-  /* logo length ratios on a 22px base */
-  .nav__toggle span:nth-child(1){width:22px}   /* 1.00 */
-  .nav__toggle span:nth-child(2){width:14px}   /* 0.64 */
-  .nav__toggle span:nth-child(3){width:21px}   /* 0.97 */
-  .nav__toggle:hover span{filter:brightness(1.12)}
-  /* open state = clean single-color X from the outer two bars */
-  body.menu-open .nav__toggle span{background:var(--text)}
-  body.menu-open .nav__toggle span:nth-child(1){width:24px;transform:translateY(8px) rotate(45deg)}
-  body.menu-open .nav__toggle span:nth-child(2){opacity:0}
-  body.menu-open .nav__toggle span:nth-child(3){width:24px;transform:translateY(-8px) rotate(-45deg)}
-}
+body.menu-open .nav__toggle span:nth-child(3){width:24px;transform:translateY(-8px) rotate(-45deg)}
 
 /* ===== MENU OVERLAY ===== */
 .menu{
@@ -238,29 +226,28 @@ body.menu-open .menu__meta{opacity:1}
   .work__item--wide{grid-column:auto;aspect-ratio:1/1}
 }
 .work__item.in{opacity:1}
-/* ===== SCROLL PIN: each preview scales up & 'settles' as it nears viewport
-   centre, then eases back as it exits — echoing poison.studio's sticky-pin feel
-   on the grid. Driven by JS via --pin-s (scale) and --pin-y (px lift). ===== */
-.work__item.in.is-pinned{transition:transform .12s linear;will-change:transform}
+/* Inner-media scroll parallax lives on .work__item img/.work__video (see below);
+   the frame itself never transforms, so there is no edge-bleed or overlap. */
 @media (prefers-reduced-motion:reduce){
-  .work__item.in.is-pinned{transition:none;transform:none!important}
+  .work__item img,.work__item .work__video{transform:none!important}
 }
 /* Media is over-scanned ~2px beyond the box on every side. Fractional tile
    widths (e.g. 420.48px) made a 1px inflation round short on the right and
    expose a hairline of the dark card behind it; a 2px bleed absorbs any
    sub-pixel rounding so no stripe can appear on any edge. */
 .work__item img,.work__item .work__video{
-  position:absolute;top:-2px;left:-2px;width:calc(100% + 4px);height:calc(100% + 4px);
-  /* override the global img{max-width:100%} reset — otherwise the width is
-     clamped to 100%, the media shifts 2px left, and a hairline of the dark card
-     shows on the RIGHT edge (the recurring side stripe). */
+  /* Over-scanned well beyond the frame so the inner scroll-parallax (translateY
+     via --pz, up to ±14px) can never expose the dark card behind. Extra bleed:
+     ~22px each side vertically, 4px horizontally (no horizontal drift). */
+  position:absolute;top:-22px;left:-2px;width:calc(100% + 4px);height:calc(100% + 44px);
   max-width:none;max-height:none;
   object-fit:cover;
+  transform:translateY(var(--pz,0px)) scale(var(--hs,1));
 }
-.work__item img{display:block;z-index:1;transition:transform .9s var(--ease),filter .6s}
-@media (hover:hover){.work__item:hover img{transform:scale(1.04)}}
+.work__item img{display:block;z-index:1;transition:transform .18s linear,filter .6s}
+@media (hover:hover){.work__item:hover{--hs:1.04}.work__item:hover img{transition:transform .6s var(--ease)}}
 .work__video{z-index:2;
-  opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
+  opacity:0;transition:opacity .5s var(--ease),transform .18s linear;pointer-events:none}
 .work__item.is-previewing .work__video{opacity:1}
 .work__item:focus-visible{outline:2px solid var(--cyan);outline-offset:-3px}
 .work__overlay{
