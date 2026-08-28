@@ -514,7 +514,8 @@ body.lb-open{overflow:hidden}
 .footer__col--sm a{font-size:14px;font-weight:400;color:var(--muted)}
 .footer__col--sm a:hover{color:var(--cyan)}
 /* Email sits at the BOTTOM of the right column as small text (reference) */
-.footer__col-email{margin-top:14px;font-size:14px;color:var(--muted);word-break:break-word}
+/* Email matches the other right-column links exactly (same size/weight/color) */
+.footer__col-email{margin-top:14px;word-break:break-word}
 /* --- bottom bar --- */
 .footer__bottom{position:relative;z-index:2;max-width:var(--maxw);margin:clamp(48px,7vw,90px) auto 0;padding-top:24px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .footer__wordmark{font-family:var(--font-mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-2)}
