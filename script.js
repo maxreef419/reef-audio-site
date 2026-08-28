@@ -369,72 +369,43 @@ if(contactSec) secIO.observe(contactSec);
   update();
 })();
 
-// ===== WORK GRID SCROLL-PIN =====
-// Poison.studio pins a video box dead-centre while the page scrolls past it.
-// Adapted to a masonry grid: each preview scales up and gently lifts as it
-// approaches viewport centre, holds through a centre plateau, then eases back
-// as it exits — so every tile feels like it 'settles and pins' on the way past.
-// Desktop/tablet + fine-pointer only; skipped for reduced-motion and phones.
+// ===== WORK GRID: INNER-MEDIA SCROLL PARALLAX =====
+// A refined, artifact-free take on poison.studio's settle: the tile frame stays
+// perfectly still (no scaling of the box => no edge-bleed, no neighbour overlap),
+// and ONLY the media INSIDE the fixed overflow:hidden frame drifts a few px as the
+// tile travels through the viewport. Reads as a calm, premium parallax rather than
+// a glitchy scale. rAF-throttled; disabled for reduced-motion.
 (() => {
   const g = document.getElementById('workGrid');
   if (!g) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // Runs on every width now (phones too). Only reduced-motion turns it off.
-  const phone = window.matchMedia('(max-width:560px)');
+  let on = !reduce.matches;
+  const AMP = 14; // max inner drift in px (media is over-scanned, so it never gaps)
 
-  // Gentler settle on phones (single-column, finger scrolling) than on desktop.
-  function params(){
-    return phone.matches
-      ? { scale: 0.022, lift: 5, plateau: 0.14 }   // subtle on mobile
-      : { scale: 0.035, lift: 8, plateau: 0.16 };  // desktop/tablet
-  }
-  let P = params();
-
-  let ticking = false, on = !reduce.matches;
-
+  let ticking = false;
   function clear(){
-    g.querySelectorAll('.work__item').forEach(el => {
-      el.classList.remove('is-pinned');
-      el.style.transform = '';
-    });
+    g.querySelectorAll('.work__item .work__media, .work__item img, .work__item .work__video')
+     .forEach(el => { el.style.removeProperty('--pz'); });
   }
-
   function update(){
     ticking = false;
     if (!on) return;
     const vh = window.innerHeight;
-    const mid = vh / 2;
     const items = g.querySelectorAll('.work__item.in');
     for (const el of items){
       const r = el.getBoundingClientRect();
-      if (r.bottom < -80 || r.top > vh + 80){ // off-screen: rest state
-        el.style.transform = 'scale(1) translateY(0)';
-        continue;
-      }
-      if (!el.classList.contains('is-pinned')) el.classList.add('is-pinned');
-      const c = r.top + r.height / 2;          // tile centre
-      // 0 at viewport centre, 1 at the far edges of a full screen of travel
-      let d = Math.abs(c - mid) / (vh / 2 + r.height / 2);
-      d = Math.min(1, d);
-      // centre plateau: keep the peak for a band around dead-centre
-      let t = d <= P.plateau ? 0 : (d - P.plateau) / (1 - P.plateau);
-      // ease-out so the settle feels soft, not linear
-      const eased = 1 - Math.pow(t, 1.6);      // 1 at centre -> 0 at edge
-      const s = (1 + P.scale * eased).toFixed(4);
-      const y = (-P.lift * eased).toFixed(2);
-      el.style.transform = 'scale(' + s + ') translateY(' + y + 'px)';
+      if (r.bottom < -60 || r.top > vh + 60) continue;
+      // progress: 0 when tile centre is at viewport bottom, 1 at the top
+      const c = r.top + r.height / 2;
+      let p = 1 - (c / vh);            // 0..1 as it rises
+      p = Math.max(0, Math.min(1, p));
+      const shift = ((p - 0.5) * 2 * AMP).toFixed(2); // -AMP..+AMP
+      el.style.setProperty('--pz', shift + 'px');
     }
   }
   const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
-
-  function setGate(){
-    P = params();
-    on = !reduce.matches;
-    if (!on) clear(); else onScroll();
-  }
-  (phone.addEventListener ? phone.addEventListener('change', setGate) : phone.addListener(setGate));
-  (reduce.addEventListener ? reduce.addEventListener('change', setGate) : reduce.addListener(setGate));
-
+  function setState(){ on = !reduce.matches; if (!on) clear(); else onScroll(); }
+  (reduce.addEventListener ? reduce.addEventListener('change', setState) : reduce.addListener(setState));
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
   window.addEventListener('orientationchange', onScroll, { passive: true });
