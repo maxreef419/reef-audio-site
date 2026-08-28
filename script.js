@@ -354,22 +354,25 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
       if(mode !== null){ release(); mode = null; }
       return;
     }
+    const vh = window.innerHeight;
+    const T = travel();                       // wipe travel (~1.1 * vh), matches CSS padding-bottom
     const stageRect = stage.getBoundingClientRect();
-    const T = travel();
-    // progress 0..1: 0 when the stage top reaches the viewport top (pin engages),
-    // 1 after T px of further scroll. Linear, no easing.
-    let p = (-stageRect.top) / T;
+    // The pin sticks at top:0 once the stage bottom has come within (vh) of the top, i.e. the
+    // wipe runs while the stage bottom travels from (vh + T) up to (vh). Progress is how far
+    // into that T-px window we are. Linear, no easing.
+    const distToWipeEnd = stageRect.bottom - vh; // T at start of wipe, 0 at full cover
+    let p = (T - distToWipeEnd) / T;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
 
-    if(p >= 1){
-      // fully covered -> release into normal flow (only if the stage bottom has passed the
-      // pin, i.e. we are scrolling out the bottom; otherwise keep it pinned & fully up)
-      enterCurtain();
-      services.style.transform = 'translate3d(0,0,0)';
+    // Once the wipe has fully covered Work AND the stage bottom has reached the top of the
+    // viewport, hand off: release .services back to normal flow so Capabilities scrolls
+    // naturally. Before that point, keep it as the pinned curtain.
+    if(p >= 1 && stageRect.bottom <= vh){
+      release();
       return;
     }
     enterCurtain();
-    // linear rise: translateY 100% -> 0
+    // linear rise: translateY 100% -> 0 (fully below viewport -> fully covering Work)
     services.style.transform = 'translate3d(0,' + ((1 - p) * 100).toFixed(3) + '%,0)';
   }
 

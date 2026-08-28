@@ -695,28 +695,21 @@ body.lb-open{overflow:hidden}
   .work__dim{display:none}
   .work__dim-mobile{display:none}
 
-  /* The stage: taller than the viewport so there is scroll length to drive the wipe.
-     ~210dvh gives ~110dvh of wipe travel plus lead-in/out. */
-  .wtstage{position:relative;display:block;height:210dvh;background:#000}
-  /* The pin: stays fixed under the header while the stage scrolls past. */
-  .wtpin{position:sticky;position:-webkit-sticky;top:0;height:100dvh;overflow:hidden;
-    background:#121212}
+  /* Work is LEFT EXACTLY AS-IS (original natural flow + full height). We only WRAP it.
+     The stage is Work's natural height PLUS extra scroll room (padding-bottom) that gives
+     the sticky pin ~110dvh of travel to run the wipe. No overflow/transform/etc. here that
+     would clip Work or break the pin. */
+  .wtstage{position:relative;display:block;padding-bottom:110dvh}
+  /* The pin sits AFTER Work; it holds only the curtain. It sticks under the header and
+     stays for the length of the padding-bottom scroll room. Its own box is zero-height so
+     it does not push layout; the curtain inside is viewport-sized. */
+  .wtpin{position:sticky;position:-webkit-sticky;top:0;height:0;z-index:5}
 
-  /* Work is the stationary BACKGROUND layer, filling the pinned viewport. It no longer
-     scrolls on its own inside the pin; it just sits behind the rising curtain. */
-  .work{position:absolute;inset:0;z-index:1;overflow:hidden;
-    display:flex;flex-direction:column;justify-content:flex-start;
-    padding:calc(var(--navh,64px) + 24px) 0 24px}
-  .work__grid{flex:0 0 auto}
-  .work::after{height:clamp(120px,20vh,240px);z-index:3;
-    background:linear-gradient(180deg,rgba(18,18,18,0) 0%,rgba(18,18,18,.55) 70%,rgba(18,18,18,.9) 100%)}
-
-  /* Capabilities is the FOREGROUND curtain. While JS is driving the wipe it is
-     absolutely positioned inside the pin (class added by JS: .is-curtain), starting fully
-     below the viewport. Its opaque bg covers everything in Work as it rises. */
-  .services{position:relative;z-index:5;background:var(--bg)}
-  .services.is-curtain{position:absolute;left:0;right:0;top:0;bottom:0;
-    min-height:100dvh;overflow:hidden;
+  /* Capabilities = FOREGROUND curtain, moved into the pin by JS (.is-curtain). Fixed to the
+     pinned viewport, opaque, starts fully below the viewport and rises to cover Work. */
+  .services{position:relative;z-index:2;background:var(--bg)}
+  .services.is-curtain{position:absolute;left:0;right:0;top:0;
+    height:100dvh;min-height:100dvh;overflow:hidden;
     transform:translate3d(0,100%,0);   /* JS overrides per frame 100% -> 0 */
     -webkit-backface-visibility:hidden;backface-visibility:hidden;
     border-top:1px solid transparent;

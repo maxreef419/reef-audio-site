@@ -33,7 +33,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=21" />
+<link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body>
 
@@ -77,14 +77,15 @@
 </section>
 
 <!-- ===== WORK → CAPABILITIES CURTAIN STAGE (mobile) =====
-     On mobile a tall stage wraps Work; inside it a sticky viewport-tall pin keeps Work
-     stationary while the Capabilities section (moved in here as a foreground layer by JS)
-     rises from translateY(100%) to 0 over ~110dvh, then JS releases it back to normal flow.
-     Desktop ignores .wtstage/.wtpin (they are display:contents there) and keeps its own
-     sticky-overlap. -->
+     On mobile a tall stage wraps the ORIGINAL Work section (untouched, natural full height,
+     normal flow) followed by an empty sticky pin. Work scrolls normally; as its bottom nears,
+     the pin sticks under the header and JS moves .services into the pin as a foreground layer
+     that rises translateY(100% -> 0) over ~110dvh, covering the last Work screen, then
+     releases back to normal flow. The Work DOM (every <video>, IntersectionObserver, etc.)
+     is only WRAPPED, never moved into the pin, so nothing is clipped. Desktop ignores
+     .wtstage/.wtpin (display:contents) and keeps its own sticky-overlap. -->
 <div class="wtstage" id="wtstage">
-<div class="wtpin" id="wtpin">
-<!-- ===== WORK ===== -->
+<!-- ===== WORK (original, unchanged) ===== -->
 <section class="work" id="work">
   <div class="work__dim" aria-hidden="true"></div>
   <div class="work__head">
@@ -100,7 +101,8 @@
        last screen (pure CSS, so iOS Safari paints it natively during momentum scroll). -->
   <div class="work__dim-mobile" aria-hidden="true"></div>
 </section>
-</div><!-- /.wtpin -->
+<!-- Empty sticky pin: holds ONLY the Capabilities curtain (moved in by JS). -->
+<div class="wtpin" id="wtpin" aria-hidden="true"></div>
 </div><!-- /.wtstage -->
 
 <!-- ===== CAPABILITIES ===== -->
@@ -247,6 +249,6 @@
   </div>
 </div>
 
-<script src="script.js?v=21"></script>
+<script src="script.js?v=22"></script>
 </body>
 </html>
