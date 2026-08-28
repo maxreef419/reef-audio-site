@@ -17,6 +17,7 @@
 
   --font-display:'Schibsted Grotesk','Inter',system-ui,sans-serif;
   --font-body:'Instrument Sans','Inter',system-ui,sans-serif;
+  --font-mono:'Space Mono','SFMono-Regular',ui-monospace,'JetBrains Mono',monospace;
   --maxw:1320px;
   --content:980px; /* Apple content column */
   --gutter:clamp(20px,4vw,46px);
@@ -49,8 +50,8 @@ body::after{
 }
 
 .eyebrow{
-  font-family:var(--font-body);
-  font-size:12px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+  font-family:var(--font-mono);
+  font-size:11.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;
   color:var(--cyan);
 }
 .accent{
@@ -285,7 +286,7 @@ body.lb-open{overflow:hidden}
   .about__col p{max-width:none;margin:0;font-size:clamp(14px,0.98vw,15.5px);line-height:1.55}
 }
 .about__col{padding-top:clamp(16px,1.4vw,22px);border-top:1px solid var(--line-2)}
-.about__col-num{display:block;font-family:var(--font-display);font-weight:600;font-size:clamp(12px,0.9vw,13px);letter-spacing:.14em;color:var(--cyan);margin:0 0 clamp(14px,1.4vw,20px)}
+.about__col-num{display:block;font-family:var(--font-mono);font-weight:400;font-size:clamp(12px,0.9vw,13px);letter-spacing:.1em;color:var(--cyan);margin:0 0 clamp(14px,1.4vw,20px)}
 .about__col-title{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,1.9vw,30px);line-height:1.1;letter-spacing:-.015em;color:var(--text);margin:0 0 clamp(14px,1.2vw,20px)}
 .about__col + .about__col{margin-top:44px}
 @media (min-width:901px){.about__col + .about__col{margin-top:0}}
