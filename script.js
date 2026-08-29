@@ -32,6 +32,15 @@ const WORK = [
   {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"}
 ];
 
+const CLIENTS = [
+  {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"Toyota",f:"toyota"},{n:"IKEA",f:"ikea"},
+  {n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},{n:"Red Bull",f:"redbull"},{n:"Volkswagen",f:"volkswagen"},
+  {n:"Danone",f:"danone"},{n:"Yandex",f:"yandex"},{n:"Burger King",f:"burgerking"},{n:"KIA",f:"kia"},
+  {n:"Lay's",f:"lays"},{n:"HBO",f:"hbo"},{n:"Kaspersky",f:"kaspersky"},{n:"BBDO",f:"bbdo"},
+  {n:"TBWA",f:"tbwa"},{n:"McCann",f:"mccann"},{n:"Leo Burnett",f:"leoburnett"},
+  {n:"Saatchi & Saatchi",f:"saatchi"},{n:"Grey",f:"grey"},{n:"Dentsu",f:"dentsu"},{n:"Havas",f:"havas"}
+];
+
 // ===== HERO ENTRANCE =====
 function startHero(){
   const hero = document.getElementById('hero');
@@ -92,8 +101,10 @@ function revealNewItems(){
   if(typeof observePreviews === 'function') observePreviews();
 }
 if(grid){
-  const homeCount = window.matchMedia('(max-width:560px)').matches ? 4 : 6;
-  const visibleWork = PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, homeCount);
+  const isPhone = window.matchMedia('(max-width:560px)').matches;
+  const isDesktop = window.matchMedia('(min-width:901px)').matches;
+  const homeWork = isPhone ? FEATURED_WORK.slice(0, 4) : (isDesktop ? WORK.slice(0, 12) : FEATURED_WORK);
+  const visibleWork = PAGE === 'work' ? WORK : homeWork;
   grid.insertAdjacentHTML('beforeend', visibleWork.map(workCard).join(''));
   revealNewItems();
 }
@@ -253,6 +264,27 @@ function trapFocus(container, event){
     else trapFocus(lb, e);
   });
 })();
+
+// ===== CLIENTS MARQUEE =====
+const clientTrack = document.getElementById('clientTrack');
+if(clientTrack){
+  const item = c => `<div class="marquee__item"><img src="${asset(`assets/clients/${c.f}.png`)}" alt="${c.n}" decoding="async" draggable="false"></div>`;
+  const sequence = CLIENTS.map(item).join('');
+  clientTrack.innerHTML = sequence + sequence;
+
+  const images = Array.from(clientTrack.querySelectorAll('img'));
+  let loaded = 0;
+  const start = () => clientTrack.classList.add('is-ready');
+  const tick = () => { if(++loaded >= images.length) start(); };
+  images.forEach(image => {
+    if(image.complete && image.naturalWidth){ tick(); }
+    else{
+      image.addEventListener('load', tick, {once:true});
+      image.addEventListener('error', tick, {once:true});
+    }
+  });
+  setTimeout(start, 3000);
+}
 
 // ===== YEAR =====
 const year = document.getElementById('year');

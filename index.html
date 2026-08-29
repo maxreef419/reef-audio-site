@@ -33,7 +33,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=38" />
+<link rel="stylesheet" href="styles.css?v=39" />
 </head>
 <body data-page="home" data-asset-root="">
 
@@ -58,7 +58,7 @@
 <div class="menu" id="menu" aria-hidden="true">
   <div class="menu__shape">
     <nav class="menu__nav" aria-label="Primary">
-      <a href="#work" data-num="01">Work</a>
+      <a href="work/" data-num="01">Work</a>
       <a href="#services" data-num="02">Capabilities</a>
       <a href="#about" data-num="03">About</a>
       <a href="#contact" data-num="04">Contact</a>
@@ -177,20 +177,9 @@
     <div class="clients__head">
       <p class="eyebrow reveal">Selected clients</p>
     </div>
-    <div class="clients__grid" aria-label="Selected clients">
-      <div class="clients__logo reveal"><img src="assets/clients/google.png" alt="Google" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/cocacola.png" alt="Coca-Cola" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/toyota.png" alt="Toyota" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/ikea.png" alt="IKEA" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/visa.png" alt="Visa" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/mcdonalds.png" alt="McDonald’s" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/redbull.png" alt="Red Bull" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/yandex.png" alt="Yandex" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/kaspersky.png" alt="Kaspersky" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/hbo.png" alt="HBO" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/bbdo.png" alt="BBDO" loading="lazy"></div>
-      <div class="clients__logo reveal"><img src="assets/clients/tbwa.png" alt="TBWA" loading="lazy"></div>
-    </div>
+  </div>
+  <div class="marquee" id="clientMarquee">
+    <div class="marquee__track" id="clientTrack" aria-label="Selected clients"></div>
   </div>
 </section>
 
@@ -211,7 +200,7 @@
 
     <div class="footer__side">
       <nav class="footer__nav" aria-label="Sections">
-        <a href="#work">Work</a>
+        <a href="work/">Work</a>
         <a href="#services">Capabilities</a>
         <a href="#about">About</a>
       </nav>
@@ -248,6 +237,6 @@
   </div>
 </div>
 
-<script src="script.js?v=38"></script>
+<script src="script.js?v=39"></script>
 </body>
 </html>
