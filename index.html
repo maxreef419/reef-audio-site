@@ -33,7 +33,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
-<link rel="stylesheet" href="styles.css?v=25" />
+<link rel="stylesheet" href="styles.css?v=26" />
 </head>
 <body>
 
@@ -77,13 +77,8 @@
 </section>
 
 <!-- ===== WORK → CAPABILITIES CURTAIN STAGE (mobile) =====
-     On mobile a tall stage wraps the ORIGINAL Work section (untouched, natural full height,
-     normal flow) followed by an empty sticky pin. Work scrolls normally; as its bottom nears,
-     the pin locks to the viewport and JS moves .services into it as a foreground layer
-     that rises translateY(100% -> 0) over 100dvh, covering the last Work screen, then
-     releases back to normal flow. The Work DOM (every <video>, IntersectionObserver, etc.)
-     is only WRAPPED, never moved into the pin, so nothing is clipped. Desktop ignores
-     .wtstage/.wtpin (display:contents) and keeps its own sticky-overlap. -->
+     Work freezes on its final frame. After a short hold, the real Capabilities section
+     rises over it in normal document flow — no cloning or DOM reparenting. -->
 <div class="wtstage" id="wtstage">
 <!-- ===== WORK (original, unchanged) ===== -->
 <section class="work" id="work">
@@ -101,8 +96,6 @@
        last screen (pure CSS, so iOS Safari paints it natively during momentum scroll). -->
   <div class="work__dim-mobile" aria-hidden="true"></div>
 </section>
-<!-- Empty sticky pin: holds ONLY the Capabilities curtain (moved in by JS). -->
-<div class="wtpin" id="wtpin"></div>
 </div><!-- /.wtstage -->
 
 <!-- ===== CAPABILITIES ===== -->
@@ -249,6 +242,6 @@
   </div>
 </div>
 
-<script src="script.js?v=25"></script>
+<script src="script.js?v=26"></script>
 </body>
 </html>

@@ -681,49 +681,27 @@ body.lb-open{overflow:hidden}
 /* On DESKTOP the curtain wrapper must be invisible to layout so the existing desktop
    sticky-overlap (Work pins + Capabilities scrolls over it) is completely untouched. */
 @media (min-width:901px) and (hover:hover) and (pointer:fine){
-  .wtstage,.wtpin{display:contents}
+  .wtstage{display:contents}
 }
 
-/* ===== MOBILE / TOUCH: full-viewport Work -> Capabilities CURTAIN WIPE =====
-   Proven sticky architecture (verified on real iPhone). A tall stage wraps Work; a
-   viewport-tall sticky pin keeps Work stationary while .services (moved inside the pin by
-   JS as a foreground layer) rises translateY(100% -> 0) over the stage's scroll length.
-   CRITICAL: no ancestor of .wtpin may have overflow (incl. clip)/transform/filter/
-   perspective/contain, or iOS sticky breaks. html/body overflow-x:clip is therefore
-   removed globally (see top of file) and horizontal bleed is contained per-section. */
+/* ===== MOBILE / TOUCH: Work -> Capabilities curtain =====
+   The real Capabilities section stays in normal flow for the entire transition. Pulling
+   it up by one viewport makes it rise over the frozen Work frame after a 30dvh hold.
+   There is no cloned text, clipping, reparenting or end-of-animation hand-off. */
 @media (max-width:900px), (hover:none), (pointer:coarse){
   .work__dim{display:none}
   .work__dim-mobile{display:none}
 
-  /* Work is LEFT EXACTLY AS-IS (original natural flow + full height). We only WRAP it and
-     add BOTTOM-anchored stickiness so Work FREEZES the moment its last frame reaches the
-     viewport bottom, and stays perfectly still while the grey curtain rises over it. The
-     stage is Work's natural height PLUS 130dvh of scroll room: the first 30dvh is a clean
-     hold on the final Work frame (so View more can be seen and tapped), then the curtain
-     wipes bottom->top over the next 100dvh. No overflow/transform on any ancestor, per
-     iOS sticky rules. */
+  /* Work freezes for 130dvh: 30dvh of clean hold, followed by the 100dvh rise of the
+     Capabilities section. */
   .wtstage{position:relative;display:block;padding-bottom:130dvh}
   /* Bottom-anchored sticky: Work scrolls normally until its bottom hits the viewport
      bottom, then sticks with its bottom pinned to viewport bottom (last frame frozen),
      and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
      touched. */
   .wtstage > .work{position:sticky;position:-webkit-sticky;bottom:0}
-  /* The pin sits AFTER Work but is pulled up by exactly its own viewport height. Therefore
-     its top is already at viewport top at the exact frame where Work's bottom reaches the
-     viewport bottom. A zero-height pin starts one full screen too low. */
-  .wtpin{position:sticky;position:-webkit-sticky;top:0;
-    height:100dvh;margin-top:-100dvh;z-index:5;pointer-events:none}
-
-  /* Capabilities = FOREGROUND curtain, moved into the pin by JS (.is-curtain). Fixed to the
-     pinned viewport, opaque, starts fully below the viewport and rises to cover Work. */
-  .services{position:relative;z-index:2;background:var(--bg)}
-  .services.is-curtain{position:absolute;left:0;right:0;top:0;
-    height:100dvh;min-height:100dvh;overflow:hidden;
-    transform:translate3d(0,100%,0);   /* JS overrides per frame 100% -> 0 */
-    -webkit-backface-visibility:hidden;backface-visibility:hidden;
-    border-top:1px solid transparent;
+  /* This is the only moving layer. Its text and background share one coordinate system,
+     so the content stays readable and simply continues scrolling after reaching top:0. */
+  .services{z-index:5;margin-top:-100dvh;
     background:linear-gradient(90deg,var(--cyan),var(--green)) top/100% 2px no-repeat,var(--bg)}
-  /* Keep the first Capabilities frame at top:0 when the pinned curtain is restored to
-     normal flow. Without this overlap the completed curtain jumps below the fold. */
-  .services.is-released{margin-top:-100dvh}
 }
