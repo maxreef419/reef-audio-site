@@ -109,6 +109,29 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
+// MOBILE: freeze the exact final viewport of the tall Work section.
+// bottom:0 is not a valid sticky trigger for an element taller than the viewport in iOS
+// Safari. Feeding its measured height to a negative sticky top makes Work scroll normally
+// until its bottom reaches the viewport bottom, then hold that final frame while
+// Capabilities rises over it. ResizeObserver also updates the lock point after View more.
+(function(){
+  const work = document.getElementById('work');
+  if(!work) return;
+  const mq = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)');
+  let frame = 0;
+  function sync(){
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(()=>{
+      if(mq.matches) work.style.setProperty('--work-sticky-h', work.offsetHeight + 'px');
+      else work.style.removeProperty('--work-sticky-h');
+    });
+  }
+  if('ResizeObserver' in window) new ResizeObserver(sync).observe(work);
+  window.addEventListener('resize', sync, {passive:true});
+  if(mq.addEventListener) mq.addEventListener('change', sync);
+  sync();
+})();
+
 // Make every grid row exactly one column-width tall, so all tiles share one
 // uniform height: a single-column tile is a square, a two-column 'wide' tile is
 // one long horizontal frame of the same height. Recompute on resize.

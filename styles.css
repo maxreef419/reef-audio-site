@@ -699,7 +699,12 @@ body.lb-open{overflow:hidden}
      bottom, then sticks with its bottom pinned to viewport bottom (last frame frozen),
      and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
      touched. */
-  .wtstage > .work{position:sticky;position:-webkit-sticky;bottom:0}
+  /* A tall sticky element cannot be frozen reliably with bottom:0 on iOS. JS measures
+     Work's real height and gives it the equivalent negative top offset. It therefore
+     scrolls normally until its bottom reaches the viewport bottom, then the exact final
+     frame locks in place for the full curtain transition. */
+  .wtstage > .work{position:sticky;position:-webkit-sticky;
+    top:calc(100dvh - var(--work-sticky-h,100dvh));bottom:auto}
   /* This is the only moving layer. Its text and background share one coordinate system,
      so the content stays readable and simply continues scrolling after reaching top:0. */
   .services{z-index:5;margin-top:-100dvh;
