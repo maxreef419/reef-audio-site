@@ -122,12 +122,13 @@ a{color:inherit;text-decoration:none}
   .widget{width:50px;height:50px;right:16px;bottom:16px}
 }
 </style>
+<link rel="stylesheet" href="../subsite.css?v=1">
 </head>
-<body id="top">
+<body id="top" class="subsite subsite--audio">
 
 <header class="sl-top">
   <div class="wrap">
-    <a class="brand" href="https://thereefaudio.com" aria-label="REEF Audio home">
+    <a class="brand" href="/" aria-label="REEF Audio home">
       <img class="brand__logo" src="assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
     </a>
   </div>
@@ -480,7 +481,7 @@ a{color:inherit;text-decoration:none}
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer__inner">
-    <a href="https://thereefaudio.com" class="brand brand--sm">
+    <a href="/" class="brand brand--sm">
       <img class="brand__logo" src="assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
     </a>
     <p class="footer__tag">Original music, sound design and sonic branding worldwide.</p>
@@ -492,16 +493,9 @@ a{color:inherit;text-decoration:none}
   </div>
   <div class="footer__bottom">
     <span>© <span id="year"></span> REEF Audio</span>
-    <span>Made with intent.</span>
+    <span>All rights reserved.</span>
   </div>
 </footer>
-
-<!-- ===== FLOATING WIDGET (scroll to top) ===== -->
-<a class="widget" id="widget" href="#top" aria-label="Back to top" title="Back to top">
-  <svg class="widget__arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M12 19V5M5 12l7-7 7 7"/>
-  </svg>
-</a>
 
 <script>
 (function(){
@@ -574,5 +568,6 @@ a{color:inherit;text-decoration:none}
   update();window.addEventListener('scroll',update,{passive:true});
 })();
 </script>
+<script src="../subsite.js?v=1"></script>
 </body>
 </html>

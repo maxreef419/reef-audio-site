@@ -1,0 +1,177 @@
+@font-face{
+  font-family:'Safiro';
+  src:url('assets/fonts/safiro-medium.woff2') format('woff2'),url('assets/fonts/safiro-medium.woff') format('woff');
+  font-weight:400 600;font-style:normal;font-display:swap;
+}
+
+.subsite{
+  --bg:#2e2e2e;--bg-2:#292929;--bg-3:#242424;--surface:#383838;
+  --line:rgba(255,255,255,.12);--line-2:rgba(255,255,255,.06);
+  --text:#f4f6f6;--muted:#b4b7b7;--muted-2:#888c8c;
+  --cyan:#19b6e6;--green:#4ade80;--accent:#19b6e6;
+  --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
+  --font-display:'Schibsted Grotesk','Inter',system-ui,sans-serif;
+  --font-body:'Safiro','Instrument Sans','Inter',system-ui,sans-serif;
+  --maxw:1760px;--content:980px;--gutter:clamp(20px,4vw,46px);
+  --ease:cubic-bezier(.16,1,.3,1);--ease-soft:cubic-bezier(.22,.61,.36,1);
+  background:var(--bg);color:var(--text);font-family:var(--font-body);
+  font-size:14px;line-height:1.3;letter-spacing:0;-webkit-text-size-adjust:100%;
+}
+.subsite a{color:inherit;text-decoration:none}
+.subsite :focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+
+/* Shared compact header for focused reels. */
+.subsite .hdr{
+  position:sticky;top:0;z-index:30;padding:13px clamp(20px,4vw,46px);
+  background:rgba(36,36,36,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-2);
+}
+.subsite .hdr__logo{min-height:44px}
+.subsite .hdr__logo img{height:38px}
+.subsite .hdr__meta{font-size:11px;line-height:1.2;letter-spacing:.18em;color:var(--muted-2)}
+
+/* Shared editorial intro. */
+.subsite .hero{
+  width:100%;max-width:var(--maxw);margin:0 auto;
+  padding:clamp(78px,9vw,132px) clamp(40px,4.5vw,80px) clamp(48px,6vw,82px);
+}
+.subsite .hero h1{
+  font-size:clamp(52px,8vw,116px);line-height:.9;letter-spacing:-.025em;
+  text-transform:uppercase;max-width:12ch;
+}
+.subsite .hero__sub{
+  margin-top:clamp(28px,4vw,54px);max-width:56ch;
+  font-size:14px;line-height:1.3;color:var(--muted);
+}
+
+/* Animation and client reels use the same card geometry as the main work grid. */
+.subsite--grid .reel{
+  position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;
+  padding:0 clamp(40px,4.5vw,80px) clamp(80px,10vw,132px);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,24px);grid-auto-rows:var(--cell,240px);grid-auto-flow:row dense;
+}
+.subsite--grid .clip{border-radius:14px;background:#111;box-shadow:none}
+.subsite--grid .clip__title{font-size:clamp(18px,1.6vw,24px);line-height:1.1}
+.subsite--grid .clip__num{font-size:11px;letter-spacing:.14em;color:var(--muted-2)}
+
+/* Sound-design reel stays cinematic rather than being forced into square tiles. */
+.subsite--cinema .reel{
+  width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(40px,4.5vw,80px) clamp(88px,11vw,140px);
+  gap:clamp(52px,7vw,92px);
+}
+.subsite--cinema .clip{gap:16px}
+.subsite--cinema .clip__frame{border-radius:14px;box-shadow:none;border:1px solid var(--line-2)}
+.subsite--cinema .clip__title{font-size:clamp(18px,2vw,26px);line-height:1.1}
+.subsite--cinema .clip__num,.subsite--cinema .clip__meta{font-size:11px;color:var(--muted-2)}
+
+/* Shared footer. */
+.subsite .foot,.subsite .footer{
+  position:relative;background:var(--bg-2);border-top:1px solid var(--line-2);
+  padding:clamp(56px,7vw,86px) clamp(40px,4.5vw,80px) 28px;
+}
+.subsite .foot__inner,.subsite .footer__inner{
+  width:100%;max-width:var(--maxw);margin:0 auto;padding:0 0 32px;
+  border-bottom:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
+}
+.subsite .foot__logo img,.subsite .footer .brand__logo{height:32px;width:auto}
+.subsite .foot__tag,.subsite .footer__tag{font-size:13px;line-height:1.35;color:var(--muted);max-width:31ch}
+.subsite .foot__links,.subsite .footer__links{display:flex;gap:24px}
+.subsite .foot__links a,.subsite .footer__links a{font-size:13px;font-weight:500;color:var(--muted)}
+.subsite .foot__links a:hover,.subsite .footer__links a:hover{color:var(--cyan)}
+.subsite .foot__bottom,.subsite .footer__bottom{
+  width:100%;max-width:var(--maxw);margin:22px auto 0;padding:0;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:12px;line-height:1.3;letter-spacing:0;color:var(--muted-2);white-space:normal;
+}
+
+/* Sound-logo archive becomes an editorial audio list instead of a stack of UI cards. */
+.subsite--audio .sl-top{
+  position:sticky;top:0;z-index:30;padding:13px 0;
+  background:rgba(36,36,36,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-2);
+}
+.subsite--audio .sl-top .wrap{width:100%;max-width:none;padding:0 clamp(20px,4vw,46px)}
+.subsite--audio .sl-top .brand{min-height:44px}
+.subsite--audio .sl-hero{padding:clamp(78px,9vw,132px) 0 clamp(48px,6vw,82px);border-bottom:1px solid var(--line-2)}
+.subsite--audio .sl-hero h1{
+  font-size:clamp(52px,8vw,116px);line-height:.9;letter-spacing:-.025em;text-transform:uppercase;
+  margin:22px 0 clamp(28px,4vw,48px);
+}
+.subsite--audio .sl-hero p{font-size:14px;line-height:1.3;max-width:56ch}
+.subsite--audio .sl-list-wrap{padding:clamp(54px,7vw,92px) 0 clamp(80px,10vw,132px)}
+.subsite--audio .sl-list{gap:0;border-top:1px solid var(--line)}
+.subsite--audio .sl-card{
+  gap:clamp(14px,2vw,22px);padding:18px 0;background:transparent;border:0;border-bottom:1px solid var(--line);
+  border-radius:0;transition:background .25s var(--ease);
+}
+.subsite--audio .sl-card:hover{background:rgba(255,255,255,.018);border-color:var(--line)}
+.subsite--audio .sl-play{width:44px;height:44px}
+.subsite--audio .sl-brand{font-size:18px;line-height:1.15}
+.subsite--audio .sl-type{font-size:10px;color:var(--muted-2)}
+.subsite--audio .sl-time{font-size:12px}
+.subsite--audio .widget{display:none!important}
+
+/* 404 keeps its concept but inherits the current type and spacing system. */
+.subsite--404 .nf__main{padding-left:clamp(40px,4.5vw,80px);padding-right:clamp(40px,4.5vw,80px)}
+.subsite--404 .nf__inner{max-width:var(--maxw);padding:0}
+.subsite--404 .nf__lead{font-size:14px;line-height:1.4}
+.subsite--404 .nf__link{font-size:13px}
+
+@media (min-width:901px){
+  .subsite--grid .reel{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,1.7vw,30px)}
+}
+
+@media (max-width:900px){
+  .subsite .hero,.subsite--grid .reel,.subsite--cinema .reel,
+  .subsite .foot,.subsite .footer,.subsite--404 .nf__main{
+    padding-left:var(--gutter);padding-right:var(--gutter);
+  }
+}
+
+@media (max-width:560px){
+  .subsite .hdr{padding-top:10px;padding-bottom:10px}
+  .subsite .hdr__logo img{height:34px}
+  .subsite .hdr__meta{font-size:10px;letter-spacing:.13em}
+  .subsite .hero{padding-top:64px;padding-bottom:42px}
+  .subsite .hero h1{font-size:44px;line-height:.92}
+  .subsite .hero__sub{font-size:13px;line-height:1.4;margin-top:30px}
+  .subsite--grid .reel{grid-template-columns:1fr;grid-auto-rows:auto;padding-bottom:88px}
+  .subsite--grid .clip,.subsite--grid .clip--wide{aspect-ratio:1/1;height:auto;grid-column:auto;border-radius:12px}
+  .subsite--cinema .reel{gap:44px;padding-bottom:88px}
+  .subsite--cinema .clip__title{font-size:16px}
+  .subsite .foot,.subsite .footer{padding-top:52px;padding-bottom:24px}
+  .subsite .foot__inner,.subsite .footer__inner{flex-direction:column;align-items:flex-start;gap:20px}
+  .subsite .foot__tag,.subsite .footer__tag,.subsite .foot__links a,.subsite .footer__links a{font-size:13px}
+  .subsite .foot__bottom,.subsite .footer__bottom{font-size:12px;justify-content:space-between;gap:14px}
+  .subsite--audio .sl-hero{padding-top:64px;padding-bottom:42px}
+  .subsite--audio .sl-hero h1{font-size:44px;line-height:.92}
+  .subsite--audio .sl-hero p{font-size:13px;line-height:1.4}
+  .subsite--audio .sl-list-wrap{padding-top:48px;padding-bottom:88px}
+  .subsite--audio .sl-card{padding:14px 0;gap:12px}
+  .subsite--audio .sl-brand{font-size:16px}
+  .subsite--audio .sl-bar{flex-basis:76px}
+  .subsite--404 .nf__main{padding-top:104px;padding-bottom:72px}
+  .subsite--404 .nf__lead{font-size:13px}
+}
+
+@media (orientation:landscape) and (max-width:900px) and (max-height:560px){
+  .subsite .hdr,.subsite .hero,.subsite--grid .reel,.subsite--cinema .reel,
+  .subsite .foot,.subsite .footer,.subsite--audio .sl-top .wrap,
+  .subsite--audio .sl-hero .wrap,.subsite--audio .sl-list-wrap .wrap,.subsite--404 .nav,.subsite--404 .nf__main{
+    padding-left:max(clamp(20px,4vw,46px),env(safe-area-inset-left,0px));
+    padding-right:max(clamp(20px,4vw,46px),env(safe-area-inset-right,0px));
+  }
+  .subsite .hero{padding-top:48px;padding-bottom:36px}
+  .subsite .hero h1,.subsite--audio .sl-hero h1{font-size:44px}
+  .subsite .hero__sub,.subsite--audio .sl-hero p{font-size:13px;line-height:1.4}
+  .subsite--grid .clip__title,.subsite--cinema .clip__title,.subsite--audio .sl-brand{font-size:16px}
+  .subsite .foot__tag,.subsite .footer__tag,.subsite .foot__links a,.subsite .footer__links a{font-size:13px}
+  .subsite--audio .sl-hero{padding-top:48px;padding-bottom:36px}
+  .subsite--audio .sl-list-wrap{padding-top:44px;padding-bottom:72px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .subsite *, .subsite *::before,.subsite *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .subsite .rv,.subsite .reveal{opacity:1!important;transform:none!important}
+}

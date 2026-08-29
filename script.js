@@ -59,6 +59,7 @@ if(document.fonts && document.fonts.ready){
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
 const FEATURED_WORK = [WORK[0], WORK[1], WORK[3], WORK[4], WORK[5], WORK[7]];
+const LANDSCAPE_WORK = [WORK[0], WORK[1], WORK[2], WORK[3], WORK[4], WORK[5], WORK[7]];
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
@@ -102,8 +103,11 @@ function revealNewItems(){
 }
 if(grid){
   const isPhone = window.matchMedia('(max-width:560px)').matches;
+  const isCompactLandscape = window.matchMedia('(orientation:landscape) and (min-width:561px) and (max-width:900px) and (max-height:560px)').matches;
   const isDesktop = window.matchMedia('(min-width:901px)').matches;
-  const homeWork = isPhone ? FEATURED_WORK.slice(0, 4) : (isDesktop ? WORK.slice(0, 12) : FEATURED_WORK);
+  const homeWork = isPhone
+    ? FEATURED_WORK.slice(0, 4)
+    : (isCompactLandscape ? LANDSCAPE_WORK : (isDesktop ? WORK.slice(0, 12) : FEATURED_WORK));
   const visibleWork = PAGE === 'work' ? WORK : homeWork;
   grid.insertAdjacentHTML('beforeend', visibleWork.map(workCard).join(''));
   revealNewItems();

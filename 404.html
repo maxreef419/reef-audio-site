@@ -53,8 +53,9 @@
     .nf__sep{display:none}
   }
 </style>
+<link rel="stylesheet" href="/subsite.css?v=1" />
 </head>
-<body>
+<body class="subsite subsite--404">
 
 <div class="nf">
 
@@ -78,7 +79,7 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <span class="nf__sep" aria-hidden="true"></span>
-        <a href="/#work" class="nf__link">View work
+        <a href="/work/" class="nf__link">View work
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <span class="nf__sep" aria-hidden="true"></span>
@@ -104,12 +105,13 @@
     </div>
     <div class="footer__bottom">
       <span>&copy; <span id="year"></span> REEF Audio</span>
-      <span>Made with intent.</span>
+      <span>All rights reserved.</span>
     </div>
   </footer>
 
 </div>
 
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="/subsite.js?v=1"></script>
 </body>
 </html>

@@ -191,11 +191,12 @@ a{color:inherit;text-decoration:none}
   *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
 }
 </style>
+<link rel="stylesheet" href="../subsite.css?v=1">
 </head>
-<body>
+<body class="subsite subsite--cinema">
 
 <header class="hdr">
-  <a href="https://www.thereefaudio.com" class="hdr__logo" target="_blank" rel="noopener" aria-label="REEF Audio home">
+  <a href="/" class="hdr__logo" aria-label="REEF Audio home">
     <img src="/sfx/assets/brand-logo.png" alt="REEF Audio" width="404" height="175">
   </a>
   <div class="hdr__meta">Reel · 2026</div>
@@ -210,7 +211,7 @@ a{color:inherit;text-decoration:none}
 
 <footer class="foot">
   <div class="foot__inner">
-    <a href="https://www.thereefaudio.com" class="foot__logo" target="_blank" rel="noopener" aria-label="REEF Audio home">
+    <a href="/" class="foot__logo" aria-label="REEF Audio home">
       <img src="/sfx/assets/brand-logo.png" alt="REEF Audio" width="404" height="175">
     </a>
     <p class="foot__tag">Original music, sound design and sonic branding worldwide.</p>
@@ -222,7 +223,7 @@ a{color:inherit;text-decoration:none}
   </div>
   <div class="foot__bottom">
     <span>© <span id="year"></span> REEF Audio</span>
-    <span>Made with intent.</span>
+    <span>All rights reserved.</span>
   </div>
 </footer>
 
@@ -298,5 +299,6 @@ document.querySelectorAll('.clip__play').forEach(btn=>{
 /* footer year */
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+<script src="../subsite.js?v=1"></script>
 </body>
 </html>
