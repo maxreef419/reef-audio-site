@@ -289,20 +289,21 @@ body.menu-open .menu__meta{opacity:1}
    The row cascade (--rowdelay) shifts the whole card, title included. */
 .work__item.in .work__name{transform:translateY(0);transition-delay:calc(var(--rowdelay,0s) + .18s)}
 @media (hover:hover){.work__item.in:hover .work__name{transform:translateY(-2px);transition-delay:0s;transition-duration:.4s}}
-.work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(32px,4vw,48px)}
+.work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(28px,3.5vw,42px)}
 /* Typographic 'View more' in the spirit of the footer's START A PROJECT link:
    uppercase display type, letter-spacing, diagonal arrow, gradient underline. */
 .work__more{
-  position:relative;display:inline-flex;align-items:center;gap:10px;cursor:pointer;
-  font-family:var(--font-display);font-weight:700;font-size:22px;
+  position:relative;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font-family:var(--font-display);font-weight:700;font-size:16px;
   letter-spacing:.02em;line-height:1;color:var(--text);text-transform:uppercase;
-  background:transparent;border:0;padding:0 0 12px;
+  background:transparent;border:0;padding:0 0 7px;
   opacity:0;transform:translateY(8px);
   transition:opacity .4s var(--ease),transform .4s var(--ease);
 }
 .work__more--hidden{display:none}
-.work__more::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--grad);transform-origin:left bottom;transform:scaleX(0) scaleY(1);transition:transform .28s var(--ease)}
-.work__more svg{transform:translate(0,0);transition:transform .28s var(--ease)}
+.work__more::before{content:"";position:absolute;inset:-12px -10px}
+.work__more::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--grad);transform-origin:left bottom;transform:scaleX(0) scaleY(1);transition:transform .28s var(--ease)}
+.work__more svg{width:14px;height:14px;transform:translate(0,0);transition:transform .28s var(--ease)}
 .work__more.is-visible{opacity:1;transform:translateY(0)}
 .work__more.is-visible::after{transform:scaleX(1) scaleY(1);transition-delay:.15s}
 .work__more.is-visible svg{transform:translate(3px,-3px);transition-delay:.15s}
