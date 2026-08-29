@@ -553,13 +553,18 @@ body.lb-open{overflow:hidden}
   .hero__inner{padding-left:0;padding-right:0}
   .nav__actions{gap:6px}
   .nav__brief{font-size:10.5px;letter-spacing:.025em}
-  .service__title{font-size:18px;line-height:1.15}
-  .service__plus{font-size:18px}
-  .service__desc{font-size:14px;line-height:1.4}
-  .about__body p:not(.eyebrow){font-size:14px;line-height:1.42}
-  .about__col-title{font-size:18px;line-height:1.15}
-  .about__col-num{font-size:10.5px}
-  .footer__prompt{font-size:14px;line-height:1.4}
+  .hero__eyebrow{font-size:11.5px}
+  .hero__lead,.work-index__lead{font-size:13px;line-height:1.4}
+  .service__title{font-size:16px;line-height:1.15}
+  .service__plus{font-size:16px}
+  .service__desc{font-size:13px;line-height:1.4}
+  .about__lead{font-size:22px}
+  .about__body p:not(.eyebrow){font-size:13px;line-height:1.42}
+  .about__col-title{font-size:16px;line-height:1.15}
+  .about__col-num{font-size:10px}
+  .footer__prompt,.footer__email{font-size:13px;line-height:1.4}
+  .footer__nav a{font-size:15px}
+  .footer__meta{font-size:12px}
   .work--index{padding-top:130px}
   .work-index__intro{padding:0 20px;margin-bottom:54px}
   .work-index__title{font-size:clamp(44px,14vw,68px);line-height:.92}
