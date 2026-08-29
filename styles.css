@@ -130,6 +130,7 @@ body.menu-open{overflow:hidden}
 .menu{
   position:fixed;inset:0;z-index:110;background:rgba(36,36,36,.97);backdrop-filter:blur(8px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100dvh;min-height:100dvh;overflow-y:auto;
   opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s;
 }
 body.menu-open .menu{opacity:1;visibility:visible}
@@ -553,6 +554,10 @@ body.lb-open{overflow:hidden}
 @media (max-width:560px){
   .hero__inner{padding-left:0;padding-right:0}
   .nav__actions{gap:6px}
+  .service__desc{padding-left:30px}
+  .service__formats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin-top:18px}
+  .service__formats li{font-size:10.5px;white-space:normal}
+  .service__formats li+li::before{content:none}
   .work--index{padding-top:130px}
   .work-index__intro{padding:0 20px;margin-bottom:54px}
   .work-index__title{font-size:clamp(44px,14vw,68px);line-height:.92}
@@ -564,7 +569,11 @@ body.lb-open{overflow:hidden}
   .hero__title{font-size:41px}
   .hero__sub{font-size:24px}
   .hero__lead{max-width:min(44.5vw,631px)}
-  .menu__nav a{font-size:40px}
+  .menu{justify-content:center;padding-top:max(68px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px))}
+  .menu__nav{gap:0}
+  .menu__nav a{font-size:32px;line-height:.96;padding-left:40px}
+  .menu__nav a::before{font-size:10px;top:.32em}
+  .menu__meta{margin-top:16px}
   .work--index{padding-top:104px}
   .work-index__intro{margin-bottom:44px}
   .work-index__title{font-size:55px}
