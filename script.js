@@ -109,27 +109,58 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
-// MOBILE: freeze the exact final viewport of the tall Work section.
-// bottom:0 is not a valid sticky trigger for an element taller than the viewport in iOS
-// Safari. Feeding its measured height to a negative sticky top makes Work scroll normally
-// until its bottom reaches the viewport bottom, then hold that final frame while
-// Capabilities rises over it. ResizeObserver also updates the lock point after View more.
+// MOBILE: explicit three-state freeze for the exact final viewport of Work.
+// iOS Safari does not reliably stick an element taller than the viewport. Instead Work is
+// absolutely positioned during normal scroll, fixed when its bottom reaches the viewport,
+// and parked at the end of its height-preserving stage after Capabilities covers it.
 (function(){
   const work = document.getElementById('work');
-  if(!work) return;
+  const stage = document.getElementById('wtstage');
+  if(!work || !stage) return;
   const mq = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)');
-  let frame = 0;
-  function sync(){
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(()=>{
-      if(mq.matches) work.style.setProperty('--work-sticky-h', work.offsetHeight + 'px');
-      else work.style.removeProperty('--work-sticky-h');
-    });
+  let frame = 0, workH = 0, stageTop = 0, state = '';
+
+  function setState(next){
+    if(next === state) return;
+    state = next;
+    work.classList.toggle('work-fixed', next === 'fixed');
+    work.classList.toggle('work-after', next === 'after');
   }
-  if('ResizeObserver' in window) new ResizeObserver(sync).observe(work);
-  window.addEventListener('resize', sync, {passive:true});
-  if(mq.addEventListener) mq.addEventListener('change', sync);
-  sync();
+
+  function update(){
+    frame = 0;
+    if(!mq.matches){ setState(''); return; }
+    const vh = window.innerHeight;
+    const y = window.scrollY;
+    const freezeAt = stageTop + workH - vh;
+    const releaseAt = freezeAt + vh * 1.30;
+    if(y < freezeAt) setState('before');
+    else if(y < releaseAt) setState('fixed');
+    else setState('after');
+  }
+
+  function requestUpdate(){
+    if(!frame) frame = requestAnimationFrame(update);
+  }
+
+  function syncGeometry(){
+    if(!mq.matches){
+      stage.style.removeProperty('--work-h');
+      setState('');
+      return;
+    }
+    workH = work.offsetHeight;
+    stageTop = stage.getBoundingClientRect().top + window.scrollY;
+    stage.style.setProperty('--work-h', workH + 'px');
+    requestUpdate();
+  }
+
+  if('ResizeObserver' in window) new ResizeObserver(syncGeometry).observe(work);
+  window.addEventListener('scroll', requestUpdate, {passive:true});
+  window.addEventListener('resize', syncGeometry, {passive:true});
+  window.addEventListener('orientationchange', syncGeometry, {passive:true});
+  if(mq.addEventListener) mq.addEventListener('change', syncGeometry);
+  syncGeometry();
 })();
 
 // Make every grid row exactly one column-width tall, so all tiles share one

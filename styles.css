@@ -692,19 +692,15 @@ body.lb-open{overflow:hidden}
   .work__dim{display:none}
   .work__dim-mobile{display:none}
 
-  /* Work freezes for 130dvh: 30dvh of clean hold, followed by the 100dvh rise of the
-     Capabilities section. */
-  .wtstage{position:relative;display:block;padding-bottom:130dvh}
-  /* Bottom-anchored sticky: Work scrolls normally until its bottom hits the viewport
-     bottom, then sticks with its bottom pinned to viewport bottom (last frame frozen),
-     and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
-     touched. */
-  /* A tall sticky element cannot be frozen reliably with bottom:0 on iOS. JS measures
-     Work's real height and gives it the equivalent negative top offset. It therefore
-     scrolls normally until its bottom reaches the viewport bottom, then the exact final
-     frame locks in place for the full curtain transition. */
-  .wtstage > .work{position:sticky;position:-webkit-sticky;
-    top:calc(100dvh - var(--work-sticky-h,100dvh));bottom:auto}
+  /* Sticky on an element taller than the viewport is unreliable on iOS. The stage keeps
+     the complete document space, while JS switches Work between these three explicit
+     positions: normal, fixed for 130dvh, then parked at the end of the stage. */
+  .wtstage{position:relative;display:block;padding:0;
+    height:calc(var(--work-h,0px) + 130dvh)}
+  .wtstage > .work{position:absolute;left:0;right:0;top:0;width:100%}
+  .wtstage > .work.work-fixed{position:fixed;
+    top:calc(100dvh - var(--work-h,0px));z-index:1}
+  .wtstage > .work.work-after{top:130dvh}
   /* This is the only moving layer. Its text and background share one coordinate system,
      so the content stays readable and simply continues scrolling after reaching top:0. */
   .services{z-index:5;margin-top:-100dvh;
