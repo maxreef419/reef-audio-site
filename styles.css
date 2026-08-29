@@ -555,7 +555,7 @@ body.lb-open{overflow:hidden}
   .hero__inner{padding-left:0;padding-right:0}
   .nav__actions{gap:6px}
   .service__desc{padding-left:30px}
-  .service__formats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin-top:18px}
+  .service__formats{display:grid;grid-template-columns:1fr;gap:8px;margin-top:18px}
   .service__formats li{font-size:10.5px;white-space:normal}
   .service__formats li+li::before{content:none}
   .work--index{padding-top:130px}
