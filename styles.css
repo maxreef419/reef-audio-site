@@ -698,11 +698,11 @@ body.lb-open{overflow:hidden}
   /* Work is LEFT EXACTLY AS-IS (original natural flow + full height). We only WRAP it and
      add BOTTOM-anchored stickiness so Work FREEZES the moment its last frame reaches the
      viewport bottom, and stays perfectly still while the grey curtain rises over it. The
-     stage is Work's natural height PLUS 100dvh of scroll room; during those 100dvh both
-     stickies are pinned (Work bottom, pin top) so Work does not move by a single pixel
-     while the curtain wipes bottom->top over the frozen frame. No overflow/transform on
-     any ancestor, per iOS sticky rules. */
-  .wtstage{position:relative;display:block;padding-bottom:100dvh}
+     stage is Work's natural height PLUS 130dvh of scroll room: the first 30dvh is a clean
+     hold on the final Work frame (so View more can be seen and tapped), then the curtain
+     wipes bottom->top over the next 100dvh. No overflow/transform on any ancestor, per
+     iOS sticky rules. */
+  .wtstage{position:relative;display:block;padding-bottom:130dvh}
   /* Bottom-anchored sticky: Work scrolls normally until its bottom hits the viewport
      bottom, then sticks with its bottom pinned to viewport bottom (last frame frozen),
      and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
@@ -712,7 +712,7 @@ body.lb-open{overflow:hidden}
      its top is already at viewport top at the exact frame where Work's bottom reaches the
      viewport bottom. A zero-height pin starts one full screen too low. */
   .wtpin{position:sticky;position:-webkit-sticky;top:0;
-    height:100dvh;margin-top:-100dvh;z-index:5}
+    height:100dvh;margin-top:-100dvh;z-index:5;pointer-events:none}
 
   /* Capabilities = FOREGROUND curtain, moved into the pin by JS (.is-curtain). Fixed to the
      pinned viewport, opaque, starts fully below the viewport and rises to cover Work. */

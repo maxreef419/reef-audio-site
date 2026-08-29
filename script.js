@@ -310,13 +310,12 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
 });
 
 // ===== MOBILE WORK -> CAPABILITIES CURTAIN WIPE (final, freeze-and-cover) =====
-// A tall stage (.wtstage) wraps Work and adds 100dvh of scroll room after it. Work itself
+// A tall stage (.wtstage) wraps Work and adds 130dvh of scroll room after it. Work itself
 // is BOTTOM-anchored sticky inside the stage (CSS: .wtstage>.work{position:sticky;bottom:0}),
 // so the moment Work's last frame reaches the viewport bottom, Work FREEZES in place -- its
-// last frame stays at exactly the same screen coordinates for the entire 100dvh of extra
-// scroll room. During those same 100dvh, .wtpin is a viewport-tall sticky layer whose
-// negative margin aligns its top with the frozen Work frame; .services is moved into it
-// (class .is-curtain) and rises translateY(100%)->0 linearly over 100dvh, covering the
+// last frame stays at exactly the same screen coordinates for the entire transition. The
+// first 30dvh is a clear hold for View more; then .services rises translateY(100%)->0
+// linearly over 100dvh inside the viewport-tall sticky .wtpin, covering the
 // frozen Work from the bottom up. Because Work is sticky-frozen, the wipe is a pure
 // one-sheet-over-another: at 50% progress the grey covers exactly the lower half of the
 // viewport and every visible pixel of Work in the upper half is in identically the same
@@ -333,9 +332,8 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   let ticking = false, mode = null; // mode: 'curtain' | 'released'
   let placeholder = null;
 
-  // Wipe travel: the foreground rises over this many px of scroll. Must match the CSS
-  // padding-bottom on .wtstage (100dvh) so the wipe starts exactly when Work sticks and
-  // finishes exactly when Work unsticks.
+  // Wipe travel remains one viewport. The stage has an extra 30dvh before this window,
+  // which creates the hold on the frozen Work frame without changing the wipe speed.
   function travel(){
     const h = pin.getBoundingClientRect().height;
     return h > 0 ? h : window.innerHeight;
