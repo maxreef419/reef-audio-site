@@ -107,7 +107,26 @@ function loadMoreWork(){
   if(shown >= WORK.length) workMore.classList.add('work__more--hidden');
 }
 loadMoreWork();
-if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
+if(workMore){
+  const moreIO = new IntersectionObserver((entries, observer)=>{
+    if(entries.some(entry=>entry.isIntersecting)){
+      workMore.classList.add('is-visible');
+      observer.unobserve(workMore);
+    }
+  },{threshold:.45});
+  moreIO.observe(workMore);
+
+  workMore.addEventListener('click', (e)=>{
+    const button = e.currentTarget;
+    if(button.classList.contains('is-pressing')) return;
+    button.classList.add('is-pressing');
+    setTimeout(()=>{
+      loadMoreWork();
+      button.classList.remove('is-pressing');
+      button.blur();
+    },120);
+  });
+}
 
 // Make every grid row exactly one column-width tall, so all tiles share one
 // uniform height: a single-column tile is a square, a two-column 'wide' tile is
