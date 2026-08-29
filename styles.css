@@ -524,10 +524,14 @@ body.lb-open{overflow:hidden}
 .footer__nav{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
 .footer__nav a{font-size:clamp(17px,1.5vw,21px);font-weight:500;color:var(--text);transition:color .25s,transform .25s var(--ease)}
 .footer__nav a:hover{color:var(--cyan);transform:translateX(3px)}
-.footer__social{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:44px}
-.footer__social-link{display:grid;place-items:center;width:42px;height:42px;color:var(--muted);transition:color .25s,transform .25s var(--ease)}
-.footer__social-link svg{display:block;width:20px;height:20px;fill:currentColor}
+.footer__social{display:flex;align-items:center;gap:24px;margin-top:auto;padding-top:44px}
+.footer__social-link{position:relative;display:grid;place-items:center;width:20px;height:20px;color:var(--muted);transition:color .25s,transform .25s var(--ease)}
+.footer__social-link::before{content:"";position:absolute;inset:-12px}
+.footer__social-link svg{display:block;width:18px;height:18px;fill:currentColor}
+.footer__social-link:first-child{place-items:center start}
+.footer__social-link:first-child svg{width:16px;height:16px;opacity:.86}
 .footer__social-link:nth-child(n+2) svg{fill:none}
+.footer__social-link:nth-child(n+2) svg{stroke-width:1.65}
 .footer__social-link:hover{color:var(--cyan);transform:translateY(-3px)}
 .footer__social-link:focus-visible{outline:1px solid var(--cyan);outline-offset:-5px}
 /* --- bottom bar --- */
@@ -584,10 +588,10 @@ body.lb-open{overflow:hidden}
   .contact{padding-top:60px;padding-bottom:60px}
 }
 @media (max-width:560px){
-  .footer__inner{grid-template-columns:1fr;gap:44px}
-  .footer__side{display:grid;grid-template-columns:1fr;align-items:start;gap:28px;padding-top:0}
+  .footer__inner{grid-template-columns:1fr;gap:38px}
+  .footer__side{min-height:0;display:grid;grid-template-columns:1fr;align-items:start;gap:22px;padding-top:0}
   .footer__social{margin-top:0;padding-top:0}
-  .footer__bottom{gap:8px;flex-direction:column;align-items:flex-start}
+  .footer__bottom{margin-top:40px;gap:8px;flex-direction:column;align-items:flex-start}
   .footer__meta{max-width:calc(100% - 64px);text-align:left}
   .widget{width:46px;height:46px;right:16px;bottom:16px}
   .contact__title{font-size:clamp(44px,16vw,80px)}
