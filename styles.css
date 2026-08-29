@@ -327,10 +327,10 @@ body.lb-open{overflow:hidden}
 @media (max-width:640px){.lightbox__close{top:-10px;right:0}}
 
 /* ===== ABOUT ===== */
-.about{position:relative;background:var(--bg-2);padding:clamp(90px,14vw,180px) 0;overflow:hidden}
+.about{position:relative;background:#121212;padding:clamp(90px,14vw,180px) 0;overflow:hidden}
 .about__bg{position:absolute;inset:0;z-index:0;
   background:
-    linear-gradient(180deg,#121212 0%,rgba(18,18,18,.98) 8%,rgba(18,18,18,.88) 18%,rgba(20,20,20,.74) 32%,rgba(20,20,20,.8) 70%,rgba(20,20,20,.95)),
+    linear-gradient(180deg,#121212 0%,rgba(18,18,18,.96) 9%,rgba(18,18,18,.58) 24%,rgba(18,18,18,.28) 48%,rgba(18,18,18,.46) 68%,rgba(18,18,18,.9) 87%,#121212 100%),
     url('assets/hero-about-v2.jpg') center/cover no-repeat;
   background-attachment:scroll,scroll;
   will-change:transform;backface-visibility:hidden
@@ -404,7 +404,7 @@ body.lb-open{overflow:hidden}
 }
 
 /* ===== CLIENTS ===== */
-.clients{background:var(--bg-3);padding:clamp(56px,8vw,96px) 0 clamp(90px,12vw,150px)}
+.clients{background:#121212;padding:clamp(56px,8vw,96px) 0 clamp(90px,12vw,150px)}
 .clients__inner{max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
 .clients__head{margin-bottom:clamp(58px,9vw,86px)}
 /* breathing room around the logo row itself */
@@ -630,7 +630,7 @@ body.lb-open{overflow:hidden}
     background-position:center,center top;
     background-repeat:no-repeat,no-repeat;
     background-image:
-      linear-gradient(180deg,rgba(20,20,20,.88) 0,rgba(20,20,20,.74) 20%,rgba(20,20,20,.86) 40%,#141414 55%),
+      linear-gradient(180deg,#121212 0,rgba(18,18,18,.96) 8%,rgba(18,18,18,.56) 22%,rgba(18,18,18,.42) 34%,rgba(18,18,18,.86) 48%,#121212 60%),
       url('assets/hero-about-v2.jpg');
   }
 }
