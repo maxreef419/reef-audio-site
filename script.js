@@ -387,7 +387,6 @@ if(contactSec) secIO.observe(contactSec);
 
   const layers = [
     { el: document.querySelector('.hero__media'),   amp: 60, scale: 1.08 },
-    { el: document.querySelector('.about__bg'),     amp: 46, scale: 1.08 },
     // the footer band is short, so it needs a bit more headroom to move in
     { el: document.querySelector('.footer__wall'), amp: 70, scale: 1.14 }
   ].filter(l => l.el);
