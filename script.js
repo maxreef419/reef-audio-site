@@ -1,4 +1,8 @@
 // ===== DATA =====
+const PAGE = document.body.dataset.page || 'home';
+const ASSET_ROOT = document.body.dataset.assetRoot || '';
+const asset = path => ASSET_ROOT + path;
+
 // ratio: cell shape in the square-grid — 'square' (1 cell) or 'wide' (spans two
 // cells, one long horizontal frame). Mostly squares; wide tiles are dropped in
 // at varied spots so a horizontal role merges two squares here and there,
@@ -28,15 +32,6 @@ const WORK = [
   {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"}
 ];
 
-const CLIENTS = [
-  {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"Toyota",f:"toyota"},{n:"IKEA",f:"ikea"},
-  {n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},{n:"Red Bull",f:"redbull"},{n:"Volkswagen",f:"volkswagen"},
-  {n:"Danone",f:"danone"},{n:"Yandex",f:"yandex"},{n:"Burger King",f:"burgerking"},{n:"KIA",f:"kia"},
-  {n:"Lay's",f:"lays"},{n:"HBO",f:"hbo"},{n:"Kaspersky",f:"kaspersky"},{n:"BBDO",f:"bbdo"},
-  {n:"TBWA",f:"tbwa"},{n:"McCann",f:"mccann"},{n:"Leo Burnett",f:"leoburnett"},
-  {n:"Saatchi & Saatchi",f:"saatchi"},{n:"Grey",f:"grey"},{n:"Dentsu",f:"dentsu"},{n:"Havas",f:"havas"}
-];
-
 // ===== HERO ENTRANCE =====
 function startHero(){
   const hero = document.getElementById('hero');
@@ -54,10 +49,7 @@ if(document.fonts && document.fonts.ready){
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const workMore = document.getElementById('workMore');
-const FIRST_BATCH = 12;   // show a fuller grid up front
-const BATCH = 12;         // one "View more" loads the rest
-let shown = 0;
+const FEATURED_WORK = [WORK[0], WORK[1], WORK[3], WORK[4], WORK[5], WORK[7]];
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
@@ -65,8 +57,8 @@ function workCard(w){
   return `
   <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
     <span class="work__reveal">
-    <img src="${w.img}" alt="${label} — REEF Audio project still" loading="lazy">
-    <video class="work__video" data-prev="assets/work/preview/p-${w.vimeo}.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+    <img src="${asset(w.img)}" alt="${label} — REEF Audio project still" loading="lazy">
+    <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" muted loop playsinline preload="none" aria-hidden="true"></video>
     <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${label}</span></span></div>
     </span>
   </button>`;
@@ -99,33 +91,11 @@ function revealNewItems(){
   });
   if(typeof observePreviews === 'function') observePreviews();
 }
-function loadMoreWork(){
-  const next = WORK.slice(shown, shown + BATCH);
-  grid.insertAdjacentHTML('beforeend', next.map(workCard).join(''));
-  shown += next.length;
+if(grid){
+  const homeCount = window.matchMedia('(max-width:560px)').matches ? 4 : 6;
+  const visibleWork = PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, homeCount);
+  grid.insertAdjacentHTML('beforeend', visibleWork.map(workCard).join(''));
   revealNewItems();
-  if(shown >= WORK.length) workMore.classList.add('work__more--hidden');
-}
-loadMoreWork();
-if(workMore){
-  const moreIO = new IntersectionObserver((entries, observer)=>{
-    if(entries.some(entry=>entry.isIntersecting)){
-      workMore.classList.add('is-visible');
-      observer.unobserve(workMore);
-    }
-  },{threshold:.45});
-  moreIO.observe(workMore);
-
-  workMore.addEventListener('click', (e)=>{
-    const button = e.currentTarget;
-    if(button.classList.contains('is-pressing')) return;
-    button.classList.add('is-pressing');
-    setTimeout(()=>{
-      loadMoreWork();
-      button.classList.remove('is-pressing');
-      button.blur();
-    },120);
-  });
 }
 
 // Make every grid row exactly one column-width tall, so all tiles share one
@@ -220,6 +190,21 @@ var observePreviews = function(){};
 // Observe any cards that were rendered before the autoplay observer was ready.
 observePreviews();
 
+function setInert(elements, inert){
+  elements.filter(Boolean).forEach(el=>{ el.inert = inert; });
+}
+
+function trapFocus(container, event){
+  if(event.key !== 'Tab') return;
+  const focusable = Array.from(container.querySelectorAll('a[href],button:not([disabled]),iframe,[tabindex]:not([tabindex="-1"])'))
+    .filter(el=>!el.inert && getComputedStyle(el).visibility !== 'hidden');
+  if(!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if(event.shiftKey && document.activeElement === first){ event.preventDefault(); last.focus(); }
+  else if(!event.shiftKey && document.activeElement === last){ event.preventDefault(); first.focus(); }
+}
+
 // ===== VIDEO LIGHTBOX =====
 (function(){
   const lb = document.getElementById('lightbox');
@@ -227,11 +212,12 @@ observePreviews();
   const frameWrap = lb.querySelector('.lightbox__frame');
   const titleEl = lb.querySelector('.lightbox__title');
   const closeBtn = lb.querySelector('.lightbox__close');
+  const background = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer'), document.getElementById('menu'), document.querySelector('.skip-link')];
   let lastFocus = null;
 
   function open(vimeoId, name){
     if(!vimeoId) return;
-    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: 'home'}); }
+    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: PAGE}); }
     lastFocus = document.activeElement;
     titleEl.textContent = name || '';
     const src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0&dnt=1`;
@@ -239,14 +225,14 @@ observePreviews();
     lb.classList.add('open');
     lb.setAttribute('aria-hidden','false');
     document.body.classList.add('lb-open');
-    // focus for a11y but avoid a stray focus-ring flash on the close button
+    setInert(background, true);
     closeBtn.focus({preventScroll:true});
-    closeBtn.blur();
   }
   function close(){
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden','true');
     document.body.classList.remove('lb-open');
+    setInert(background, false);
     frameWrap.innerHTML = '';
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
@@ -261,36 +247,16 @@ observePreviews();
   });
   closeBtn.addEventListener('click', close);
   lb.addEventListener('click', (e)=>{ if(e.target === lb || e.target.classList.contains('lightbox__backdrop')) close(); });
-  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) close(); });
+  document.addEventListener('keydown', (e)=>{
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    else trapFocus(lb, e);
+  });
 })();
 
-// ===== CLIENTS MARQUEE =====
-const clientTrack = document.getElementById('clientTrack');
-if(clientTrack){
-  const item = c => `<div class="marquee__item"><img src="assets/clients/${c.f}.png" alt="${c.n}" decoding="async" draggable="false"></div>`;
-  const seq = CLIENTS.map(item).join('');
-  // duplicate the sequence twice for a seamless -50% loop
-  clientTrack.innerHTML = seq + seq;
-
-  // Start the scroll only after every logo has fully loaded, so the track
-  // width is final and nothing appears to "disappear" or crawl on first view.
-  const imgs = Array.from(clientTrack.querySelectorAll('img'));
-  let done = 0;
-  const start = () => clientTrack.classList.add('is-ready');
-  const tick = () => { if(++done >= imgs.length) start(); };
-  imgs.forEach(img => {
-    if(img.complete && img.naturalWidth){ tick(); }
-    else {
-      img.addEventListener('load', tick, {once:true});
-      img.addEventListener('error', tick, {once:true});
-    }
-  });
-  // Safety net: never leave it stalled if a request hangs.
-  setTimeout(start, 3000);
-}
-
 // ===== YEAR =====
-document.getElementById('year').textContent = new Date().getFullYear();
+const year = document.getElementById('year');
+if(year) year.textContent = new Date().getFullYear();
 
 // ===== NAV SCROLL =====
 const nav = document.getElementById('nav');
@@ -300,15 +266,27 @@ onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 // ===== MENU =====
 const toggle = document.getElementById('navToggle');
 const menu = document.getElementById('menu');
-function setMenu(open){
+const menuBackground = [document.querySelector('main'), document.querySelector('footer'), document.querySelector('.brand'), document.querySelector('.nav__brief'), document.querySelector('.skip-link')];
+function setMenu(open, restoreFocus = true){
   document.body.classList.toggle('menu-open', open);
   toggle.setAttribute('aria-expanded', open);
   toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   menu.setAttribute('aria-hidden', !open);
+  setInert(menuBackground, open);
+  if(open){
+    const firstLink = menu.querySelector('a');
+    if(firstLink) requestAnimationFrame(()=>firstLink.focus({preventScroll:true}));
+  }else if(restoreFocus){
+    toggle.focus({preventScroll:true});
+  }
 }
 toggle.addEventListener('click', ()=> setMenu(!document.body.classList.contains('menu-open')));
-menu.querySelectorAll('a').forEach(el=>el.addEventListener('click', ()=> setMenu(false)));
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') setMenu(false); });
+menu.querySelectorAll('a').forEach(el=>el.addEventListener('click', ()=> setMenu(false, false)));
+document.addEventListener('keydown', e=>{
+  if(!document.body.classList.contains('menu-open')) return;
+  if(e.key==='Escape') setMenu(false);
+  else trapFocus(menu, e);
+});
 
 // ===== REVEAL =====
 const io = new IntersectionObserver((entries)=>{
@@ -335,32 +313,6 @@ const secIO = new IntersectionObserver((entries)=>{
 const contactSec = document.getElementById('contact');
 if(contactSec) secIO.observe(contactSec);
 
-// ===== FLOATING WIDGET (back to top) =====
-(function(){
-  const widget = document.getElementById('widget');
-  if(!widget) return;
-  const work = document.getElementById('work');
-  let up = false;
-  function update(){
-    // always visible; only its direction changes with scroll
-    widget.classList.add('show');
-    up = window.scrollY > window.innerHeight*0.6;
-    widget.classList.toggle('widget--up', up);
-    widget.setAttribute('aria-label', up ? 'Back to top' : 'Scroll down');
-  }
-  widget.addEventListener('click', e=>{
-    e.preventDefault();
-    if(up){
-      window.scrollTo({top:0, behavior:'smooth'});
-    } else if(work){
-      work.scrollIntoView({behavior:'smooth'});
-    } else {
-      window.scrollTo({top:window.innerHeight, behavior:'smooth'});
-    }
-  });
-  update(); window.addEventListener('scroll', update, {passive:true});
-})();
-
 // ===== CAPABILITIES ACCORDION =====
 (function(){
   const heads = document.querySelectorAll('.service__head');
@@ -375,45 +327,6 @@ if(contactSec) secIO.observe(contactSec);
     h.addEventListener('pointerup', (e)=>{ if(e.pointerType==='touch'){ handled = true; toggleHead(h); } });
     h.addEventListener('click', ()=>{ if(handled){ handled = false; return; } toggleHead(h); });
   });
-})();
-
-/* ===== GENTLE PARALLAX ON THE STATIC PHOTO LAYERS =====
-   Transform-based, so it behaves the same on desktop and on mobile Safari
-   (background-attachment:fixed is unreliable on iOS). Each layer is scaled a
-   hair so the small vertical shift never exposes an edge. */
-(() => {
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-
-  const layers = [
-    { el: document.querySelector('.hero__media'),   amp: 60, scale: 1.08 },
-    // the footer band is short, so it needs a bit more headroom to move in
-    { el: document.querySelector('.footer__wall'), amp: 70, scale: 1.14 }
-  ].filter(l => l.el);
-  if (!layers.length) return;
-
-  layers.forEach(l => { l.el.style.transform = `translate3d(0,0,0) scale(${l.scale})`; });
-
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    const vh = window.innerHeight;
-    for (const l of layers) {
-      const r = l.el.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > vh + 200) continue;
-      // -0.5 when the layer sits below the fold, +0.5 once it has scrolled past
-      const p = Math.max(-0.5, Math.min(0.5, (vh / 2 - (r.top + r.height / 2)) / (vh + r.height)));
-      const cap = (r.height * (l.scale - 1)) / 2 - 6;
-      const y = Math.max(-cap, Math.min(cap, p * l.amp)).toFixed(2);
-      l.el.style.transform = `translate3d(0,${y}px,0) scale(${l.scale})`;
-    }
-  };
-  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-  window.addEventListener('orientationchange', onScroll, { passive: true });
-  update();
 })();
 
 // ===== WORK GRID: INNER-MEDIA SCROLL PARALLAX =====
