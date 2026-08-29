@@ -123,7 +123,7 @@ a{color:inherit;text-decoration:none}
 }
 </style>
 <link rel="stylesheet" href="../styles.css?v=45">
-<link rel="stylesheet" href="../subsite.css?v=5">
+<link rel="stylesheet" href="../subsite.css?v=6">
 </head>
 <body id="top" class="subsite subsite--audio">
 
@@ -527,11 +527,32 @@ a{color:inherit;text-decoration:none}
     'SUBBOTA TV CHANNEL':['subbota.png'],'T-BANK':['t-bank.svg'],'TOYOTA':['toyota.png'],
     'XCITE':['xcite.png']
   };
+  var layout=[
+    ['ALFABANK','wide'],
+    ['BORJOMI','square'],['DIXY','small'],['IKEA','small'],['J7','small'],['LYSOL','small'],
+    ['CHERKIZOVO','wide'],['CITIMOBIL','square'],['CHUDO DETKI','square'],
+    ['DOMCLICK','square'],['FONBET','square'],['INDRIVE','square'],['KASPERSKY LAB','square'],
+    ['RUSSIAN MINISTRY OF SCIENCE','wide'],
+    ['LUKOIL','square'],['NATIONAL LOTTERY','small'],['T-BANK','small'],['TOYOTA','small'],['XCITE','small'],
+    ['ROSTELECOM WINK','wide'],['MOSKVICH','square'],['NESTLE','square'],
+    ['OSTROVOK','square'],['OZON ZON ZON','square'],['PEREKRESTOK','square'],['PSB','square'],
+    ['SUBBOTA TV CHANNEL','square'],['J7 TONUS','square'],['VITAMISHKI','square'],['MEGAFON','square']
+  ];
+  var list=document.querySelector('.sl-list');
+  var byTitle={};
+  [].slice.call(document.querySelectorAll('.sl-card')).forEach(function(card){
+    byTitle[card.querySelector('.sl-brand').textContent.trim()]=card;
+  });
+  layout.forEach(function(item){
+    var card=byTitle[item[0]];
+    if(!card)return;
+    card.classList.add('sl-card--'+item[1]);
+    list.appendChild(card);
+  });
   var cards=[].slice.call(document.querySelectorAll('.sl-card'));
   cards.forEach(function(card,index){
     var title=card.querySelector('.sl-brand').textContent.trim();
     var files=logos[title]||[];
-    card.classList.add('sl-card--square');
     card.setAttribute('data-brand',title);
     if(!files.length)card.classList.add('sl-card--missing');
 
@@ -554,10 +575,6 @@ a{color:inherit;text-decoration:none}
     }
     card.insertBefore(stage,card.firstChild);
 
-    var kind=document.createElement('span');
-    kind.className='sl-kind';
-    kind.textContent=(card.getAttribute('data-src')||'').indexOf('soundlogo')!==-1?'Sound logo':'Jingle';
-    card.appendChild(kind);
   });
 
   if('IntersectionObserver' in window){
