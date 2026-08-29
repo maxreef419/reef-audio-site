@@ -314,8 +314,8 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
 // is BOTTOM-anchored sticky inside the stage (CSS: .wtstage>.work{position:sticky;bottom:0}),
 // so the moment Work's last frame reaches the viewport bottom, Work FREEZES in place -- its
 // last frame stays at exactly the same screen coordinates for the entire 100dvh of extra
-// scroll room. During those same 100dvh, .wtpin (position:sticky;top:0;height:0) is pinned
-// at the top; .services is moved INTO the pin as an absolute foreground layer
+// scroll room. During those same 100dvh, .wtpin is a viewport-tall sticky layer whose
+// negative margin aligns its top with the frozen Work frame; .services is moved into it
 // (class .is-curtain) and rises translateY(100%)->0 linearly over 100dvh, covering the
 // frozen Work from the bottom up. Because Work is sticky-frozen, the wipe is a pure
 // one-sheet-over-another: at 50% progress the grey covers exactly the lower half of the
@@ -331,29 +331,41 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   const mq = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)');
 
   let ticking = false, mode = null; // mode: 'curtain' | 'released'
-  const servicesHome = services.parentNode;      // original flow parent (main)
-  const servicesAnchor = services.nextSibling;   // to restore original DOM position
+  let placeholder = null;
 
   // Wipe travel: the foreground rises over this many px of scroll. Must match the CSS
   // padding-bottom on .wtstage (100dvh) so the wipe starts exactly when Work sticks and
   // finishes exactly when Work unsticks.
-  function travel(){ return window.innerHeight; }
+  function travel(){
+    const h = pin.getBoundingClientRect().height;
+    return h > 0 ? h : window.innerHeight;
+  }
+
+  // Keep the document height stable while the tall Capabilities section is inside the
+  // sticky pin. This prevents Safari scroll anchoring from jumping when it is restored.
+  function makePlaceholder(){
+    if(placeholder && placeholder.isConnected) return;
+    placeholder = document.createElement('div');
+    placeholder.className = 'services-placeholder';
+    placeholder.setAttribute('aria-hidden', 'true');
+    placeholder.style.height = Math.max(0, services.scrollHeight - travel()) + 'px';
+    services.replaceWith(placeholder);
+  }
 
   function enterCurtain(){
     if(mode === 'curtain') return;
-    // move .services into the pin as the foreground layer
-    if(services.parentNode !== pin) pin.appendChild(services);
+    services.classList.remove('is-released');
+    makePlaceholder();
+    pin.appendChild(services);
     services.classList.add('is-curtain');
     mode = 'curtain';
   }
   function release(){
     if(mode === 'released') return;
-    // put .services back in normal flow after the stage
     services.classList.remove('is-curtain');
+    services.classList.add('is-released');
     services.style.transform = '';
-    if(services.parentNode !== servicesHome){
-      servicesHome.insertBefore(services, servicesAnchor);
-    }
+    if(placeholder && placeholder.isConnected) placeholder.replaceWith(services);
     mode = 'released';
   }
 
@@ -373,10 +385,9 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     let p = (T - distToWipeEnd) / T;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
 
-    // Once the wipe has fully covered Work AND the stage bottom has reached the top of the
-    // viewport, hand off: release .services back to normal flow so Capabilities scrolls
-    // naturally. Before that point, keep it as the pinned curtain.
-    if(p >= 1 && stageRect.bottom <= vh){
+    // At p=1 both the pinned curtain and the restored section resolve to top:0, making
+    // the hand-off pixel-continuous instead of sending Capabilities below the fold.
+    if(p >= 1){
       release();
       return;
     }

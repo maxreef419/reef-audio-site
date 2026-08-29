@@ -708,10 +708,11 @@ body.lb-open{overflow:hidden}
      and stays there until .wtstage's bottom leaves the viewport. Work DOM/videos are not
      touched. */
   .wtstage > .work{position:sticky;position:-webkit-sticky;bottom:0}
-  /* The pin sits AFTER Work; it holds only the curtain. It sticks under the header and
-     stays for the length of the padding-bottom scroll room. Its own box is zero-height so
-     it does not push layout; the curtain inside is viewport-sized. */
-  .wtpin{position:sticky;position:-webkit-sticky;top:0;height:0;z-index:5}
+  /* The pin sits AFTER Work but is pulled up by exactly its own viewport height. Therefore
+     its top is already at viewport top at the exact frame where Work's bottom reaches the
+     viewport bottom. A zero-height pin starts one full screen too low. */
+  .wtpin{position:sticky;position:-webkit-sticky;top:0;
+    height:100dvh;margin-top:-100dvh;z-index:5}
 
   /* Capabilities = FOREGROUND curtain, moved into the pin by JS (.is-curtain). Fixed to the
      pinned viewport, opaque, starts fully below the viewport and rises to cover Work. */
@@ -722,5 +723,7 @@ body.lb-open{overflow:hidden}
     -webkit-backface-visibility:hidden;backface-visibility:hidden;
     border-top:1px solid transparent;
     background:linear-gradient(90deg,var(--cyan),var(--green)) top/100% 2px no-repeat,var(--bg)}
+  /* Keep the first Capabilities frame at top:0 when the pinned curtain is restored to
+     normal flow. Without this overlap the completed curtain jumps below the fold. */
+  .services.is-released{margin-top:-100dvh}
 }
-
