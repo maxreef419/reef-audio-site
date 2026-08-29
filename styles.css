@@ -555,9 +555,9 @@ body.lb-open{overflow:hidden}
   .hero__inner{padding-left:0;padding-right:0}
   .nav__actions{gap:6px}
   .service__desc{padding-left:30px}
-  .service__formats{display:flex;flex-wrap:wrap;gap:7px 0;margin-top:18px}
+  .service__formats{display:grid;grid-template-columns:1fr;gap:7px;margin-top:18px}
   .service__formats li{font-size:11px;white-space:nowrap}
-  .service__formats li+li::before{content:"·";margin:0 8px;color:var(--editorial-accent)}
+  .service__formats li+li::before{content:none}
   .work--index{padding-top:130px}
   .work-index__intro{padding:0 20px;margin-bottom:54px}
   .work-index__title{font-size:clamp(46px,14.55vw,70.5px);line-height:.92}
