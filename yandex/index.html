@@ -51,11 +51,11 @@ a{color:inherit;text-decoration:none}
 .hdr__logo{display:flex;align-items:center;gap:12px}
 .hdr__logo img{height:38px;width:auto;object-fit:contain}
 .hdr__logo span{
-  font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.4vw,18px);
+  font-family:var(--font-display);font-weight:700;font-size:clamp(16px,1.5vw,19.5px);
   letter-spacing:.01em;color:var(--text)
 }
 .hdr__meta{
-  font-family:var(--font-body);font-weight:500;font-size:12px;
+  font-family:var(--font-body);font-weight:500;font-size:13px;
   letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
 }
 
@@ -65,13 +65,13 @@ a{color:inherit;text-decoration:none}
 }
 .hero h1{
   font-family:var(--font-display);font-weight:800;
-  font-size:clamp(40px,7vw,96px);line-height:.98;letter-spacing:-.025em;
+  font-size:clamp(41.5px,7.3vw,100px);line-height:.98;letter-spacing:-.025em;
 }
 .hero h1 .cy{background:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .hero__sub{
   margin-top:clamp(16px,2.4vw,28px);
   max-width:56ch;
-  font-size:clamp(15px,1.3vw,18px);line-height:1.55;color:var(--muted);
+  font-size:clamp(16px,1.4vw,19.5px);line-height:1.55;color:var(--muted);
 }
 
 /* ===== reel (Work-style card grid, aligned with main site) ===== */
@@ -131,7 +131,7 @@ a{color:inherit;text-decoration:none}
 .clip.is-ready .clip__overlay{opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
 .clip__title{
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(18px,1.6vw,24px);
+  font-size:clamp(19.5px,1.7vw,25.5px);
   line-height:1.15;letter-spacing:-.015em;color:var(--text);
   text-shadow:0 1px 18px rgba(0,0,0,.45);
   transform:translateY(0);transition:transform .45s var(--ease);
@@ -139,13 +139,13 @@ a{color:inherit;text-decoration:none}
 .clip:hover .clip__title{transform:translateY(-2px)}
 .clip__num{
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(12px,1vw,14px);
+  font-size:clamp(13px,1.05vw,15px);
   letter-spacing:.14em;color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
 .clip__meta{
   font-family:var(--font-body);font-weight:500;
-  font-size:clamp(11px,.95vw,13px);
+  font-size:clamp(12px,1vw,14px);
   letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
@@ -162,14 +162,14 @@ a{color:inherit;text-decoration:none}
 }
 .foot__logo{display:flex;align-items:center}
 .foot__logo img{height:32px;width:auto;object-fit:contain}
-.foot__tag{color:var(--muted);font-size:14px;max-width:30ch}
+.foot__tag{color:var(--muted);font-size:15px;max-width:30ch}
 .foot__links{display:flex;gap:24px}
-.foot__links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .25s}
+.foot__links a{font-size:15px;font-weight:600;color:var(--muted);transition:color .25s}
 .foot__links a:hover{color:var(--accent)}
 .foot__bottom{
   max-width:var(--maxw);margin:24px auto 0;
   display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
-  font-size:13px;color:var(--muted);letter-spacing:.02em;
+  font-size:14px;color:var(--muted);letter-spacing:.02em;
 }
 
 /* ===== video lightbox (matches main site) ===== */
@@ -188,7 +188,7 @@ body.lb-open{overflow:hidden}
 .lightbox__close:hover{background:rgba(40,46,50,.96);border-color:rgba(255,255,255,.45);transform:rotate(90deg)}
 .lightbox__close:focus{outline:none}
 .lightbox__close:focus-visible{outline:2px solid rgba(255,255,255,.6);outline-offset:2px;border-color:rgba(255,255,255,.45)}
-.lightbox__title{margin:clamp(14px,1.6vw,20px) 2px 0;font-family:var(--font-display);font-weight:600;font-size:clamp(15px,1.4vw,20px);letter-spacing:-.01em;color:var(--text)}
+.lightbox__title{margin:clamp(14px,1.6vw,20px) 2px 0;font-family:var(--font-display);font-weight:600;font-size:clamp(16px,1.5vw,21.5px);letter-spacing:-.01em;color:var(--text)}
 @keyframes lbFade{from{opacity:0}to{opacity:1}}
 @keyframes lbRise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
 @media (max-width:640px){.lightbox__close{top:-10px;right:0}}
@@ -213,8 +213,8 @@ body.lb-open{overflow:hidden}
   *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
 }
 </style>
-<link rel="stylesheet" href="../styles.css?v=45">
-<link rel="stylesheet" href="../subsite.css?v=3">
+<link rel="stylesheet" href="../styles.css?v=47">
+<link rel="stylesheet" href="../subsite.css?v=8">
 </head>
 <body class="subsite subsite--grid">
 
