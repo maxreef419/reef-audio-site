@@ -214,7 +214,7 @@ body.lb-open{overflow:hidden}
 }
 </style>
 <link rel="stylesheet" href="../styles.css?v=45">
-<link rel="stylesheet" href="../subsite.css?v=2">
+<link rel="stylesheet" href="../subsite.css?v=3">
 </head>
 <body class="subsite subsite--grid">
 
@@ -304,18 +304,19 @@ const reel = document.getElementById('reel');
 CLIPS.forEach((c, i) => {
   const el = document.createElement('button');
   el.type = 'button';
-  el.className = 'clip rv' + (c.ratio === 'wide' ? ' clip--wide' : '');
+  el.className = 'work__item' + (c.ratio === 'wide' ? ' work__item--wide' : ' work__item--square');
   el.dataset.id = c.id;
   el.setAttribute('aria-label', `Play ${c.title}`);
-  el.style.setProperty('--poster', `url("${posterUrl(c)}")`);
-  if(c.posterZoom) el.style.setProperty('--poster-zoom', c.posterZoom);
-  if(c.posterPos) el.style.setProperty('--poster-pos', c.posterPos);
+  const zoom = Number(c.posterZoom || 1);
+  el.style.setProperty('--poster-base', zoom);
+  el.style.setProperty('--poster-hover', (zoom * 1.04).toFixed(3));
   el.innerHTML = `
-    <div class="clip__frame"></div>
-    <div class="clip__overlay">
-      <span class="clip__num">${pad2(i+1)} / ${pad2(CLIPS.length)}</span>
-      <h2 class="clip__title">${c.title}</h2>
-    </div>
+    <span class="work__reveal">
+      <img src="${posterUrl(c)}" alt="${c.title} — REEF Audio project still" loading="lazy"${c.posterPos ? ` style="object-position:${c.posterPos}"` : ''}>
+      <div class="work__overlay">
+        <span class="work__name-mask"><span class="work__name">${c.title}</span></span>
+      </div>
+    </span>
   `;
   reel.appendChild(el);
 });
@@ -325,6 +326,21 @@ const revIo = new IntersectionObserver((entries)=>{
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); revIo.unobserve(e.target); } });
 },{rootMargin:"0px 0px -8% 0px",threshold:0.06});
 document.querySelectorAll('.rv').forEach(el => revIo.observe(el));
+
+// Use the exact main-site card entrance: frame first, then the title.
+const workItems = Array.from(document.querySelectorAll('.work__item'));
+const rowIndex = el => workItems.filter(other =>
+  other !== el && Math.abs(other.offsetTop - el.offsetTop) <= 4 && other.offsetLeft < el.offsetLeft
+).length;
+const workIo = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(!entry.isIntersecting) return;
+    entry.target.style.setProperty('--rowdelay', `${rowIndex(entry.target) * .11}s`);
+    entry.target.classList.add('in');
+    workIo.unobserve(entry.target);
+  });
+}, {threshold:.16, rootMargin:'0px 0px -60px 0px'});
+workItems.forEach(item => workIo.observe(item));
 
 // ===== VIDEO LIGHTBOX (clips open in a modal, like the main site) =====
 (function(){
@@ -356,10 +372,10 @@ document.querySelectorAll('.rv').forEach(el => revIo.observe(el));
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  document.querySelectorAll('.clip').forEach(card=>{
+  document.querySelectorAll('.work__item').forEach(card=>{
     card.addEventListener('click', e => {
       e.preventDefault();
-      open(card.dataset.id, card.querySelector('.clip__title').textContent);
+      open(card.dataset.id, card.querySelector('.work__name').textContent);
     });
   });
   closeBtn.addEventListener('click', close);

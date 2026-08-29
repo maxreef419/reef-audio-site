@@ -206,6 +206,19 @@
 .subsite--grid .clip{box-shadow:none}
 .subsite .rv,.subsite .reveal{transition-timing-function:var(--ease-soft)}
 
+/* Animation and Yandex use the actual Work card component, not a lookalike.
+   Keep only page-specific poster cropping here; geometry, title reveal, hover,
+   focus and reduced-motion behavior come from styles.css. */
+.subsite--grid .work__item img{
+  object-position:center;
+  transform:translateY(var(--pz,0px)) scale(var(--poster-base,1));
+}
+@media (hover:hover){
+  .subsite--grid .work__item:hover img{
+    transform:translateY(var(--pz,0px)) scale(var(--poster-hover,1.04));
+  }
+}
+
 /* Main-site footer, preserved as a single conversion block. */
 .subsite .footer{
   position:relative;overflow:hidden;background:transparent;border:0;
@@ -251,7 +264,7 @@
   .subsite .hero h1{font-size:44px;line-height:.92}
   .subsite .hero__sub{font-size:13px;line-height:1.4;margin-top:30px}
   .subsite--grid .reel{padding-left:20px;padding-right:20px;padding-bottom:88px}
-  .subsite--grid .clip,.subsite--grid .clip--wide{aspect-ratio:16/9;height:auto;grid-column:auto;border-radius:12px}
+  .subsite--grid .clip,.subsite--grid .clip--wide{aspect-ratio:1/1;height:auto;grid-column:auto;border-radius:12px}
   .subsite--audio .sl-hero{padding:130px 0 48px}
   .subsite--audio .sl-hero .wrap,.subsite--audio .sl-list-wrap .wrap{padding-left:20px;padding-right:20px}
   .subsite--audio .sl-hero h1{font-size:44px;line-height:.92;margin-top:18px}
