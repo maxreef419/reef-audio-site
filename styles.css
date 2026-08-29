@@ -289,12 +289,12 @@ body.menu-open .menu__meta{opacity:1}
    The row cascade (--rowdelay) shifts the whole card, title included. */
 .work__item.in .work__name{transform:translateY(0);transition-delay:calc(var(--rowdelay,0s) + .18s)}
 @media (hover:hover){.work__item.in:hover .work__name{transform:translateY(-2px);transition-delay:0s;transition-duration:.4s}}
-.work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(44px,6vw,72px)}
+.work__more-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:clamp(32px,4vw,48px)}
 /* Typographic 'View more' in the spirit of the footer's START A PROJECT link:
    uppercase display type, letter-spacing, diagonal arrow, gradient underline. */
 .work__more{
-  position:relative;display:inline-flex;align-items:center;gap:12px;cursor:pointer;
-  font-family:var(--font-display);font-weight:700;font-size:clamp(18px,2vw,26px);
+  position:relative;display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:var(--font-display);font-weight:700;font-size:22px;
   letter-spacing:.02em;line-height:1;color:var(--text);text-transform:uppercase;
   background:transparent;border:0;padding:0 0 12px;
   opacity:0;transform:translateY(8px);
