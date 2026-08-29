@@ -109,60 +109,6 @@ function loadMoreWork(){
 loadMoreWork();
 if(workMore) workMore.addEventListener('click', (e)=>{ loadMoreWork(); e.currentTarget.blur(); });
 
-// MOBILE: explicit three-state freeze for the exact final viewport of Work.
-// iOS Safari does not reliably stick an element taller than the viewport. Instead Work is
-// absolutely positioned during normal scroll, fixed when its bottom reaches the viewport,
-// and parked at the end of its height-preserving stage after Capabilities covers it.
-(function(){
-  const work = document.getElementById('work');
-  const stage = document.getElementById('wtstage');
-  if(!work || !stage) return;
-  const mq = window.matchMedia('(max-width:900px), (hover:none), (pointer:coarse)');
-  let frame = 0, workH = 0, stageTop = 0, state = '';
-
-  function setState(next){
-    if(next === state) return;
-    state = next;
-    work.classList.toggle('work-fixed', next === 'fixed');
-    work.classList.toggle('work-after', next === 'after');
-  }
-
-  function update(){
-    frame = 0;
-    if(!mq.matches){ setState(''); return; }
-    const vh = window.innerHeight;
-    const y = window.scrollY;
-    const freezeAt = stageTop + workH - vh;
-    const releaseAt = freezeAt + vh * 1.30;
-    if(y < freezeAt) setState('before');
-    else if(y < releaseAt) setState('fixed');
-    else setState('after');
-  }
-
-  function requestUpdate(){
-    if(!frame) frame = requestAnimationFrame(update);
-  }
-
-  function syncGeometry(){
-    if(!mq.matches){
-      stage.style.removeProperty('--work-h');
-      setState('');
-      return;
-    }
-    workH = work.offsetHeight;
-    stageTop = stage.getBoundingClientRect().top + window.scrollY;
-    stage.style.setProperty('--work-h', workH + 'px');
-    requestUpdate();
-  }
-
-  if('ResizeObserver' in window) new ResizeObserver(syncGeometry).observe(work);
-  window.addEventListener('scroll', requestUpdate, {passive:true});
-  window.addEventListener('resize', syncGeometry, {passive:true});
-  window.addEventListener('orientationchange', syncGeometry, {passive:true});
-  if(mq.addEventListener) mq.addEventListener('change', syncGeometry);
-  syncGeometry();
-})();
-
 // Make every grid row exactly one column-width tall, so all tiles share one
 // uniform height: a single-column tile is a square, a two-column 'wide' tile is
 // one long horizontal frame of the same height. Recompute on resize.
@@ -362,61 +308,6 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
     el.style.transitionDelay = Math.min(j,3) * 0.08 + 's';
   });
 });
-
-// ===== STICKY-OVERLAP: Capabilities slides over the pinned Work section =====
-// Work is position:sticky (pinned at top:0). As Capabilities scrolls up over it we
-// raise --work-cover 0->1 on <html>, which darkens (.work__dim) and sinks (scale)
-// Work so it reads as a layer sliding on top. Progress = how far the top edge of
-// Capabilities has travelled from the bottom of the viewport up to the top.
-(function(){
-  const services = document.getElementById('services');
-  const workSec = document.getElementById('work');
-  if(!services || !workSec) return;
-  // Drives --work-cover 0->1 as Capabilities rises. Both desktop (pins + scales the whole
-  // Work) and mobile/touch (pins only a viewport-tall dim veil) consume it via their own
-  // CSS; only prefers-reduced-motion disables it entirely.
-  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)');
-  const root = document.documentElement;
-  let ticking = false, active = false;
-  function update(){
-    ticking = false;
-    const vh = window.innerHeight;
-    const top = services.getBoundingClientRect().top;
-    // --work-cover (desktop): 0 while Capabilities is below, 1 once it reaches the top and
-    // stays 1 while Work is pinned behind it. Start covering at ~85% viewport height.
-    const startAt = vh * 0.85;
-    let p = (startAt - top) / startAt;
-    p = p < 0 ? 0 : p > 1 ? 1 : p;
-    root.style.setProperty('--work-cover', p.toFixed(3));
-    // --work-veil (mobile): a BAND that rises 0->1 as the Work/Capabilities boundary comes
-    // up the screen, then falls 1->0 after it passes the top, so the fixed dim veil only
-    // darkens Work near the seam and never lingers over About/Clients/footer.
-    // 'top' is Capabilities' top edge; peak the veil while that edge is in the upper third.
-    let v;
-    if(top >= startAt){ v = 0; }                       // Capabilities still well below -> no veil
-    else if(top >= 0){ v = (startAt - top) / startAt; } // rising as it comes up
-    else { v = 1 - Math.min(1, (-top) / vh); }          // falling once it passes the top
-    v = v < 0 ? 0 : v > 1 ? 1 : v;
-    root.style.setProperty('--work-veil', v.toFixed(3));
-  }
-  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
-  function apply(){
-    const on = !reduce.matches;
-    if(on === active) return;
-    active = on;
-    if(on){
-      window.addEventListener('scroll', onScroll, {passive:true});
-      window.addEventListener('resize', onScroll, {passive:true});
-      update();
-    } else {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      root.style.setProperty('--work-cover', '0'); // reset when motion is reduced
-    }
-  }
-  apply();
-  reduce.addEventListener('change', apply);
-})();
 
 // ===== SECTION ENTRANCE (hero/contact word choreography) =====
 const secIO = new IntersectionObserver((entries)=>{

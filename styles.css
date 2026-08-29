@@ -199,36 +199,7 @@ body.menu-open .menu__meta{opacity:1}
 }
 
 /* ===== WORK (3-col grid, all tiles one uniform row height) ===== */
-/* Sticky-overlap: Work pins to the top of the viewport, then Capabilities
-   (higher z-index, opaque bg) scrolls UP over it. A dim layer darkens Work and a
-   subtle scale sinks it back as Capabilities covers it. JS drives --work-cover 0->1. */
 .work{position:relative;z-index:1;background:#121212;padding:clamp(60px,9vw,120px) 0 clamp(70px,10vw,130px);overflow:hidden}
-/* darkening veil. Desktop: absolute over the pinned Work. Mobile/touch: a sticky
-   viewport-tall layer (see block below) so Work darkens as Capabilities rises. */
-.work__dim{position:absolute;inset:0;z-index:5;pointer-events:none;background:#000;opacity:0;transition:opacity .2s linear}
-.work__dim-mobile{display:none} /* mobile-only; enabled in the mobile media block below */
-/* --- Mobile / touch overlap ---
-   Pinning the whole tall Work grid froze it on the first tile, and a sticky veil inside
-   Work scrolled away instead of pinning. So on mobile the overlap is done the simple,
-   crash-proof way: Capabilities (opaque bg + higher z-index) is pulled up with a negative
-   margin so its top edge physically slides OVER the last tiles of Work as you scroll.
-   A sticky, viewport-fixed veil darkens Work underneath, driven by --work-cover. */
-/* NOTE: the mobile overlap rules used to live here, but base .services{z-index:2} on line
-   ~413 comes LATER in source order and overrode them (equal specificity → last wins), so
-   Capabilities sat UNDER the trailer and nothing darkened on iOS. The authoritative mobile
-   overlap block now lives at the very END of this file so it wins the cascade. */
-@media (max-width:900px), (hover:none), (pointer:coarse){
-  /* The JS-driven veil is desktop-only; hide it on mobile. */
-  .work__dim{display:none}
-}
-/* --- Desktop-only sticky overlap: Work pins and Capabilities slides over it.
-   Disabled on tablet/mobile/touch where sticky + tall grid caused stacking bugs. --- */
-@media (min-width:901px) and (hover:hover) and (pointer:fine){
-  .work{position:sticky;top:0;overflow:hidden;
-    transform:scale(calc(1 - .03*var(--work-cover,0)));transform-origin:center top;
-    transition:transform .2s linear;will-change:transform}
-  .work__dim{opacity:calc(.55*var(--work-cover,0))}
-}
 /* Smooth the Work(dark) -> About transition so the darker Work doesn't create a new seam */
 .work::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(160px,24vh,320px);pointer-events:none;z-index:1;
   background:linear-gradient(180deg,rgba(18,18,18,0) 0%,rgba(18,18,18,.5) 60%,rgba(18,18,18,.85) 85%,rgba(18,18,18,1) 100%)}
@@ -402,14 +373,9 @@ body.lb-open{overflow:hidden}
   background:linear-gradient(180deg,rgba(12,16,18,.55),transparent 26%,transparent 72%,rgba(10,12,13,.85));}
 
 /* ===== CAPABILITIES (frameless, airy) ===== */
-/* Sits ABOVE the sticky Work section and scrolls over it. Needs an opaque,
-   full-bleed backdrop so Work is actually hidden behind it as it rises. */
-.services{position:relative;z-index:2;padding:clamp(100px,15vw,200px) 0 clamp(40px,6vw,70px);max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
-.services::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;background:var(--bg)}
-/* faint top shadow only when the desktop overlap is active, so it reads as a layer sliding over Work */
-@media (min-width:901px) and (hover:hover) and (pointer:fine){
-  .services::before{box-shadow:0 -24px 60px rgba(0,0,0,.45)}
-}
+/* Same background as Work: the two sections simply follow one another. */
+.services{position:relative;z-index:2;background:#121212;padding:clamp(100px,15vw,200px) 0 clamp(40px,6vw,70px);max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.services::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;background:#121212}
 .services__head{margin-bottom:var(--head-gap);padding:0}
 .services__list{display:grid;grid-template-columns:1fr;gap:0;padding:0}
 .service{position:relative;border-top:1px solid var(--line-2)}
@@ -667,42 +633,4 @@ body.lb-open{overflow:hidden}
       linear-gradient(180deg,rgba(20,20,20,.88) 0,rgba(20,20,20,.74) 20%,rgba(20,20,20,.86) 40%,#141414 55%),
       url('assets/hero-about-v2.jpg');
   }
-}
-
-/* =====================================================================
-   MOBILE: CAPABILITIES ENTERS AS A PANEL (transform+opacity only).
-   Every scroll-locked overlap (fixed / sticky / negative-margin) failed to
-   render on the user's real iOS Safari. transform+opacity is the ONE thing iOS
-   always animates natively, so instead of tying darkening to scroll position we
-   play a one-shot ENTRANCE: the Capabilities panel slides up from below over the
-   black Work tail, then eyebrow + rows stagger in. Triggered once by
-   IntersectionObserver (.panel-in), not by continuous scroll.
-   ===================================================================== */
-/* On DESKTOP the curtain wrapper must be invisible to layout so the existing desktop
-   sticky-overlap (Work pins + Capabilities scrolls over it) is completely untouched. */
-@media (min-width:901px) and (hover:hover) and (pointer:fine){
-  .wtstage{display:contents}
-}
-
-/* ===== MOBILE / TOUCH: Work -> Capabilities curtain =====
-   The real Capabilities section stays in normal flow for the entire transition. Pulling
-   it up by one viewport makes it rise over the frozen Work frame after a 30dvh hold.
-   There is no cloned text, clipping, reparenting or end-of-animation hand-off. */
-@media (max-width:900px), (hover:none), (pointer:coarse){
-  .work__dim{display:none}
-  .work__dim-mobile{display:none}
-
-  /* Sticky on an element taller than the viewport is unreliable on iOS. The stage keeps
-     the complete document space, while JS switches Work between these three explicit
-     positions: normal, fixed for 130dvh, then parked at the end of the stage. */
-  .wtstage{position:relative;display:block;padding:0;
-    height:calc(var(--work-h,0px) + 130dvh)}
-  .wtstage > .work{position:absolute;left:0;right:0;top:0;width:100%}
-  .wtstage > .work.work-fixed{position:fixed;
-    top:calc(100dvh - var(--work-h,0px));z-index:1}
-  .wtstage > .work.work-after{top:130dvh}
-  /* This is the only moving layer. Its text and background share one coordinate system,
-     so the content stays readable and simply continues scrolling after reaching top:0. */
-  .services{z-index:5;margin-top:-100dvh;
-    background:linear-gradient(90deg,var(--cyan),var(--green)) top/100% 2px no-repeat,var(--bg)}
 }
