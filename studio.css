@@ -67,9 +67,10 @@
 .studio .work-index__lead { margin-top: 26px; max-width: 58ch; font-size: 1.0625rem; line-height: 1.5; }
 
 /* Proof, capabilities and studio story share the same twelve-column grid. */
-.studio .clients { padding: 0 0 88px; background: var(--bg); }
+.studio .clients { --clients-gap: 32px; padding: 0 0 var(--clients-gap); background: var(--bg); }
 .studio .clients__inner { max-width: var(--studio-width); padding: 0 var(--studio-gutter); }
-.studio .clients__head { margin-bottom: 32px; }
+.studio .clients__head { margin-bottom: var(--clients-gap); }
+.studio .clients__head .eyebrow { margin: 0; }
 .studio .marquee__item { width: clamp(150px,15vw,208px); padding: 0 20px; }
 .studio .marquee__item img { width: var(--logo-width,142px); max-width: 100%; height: 38px; object-fit: contain; opacity: .76; }
 .studio .marquee:hover .marquee__item img { opacity: .76; }
@@ -165,8 +166,7 @@
   .studio .work-index__intro { padding-top: 116px; padding-bottom: 36px; }
   .studio .work-index__title { font-size: 46px; }
   .studio .work-index__lead { font-size: 1rem; }
-  .studio .clients { padding-bottom: 60px; }
-  .studio .clients__head { margin-bottom: 24px; }
+  .studio .clients { --clients-gap: 24px; }
   .studio .marquee__item { width: 150px; padding: 0 20px; }
   .studio .marquee__item img { height: 32px; }
   .studio .services { padding: 54px 0; }
