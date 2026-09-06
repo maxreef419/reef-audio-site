@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>REEF Audio — Sound Logos & Jingles</title>
 <meta name="description" content="A selection of sound logos and jingles produced by REEF Audio." />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
@@ -10,128 +10,31 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
 <meta name="theme-color" content="#2e2e2e" />
 <meta name="apple-mobile-web-app-title" content="REEF" />
-<meta name="robots" content="noindex" />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-:root{
-  --bg:#2e2e2e;--bg-2:#292929;--bg-3:#242424;--surface:#383838;
-  --line:rgba(255,255,255,.12);--line-2:rgba(255,255,255,.06);
-  --text:#f4f6f6;--muted:#b4b7b7;--muted-2:#888c8c;
-  --cyan:#19b6e6;--green:#4ade80;
-  --grad:linear-gradient(135deg,#19b6e6 0%,#4ade80 100%);
-  --font-display:'Schibsted Grotesk','Inter',system-ui,sans-serif;
-  --font-body:'Instrument Sans','Inter',system-ui,sans-serif;
-  --maxw:1320px;--content:980px;--gutter:clamp(20px,4vw,46px);
-  --ease:cubic-bezier(.16,1,.3,1);--ease-soft:cubic-bezier(.22,.61,.36,1);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:17px;line-height:1.47;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:calc(var(--content) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
-.eyebrow{font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
-.sl-hero p.eyebrow{color:var(--cyan);font-size:13px;letter-spacing:.22em}
 
-/* header */
-.sl-top{padding:clamp(34px,5vw,52px) 0 clamp(28px,4vw,40px)}
-.brand{display:flex;align-items:center}
-.brand__logo{height:38px;width:auto;object-fit:contain}
-.brand--sm .brand__logo{height:32px}
-.sl-top .brand{display:inline-flex}
-
-/* hero */
-.sl-hero{padding:clamp(48px,10vw,120px) 0 clamp(40px,6vw,72px);border-bottom:1px solid var(--line-2)}
-.sl-hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(41.5px,7.3vw,100px);line-height:.98;letter-spacing:-.025em;margin:18px 0 22px}
-.sl-hero h1 .cy{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.sl-hero p{color:var(--muted);font-size:clamp(16px,1.4vw,19.5px);line-height:1.55;max-width:54ch}
-
-/* list */
-.sl-list-wrap{padding:clamp(40px,6vw,64px) 0 clamp(70px,10vw,120px)}
-.sl-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.sl-card{display:flex;align-items:center;gap:clamp(14px,2vw,22px);padding:clamp(12px,1.6vw,16px) clamp(14px,2vw,20px);background:var(--bg-3);border:1px solid var(--line-2);border-radius:14px;transition:border-color .3s var(--ease),background .3s var(--ease)}
-.sl-card:hover{border-color:var(--line);background:#262626}
-.sl-card.playing{border-color:rgba(25,182,230,.5)}
-.sl-play{flex:none;width:clamp(42px,5vw,50px);height:clamp(42px,5vw,50px);border-radius:50%;border:0;cursor:pointer;background:var(--grad);color:#0d1418;display:grid;place-items:center;transition:transform .25s var(--ease)}
-.sl-play:hover{transform:scale(1.06)}
-.sl-play svg{fill:currentColor}
-.sl-play .ic-pause{display:none}
-.sl-card.playing .sl-play .ic-play{display:none}
-.sl-card.playing .sl-play .ic-pause{display:block}
-.sl-info{flex:1 1 auto;min-width:0}
-.sl-brand{font-family:var(--font-display);font-weight:700;font-size:clamp(19.5px,1.7vw,25.5px);letter-spacing:-.01em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sl-brand .sl-extra{color:var(--muted-2);font-weight:500;font-size:.78em}
-.sl-type{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-top:2px}
-.sl-bar{flex:0 1 230px;height:4px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;cursor:pointer}
-.sl-fill{display:block;width:100%;height:100%;background:var(--grad);border-radius:99px;transform:scaleX(0);transform-origin:left center;transition:transform .12s linear;will-change:transform}
-.sl-time{flex:none;width:42px;text-align:right;font-variant-numeric:tabular-nums;font-size:15px;color:var(--muted-2)}
-
-/* ===== CONTACT (prefooter) ===== */
-.contact{position:relative;padding:clamp(90px,14vw,180px) clamp(20px,4vw,46px);overflow:hidden;border-top:1px solid var(--line-2)}
-.contact__wall{position:absolute;inset:0;z-index:0;background:radial-gradient(90% 80% at 78% 20%,rgba(25,182,230,.16),transparent 55%),radial-gradient(80% 70% at 16% 90%,rgba(74,222,128,.13),transparent 60%)}
-.contact__inner{position:relative;z-index:2;max-width:980px;margin:0 auto;text-align:center}
-.contact__title{font-family:var(--font-display);font-weight:800;font-size:clamp(50px,8.75vw,112.5px);line-height:.9;letter-spacing:-.02em;margin:18px 0 28px;display:flex;flex-wrap:wrap;gap:0 .25em;justify-content:center}
-.contact__title span{display:inline-block;opacity:0;transform:translateY(40px) rotate(3deg);transition:opacity 1.05s var(--ease-soft),transform 1.05s var(--ease-soft)}
-.contact__title span:nth-child(2){color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text}
-.contact.in .contact__title span{opacity:1;transform:none}
-.contact.in .contact__title span:nth-child(2){transition-delay:.1s}
-.contact.in .contact__title span:nth-child(3){transition-delay:.2s}
-.contact__lead{color:var(--muted);font-size:clamp(16px,1.8vw,19.5px);max-width:60ch;margin:0 auto 36px}
-.contact__actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.contact__btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;padding:15px 30px;border-radius:100px;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s,color .3s}
-.contact__btn--primary{background:var(--grad);color:#06181c;box-shadow:0 14px 40px -12px rgba(25,182,230,.55)}
-.contact__btn--primary:hover{transform:translateY(-3px);box-shadow:0 20px 52px -14px rgba(74,222,128,.6)}
-.contact__btn--primary svg{transition:transform .35s var(--ease)}
-.contact__btn--primary:hover svg{transform:translateX(4px)}
-
-/* ===== FOOTER ===== */
-.footer{position:relative;background:var(--bg-2);border-top:1px solid var(--line-2);padding:clamp(60px,8vw,90px) clamp(20px,4vw,46px) 30px;overflow:hidden}
-.footer__inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-bottom:34px;border-bottom:1px solid var(--line-2)}
-.footer__tag{color:var(--muted);font-size:15px;max-width:30ch}
-.footer__links{display:flex;gap:24px}
-.footer__links a{font-size:15px;font-weight:600;color:var(--muted);transition:color .25s}
-.footer__links a:hover{color:var(--cyan)}
-.footer__bottom{position:relative;z-index:2;max-width:var(--maxw);margin:24px auto 0;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:nowrap;white-space:nowrap;font-size:14px;color:var(--muted-2);padding-right:clamp(60px,7vw,86px)}
-
-/* ===== FLOATING WIDGET (scroll to top) ===== */
-.widget{position:fixed;right:24px;bottom:24px;z-index:90;display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;color:var(--text);background:rgba(13,18,20,.72);backdrop-filter:blur(10px);border:1px solid var(--line);opacity:0;transform:translateY(14px) scale(.85);pointer-events:none;transition:opacity .45s var(--ease),transform .45s var(--ease),border-color .3s,background .3s}
-.widget.show{opacity:1;transform:none;pointer-events:auto}
-.widget__arrow{position:relative;z-index:2;animation:widgetFloat 2.4s var(--ease) infinite}
-@keyframes widgetFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.widget:hover{border-color:var(--cyan);background:rgba(13,18,20,.92)}
-.widget:hover .widget__arrow{animation-duration:.9s;color:var(--cyan)}
-.widget:focus-visible{outline:none;border-color:var(--cyan)}
-
-/* ===== REVEAL ===== */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease-soft),transform 1s var(--ease-soft)}
-.reveal.in{opacity:1;transform:none}
-
-@media (max-width:600px){
-  .sl-bar{flex-basis:90px}
-  .sl-time{display:none}
-  .sl-card{gap:13px;padding:12px 13px}
-}
-@media (max-width:560px){
-  .footer__inner{flex-direction:column;align-items:flex-start;gap:20px}
-  .footer__bottom{justify-content:space-between;gap:14px;padding-right:60px}
-  .widget{width:50px;height:50px;right:16px;bottom:16px}
-}
-</style>
 <link rel="stylesheet" href="../styles.css?v=48">
 <link rel="stylesheet" href="../subsite.css?v=8">
+<link rel="stylesheet" href="player.css?v=1" />
+<link rel="stylesheet" href="../studio.css?v=1" />
 </head>
-<body id="top" class="subsite subsite--audio">
+<body id="top" class="studio subsite subsite--audio">
 
 <a class="skip-link" href="#soundlogo-list">Skip to selected work</a>
 <header class="nav" id="nav">
   <a class="brand" href="/" aria-label="REEF Audio home">
     <img class="brand__logo" src="/assets/brand-logo.png" alt="REEF Audio" width="404" height="175" />
   </a>
+  <nav class="nav__links" aria-label="Sections">
+    <a href="/work/">Work</a>
+    <a href="/soundlogo/" aria-current="page">Sound Logos</a>
+    <a href="/#services">Capabilities</a>
+    <a href="/#about">About</a>
+  </nav>
   <div class="nav__actions">
     <a class="nav__brief" href="mailto:max@thereefaudio.com">Send a brief
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
@@ -141,11 +44,16 @@ a{color:inherit;text-decoration:none}
 </header>
 <div class="menu" id="menu" aria-hidden="true">
   <div class="menu__shape"><nav class="menu__nav" aria-label="Primary">
-    <a href="/work/" data-num="01">Work</a><a href="/#services" data-num="02">Capabilities</a><a href="/#about" data-num="03">About</a><a href="/#contact" data-num="04">Contact</a>
-  </nav></div>
+      <a href="/work/" data-num="01">Work</a>
+      <a href="/soundlogo/" data-num="02">Sound Logos</a>
+      <a href="/#services" data-num="03">Capabilities</a>
+      <a href="/#about" data-num="04">About</a>
+      <a href="/#contact" data-num="05">Contact</a>
+    </nav></div>
   <div class="menu__meta"><a href="mailto:max@thereefaudio.com">max@thereefaudio.com</a></div>
 </div>
 
+<main>
 <section class="sl-hero">
   <div class="wrap">
     <p class="eyebrow reveal">Selected work</p>
@@ -156,339 +64,312 @@ a{color:inherit;text-decoration:none}
 
 <section class="sl-list-wrap" id="soundlogo-list">
   <div class="wrap">
-    <ul class="sl-list">
-      <li class="sl-card" data-src="audio/alfabank-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play ALFABANK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    <ul class="sonic-list" aria-label="Sound logos and jingles">
+      <li class="sonic-row" data-sonic-src="audio/alfabank-soundlogo.mp3" data-sonic-name="ALFABANK" data-duration="4.704">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/alfabank.svg" alt="ALFABANK" style="--sonic-logo-width:164px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play ALFABANK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">ALFABANK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.704" step="0.1" value="0" aria-label="Seek ALFABANK" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/borjomi-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play BORJOMI">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/borjomi-jingle.mp3" data-sonic-name="BORJOMI" data-duration="1.848">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/borjomi.png" alt="BORJOMI" style="--sonic-logo-width:154px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play BORJOMI" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">BORJOMI</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="1.848" step="0.1" value="0" aria-label="Seek BORJOMI" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/cherkizovo-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play CHERKIZOVO">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/cherkizovo-jingle.mp3" data-sonic-name="CHERKIZOVO" data-duration="3.024">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/cherkizovo.png" alt="CHERKIZOVO" style="--sonic-logo-width:166px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play CHERKIZOVO" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">CHERKIZOVO</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.024" step="0.1" value="0" aria-label="Seek CHERKIZOVO" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/chudo-detki-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play CHUDO DETKI">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/chudo-detki-jingle.mp3" data-sonic-name="CHUDO DETKI" data-duration="2.184">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--backed" src="assets/logos/chudo-detki.webp" alt="CHUDO DETKI" style="--sonic-logo-width:142px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play CHUDO DETKI" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">CHUDO DETKI</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.184" step="0.1" value="0" aria-label="Seek CHUDO DETKI" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/citimobil-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play CITIMOBIL">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/citimobil-jingle.mp3" data-sonic-name="CITIMOBIL" data-duration="3.024">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/citymobil.png" alt="CITIMOBIL" style="--sonic-logo-width:145px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play CITIMOBIL" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">CITIMOBIL</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.024" step="0.1" value="0" aria-label="Seek CITIMOBIL" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/dixy-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play DIXY">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/dixy-jingle.mp3" data-sonic-name="DIXY" data-duration="6.426">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/dixy.svg" alt="DIXY" style="--sonic-logo-width:78px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play DIXY" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">DIXY</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="6.426" step="0.1" value="0" aria-label="Seek DIXY" aria-valuetext="0:00 of 0:06" />
+        <span class="sonic-time" aria-hidden="true">0:06</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/domclick-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play DOMCLICK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/domclick-jingle.mp3" data-sonic-name="DOMCLICK" data-duration="1.896">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/domclick.svg" alt="DOMCLICK" style="--sonic-logo-width:150px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play DOMCLICK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">DOMCLICK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="1.896" step="0.1" value="0" aria-label="Seek DOMCLICK" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/fonbet-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play FONBET">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/fonbet-soundlogo.mp3" data-sonic-name="FONBET" data-duration="4.104">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/fonbet.svg" alt="FONBET" style="--sonic-logo-width:146px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play FONBET" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">FONBET</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.104" step="0.1" value="0" aria-label="Seek FONBET" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/ikea-kvartiroteka-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play IKEA">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/ikea-kvartiroteka-jingle.mp3" data-sonic-name="IKEA" data-duration="1.032">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/ikea.png" alt="IKEA" style="--sonic-logo-width:126px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play IKEA" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">IKEA</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="1.032" step="0.1" value="0" aria-label="Seek IKEA" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/indrive-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play INDRIVE">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/indrive-soundlogo.mp3" data-sonic-name="INDRIVE" data-duration="0.888">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/indrive.svg" alt="INDRIVE" style="--sonic-logo-width:146px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play INDRIVE" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">INDRIVE</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="0.888" step="0.1" value="0" aria-label="Seek INDRIVE" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/j7-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play J7">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/j7-jingle.mp3" data-sonic-name="J7" data-duration="4.92">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--backed" src="assets/logos/j7.png" alt="J7" style="--sonic-logo-width:64px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play J7" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">J7</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.92" step="0.1" value="0" aria-label="Seek J7" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/j7-tonus-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play J7 TONUS">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/j7-tonus-jingle.mp3" data-sonic-name="J7 TONUS" data-duration="3.024">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--backed" src="assets/logos/j7.png" alt="J7 TONUS" style="--sonic-logo-width:64px" loading="lazy" decoding="async" /><span class="sonic-brand__extra">TONUS</span></div>
+        <button class="sonic-play" type="button" aria-label="Play J7 TONUS" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">J7 TONUS</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.024" step="0.1" value="0" aria-label="Seek J7 TONUS" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/kaspersky-lab-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play KASPERSKY LAB">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/kaspersky-lab-jingle.mp3" data-sonic-name="KASPERSKY LAB" data-duration="4.598">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/kaspersky.png" alt="KASPERSKY LAB" style="--sonic-logo-width:165px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play KASPERSKY LAB" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">KASPERSKY LAB</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.598" step="0.1" value="0" aria-label="Seek KASPERSKY LAB" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/lukoil-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play LUKOIL">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/lukoil-jingle.mp3" data-sonic-name="LUKOIL" data-duration="2.544">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/lukoil.svg" alt="LUKOIL" style="--sonic-logo-width:156px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play LUKOIL" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">LUKOIL</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.544" step="0.1" value="0" aria-label="Seek LUKOIL" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/lysol-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play LYSOL">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/lysol-jingle.mp3" data-sonic-name="LYSOL" data-duration="3.768">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/lysol.png" alt="LYSOL" style="--sonic-logo-width:70px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play LYSOL" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">LYSOL</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.768" step="0.1" value="0" aria-label="Seek LYSOL" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/megafon-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play MEGAFON">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/megafon-soundlogo.mp3" data-sonic-name="MEGAFON" data-duration="2.904">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/megafon.svg" alt="MEGAFON" style="--sonic-logo-width:155px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play MEGAFON" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">MEGAFON</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.904" step="0.1" value="0" aria-label="Seek MEGAFON" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/moskvich-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play MOSKVICH">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/moskvich-soundlogo.mp3" data-sonic-name="MOSKVICH" data-duration="3.24">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/moskvich.svg" alt="MOSKVICH" style="--sonic-logo-width:168px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play MOSKVICH" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">MOSKVICH</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.24" step="0.1" value="0" aria-label="Seek MOSKVICH" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/national-lottery-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play NATIONAL LOTTERY">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/national-lottery-soundlogo.mp3" data-sonic-name="NATIONAL LOTTERY" data-duration="1.824">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--backed" src="assets/logos/national-lottery.jpg" alt="NATIONAL LOTTERY" style="--sonic-logo-width:64px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play NATIONAL LOTTERY" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">NATIONAL LOTTERY</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="1.824" step="0.1" value="0" aria-label="Seek NATIONAL LOTTERY" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/nestle-baby-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play NESTLE">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/nestle-baby-soundlogo.mp3" data-sonic-name="NESTLE" data-duration="3.48">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/nestle.svg" alt="NESTLE" style="--sonic-logo-width:145px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play NESTLE" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">NESTLE</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.48" step="0.1" value="0" aria-label="Seek NESTLE" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/ostrovok-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play OSTROVOK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/ostrovok-jingle.mp3" data-sonic-name="OSTROVOK" data-duration="3.528">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/ostrovok.png" alt="OSTROVOK" style="--sonic-logo-width:154px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play OSTROVOK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">OSTROVOK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.528" step="0.1" value="0" aria-label="Seek OSTROVOK" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/ozon-zon-zon-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play OZON ZON ZON">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/ozon-zon-zon-jingle.mp3" data-sonic-name="OZON ZON ZON" data-duration="1.632">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/ozon.png" alt="OZON ZON ZON" style="--sonic-logo-width:137px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play OZON ZON ZON" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">OZON ZON ZON</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="1.632" step="0.1" value="0" aria-label="Seek OZON ZON ZON" aria-valuetext="0:00 of 0:01" />
+        <span class="sonic-time" aria-hidden="true">0:01</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/perekrestok-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play PEREKRESTOK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/perekrestok-jingle.mp3" data-sonic-name="PEREKRESTOK" data-duration="2.328">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/perekrestok.svg" alt="PEREKRESTOK" style="--sonic-logo-width:168px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play PEREKRESTOK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">PEREKRESTOK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.328" step="0.1" value="0" aria-label="Seek PEREKRESTOK" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/psb-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play PSB">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/psb-soundlogo.mp3" data-sonic-name="PSB" data-duration="2.976">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/psb.png" alt="PSB" style="--sonic-logo-width:117px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play PSB" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">PSB</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.976" step="0.1" value="0" aria-label="Seek PSB" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/rostelecom-wink-soundlogo-intro-outro.mp3">
-        <button class="sl-play" type="button" aria-label="Play ROSTELECOM WINK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/rostelecom-wink-soundlogo-intro-outro.mp3" data-sonic-name="ROSTELECOM WINK" data-duration="7.296">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/rostelecom.png" alt="ROSTELECOM WINK" style="--sonic-logo-width:168px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play ROSTELECOM WINK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">ROSTELECOM WINK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="7.296" step="0.1" value="0" aria-label="Seek ROSTELECOM WINK" aria-valuetext="0:00 of 0:07" />
+        <span class="sonic-time" aria-hidden="true">0:07</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/russian-ministry-of-science-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play RUSSIAN MINISTRY OF SCIENCE">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/russian-ministry-of-science-jingle.mp3" data-sonic-name="RUSSIAN MINISTRY OF SCIENCE" data-duration="3.024">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/ministry-of-science.png" alt="RUSSIAN MINISTRY OF SCIENCE" style="--sonic-logo-width:178px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play RUSSIAN MINISTRY OF SCIENCE" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">RUSSIAN MINISTRY OF SCIENCE</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.024" step="0.1" value="0" aria-label="Seek RUSSIAN MINISTRY OF SCIENCE" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/subbota-tv-channel-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play SUBBOTA TV CHANNEL">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/subbota-tv-channel-soundlogo.mp3" data-sonic-name="SUBBOTA TV CHANNEL" data-duration="3.024">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/subbota.png" alt="SUBBOTA TV CHANNEL" style="--sonic-logo-width:146px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play SUBBOTA TV CHANNEL" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">SUBBOTA TV CHANNEL</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="3.024" step="0.1" value="0" aria-label="Seek SUBBOTA TV CHANNEL" aria-valuetext="0:00 of 0:03" />
+        <span class="sonic-time" aria-hidden="true">0:03</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/t-bank-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play T-BANK">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/t-bank-soundlogo.mp3" data-sonic-name="T-BANK" data-duration="2.04">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/t-bank-dark.svg" alt="T-BANK" style="--sonic-logo-width:126px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play T-BANK" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">T-BANK</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="2.04" step="0.1" value="0" aria-label="Seek T-BANK" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/toyota-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play TOYOTA">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/toyota-jingle.mp3" data-sonic-name="TOYOTA" data-duration="4.032">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/toyota.png" alt="TOYOTA" style="--sonic-logo-width:157px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play TOYOTA" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">TOYOTA</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.032" step="0.1" value="0" aria-label="Seek TOYOTA" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/vitamishki-jingle.mp3">
-        <button class="sl-play" type="button" aria-label="Play VITAMISHKI">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/vitamishki-jingle.mp3" data-sonic-name="VITAMISHKI" data-duration="4.032">
+        <div class="sonic-brand"><img class="sonic-logo" src="assets/logos/vitamishki.png" alt="VITAMISHKI" style="--sonic-logo-width:90px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play VITAMISHKI" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">VITAMISHKI</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
+        <input class="sonic-seek" type="range" min="0" max="4.032" step="0.1" value="0" aria-label="Seek VITAMISHKI" aria-valuetext="0:00 of 0:04" />
+        <span class="sonic-time" aria-hidden="true">0:04</span>
+        <span class="sonic-error" role="status" hidden></span>
       </li>
-      <li class="sl-card" data-src="audio/xcite-soundlogo.mp3">
-        <button class="sl-play" type="button" aria-label="Play XCITE">
-          <svg class="ic-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="ic-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      <li class="sonic-row" data-sonic-src="audio/xcite-soundlogo.mp3" data-sonic-name="XCITE" data-duration="2.04">
+        <div class="sonic-brand"><img class="sonic-logo sonic-logo--reverse" src="assets/logos/xcite.png" alt="XCITE" style="--sonic-logo-width:82px" loading="lazy" decoding="async" /></div>
+        <button class="sonic-play" type="button" aria-label="Play XCITE" aria-pressed="false">
+          <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
         </button>
-        <div class="sl-info">
-          <p class="sl-brand">XCITE</p>
-        </div>
-        <div class="sl-bar"><span class="sl-fill"></span></div>
-        <span class="sl-time">0:00</span>
-      </li>    </ul>
+        <input class="sonic-seek" type="range" min="0" max="2.04" step="0.1" value="0" aria-label="Seek XCITE" aria-valuetext="0:00 of 0:02" />
+        <span class="sonic-time" aria-hidden="true">0:02</span>
+        <span class="sonic-error" role="status" hidden></span>
+      </li>
+    </ul>
   </div>
 </section>
+
+</main>
 
 <footer class="footer" id="contact">
   <div class="footer__wall" aria-hidden="true"></div>
@@ -501,7 +382,7 @@ a{color:inherit;text-decoration:none}
       </a>
     </div>
     <div class="footer__side">
-      <nav class="footer__nav" aria-label="Sections"><a href="/work/">Work</a><a href="/#services">Capabilities</a><a href="/#about">About</a></nav>
+      <nav class="footer__nav" aria-label="Sections"><a href="/work/">Work</a><a href="/#services">Capabilities</a><a href="/#about">About</a><a href="/soundlogo/">Sound Logos</a></nav>
       <div class="footer__social" role="group" aria-label="Contact and social media">
         <a class="footer__social-link" href="https://vimeo.com/reefaudio" target="_blank" rel="noopener" aria-label="REEF Audio on Vimeo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.977 6.416c-.105 2.338-1.739 5.539-4.894 9.608-3.261 4.243-6.025 6.365-8.29 6.365-1.404 0-2.59-1.295-3.553-3.885l-1.944-7.113c-.72-2.588-1.491-3.885-2.312-3.885-.178 0-.806.378-1.88 1.132L0 7.181a315.065 315.065 0 0 0 3.501-3.123C5.08 2.694 6.264 1.977 7.053 1.9c1.865-.18 3.019 1.096 3.465 3.824.479 2.941.807 4.77.986 5.487.548 2.449 1.151 3.672 1.811 3.672.509 0 1.273-.795 2.295-2.39 1.023-1.591 1.57-2.803 1.646-3.63.145-1.365-.392-2.048-1.613-2.048-.575 0-1.167.131-1.777.394 1.18-3.867 3.434-5.746 6.766-5.64 2.472.075 3.622 1.677 3.446 4.806z"/></svg></a>
         <a class="footer__social-link" href="https://www.instagram.com/reef_audio" target="_blank" rel="noopener" aria-label="REEF Audio on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
@@ -512,78 +393,7 @@ a{color:inherit;text-decoration:none}
   <div class="footer__bottom"><span class="footer__wordmark">REEF Audio</span><span class="footer__meta">© <span id="year"></span> All rights reserved.</span></div>
 </footer>
 
-<script>
-(function(){
-  var current=null;
-  var cards=[].slice.call(document.querySelectorAll('.sl-card'));
-  cards.forEach(function(card){
-    var src=card.getAttribute('data-src');
-    var audio=new Audio();audio.preload='none';audio.src=src;
-    var btn=card.querySelector('.sl-play');
-    var fill=card.querySelector('.sl-fill');
-    var bar=card.querySelector('.sl-bar');
-    var time=card.querySelector('.sl-time');
-    card._audio=audio;
-    function fmt(s){s=Math.max(0,s|0);return (s/60|0)+':'+('0'+(s%60)).slice(-2);}
-    btn.addEventListener('click',function(){
-      if(current&&current!==audio){current.pause();}
-      if(audio.paused){audio.play();}else{audio.pause();}
-    });
-    audio.addEventListener('play',function(){
-      current=audio;
-      cards.forEach(function(c){c.classList.remove('playing');});
-      card.classList.add('playing');
-      btn.setAttribute('aria-label','Pause '+card.querySelector('.sl-brand').textContent.trim());
-    });
-    var raf=null;
-    function render(){
-      if(audio.duration){
-        var p=audio.currentTime/audio.duration;
-        fill.style.transform='scaleX('+p+')';
-        if(time)time.textContent=fmt(audio.currentTime);
-      }
-      if(!audio.paused){raf=requestAnimationFrame(render);}
-    }
-    audio.addEventListener('play',function(){if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(render);});
-    audio.addEventListener('pause',function(){card.classList.remove('playing');btn.setAttribute('aria-label','Play '+card.querySelector('.sl-brand').textContent.trim());if(raf){cancelAnimationFrame(raf);raf=null;}render();});
-    audio.addEventListener('ended',function(){card.classList.remove('playing');btn.setAttribute('aria-label','Play '+card.querySelector('.sl-brand').textContent.trim());if(raf){cancelAnimationFrame(raf);raf=null;}fill.style.transform='scaleX(0)';if(time)time.textContent='0:00';});
-    audio.addEventListener('seeked',render);
-    audio.addEventListener('loadedmetadata',function(){if(time&&audio.paused)time.textContent=fmt(audio.duration);});
-    bar.addEventListener('click',function(e){
-      var r=bar.getBoundingClientRect();
-      var p=(e.clientX-r.left)/r.width;
-      if(audio.duration){audio.currentTime=p*audio.duration;}
-    });
-  });
-})();
-
-// ===== YEAR =====
-(function(){var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();})();
-
-// ===== REVEAL =====
-(function(){
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-  },{threshold:.14,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%4*0.06)+'s';io.observe(el);});
-})();
-
-// ===== SECTION ENTRANCE (contact word choreography) =====
-(function(){
-  var secIO=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});
-  },{threshold:.3});
-  var c=document.getElementById('contact');if(c)secIO.observe(c);
-})();
-
-// ===== FLOATING WIDGET (back to top) =====
-(function(){
-  var widget=document.getElementById('widget');if(!widget)return;
-  function update(){widget.classList.toggle('show',window.scrollY>window.innerHeight*0.6);}
-  widget.addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});});
-  update();window.addEventListener('scroll',update,{passive:true});
-})();
-</script>
-<script src="../subsite.js?v=2"></script>
+<script src="player.js?v=1" defer></script>
+<script src="../subsite.js?v=3"></script>
 </body>
 </html>

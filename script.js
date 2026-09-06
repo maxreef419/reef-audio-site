@@ -58,9 +58,7 @@ if(document.fonts && document.fonts.ready){
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const FEATURED_WORK = [WORK[0], WORK[1], WORK[3], WORK[4], WORK[5], WORK[7]];
-const MOBILE_WORK = [WORK[0], WORK[1], WORK[2], WORK[4]];
-const LANDSCAPE_WORK = [WORK[0], WORK[1], WORK[2], WORK[3], WORK[4], WORK[5], WORK[7]];
+const FEATURED_WORK = [WORK[0], WORK[1], WORK[2], WORK[3], WORK[4], WORK[7]];
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
@@ -103,13 +101,7 @@ function revealNewItems(){
   if(typeof observePreviews === 'function') observePreviews();
 }
 if(grid){
-  const isPhone = window.matchMedia('(max-width:560px)').matches;
-  const isCompactLandscape = window.matchMedia('(orientation:landscape) and (min-width:561px) and (max-width:900px) and (max-height:560px)').matches;
-  const isDesktop = window.matchMedia('(min-width:901px)').matches;
-  const homeWork = isPhone
-    ? MOBILE_WORK
-    : (isCompactLandscape ? LANDSCAPE_WORK : (isDesktop ? WORK.slice(0, 12) : FEATURED_WORK));
-  const visibleWork = PAGE === 'work' ? WORK : homeWork;
+  const visibleWork = PAGE === 'work' ? WORK : FEATURED_WORK;
   grid.insertAdjacentHTML('beforeend', visibleWork.map(workCard).join(''));
   revealNewItems();
 }
@@ -122,8 +114,9 @@ if(grid){
   function sizeCells(){
     // On the single-column phone layout the tiles use their own 16:9 aspect.
     if(window.matchMedia('(max-width:560px)').matches){ grid.style.removeProperty('--cell'); return; }
-    const cols = window.matchMedia('(min-width:901px)').matches ? 3 : 2;
     const cs = getComputedStyle(grid);
+    const cols = cs.gridTemplateColumns.split(' ').length;
+    if (cols === 1) { grid.style.removeProperty('--cell'); return; }
     const gap = parseFloat(cs.columnGap || cs.gap || '0') || 0;
     const inner = grid.clientWidth
       - (parseFloat(cs.paddingLeft)||0)
@@ -233,6 +226,7 @@ function trapFocus(container, event){
 
   function open(vimeoId, name){
     if(!vimeoId) return;
+    document.dispatchEvent(new CustomEvent('reef:video-open'));
     if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: PAGE}); }
     lastFocus = document.activeElement;
     titleEl.textContent = name || '';
@@ -273,9 +267,9 @@ function trapFocus(container, event){
 // ===== CLIENTS MARQUEE =====
 const clientTrack = document.getElementById('clientTrack');
 if(clientTrack){
-  const item = c => `<div class="marquee__item"><img src="${asset(`assets/clients/${c.f}.png`)}" alt="${c.n}" decoding="async" draggable="false"></div>`;
-  const sequence = CLIENTS.map(item).join('');
-  clientTrack.innerHTML = sequence + sequence;
+  const logoWidths = {google:128,cocacola:132,toyota:144,ikea:118,visa:102,mcdonalds:80,redbull:110,volkswagen:70,danone:94,yandex:120,burgerking:76,kia:120,lays:80,hbo:100,kaspersky:148,bbdo:118,tbwa:122,mccann:140,leoburnett:166,saatchi:158,grey:104,dentsu:128,havas:132};
+  const item = (c, duplicate = false) => `<div class="marquee__item" style="--logo-width:${logoWidths[c.f] || 140}px"${duplicate ? ' aria-hidden="true"' : ''}><img src="${asset(`assets/clients/${c.f}.png`)}" alt="${c.n}" decoding="async" draggable="false"></div>`;
+  clientTrack.innerHTML = CLIENTS.map(c => item(c)).join('') + CLIENTS.map(c => item(c, true)).join('');
 
   const images = Array.from(clientTrack.querySelectorAll('img'));
   let loaded = 0;
@@ -303,7 +297,7 @@ onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 // ===== MENU =====
 const toggle = document.getElementById('navToggle');
 const menu = document.getElementById('menu');
-const menuBackground = [document.querySelector('main'), document.querySelector('footer'), document.querySelector('.brand'), document.querySelector('.nav__brief'), document.querySelector('.skip-link')];
+const menuBackground = [document.querySelector('main'), document.querySelector('footer'), document.querySelector('.brand'), document.querySelector('.nav__brief'), document.querySelector('.nav__links'), document.querySelector('.skip-link')];
 function setMenu(open, restoreFocus = true){
   document.body.classList.toggle('menu-open', open);
   toggle.setAttribute('aria-expanded', open);
@@ -318,6 +312,7 @@ function setMenu(open, restoreFocus = true){
   }
 }
 toggle.addEventListener('click', ()=> setMenu(!document.body.classList.contains('menu-open')));
+window.matchMedia('(min-width:901px)').addEventListener('change', event => { if(event.matches) setMenu(false, false); });
 menu.querySelectorAll('a').forEach(el=>el.addEventListener('click', ()=> setMenu(false, false)));
 document.addEventListener('keydown', e=>{
   if(!document.body.classList.contains('menu-open')) return;

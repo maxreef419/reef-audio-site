@@ -32,8 +32,11 @@
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     menu.setAttribute('aria-hidden', String(!open));
+    [document.querySelector('main'),document.querySelector('footer'),document.querySelector('.nav__links'),document.querySelector('.nav__brief')].filter(Boolean).forEach(el => { el.inert = open; });
+    if(open) menu.querySelector('a')?.focus({preventScroll:true});
   }
   if(toggle && menu){
+    window.matchMedia('(min-width:901px)').addEventListener('change', event => { if(event.matches) setMenu(false); });
     toggle.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
     menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
     document.addEventListener('keydown', event => {
