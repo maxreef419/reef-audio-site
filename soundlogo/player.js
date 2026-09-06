@@ -119,6 +119,7 @@
   });
   function pauseAll() { controllers.forEach(controller => controller.pause()); current = null; }
   document.addEventListener('reef:video-open', pauseAll);
+  document.addEventListener('reef:work-category-change', pauseAll);
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); });
   window.addEventListener('pagehide', pauseAll);
 })();

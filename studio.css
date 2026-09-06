@@ -31,16 +31,16 @@
 .studio .nav__toggle { display: none; }
 .studio .menu__nav a { font-weight: 500; }
 
-/* Home: a clear headline, followed by two supporting columns. */
+/* Home: the headline and studio description share a compact opening row. */
 .studio[data-page="home"] .hero { min-height: 0; padding: clamp(128px, 10vw, 168px) 0 64px; background: var(--bg); }
 .studio .hero__inner {
   width: 100%; max-width: var(--studio-width); margin: 0 auto; padding: 0 var(--studio-gutter);
   display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 32px var(--studio-gap); align-items: start;
 }
-.studio .hero__title { grid-column: 1/-1; font-size: clamp(52px, 6.3vw, 94px); font-weight: 600; line-height: 1.01; letter-spacing: -.045em; text-transform: none; margin: 0; max-width: none; }
+.studio .hero__title { grid-column: 1/8; font-size: clamp(52px, 6.3vw, 94px); font-weight: 600; line-height: 1.01; letter-spacing: -.045em; text-transform: none; margin: 0; max-width: none; }
 .studio .hero__title .amp { background: none; color: var(--cyan); -webkit-text-fill-color: currentColor; }
 .studio .hero__sub { grid-column: 1/6; max-width: 23ch; font-size: clamp(23px, 2.25vw, 32px); font-weight: 500; line-height: 1.16; letter-spacing: -.025em; margin: 0; }
-.studio .hero__lead { grid-column: 7/-1; margin: 0; max-width: 58ch; font-size: 1.0625rem; font-weight: 400; line-height: 1.5; }
+.studio .hero__lead { grid-column: 9/-1; align-self: end; margin: 0; max-width: 58ch; font-size: 1.0625rem; font-weight: 400; line-height: 1.5; }
 .studio .hero__media { opacity: .42; }
 .studio #hero.in .hero__sub { transition-delay: .12s; }
 .studio #hero.in .hero__lead { transition-delay: .2s; }
@@ -64,15 +64,6 @@
 .studio .work-index__intro { padding-top: 142px; padding-bottom: 52px; }
 .studio .work-index__title { font-size: clamp(48px,6vw,88px); font-weight: 600; line-height: 1.02; letter-spacing: -.04em; text-transform: none; }
 .studio .work-index__lead { margin-top: 26px; max-width: 58ch; font-size: 1.0625rem; line-height: 1.5; }
-
-/* The audio selection is part of the portfolio, in the same content column. */
-.studio .sonic-selection { padding: 0 0 80px; background: var(--bg); }
-.studio .sonic-selection__inner { max-width: var(--studio-width); margin: 0 auto; padding: 0 var(--studio-gutter); }
-.studio .sonic-selection__head { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 34px 0; border-top: 1px solid var(--line); }
-.studio .sonic-selection__title { font-family: var(--font-display); font-size: clamp(32px,4vw,58px); font-weight: 500; line-height: 1.1; letter-spacing: -.035em; max-width: 19ch; }
-.studio .sonic-selection__more { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 1rem; white-space: nowrap; }
-.studio .sonic-selection__more:hover { color: var(--cyan); }
-.studio .sonic-selection__more:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 
 /* Proof, capabilities and studio story share the same twelve-column grid. */
 .studio .clients { padding: 0 0 88px; background: var(--bg); }
@@ -123,13 +114,13 @@
 @media (max-width: 1050px) {
   .studio .nav { gap: 16px; }
   .studio .nav__links { gap: 20px; }
-  .studio .hero__lead { grid-column: 6/-1; }
 }
 @media (max-width: 900px) {
   .studio .nav__links { display: none; }
   .studio .nav__toggle { display: inline-flex; }
   .studio .nav__actions { margin-left: auto; gap: 12px; }
-  .studio .hero__title { font-size: clamp(44px,7.8vw,68px); }
+  .studio .hero__title { grid-column: 1/-1; font-size: clamp(44px,7.8vw,68px); }
+  .studio .hero__lead { grid-column: 1/-1; }
   .studio .hero__sub { font-size: 25px; }
   .studio .work__grid, .studio[data-page="home"] .work__grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .studio[data-page="home"] .work__item:nth-child(-n+2) { grid-column: span 1; }
@@ -160,10 +151,6 @@
   .studio .work-index__intro { padding-top: 116px; padding-bottom: 36px; }
   .studio .work-index__title { font-size: 46px; }
   .studio .work-index__lead { font-size: 1rem; }
-  .studio .sonic-selection { padding-bottom: 56px; }
-  .studio .sonic-selection__head { align-items: start; flex-direction: column; gap: 12px; padding: 26px 0 18px; }
-  .studio .sonic-selection__title { font-size: 34px; }
-  .studio .sonic-selection__more { align-self: flex-end; }
   .studio .clients { padding-bottom: 60px; }
   .studio .clients__head { margin-bottom: 24px; }
   .studio .marquee__item { width: 150px; padding: 0 20px; }

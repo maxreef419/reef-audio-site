@@ -256,6 +256,11 @@ function trapFocus(container, event){
     open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'));
   });
   closeBtn.addEventListener('click', close);
+  document.addEventListener('reef:work-category-change', () => {
+    if (!lb.classList.contains('open')) return;
+    close();
+    document.querySelector('.work-tab[aria-selected="true"]')?.focus({preventScroll:true});
+  });
   lb.addEventListener('click', (e)=>{ if(e.target === lb || e.target.classList.contains('lightbox__backdrop')) close(); });
   document.addEventListener('keydown', (e)=>{
     if(!lb.classList.contains('open')) return;

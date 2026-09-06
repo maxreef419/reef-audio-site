@@ -1,13 +1,8 @@
-/* Shared sound-logo player, used by the home selection and the full archive. */
+/* Text-led player for the standalone sound-logo archive. */
 .sonic-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .sonic-row { display: grid; grid-template-columns: 230px 44px minmax(60px,1fr) 54px; align-items: center; gap: 24px; min-height: 102px; padding: 22px 0; border-bottom: 1px solid var(--line); position: relative; }
-.sonic-brand { min-width: 0; height: 52px; display: flex; align-items: center; gap: 12px; }
-.sonic-logo { display: block; width: var(--sonic-logo-width,158px); max-width: 100%; max-height: 48px; height: auto; object-fit: contain; object-position: left center; filter: grayscale(1) brightness(0) invert(.82); transition: filter .3s,opacity .3s; }
-.sonic-logo--backed { filter: grayscale(1); opacity: .68; }
-.sonic-row.is-playing .sonic-logo { filter: none; opacity: 1; }
-.sonic-row.is-playing .sonic-logo--reverse { filter: brightness(0) invert(.95); }
+.sonic-brand { min-width: 0; min-height: 44px; display: flex; align-items: center; }
 .sonic-brand__text { color: var(--text); font-size: 1rem; font-weight: 500; line-height: 1.25; letter-spacing: .01em; overflow-wrap: anywhere; }
-.sonic-brand__extra { font-size: .8125rem; color: var(--muted); }
 .sonic-play { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: transparent; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; color: var(--text); cursor: pointer; transition: color .2s,border-color .2s; }
 .sonic-play:hover { color: var(--cyan); border-color: var(--cyan); }
 .sonic-play:focus-visible, .sonic-seek:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
@@ -33,12 +28,9 @@
 @media (max-width:900px) { .sonic-row { grid-template-columns: 180px 44px minmax(50px,1fr) 48px; gap: 18px; } }
 @media (max-width:600px) {
   .sonic-row { grid-template-columns: minmax(0,1fr) 44px 46px; gap: 0 16px; padding: 18px 0 10px; min-height: 112px; }
-  .sonic-brand { height: 48px; }
-  .sonic-logo { max-height: 42px; max-width: 148px; }
-  .sonic-logo--backed { max-width: 64px; }
   .sonic-play { grid-column: 2; grid-row: 1; }
   .sonic-time { grid-column: 3; grid-row: 1; }
   .sonic-seek { grid-column: 1/-1; grid-row: 2; height: 32px; }
   .sonic-error { grid-column: 1/-1; padding: 4px 0 8px; }
 }
-@media (prefers-reduced-motion:reduce) { .sonic-logo,.sonic-play { transition: none; } }
+@media (prefers-reduced-motion:reduce) { .sonic-play { transition: none; } }

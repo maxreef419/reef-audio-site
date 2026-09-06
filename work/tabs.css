@@ -1,0 +1,17 @@
+.studio .work-index__intro { margin-bottom: 0; padding-bottom: 34px; }
+.work-categories, .work-audio { width: 100%; max-width: var(--studio-width); margin: 0 auto; padding: 0 var(--studio-gutter); }
+.work-tabs { display: flex; gap: clamp(24px,4vw,52px); margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+.work-tab { position: relative; appearance: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0 0 17px; min-height: 54px; background: transparent; color: var(--muted-2); font: 500 1.125rem/1.4 var(--font-body); cursor: pointer; }
+.work-tab:hover { color: var(--text); }
+.work-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--cyan); }
+.work-tab:focus-visible, .work-panel:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+.work-panel[hidden] { display: none !important; }
+.work-audio__intro { margin-bottom: 30px; }
+.work-audio__title { font-family: var(--font-display); font-size: clamp(25px,2.4vw,34px); font-weight: 500; line-height: 1.2; letter-spacing: -.025em; }
+.work-audio__intro p { max-width: 62ch; margin: 16px 0 0; color: var(--muted); font-size: 1.0625rem; line-height: 1.5; }
+@media (max-width:600px) {
+  .studio .work-index__intro { padding-bottom: 26px; }
+  .work-tabs { margin-bottom: 26px; gap: 24px; }
+  .work-tab { min-height: 50px; font-size: 1rem; padding-bottom: 14px; }
+  .work-audio__intro p { font-size: 1rem; }
+}
