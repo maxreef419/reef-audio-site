@@ -1,7 +1,7 @@
 .studio .work-index__intro { margin-bottom: 0; padding-bottom: 34px; }
 .work-categories, .work-audio { width: 100%; max-width: var(--studio-width); margin: 0 auto; padding: 0 var(--studio-gutter); }
-.work-tabs { display: flex; gap: clamp(24px,4vw,52px); margin-bottom: 32px; border-bottom: 1px solid var(--line); }
-.work-tab { position: relative; appearance: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0 0 17px; min-height: 54px; background: transparent; color: var(--muted-2); font: 500 1.125rem/1.4 var(--font-body); cursor: pointer; }
+.work-tabs { display: flex; gap: clamp(24px,4vw,52px); margin-bottom: 32px; }
+.work-tab { position: relative; appearance: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: 0; padding: 0 0 17px; min-height: 54px; background: transparent; color: var(--muted-2); font: 500 1.125rem/1.4 var(--font-body); cursor: pointer; }
 .work-tab:hover { color: var(--text); }
 .work-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--cyan); }
 .work-tab:focus-visible, .work-panel:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
