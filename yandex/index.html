@@ -215,14 +215,21 @@ body.lb-open{overflow:hidden}
 </style>
 <link rel="stylesheet" href="../styles.css?v=48">
 <link rel="stylesheet" href="../subsite.css?v=8">
+<link rel="stylesheet" href="../studio.css?v=2" />
 </head>
-<body class="subsite subsite--grid">
+<body class="studio subsite subsite--grid">
 
 <a class="skip-link" href="#reel">Skip to selected work</a>
 <header class="nav" id="nav">
   <a class="brand" href="/" aria-label="REEF Audio home">
     <img class="brand__logo" src="/assets/brand-logo.png" alt="REEF Audio" width="404" height="175">
   </a>
+  <nav class="nav__links" aria-label="Sections">
+    <a href="/work/">Work</a>
+
+    <a href="/#services">Capabilities</a>
+    <a href="/#about">About</a>
+  </nav>
   <div class="nav__actions">
     <a class="nav__brief" href="mailto:max@thereefaudio.com">Send a brief
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
@@ -232,8 +239,12 @@ body.lb-open{overflow:hidden}
 </header>
 <div class="menu" id="menu" aria-hidden="true">
   <div class="menu__shape"><nav class="menu__nav" aria-label="Primary">
-    <a href="/work/" data-num="01">Work</a><a href="/#services" data-num="02">Capabilities</a><a href="/#about" data-num="03">About</a><a href="/#contact" data-num="04">Contact</a>
-  </nav></div>
+      <a href="/work/" data-num="01">Work</a>
+
+      <a href="/#services" data-num="02">Capabilities</a>
+      <a href="/#about" data-num="03">About</a>
+      <a href="/#contact" data-num="04">Contact</a>
+    </nav></div>
   <div class="menu__meta"><a href="mailto:max@thereefaudio.com">max@thereefaudio.com</a></div>
 </div>
 
@@ -392,6 +403,6 @@ workItems.forEach(item => workIo.observe(item));
 /* footer year */
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-<script src="../subsite.js?v=2"></script>
+<script src="../subsite.js?v=3"></script>
 </body>
 </html>

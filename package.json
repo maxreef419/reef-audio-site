@@ -1,0 +1,10 @@
+{
+  "name": "reef-audio-site",
+  "private": true,
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "7.1.12"
+  }
+}
