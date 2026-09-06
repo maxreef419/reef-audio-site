@@ -5,9 +5,7 @@
   const track = section.querySelector('.capabilities__track');
   const slides = Array.from(section.querySelectorAll('.capability'));
   const controls = section.querySelector('.capabilities__controls');
-  const counter = controls.querySelector('.capabilities__counter');
-  const previous = controls.querySelector('.capability-arrow--prev');
-  const nextButton = controls.querySelector('.capability-arrow--next');
+  const dots = Array.from(controls.querySelectorAll('.capability-dot'));
   const status = section.querySelector('.capabilities__status');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let active = 0;
@@ -25,9 +23,10 @@
   function reflect(index, announce = true) {
     const changed = index !== active;
     active = index;
-    previous.setAttribute('aria-disabled', String(index === 0));
-    nextButton.setAttribute('aria-disabled', String(index === slides.length - 1));
-    counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    dots.forEach((dot, i) => {
+      if (i === index) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
     slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== index)));
     if (changed && announce) {
       clearTimeout(announcement);
@@ -49,10 +48,10 @@
     event.preventDefault();
     const next = Math.max(0, Math.min(slides.length - 1, keys[event.key]));
     goTo(next);
+    if (controls.contains(event.target)) dots[next].focus();
   }
 
-  previous.addEventListener('click', () => goTo(active - 1));
-  nextButton.addEventListener('click', () => goTo(active + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
   track.addEventListener('pointerdown', stopCue, { passive: true });
   track.addEventListener('wheel', stopCue, { passive: true });
   controls.addEventListener('pointerdown', stopCue, { passive: true });
