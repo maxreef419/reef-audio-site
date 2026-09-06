@@ -34,7 +34,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
 <link rel="stylesheet" href="styles.css?v=49" />
-<link rel="stylesheet" href="studio.css?v=3" />
+<link rel="stylesheet" href="studio.css?v=5" />
+<link rel="stylesheet" href="capabilities.css?v=4" />
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
@@ -117,58 +118,45 @@
 </section>
 
 <!-- ===== CAPABILITIES ===== -->
-<section class="services" id="services">
-  <div class="services__inner">
-    <div class="services__head">
-      <p class="eyebrow reveal">Capabilities</p>
-    </div>
-    <div class="services__list" id="servicesList">
-      <article class="service reveal">
-        <button class="service__head" type="button" aria-expanded="false">
-          <span class="service__plus" aria-hidden="true">+</span>
-          <span class="service__title">Original Music &amp; Production</span>
-        </button>
-        <div class="service__panel">
-          <div class="service__desc">
+<section class="capabilities" id="services" aria-labelledby="capabilities-label">
+  <div class="capabilities__inner">
+    <p class="eyebrow capabilities__label" id="capabilities-label">Capabilities</p>
+    <div class="capabilities__track" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Services">
+      <article class="capability" id="capability-1" role="group" aria-roledescription="slide" aria-label="1 of 5">
+        <h3 class="capability__title">Original Music &amp; Production</h3>
+        <div class="capability__description">
             <p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p>
-            <ul class="service__formats" aria-label="Original music formats">
+            <ul class="capability__formats" aria-label="Original music formats">
               <li>Commercials</li>
               <li>Branded Content</li>
               <li>Songs &amp; Vocals</li>
               <li>Adaptations &amp; Cutdowns</li>
             </ul>
           </div>
-        </div>
       </article>
-      <article class="service reveal">
-        <button class="service__head" type="button" aria-expanded="false">
-          <span class="service__plus" aria-hidden="true">+</span>
-          <span class="service__title">Sound Design &amp; Final Mix</span>
-        </button>
-        <div class="service__panel"><p class="service__desc">Sound design, editing, mixing and final masters across every format.</p></div>
+      <article class="capability" id="capability-2" role="group" aria-roledescription="slide" aria-label="2 of 5">
+        <h3 class="capability__title">Sound Design &amp; Final Mix</h3>
+        <p class="capability__description">Sound design, editing, mixing and final masters across every format.</p>
       </article>
-      <article class="service reveal">
-        <button class="service__head" type="button" aria-expanded="false">
-          <span class="service__plus" aria-hidden="true">+</span>
-          <span class="service__title">Sonic Branding &amp; Strategy</span>
-        </button>
-        <div class="service__panel"><p class="service__desc">Sonic identities, brand themes and systems built to work across touchpoints.</p></div>
+      <article class="capability" id="capability-3" role="group" aria-roledescription="slide" aria-label="3 of 5">
+        <h3 class="capability__title">Sonic Branding &amp; Strategy</h3>
+        <p class="capability__description">Sonic identities, brand themes and systems built to work across touchpoints.</p>
       </article>
-      <article class="service reveal">
-        <button class="service__head" type="button" aria-expanded="false">
-          <span class="service__plus" aria-hidden="true">+</span>
-          <span class="service__title">Music Supervision &amp; Artist Coordination</span>
-        </button>
-        <div class="service__panel"><p class="service__desc">Creative search, recording and artist coordination.</p></div>
+      <article class="capability" id="capability-4" role="group" aria-roledescription="slide" aria-label="4 of 5">
+        <h3 class="capability__title">Music Supervision &amp; Artist Coordination</h3>
+        <p class="capability__description">Creative search, recording and artist coordination.</p>
       </article>
-      <article class="service reveal">
-        <button class="service__head" type="button" aria-expanded="false">
-          <span class="service__plus" aria-hidden="true">+</span>
-          <span class="service__title">Dedicated Audio Partnership</span>
-        </button>
-        <div class="service__panel"><p class="service__desc">Ongoing music and sound support for brands, agencies and production teams.</p></div>
+      <article class="capability" id="capability-5" role="group" aria-roledescription="slide" aria-label="5 of 5">
+        <h3 class="capability__title">Dedicated Audio Partnership</h3>
+        <p class="capability__description">Ongoing music and sound support for brands, agencies and production teams.</p>
       </article>
     </div>
+    <div class="capabilities__controls" role="group" aria-label="Browse capabilities" hidden>
+      <button class="capability-arrow capability-arrow--prev" type="button" aria-label="Previous capability" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+      <span class="capabilities__counter" aria-hidden="true">01 / 05</span>
+      <button class="capability-arrow capability-arrow--next" type="button" aria-label="Next capability" aria-disabled="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+    </div>
+    <p class="capabilities__status" role="status" aria-live="polite" aria-atomic="true"></p>
   </div>
 </section>
 
@@ -246,5 +234,6 @@
 </div>
 
 <script src="script.js?v=51"></script>
+<script src="capabilities.js?v=3"></script>
 </body>
 </html>
