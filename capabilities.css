@@ -41,3 +41,12 @@
   .capability-dot::before { transition: none; }
   .capabilities__controls.is-cueing .capability-dot::before { animation: none; }
 }
+
+/* Match About's desktop columns and its 30px / 40px vertical rhythm. */
+@media (min-width: 901px) {
+  .capabilities { padding-bottom: 24px; }
+  .capability { grid-template-columns: repeat(12,minmax(0,1fr)); gap: 30px var(--studio-gap); align-items: start; }
+  .capability__title { grid-column: 1/6; }
+  .capability__description { grid-column: 7/-1; }
+  .capabilities__controls { margin-top: 30px; }
+}
