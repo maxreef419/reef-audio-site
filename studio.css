@@ -225,3 +225,22 @@
   .studio .marquee__track.is-ready { animation: none; }
   .studio .marquee__item[aria-hidden="true"] { display: none; }
 }
+
+/* About slides over the stationary contact section; retain natural flow height. */
+.studio[data-page="home"].contact-reveal > main {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+}
+.studio[data-page="home"].contact-reveal > .footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+  background: var(--bg);
+}
+.studio[data-page="home"].contact-reveal > .footer .footer__title span,
+.studio[data-page="home"].contact-reveal > .footer .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}

@@ -410,3 +410,31 @@ if(contactSec) secIO.observe(contactSec);
   window.addEventListener('orientationchange', onScroll, { passive: true });
   update();
 })();
+
+
+// Pin Contact below About only when its full content fits below the header.
+(() => {
+  if (PAGE !== 'home') return;
+  const footer = document.getElementById('contact');
+  const main = document.querySelector('main');
+  const header = document.getElementById('nav');
+  if (!footer || !main || !header || !window.ResizeObserver) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const update = () => {
+    const available = document.documentElement.clientHeight - header.offsetHeight - 16;
+    document.body.classList.toggle('contact-reveal', !reduce.matches && footer.offsetHeight <= available);
+  };
+  const observer = new ResizeObserver(update);
+  observer.observe(footer);
+  observer.observe(header);
+  window.addEventListener('resize', update, { passive: true });
+  reduce.addEventListener('change', update);
+  // Keyboard users must reach visible links even while About covers the footer.
+  footer.addEventListener('focusin', () => {
+    if (document.body.classList.contains('contact-reveal') &&
+        main.getBoundingClientRect().bottom > footer.getBoundingClientRect().top) {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+    }
+  });
+  update();
+})();
