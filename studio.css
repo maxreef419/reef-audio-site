@@ -67,7 +67,7 @@
 .studio .work-index__lead { margin-top: 26px; max-width: 58ch; font-size: 1.0625rem; line-height: 1.5; }
 
 /* Proof, capabilities and studio story share the same twelve-column grid. */
-.studio .clients { --clients-gap: 24px; padding: 36px 0; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.studio .clients { --clients-gap: 32px; padding: 52px 0; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .studio .clients__inner { max-width: var(--studio-width); padding: 0 var(--studio-gutter); }
 .studio .clients__head { margin-bottom: var(--clients-gap); }
 .studio .clients__head .eyebrow { margin: 0; }
@@ -176,7 +176,7 @@
   .studio .work-index__intro { padding-top: 116px; padding-bottom: 36px; }
   .studio .work-index__title { font-size: 46px; }
   .studio .work-index__lead { font-size: 1rem; }
-  .studio .clients { --clients-gap: 20px; padding: 28px 0; }
+  .studio .clients { --clients-gap: 28px; padding: 40px 0; }
   .studio .marquee__item { width: 150px; padding: 0 20px; }
   .studio .marquee__item img { height: 32px; }
   .studio .services { padding: 54px 0; }
