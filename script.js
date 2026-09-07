@@ -412,9 +412,9 @@ if(contactSec) secIO.observe(contactSec);
 })();
 
 
-// Pin Contact below About only when its full content fits below the header.
+// Share the Contact reveal on Home and Work when it fits below the header.
 (() => {
-  if (PAGE !== 'home') return;
+  if (PAGE !== 'home' && PAGE !== 'work') return;
   const footer = document.getElementById('contact');
   const main = document.querySelector('main');
   const header = document.getElementById('nav');
@@ -429,7 +429,7 @@ if(contactSec) secIO.observe(contactSec);
   observer.observe(header);
   window.addEventListener('resize', update, { passive: true });
   reduce.addEventListener('change', update);
-  // Keyboard users must reach visible links even while About covers the footer.
+  // Reveal focused footer links while the page content still covers them.
   footer.addEventListener('focusin', () => {
     if (document.body.classList.contains('contact-reveal') &&
         main.getBoundingClientRect().bottom > footer.getBoundingClientRect().top) {
