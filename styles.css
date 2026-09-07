@@ -100,11 +100,7 @@ a{color:inherit;text-decoration:none}
 .nav__brief svg{transition:transform .25s var(--ease)}
 .nav__brief:hover svg,.nav__brief:focus-visible svg{transform:translate(2px,-2px)}
 .nav__brief:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-/* Single, consistent burger at ALL widths (portrait, landscape, desktop): three
-   bars whose lengths echo the logo's bar-height ratios (1.0 / 0.64 / 0.97),
-   thin 2px strokes, rounded caps, cyan→green gradient, no border. Previously the
-   gradient style was gated to <=600px, so landscape phones & desktop fell back to
-   a plain white 2-bar-looking icon — now unified. */
+/* Simple white three-bar menu, shared across pages. */
 .nav__toggle{
   width:44px;height:44px;border:0;border-radius:0;
   background:transparent;cursor:pointer;position:relative;
@@ -114,13 +110,13 @@ a{color:inherit;text-decoration:none}
 }
 .nav__toggle:hover{transform:scale(1.05)}
 .nav__toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.nav__toggle span{position:static;display:block;height:2px;border-radius:2px;background:var(--grad);transition:transform .4s var(--ease),opacity .25s,width .35s var(--ease),background .3s}
-.nav__toggle span:nth-child(1){width:22px}   /* 1.00 */
-.nav__toggle span:nth-child(2){width:14px}   /* 0.64 */
-.nav__toggle span:nth-child(3){width:21px}   /* 0.97 */
+.nav__toggle span{position:static;display:block;height:2px;border-radius:2px;background:#fff;transition:transform .4s var(--ease),opacity .25s,width .35s var(--ease),background .3s}
+.nav__toggle span:nth-child(1){width:22px}
+.nav__toggle span:nth-child(2){width:22px}
+.nav__toggle span:nth-child(3){width:22px}
 .nav__toggle:hover span{filter:brightness(1.12)}
 /* open state = clean single-colour X from the outer two bars */
-body.menu-open .nav__toggle span{background:var(--text)}
+body.menu-open .nav__toggle span{background:#fff}
 body.menu-open .nav__toggle span:nth-child(1){width:24px;transform:translateY(8px) rotate(45deg)}
 body.menu-open .nav__toggle span:nth-child(2){opacity:0}
 body.menu-open .nav__toggle span:nth-child(3){width:24px;transform:translateY(-8px) rotate(-45deg)}
@@ -411,7 +407,7 @@ body.lb-open{overflow:hidden}
 .clients__head{margin-bottom:clamp(58px,9vw,86px)}
 .marquee{position:relative;width:100%;overflow:hidden;padding:clamp(6px,1.4vw,14px) 0;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
 .marquee__track{display:flex;width:max-content;transform:translateX(0);will-change:transform}
-.marquee__track.is-ready{animation:marquee-rtl 60s linear infinite}
+.marquee__track.is-ready{animation:marquee-rtl 50s linear infinite}
 .marquee__item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:0 clamp(26px,3.4vw,58px)}
 .marquee__item img{height:clamp(26px,2.6vw,38px);width:auto;display:block;opacity:.62;filter:none;transition:opacity .35s var(--ease);-webkit-user-drag:none;user-select:none}
 .marquee:hover .marquee__item img{opacity:.5}
