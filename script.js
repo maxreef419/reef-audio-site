@@ -352,17 +352,19 @@ if(contactSec) secIO.observe(contactSec);
 
 // ===== CAPABILITIES ACCORDION =====
 (function(){
-  const heads = document.querySelectorAll('.service__head');
-  const toggleHead = (h)=>{
-    const open = h.getAttribute('aria-expanded') === 'true';
-    heads.forEach(o=>{ if(o!==h) o.setAttribute('aria-expanded','false'); });
-    h.setAttribute('aria-expanded', open ? 'false' : 'true');
+  const heads = Array.from(document.querySelectorAll('.service__head'));
+  const setExpanded = (head, expanded) => {
+    head.setAttribute('aria-expanded', String(expanded));
+    const panel = document.getElementById(head.getAttribute('aria-controls'));
+    if (!panel) return;
+    panel.setAttribute('aria-hidden', String(!expanded));
+    panel.inert = !expanded;
   };
-  heads.forEach(h=>{
-    let handled = false;
-    // pointerup fires on first tap (no 300ms hover delay on touch); guard against the synthetic click that follows
-    h.addEventListener('pointerup', (e)=>{ if(e.pointerType==='touch'){ handled = true; toggleHead(h); } });
-    h.addEventListener('click', ()=>{ if(handled){ handled = false; return; } toggleHead(h); });
+  heads.forEach(head => {
+    head.addEventListener('click', () => {
+      const expanded = head.getAttribute('aria-expanded') !== 'true';
+      heads.forEach(other => setExpanded(other, other === head && expanded));
+    });
   });
 })();
 

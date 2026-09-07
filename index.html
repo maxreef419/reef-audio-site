@@ -34,8 +34,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
 <link rel="stylesheet" href="styles.css?v=49" />
-<link rel="stylesheet" href="studio.css?v=6" />
-<link rel="stylesheet" href="capabilities.css?v=6" />
+<link rel="stylesheet" href="studio.css?v=7" />
+<link rel="stylesheet" href="capabilities.css?v=11" />
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
@@ -118,47 +118,72 @@
 </section>
 
 <!-- ===== CAPABILITIES ===== -->
-<section class="capabilities" id="services" aria-labelledby="capabilities-label">
-  <div class="capabilities__inner">
-    <p class="eyebrow capabilities__label" id="capabilities-label">Capabilities</p>
-    <div class="capabilities__track" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Services">
-      <article class="capability" id="capability-1" role="group" aria-roledescription="slide" aria-label="1 of 5">
-        <h3 class="capability__title">Original music &amp; production</h3>
-        <div class="capability__description">
-            <p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p>
-            <ul class="capability__formats" aria-label="Original music formats">
+<section class="services" id="services" aria-labelledby="capabilities-label">
+  <div class="services__inner">
+    <div class="services__head">
+      <p class="eyebrow" id="capabilities-label">Capabilities</p>
+    </div>
+    <div class="services__list">
+      <article class="service" aria-labelledby="service-toggle-1">
+        <button class="service__head" id="service-toggle-1" type="button" aria-expanded="false" aria-controls="service-panel-1">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Bespoke music</span>
+        </button>
+        <div class="service__panel" id="service-panel-1" role="region" aria-labelledby="service-toggle-1" aria-hidden="true" inert>
+          <div class="service__desc"><p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p><ul class="service__formats" aria-label="Original music formats">
               <li>Commercials</li>
               <li>Branded Content</li>
               <li>Songs &amp; Vocals</li>
               <li>Adaptations &amp; Cutdowns</li>
-            </ul>
-          </div>
+            </ul></div>
+        </div>
       </article>
-      <article class="capability" id="capability-2" role="group" aria-roledescription="slide" aria-label="2 of 5">
-        <h3 class="capability__title">Sound design &amp; final mix</h3>
-        <p class="capability__description">Sound design, editing, mixing and final masters across every format.</p>
+      <article class="service" aria-labelledby="service-toggle-2">
+        <button class="service__head" id="service-toggle-2" type="button" aria-expanded="false" aria-controls="service-panel-2">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Sound design</span>
+        </button>
+        <div class="service__panel" id="service-panel-2" role="region" aria-labelledby="service-toggle-2" aria-hidden="true" inert>
+          <div class="service__desc"><p>Sound design and editing that bring character, detail and impact to the picture.</p></div>
+        </div>
       </article>
-      <article class="capability" id="capability-3" role="group" aria-roledescription="slide" aria-label="3 of 5">
-        <h3 class="capability__title">Sonic branding &amp; strategy</h3>
-        <p class="capability__description">Sonic identities, brand themes and systems built to work across touchpoints.</p>
+      <article class="service" aria-labelledby="service-toggle-3">
+        <button class="service__head" id="service-toggle-3" type="button" aria-expanded="false" aria-controls="service-panel-3">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Sonic branding &amp; strategy</span>
+        </button>
+        <div class="service__panel" id="service-panel-3" role="region" aria-labelledby="service-toggle-3" aria-hidden="true" inert>
+          <div class="service__desc"><p>Sonic identities, brand themes and systems built to work across touchpoints.</p></div>
+        </div>
       </article>
-      <article class="capability" id="capability-4" role="group" aria-roledescription="slide" aria-label="4 of 5">
-        <h3 class="capability__title">Music supervision &amp; artist coordination</h3>
-        <p class="capability__description">Creative search, recording and artist coordination.</p>
+      <article class="service" aria-labelledby="service-toggle-4">
+        <button class="service__head" id="service-toggle-4" type="button" aria-expanded="false" aria-controls="service-panel-4">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Music supervision</span>
+        </button>
+        <div class="service__panel" id="service-panel-4" role="region" aria-labelledby="service-toggle-4" aria-hidden="true" inert>
+          <div class="service__desc"><p>Creative music direction, research and selection — from the first brief through final production.</p></div>
+        </div>
       </article>
-      <article class="capability" id="capability-5" role="group" aria-roledescription="slide" aria-label="5 of 5">
-        <h3 class="capability__title">Dedicated audio partnership</h3>
-        <p class="capability__description">Ongoing music and sound support for brands, agencies and production teams.</p>
+      <article class="service" aria-labelledby="service-toggle-5">
+        <button class="service__head" id="service-toggle-5" type="button" aria-expanded="false" aria-controls="service-panel-5">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Artist coordination</span>
+        </button>
+        <div class="service__panel" id="service-panel-5" role="region" aria-labelledby="service-toggle-5" aria-hidden="true" inert>
+          <div class="service__desc"><p>Casting and coordination of vocalists and musicians, including session planning and recording supervision.</p></div>
+        </div>
+      </article>
+      <article class="service" aria-labelledby="service-toggle-6">
+        <button class="service__head" id="service-toggle-6" type="button" aria-expanded="false" aria-controls="service-panel-6">
+          <span class="service__plus" aria-hidden="true"></span>
+          <span class="service__title">Mixing &amp; mastering</span>
+        </button>
+        <div class="service__panel" id="service-panel-6" role="region" aria-labelledby="service-toggle-6" aria-hidden="true" inert>
+          <div class="service__desc"><p>Final mixing, mastering and delivery across formats, with versions and stems prepared to technical specifications.</p></div>
+        </div>
       </article>
     </div>
-    <div class="capabilities__controls" role="group" aria-label="Browse capabilities" hidden>
-      <button class="capability-dot" type="button" aria-label="Original music &amp; production" aria-controls="capability-1" aria-current="true"></button>
-      <button class="capability-dot" type="button" aria-label="Sound design &amp; final mix" aria-controls="capability-2"></button>
-      <button class="capability-dot" type="button" aria-label="Sonic branding &amp; strategy" aria-controls="capability-3"></button>
-      <button class="capability-dot" type="button" aria-label="Music supervision &amp; artist coordination" aria-controls="capability-4"></button>
-      <button class="capability-dot" type="button" aria-label="Dedicated audio partnership" aria-controls="capability-5"></button>
-    </div>
-    <p class="capabilities__status" role="status" aria-live="polite" aria-atomic="true"></p>
   </div>
 </section>
 
@@ -168,8 +193,9 @@
     <p class="eyebrow reveal">About</p>
     <h2 class="about__lead reveal">Built on both sides of the brief.</h2>
     <div class="about__copy reveal">
-      <p>Led by award-winning composer and producer <span class="nowrap"><a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>,</span> REEF understands both sides of the brief. Ten years inside Leo Burnett, Saatchi &amp; Saatchi and Grey taught us how ideas move through agencies, production and approvals — and how to keep them intact.</p>
-      <p>After twenty years in music and advertising, we have built a trusted circle of producers, musicians, vocalists, award-winning sound designers and engineers with leading international credits. REEF scales strategically around each brief, bringing in the right people at the right stage while keeping one clear creative direction from first idea to final master.</p>
+      <p>REEF is led by award-winning composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>.</p>
+      <p>Twenty years in music and advertising. Ten inside Leo Burnett, Saatchi &amp; Saatchi and Grey — experience that helps us carry an idea through production and approvals without losing what makes it work.</p>
+      <p>Each brief brings together a trusted circle of producers, musicians, vocalists, sound designers and engineers, with one clear creative direction from first idea to final master.</p>
     </div>
   </div>
 </section>
@@ -235,7 +261,6 @@
   </div>
 </div>
 
-<script src="script.js?v=51"></script>
-<script src="capabilities.js?v=4"></script>
+<script src="script.js?v=52"></script>
 </body>
 </html>
