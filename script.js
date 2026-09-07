@@ -412,9 +412,9 @@ if(contactSec) secIO.observe(contactSec);
 })();
 
 
-// Share the Contact reveal on Home and Work when it fits below the header.
+// Reveal Contact on Home only when it fits below the header.
 (() => {
-  if (PAGE !== 'home' && PAGE !== 'work') return;
+  if (PAGE !== 'home') return;
   const footer = document.getElementById('contact');
   const main = document.querySelector('main');
   const header = document.getElementById('nav');
