@@ -11,25 +11,25 @@ const WORK = [
   {name:"California Realtors | Dear California Dream", img:"assets/work/v-849692144.jpg", vimeo:"849692144", ratio:"square"},
   {name:"Adrenaline Gold | Baroque Bang", img:"assets/work/v-468648611.jpg", vimeo:"468648611", ratio:"square"},
   {name:"Haval H3 | A Brighter Life", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
-  {name:"St Regis | Wonder", img:"assets/work/v-394209969.jpg", vimeo:"394209969", ratio:"square"},
   {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
-  {name:"Whole Foods | Food For Our Future", img:"assets/work/v-554243009.jpg", vimeo:"554243009", ratio:"square"},
   {name:"Yango Maps | A Perfect Way", img:"assets/work/v-882659457.jpg", vimeo:"882659457", ratio:"wide"},
+  {name:"Asian Games | Colors", img:"assets/work/v-264404893.jpg", vimeo:"264404893", ratio:"square"},
+  {name:"HBO | Westworld — Car Chase Scene [S03E05]", img:"assets/work/v-425890146.jpg", vimeo:"425890146", ratio:"square"},
+  {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
+  {name:"Haval | Intellectual Freedom", img:"assets/work/v-453637501.jpg", vimeo:"453637501", ratio:"square"},
+  {name:"St Regis | Wonder", img:"assets/work/v-394209969.jpg", vimeo:"394209969", ratio:"square"},
+  {name:"Whole Foods | Food For Our Future", img:"assets/work/v-554243009.jpg", vimeo:"554243009", ratio:"square"},
   {name:"Toyota | The Boxer", img:"assets/work/v-215650034.jpg", vimeo:"215650034", ratio:"square"},
   {name:"InDrive | People Driven", img:"assets/work/v-848738556.jpg", vimeo:"848738556", ratio:"square"},
-  {name:"Asian Games | Colors", img:"assets/work/v-264404893.jpg", vimeo:"264404893", ratio:"square"},
   {name:"Sber Investment", img:"assets/work/v-1158151394.jpg", vimeo:"1158151394", ratio:"wide"},
   {name:"Ostrovok!", img:"assets/work/v-1079291027.jpg", vimeo:"1079291027", ratio:"square"},
-  {name:"HBO | Westworld — Car Chase Scene [S03E05]", img:"assets/work/v-425890146.jpg", vimeo:"425890146", ratio:"square"},
   {name:"TBank Premium", img:"assets/work/v-1055504210.jpg", vimeo:"1055504210", ratio:"square"},
   {name:"Yandex Split", img:"assets/work/v-910327781.jpg", vimeo:"910327781", ratio:"wide"},
   {name:"McDonald's | Alpine Taste", img:"assets/work/v-652793889.jpg", vimeo:"652793889", ratio:"square"},
-  {name:"Haval | Intellectual Freedom", img:"assets/work/v-453637501.jpg", vimeo:"453637501", ratio:"square"},
   {name:"Danone | Simply Good", img:"assets/work/v-380886455.jpg", vimeo:"380886455", ratio:"square"},
   {name:"KIA | The Flow", img:"assets/work/v-690914061.jpg", vimeo:"690914061", ratio:"wide"},
   {name:"Academy Sports | Further", img:"assets/work/v-568883704.jpg", vimeo:"568883704", ratio:"square"},
-  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"square"},
-  {name:"Danone | If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"}
+  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"square"}
 ];
 
 const CLIENTS = [
@@ -58,7 +58,7 @@ if(document.fonts && document.fonts.ready){
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const FEATURED_WORK = [WORK[0], WORK[1], WORK[2], WORK[3], WORK[4], WORK[7]];
+const FEATURED_WORK = WORK.slice(0, 6);
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
