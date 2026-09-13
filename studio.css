@@ -74,7 +74,6 @@
 .studio .marquee__item { width: auto; padding: 0 32px; }
 .studio .marquee__item img { width: auto; height: auto; max-width: var(--logo-width,142px); max-height: 38px; object-fit: contain; opacity: .76; }
 .studio .marquee:hover .marquee__item img { opacity: .76; }
-.studio .marquee:hover .marquee__track { animation-play-state: paused; }
 .studio .services { background: var(--editorial); padding: 80px 0; }
 .studio .services__inner { width: 100%; max-width: var(--studio-width); margin: 0 auto; padding: 0 var(--studio-gutter); display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 30px var(--studio-gap); }
 .studio .services__head { grid-column: 1/4; margin: 0; padding-top: 25px; }
