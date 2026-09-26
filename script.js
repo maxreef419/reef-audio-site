@@ -58,7 +58,7 @@ if(document.fonts && document.fonts.ready){
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const FEATURED_WORK = WORK.slice(0, 6);
+const FEATURED_WORK = WORK.slice(0, 12);
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
