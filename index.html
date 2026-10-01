@@ -44,7 +44,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/safiro-medium.woff2" crossorigin />
 <link rel="stylesheet" href="styles.css?v=50" />
-<link rel="stylesheet" href="studio.css?v=14" />
+<link rel="stylesheet" href="studio.css?v=15" />
 <link rel="stylesheet" href="capabilities.css?v=13" />
 </head>
 <body class="studio" data-page="home" data-asset-root="">
@@ -58,8 +58,6 @@
   </a>
   <nav class="nav__links" aria-label="Sections">
     <a href="/work/">Work</a>
-
-    <a href="/#services">Capabilities</a>
     <a href="/#about">About</a>
   </nav>
   <div class="nav__actions">
@@ -77,10 +75,8 @@
   <div class="menu__shape">
     <nav class="menu__nav" aria-label="Primary">
       <a href="/work/" data-num="01">Work</a>
-
-      <a href="/#services" data-num="02">Capabilities</a>
-      <a href="/#about" data-num="03">About</a>
-      <a href="/#contact" data-num="04">Contact</a>
+      <a href="/#about" data-num="02">About</a>
+      <a href="/#contact" data-num="03">Contact</a>
     </nav>
   </div>
   <div class="menu__meta">
@@ -127,67 +123,6 @@
   </div>
 </section>
 
-<!-- ===== CAPABILITIES ===== -->
-<section class="services" id="services" aria-labelledby="capabilities-label">
-  <div class="services__inner">
-    <div class="services__head">
-      <p class="eyebrow" id="capabilities-label">Capabilities</p>
-    </div>
-    <div class="services__list">
-      <article class="service" aria-labelledby="service-toggle-1">
-        <button class="service__head" id="service-toggle-1" type="button" aria-expanded="false" aria-controls="service-panel-1">
-          <span class="service__plus" aria-hidden="true"></span>
-          <span class="service__title">Bespoke music</span>
-        </button>
-        <div class="service__panel" id="service-panel-1" role="region" aria-labelledby="service-toggle-1" aria-hidden="true" inert>
-          <div class="service__desc"><p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p><ul class="service__formats" aria-label="Original music formats">
-              <li>Commercials</li>
-              <li>Branded Content</li>
-              <li>Songs &amp; Vocals</li>
-              <li>Adaptations &amp; Cutdowns</li>
-            </ul></div>
-        </div>
-      </article>
-      <article class="service" aria-labelledby="service-toggle-2">
-        <button class="service__head" id="service-toggle-2" type="button" aria-expanded="false" aria-controls="service-panel-2">
-          <span class="service__plus" aria-hidden="true"></span>
-          <span class="service__title">Sound design</span>
-        </button>
-        <div class="service__panel" id="service-panel-2" role="region" aria-labelledby="service-toggle-2" aria-hidden="true" inert>
-          <div class="service__desc"><p>Sound design and editing that bring character, detail and impact to the picture.</p></div>
-        </div>
-      </article>
-      <article class="service" aria-labelledby="service-toggle-3">
-        <button class="service__head" id="service-toggle-3" type="button" aria-expanded="false" aria-controls="service-panel-3">
-          <span class="service__plus" aria-hidden="true"></span>
-          <span class="service__title">Sonic branding &amp; strategy</span>
-        </button>
-        <div class="service__panel" id="service-panel-3" role="region" aria-labelledby="service-toggle-3" aria-hidden="true" inert>
-          <div class="service__desc"><p>Sonic identities, brand themes and systems built to work across touchpoints. Music research, creative selection and direction — from the first brief through final production.</p></div>
-        </div>
-      </article>
-      <article class="service" aria-labelledby="service-toggle-5">
-        <button class="service__head" id="service-toggle-5" type="button" aria-expanded="false" aria-controls="service-panel-5">
-          <span class="service__plus" aria-hidden="true"></span>
-          <span class="service__title">Artist search &amp; recording coordination</span>
-        </button>
-        <div class="service__panel" id="service-panel-5" role="region" aria-labelledby="service-toggle-5" aria-hidden="true" inert>
-          <div class="service__desc"><p>Casting and coordination of vocalists and musicians, including session planning and recording supervision.</p></div>
-        </div>
-      </article>
-      <article class="service" aria-labelledby="service-toggle-6">
-        <button class="service__head" id="service-toggle-6" type="button" aria-expanded="false" aria-controls="service-panel-6">
-          <span class="service__plus" aria-hidden="true"></span>
-          <span class="service__title">Mixing &amp; mastering</span>
-        </button>
-        <div class="service__panel" id="service-panel-6" role="region" aria-labelledby="service-toggle-6" aria-hidden="true" inert>
-          <div class="service__desc"><p>Final mixing, mastering and delivery across formats, with versions and stems prepared to technical specifications.</p></div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <!-- ===== ABOUT ===== -->
 <section class="about" id="about">
   <div class="about__body">
@@ -199,6 +134,67 @@
       <p>Each brief brings together a trusted circle of producers, musicians, vocalists, sound designers and engineers, with one clear creative direction from first idea to final master.</p>
     </div>
   </div>
+
+  <!-- ===== CAPABILITIES ===== -->
+  <section class="services" id="services" aria-labelledby="capabilities-label">
+    <div class="services__inner">
+      <div class="services__head">
+        <p class="eyebrow" id="capabilities-label">Capabilities</p>
+      </div>
+      <div class="services__list">
+        <article class="service" aria-labelledby="service-toggle-1">
+          <button class="service__head" id="service-toggle-1" type="button" aria-expanded="false" aria-controls="service-panel-1">
+            <span class="service__plus" aria-hidden="true"></span>
+            <span class="service__title">Bespoke music</span>
+          </button>
+          <div class="service__panel" id="service-panel-1" role="region" aria-labelledby="service-toggle-1" aria-hidden="true" inert>
+            <div class="service__desc"><p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p><ul class="service__formats" aria-label="Original music formats">
+                <li>Commercials</li>
+                <li>Branded Content</li>
+                <li>Songs &amp; Vocals</li>
+                <li>Adaptations &amp; Cutdowns</li>
+              </ul></div>
+          </div>
+        </article>
+        <article class="service" aria-labelledby="service-toggle-2">
+          <button class="service__head" id="service-toggle-2" type="button" aria-expanded="false" aria-controls="service-panel-2">
+            <span class="service__plus" aria-hidden="true"></span>
+            <span class="service__title">Sound design</span>
+          </button>
+          <div class="service__panel" id="service-panel-2" role="region" aria-labelledby="service-toggle-2" aria-hidden="true" inert>
+            <div class="service__desc"><p>Sound design and editing that bring character, detail and impact to the picture.</p></div>
+          </div>
+        </article>
+        <article class="service" aria-labelledby="service-toggle-3">
+          <button class="service__head" id="service-toggle-3" type="button" aria-expanded="false" aria-controls="service-panel-3">
+            <span class="service__plus" aria-hidden="true"></span>
+            <span class="service__title">Sonic branding &amp; strategy</span>
+          </button>
+          <div class="service__panel" id="service-panel-3" role="region" aria-labelledby="service-toggle-3" aria-hidden="true" inert>
+            <div class="service__desc"><p>Sonic identities, brand themes and systems built to work across touchpoints. Music research, creative selection and direction — from the first brief through final production.</p></div>
+          </div>
+        </article>
+        <article class="service" aria-labelledby="service-toggle-5">
+          <button class="service__head" id="service-toggle-5" type="button" aria-expanded="false" aria-controls="service-panel-5">
+            <span class="service__plus" aria-hidden="true"></span>
+            <span class="service__title">Artist search &amp; recording coordination</span>
+          </button>
+          <div class="service__panel" id="service-panel-5" role="region" aria-labelledby="service-toggle-5" aria-hidden="true" inert>
+            <div class="service__desc"><p>Casting and coordination of vocalists and musicians, including session planning and recording supervision.</p></div>
+          </div>
+        </article>
+        <article class="service" aria-labelledby="service-toggle-6">
+          <button class="service__head" id="service-toggle-6" type="button" aria-expanded="false" aria-controls="service-panel-6">
+            <span class="service__plus" aria-hidden="true"></span>
+            <span class="service__title">Mixing &amp; mastering</span>
+          </button>
+          <div class="service__panel" id="service-panel-6" role="region" aria-labelledby="service-toggle-6" aria-hidden="true" inert>
+            <div class="service__desc"><p>Final mixing, mastering and delivery across formats, with versions and stems prepared to technical specifications.</p></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 </section>
 
 <!-- ===== STAGE IMAGE BAND ===== -->
@@ -226,7 +222,6 @@
     <div class="footer__side">
       <nav class="footer__nav" aria-label="Sections">
         <a href="work/">Work</a>
-        <a href="#services">Capabilities</a>
         <a href="#about">About</a>
       </nav>
       <div class="footer__social" role="group" aria-label="Contact and social media">

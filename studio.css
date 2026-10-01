@@ -104,6 +104,7 @@
   --editorial-text: #171918;
   --editorial-muted: #505550;
   --editorial-accent: #006b83;
+  --editorial-line: rgba(23,25,24,.18);
   background: #e8e8e3;
   color: var(--editorial-text);
   padding: 80px 0 88px;
@@ -116,6 +117,20 @@
 .studio .about__copy p:first-child { color: var(--editorial-text); }
 .studio .about__copy p:last-child { margin-bottom: 0; }
 .studio .about .namelink:focus-visible { outline: 2px solid var(--editorial-accent); outline-offset: 4px; }
+/* The studio story and capabilities form one continuous light section. */
+.studio .about .services { background: transparent; padding: 0; margin-top: 64px; }
+.studio .about .services__inner { position: relative; padding-top: 40px; }
+.studio .about .services__inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--studio-gutter);
+  right: var(--studio-gutter);
+  border-top: 1px solid var(--editorial-line);
+}
+.studio .about .services__list { grid-column: 7/-1; }
+.studio .about .service__plus { color: var(--editorial-muted); }
+.studio .about .service__head[aria-expanded="true"] .service__plus { color: var(--editorial-accent); }
 .studio .nowrap { white-space: normal; }
 .studio .namelink svg { display: inline; vertical-align: baseline; }
 .studio .footer { padding: 88px var(--studio-gutter) 28px; }
@@ -164,6 +179,7 @@
   .studio .work__grid, .studio[data-page="home"] .work__grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .studio .services__head { grid-column: 1/-1; padding: 0; }
   .studio .services__list { grid-column: 1/-1; }
+  .studio .about .services__list { grid-column: 1/-1; }
   .studio .about__lead { grid-column: 1/6; }
   .studio .about__copy { grid-column: 6/-1; }
 }
@@ -202,6 +218,8 @@
   .studio .service__formats li { font-size: .8125rem; white-space: normal; }
   .studio .service__formats li+li::before { content: none; }
   .studio .about { padding: 48px 0 56px; }
+  .studio .about .services { margin-top: 40px; }
+  .studio .about .services__inner { padding-top: 28px; }
   .studio .about__body { grid-template-columns: minmax(0,1fr); gap: 28px; }
   .studio .about__body > .eyebrow, .studio .about__lead, .studio .about__copy { grid-column: 1; }
   .studio .about__body > .eyebrow { padding-top: 0; }
