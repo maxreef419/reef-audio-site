@@ -306,3 +306,60 @@
 .studio .work-index__title {
   max-width: none; white-space: nowrap; font-size: clamp(26px, 6vw, 64px);
 }
+
+/* Give the opening photograph and typography room to carry the first screen. */
+.studio[data-page="home"] .hero {
+  min-height: clamp(620px, 82svh, 860px);
+  padding-top: 172px; padding-bottom: 108px;
+}
+.studio .hero__inner { align-items: start; row-gap: 32px; }
+.studio .hero__title {
+  grid-column: 1 / 10; font-size: clamp(60px, 5.8vw, 90px);
+  line-height: 1; letter-spacing: -.025em;
+}
+.studio .hero__audience {
+  display: block; margin-top: 18px;
+  font-size: .54em; line-height: 1.12; font-weight: 500;
+  letter-spacing: -.015em; color: #d6d6d8;
+}
+.studio .hero__title .amp {
+  background: var(--grad); background-clip: text; -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.studio .hero__intro { grid-column: 1 / 6; max-width: 48ch; }
+.studio .hero__lead { color: #e0e0e2; max-width: none; line-height: 1.55; }
+.studio .hero__explore {
+  display: inline-flex; align-items: center; gap: 18px; min-height: 44px;
+  margin-top: 20px; font-family: var(--font-display); font-size: 14px;
+  font-weight: 500; color: var(--text);
+}
+.studio .hero__explore span { color: var(--cyan); font-size: 20px; }
+.studio .hero__explore:hover { color: var(--cyan); }
+.studio .hero__explore:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+.studio .hero__media { background-position: 62% center; }
+.studio .hero__media::after {
+  background: linear-gradient(90deg, rgba(48,48,50,.82) 0%, rgba(48,48,50,.55) 38%, rgba(48,48,50,.12) 72%, rgba(48,48,50,.16) 100%);
+}
+.studio .hero__media::before {
+  background: linear-gradient(180deg,
+    #303032 0px, #303032 72px, rgba(48,48,50,.45) 24%,
+    rgba(58,58,60,0) 46%, rgba(58,58,60,.15) 68%, #3a3a3c 100%);
+}
+@media (max-width: 900px) {
+  .studio .hero__title { grid-column: 1 / -1; font-size: clamp(48px, 7vw, 64px); }
+  .studio .hero__intro { grid-column: 1 / 9; }
+}
+@media (max-width: 600px) {
+  .studio[data-page="home"] .hero {
+    min-height: 0; padding-top: 136px; padding-bottom: 88px;
+  }
+  .studio .hero__inner { row-gap: 28px; }
+  .studio .hero__title { font-size: clamp(34px, 8.8vw, 48px); }
+  .studio .hero__audience { margin-top: 14px; font-size: .65em; }
+  .studio .hero__intro { grid-column: 1 / -1; }
+  .studio .hero__explore { margin-top: 16px; }
+  .studio .hero__media { background-position: 58% center; }
+  .studio .hero__media::after {
+    background: linear-gradient(90deg, rgba(48,48,50,.7), rgba(48,48,50,.38));
+  }
+}
