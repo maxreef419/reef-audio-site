@@ -438,7 +438,29 @@ if(contactSec) secIO.observe(contactSec);
   window.addEventListener('orientationchange', update, { passive: true });
   window.visualViewport?.addEventListener('resize', update, { passive: true });
   reduce.addEventListener('change', update);
-  document.fonts?.ready.then(update);
+  const revealContact = (behavior = 'smooth') => {
+    if (!document.body.classList.contains('contact-reveal')) return;
+    window.scrollTo({ top: document.documentElement.scrollHeight,
+      behavior: reduce.matches ? 'instant' : behavior });
+  };
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = new URL(link.href, window.location.href);
+    if (target.origin !== window.location.origin ||
+        target.pathname !== window.location.pathname || target.hash !== '#contact' ||
+        !document.body.classList.contains('contact-reveal')) return;
+    event.preventDefault();
+    if (window.location.hash !== '#contact') history.pushState(null, '', '#contact');
+    revealContact();
+  });
+  const followContactHash = () => {
+    if (window.location.hash === '#contact') revealContact('instant');
+  };
+  window.addEventListener('hashchange', followContactHash);
+  window.addEventListener('load', () => { update(); followContactHash(); });
+  document.fonts?.ready.then(() => { update(); followContactHash(); });
   // Keyboard navigation must bring covered links into view.
   footer.addEventListener('focusin', () => {
     if (document.body.classList.contains('contact-reveal') &&
@@ -447,4 +469,5 @@ if(contactSec) secIO.observe(contactSec);
     }
   });
   update();
+  requestAnimationFrame(followContactHash);
 })();
