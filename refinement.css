@@ -80,9 +80,9 @@
 .studio .work__more-wrap { margin-top: 34px; }
 .studio .work-index__title { font-size: clamp(46px, 4.6vw, 64px); line-height: 1.03; }
 .studio .work-index__lead { font-size: 15px; line-height: 1.45; }
-.studio .clients { --clients-gap: 44px; padding-block: 56px 80px; border: 0; }
+.studio .clients { --clients-gap: 80px; padding-block: 56px 96px; border: 0; }
 .studio .clients__head { text-align: center; }
-.studio .clients__head .eyebrow { font-family: var(--font-display); font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; text-transform: none; color: var(--text); }
+.studio .clients__head .eyebrow { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; text-transform: none; color: var(--text); }
 .studio .about {
   --editorial-text: #f4f6f6;
   --editorial-muted: #bfc1c1;
@@ -186,7 +186,7 @@
   .studio .work-index__title { font-size: 44px; }
   .studio .work-index__lead { font-size: 14px; }
   .studio .clients { --clients-gap: 40px; padding-block: 44px 72px; }
-  .studio .clients__head .eyebrow { font-size: 22px; }
+  .studio .clients__head .eyebrow { font-size: 18px; }
   .studio .about { padding-block: 40px 56px; }
   .studio .about__body { gap: 24px; }
   .studio .about .eyebrow { font-size: 16px; }
@@ -205,18 +205,18 @@
 }
 
 /* A continuous studio introduction, followed by open service descriptions. */
-.studio .about__body { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+.studio .about__body { grid-template-columns: minmax(0, 1fr); row-gap: 28px; text-align: center; }
 .studio .about__body > .eyebrow,
 .studio .about__lead, .studio .about__copy { grid-column: 1 / -1; }
 .studio .about__lead {
-  max-width: 22ch; font-size: clamp(36px, 3.8vw, 52px);
+  max-width: 22ch; margin-inline: auto; font-size: clamp(36px, 3.8vw, 52px);
   line-height: 1.06; text-wrap: balance;
 }
 .studio .about__copy {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(32px, 5vw, 80px); max-width: none; width: 100%;
+  display: flex; flex-direction: column; gap: 18px;
+  max-width: 700px; width: 100%; margin-inline: auto;
 }
-.studio .about__copy p { max-width: 58ch; line-height: 1.55; }
+.studio .about__copy p { max-width: none; line-height: 1.55; }
 .studio .about .services { margin-top: 88px; }
 .studio .about .services__inner {
   grid-template-columns: minmax(0, 1fr); row-gap: 32px; padding-top: 0;
@@ -252,4 +252,21 @@
   .studio .capabilities-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
   .studio .capability h3 { font-size: 22px; margin-bottom: 12px; }
   .studio .capability p { font-size: 14px; }
+}
+
+/* Large, evenly spaced client marks, matching the reference's slower rhythm. */
+.studio .marquee__item {
+  width: clamp(240px, 24vw, 460px); padding: 0 32px;
+}
+.studio .marquee__item img {
+  max-width: min(100%, calc(var(--logo-width, 140px) * 1.65));
+  max-height: 76px; opacity: .9;
+}
+.studio .marquee:hover .marquee__item img { opacity: .9; }
+.studio .marquee__track.is-ready { animation-duration: 100s; }
+@media (max-width: 600px) {
+  .studio .marquee__item { width: clamp(180px, 48vw, 240px); padding: 0 24px; }
+  .studio .marquee__item img {
+    max-width: min(100%, calc(var(--logo-width, 140px) * 1.05)); max-height: 48px;
+  }
 }
