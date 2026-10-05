@@ -127,6 +127,46 @@
 .studio .footer__title { font-size: var(--section-title-size); font-weight: 600; line-height: 1.02; letter-spacing: -.015em; }
 .studio .footer__prompt { font-size: 15px; line-height: 1.45; }
 .studio .footer__bottom { margin-top: 48px; border-top: 0; }
+/* Desktop contact: one centered invitation over the photograph. */
+@media (min-width: 761px) {
+  .studio .footer {
+    min-height: min(760px, calc(100svh - 112px));
+    padding-top: 56px;
+    display: grid; grid-template-rows: minmax(300px, 1fr) auto;
+    justify-content: stretch; row-gap: 28px;
+  }
+  .studio .footer__inner {
+    display: grid; grid-template-columns: 1fr;
+    grid-template-rows: minmax(240px, 1fr) auto;
+    row-gap: 56px; align-items: center;
+  }
+  .studio .footer__cta {
+    display: flex; flex-direction: column; align-items: center;
+    grid-column: 1; grid-row: 1; justify-self: center;
+    width: 100%; max-width: 560px; text-align: center;
+  }
+  .studio .footer__title {
+    justify-content: center; font-size: clamp(36px, 3.2vw, 48px);
+    line-height: 1.08; margin-bottom: 18px;
+  }
+  .studio .footer__prompt { margin-bottom: 28px; }
+  .studio .footer__start { align-self: center; padding: 12px 22px; }
+  .studio .footer__side {
+    display: flex; flex-direction: row; align-items: center;
+    justify-content: space-between; gap: 32px;
+    grid-column: 1; grid-row: 2; min-height: 0; padding: 0;
+  }
+  .studio .footer__nav {
+    display: flex; flex-direction: row; align-items: center;
+    gap: 28px; margin: 0; padding: 0;
+  }
+  .studio .footer__nav a { font-size: 14px; }
+  .studio .footer__social { align-self: center; margin: 0; padding: 0; }
+  .studio .footer__bottom {
+    margin-top: 0; padding-top: 0; flex-direction: row;
+    align-items: center; justify-content: space-between;
+  }
+}
 @media (max-width: 900px) {
   .studio .hero__title, .studio .hero__lead { grid-column: 1/-1; }
   .studio .hero__title { font-size: clamp(44px, 7.2vw, 62px); }
