@@ -203,3 +203,53 @@
 @media (prefers-reduced-motion: reduce) {
   .studio :is(.nav__brief, .footer__start, .work__more) { transition: none; }
 }
+
+/* A continuous studio introduction, followed by open service descriptions. */
+.studio .about__body { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+.studio .about__body > .eyebrow,
+.studio .about__lead, .studio .about__copy { grid-column: 1 / -1; }
+.studio .about__lead {
+  max-width: 22ch; font-size: clamp(36px, 3.8vw, 52px);
+  line-height: 1.06; text-wrap: balance;
+}
+.studio .about__copy {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 80px); max-width: none; width: 100%;
+}
+.studio .about__copy p { max-width: 58ch; line-height: 1.55; }
+.studio .about .services { margin-top: 88px; }
+.studio .about .services__inner {
+  grid-template-columns: minmax(0, 1fr); row-gap: 32px; padding-top: 0;
+}
+.studio .about .services__head {
+  grid-column: 1 / -1; min-height: 0; padding: 0;
+}
+.studio .about .services__head .eyebrow { margin: 0; }
+.studio .capabilities-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px clamp(32px, 5vw, 80px); align-items: start;
+}
+.studio .capability { min-width: 0; }
+.studio .capability h3 {
+  font-family: var(--font-display); font-size: clamp(22px, 1.8vw, 24px);
+  font-weight: 600; line-height: 1.2; letter-spacing: -.01em; margin: 0 0 14px;
+}
+.studio .capability p {
+  font-size: 15px; line-height: 1.55; color: var(--muted);
+  margin: 0; max-width: 56ch;
+}
+.studio .capability__details { margin-top: 16px; color: var(--muted); font-size: 13px; }
+.studio .capability__details summary { cursor: pointer; width: fit-content; }
+.studio .capability__details summary:hover { color: var(--text); }
+.studio .capability__details summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+.studio .capability__formats { margin: 12px 0 0; padding-left: 18px; line-height: 1.7; }
+@media (max-width: 600px) {
+  .studio .about__body { row-gap: 24px; }
+  .studio .about__lead { font-size: 32px; max-width: 22ch; }
+  .studio .about__copy { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .studio .about .services { margin-top: 56px; }
+  .studio .about .services__inner { row-gap: 28px; }
+  .studio .capabilities-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .studio .capability h3 { font-size: 22px; margin-bottom: 12px; }
+  .studio .capability p { font-size: 14px; }
+}
