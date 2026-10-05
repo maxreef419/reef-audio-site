@@ -401,3 +401,8 @@
     padding-right: clamp(40px, 4.5vw, 80px);
   }
 }
+
+.studio .nav__social { display: flex; align-items: center; gap: 4px; }
+.studio .nav__links .nav__social-link { width: 36px; justify-content: center; }
+.studio .nav__social-link svg { display: block; width: 18px; height: 18px; }
+.studio .nav__social-link:first-child svg { fill: currentColor; }
