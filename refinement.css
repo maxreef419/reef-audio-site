@@ -16,7 +16,7 @@
   --section-title-size: clamp(30px, 3.2vw, 42px);
   --card-radius: 16px;
 }
-.studio .nav { border-bottom: 0; background: #303032; }
+.studio .nav { border-bottom: 0; background: #1c1c1c; }
 .studio .menu { background: rgba(58,58,60,.97); }
 .studio .eyebrow, .studio .nav__links, .studio .footer__nav, .studio .footer__wordmark { font-family: var(--font-display); }
 .studio .eyebrow { letter-spacing: .06em; }
@@ -299,8 +299,8 @@
 .studio .hero__media::before {
   inset: 0; height: 100%;
   background: linear-gradient(180deg,
-    #303032 0px, #303032 88px,
-    rgba(48,48,50,.65) 30%, rgba(58,58,60,0) 48%,
+    #1c1c1c 0px, #1c1c1c 88px,
+    rgba(28,28,28,.65) 30%, rgba(58,58,60,0) 48%,
     rgba(58,58,60,.45) 72%, #3a3a3c 100%);
 }
 .studio .work-index__title {
@@ -323,8 +323,7 @@
   letter-spacing: -.015em; color: #d6d6d8;
 }
 .studio .hero__title .amp {
-  background: var(--grad); background-clip: text; -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: none; color: #fff; -webkit-text-fill-color: #fff;
 }
 .studio .hero__intro { grid-column: 1 / 6; max-width: 48ch; }
 .studio .hero__lead { color: #e0e0e2; max-width: none; line-height: 1.55; }
@@ -338,12 +337,12 @@
 .studio .hero__explore:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
 .studio .hero__media { background-position: 62% center; }
 .studio .hero__media::after {
-  background: linear-gradient(90deg, rgba(48,48,50,.82) 0%, rgba(48,48,50,.55) 38%, rgba(48,48,50,.12) 72%, rgba(48,48,50,.16) 100%);
+  background: linear-gradient(90deg, rgba(28,28,28,.82) 0%, rgba(28,28,28,.55) 38%, rgba(28,28,28,.12) 72%, rgba(28,28,28,.16) 100%);
 }
 .studio .hero__media::before {
   background: linear-gradient(180deg,
-    #303032 0px, #303032 72px, rgba(48,48,50,.45) 24%,
-    rgba(58,58,60,0) 46%, rgba(58,58,60,.15) 68%, #3a3a3c 100%);
+    #1c1c1c 0px, #1c1c1c 88px, rgba(28,28,28,.8) 26%,
+    rgba(28,28,28,.3) 48%, rgba(58,58,60,.25) 68%, #3a3a3c 100%);
 }
 @media (max-width: 900px) {
   .studio .hero__title { grid-column: 1 / -1; font-size: clamp(48px, 7vw, 64px); }
@@ -360,6 +359,6 @@
   .studio .hero__explore { margin-top: 16px; }
   .studio .hero__media { background-position: 58% center; }
   .studio .hero__media::after {
-    background: linear-gradient(90deg, rgba(48,48,50,.7), rgba(48,48,50,.38));
+    background: linear-gradient(90deg, rgba(28,28,28,.7), rgba(28,28,28,.38));
   }
 }
