@@ -362,3 +362,12 @@
     background: linear-gradient(90deg, rgba(28,28,28,.7), rgba(28,28,28,.38));
   }
 }
+
+/* Round the moving reveal edge as well as the final card frame. */
+.studio .work__reveal {
+  border-radius: var(--card-radius);
+  clip-path: inset(88% 0 0 0 round var(--card-radius));
+}
+.studio .work__item.in .work__reveal {
+  clip-path: inset(0 0 0 0 round var(--card-radius));
+}
