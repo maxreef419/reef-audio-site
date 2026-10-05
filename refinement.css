@@ -16,7 +16,7 @@
   --section-title-size: clamp(30px, 3.2vw, 42px);
   --card-radius: 16px;
 }
-.studio .nav { border-bottom: 0; background: rgba(58,58,60,.9); }
+.studio .nav { border-bottom: 0; background: #303032; }
 .studio .menu { background: rgba(58,58,60,.97); }
 .studio .eyebrow, .studio .nav__links, .studio .footer__nav, .studio .footer__wordmark { font-family: var(--font-display); }
 .studio .eyebrow { letter-spacing: .06em; }
@@ -290,3 +290,19 @@
 .studio .lightbox__backdrop { background: rgba(72,72,74,.96); }
 .studio .lightbox__close { background: #525254; }
 .studio .lightbox__close:hover { background: #626264; }
+
+/* Blend the hero photograph into the darker header and the brand-gray page. */
+.studio .hero__media { opacity: 1; }
+.studio .hero__media::after {
+  background: linear-gradient(90deg, rgba(58,58,60,.78), rgba(58,58,60,.5) 65%, rgba(58,58,60,.65));
+}
+.studio .hero__media::before {
+  inset: 0; height: 100%;
+  background: linear-gradient(180deg,
+    #303032 0px, #303032 88px,
+    rgba(48,48,50,.65) 30%, rgba(58,58,60,0) 48%,
+    rgba(58,58,60,.45) 72%, #3a3a3c 100%);
+}
+.studio .work-index__title {
+  max-width: none; white-space: nowrap; font-size: clamp(26px, 6vw, 64px);
+}
