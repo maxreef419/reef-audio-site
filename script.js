@@ -63,12 +63,13 @@ const FEATURED_WORK = WORK.slice(0, 12);
 function workCard(w){
   const label = w.name.split('|')[0].trim();
   const ratio = w.ratio || 'wide';
+  const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   return `
-  <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${label.replace(/"/g,'&quot;')}">
+  <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${escape(w.name)}">
     <span class="work__reveal">
     <img src="${asset(w.img)}" alt="${label} — REEF Audio project still" loading="lazy">
     <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" muted loop playsinline preload="none" aria-hidden="true"></video>
-    <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${label}</span></span></div>
+    <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${escape(label)}</span></span></div>
     </span>
   </button>`;
 }
@@ -412,7 +413,8 @@ if(contactSec) secIO.observe(contactSec);
 })();
 
 
-// Reveal Contact on Home only when it fits below the header.
+// Reveal Contact behind the main page. Natural flow is the fallback for
+// short viewports, enlarged text, reduced motion, or unavailable observers.
 (() => {
   if (PAGE !== 'home') return;
   const footer = document.getElementById('contact');
@@ -421,15 +423,23 @@ if(contactSec) secIO.observe(contactSec);
   if (!footer || !main || !header || !window.ResizeObserver) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const update = () => {
-    const available = document.documentElement.clientHeight - header.offsetHeight - 16;
-    document.body.classList.toggle('contact-reveal', !reduce.matches && footer.offsetHeight <= available);
+    const viewportHeight = Math.min(document.documentElement.clientHeight,
+      window.visualViewport?.height || window.innerHeight);
+    const height = Math.ceil(footer.getBoundingClientRect().height);
+    const available = viewportHeight - header.offsetHeight - 16;
+    const enabled = !reduce.matches && height > 0 && height <= available;
+    document.body.style.setProperty('--contact-height', height + 'px');
+    document.body.classList.toggle('contact-reveal', enabled);
   };
   const observer = new ResizeObserver(update);
   observer.observe(footer);
   observer.observe(header);
   window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('orientationchange', update, { passive: true });
+  window.visualViewport?.addEventListener('resize', update, { passive: true });
   reduce.addEventListener('change', update);
-  // Reveal focused footer links while the page content still covers them.
+  document.fonts?.ready.then(update);
+  // Keyboard navigation must bring covered links into view.
   footer.addEventListener('focusin', () => {
     if (document.body.classList.contains('contact-reveal') &&
         main.getBoundingClientRect().bottom > footer.getBoundingClientRect().top) {

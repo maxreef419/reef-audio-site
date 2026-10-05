@@ -275,9 +275,3 @@
   transform: none;
   transition: none;
 }
-
-/* Whole Foods has a narrower picture inside its source frame. A square
-   window uses the existing cover crop to exclude the side bars. */
-@media (max-width: 600px) {
-  .studio[data-page="home"] .work__item[data-vimeo="554243009"] { aspect-ratio: 1 / 1; }
-}
