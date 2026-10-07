@@ -376,16 +376,34 @@
 }
 @media (max-width: 600px) {
   .studio[data-page="home"] .hero {
-    min-height: 0; padding-top: 136px; padding-bottom: 88px;
+    --hero-bleed: 170px;
+    min-height: 0;
+    padding-top: 136px;
+    padding-bottom: 112px;
+    overflow: visible;
   }
   .studio .hero__inner { row-gap: 28px; }
   .studio .hero__title { font-size: clamp(34px, 8.8vw, 48px); }
   .studio .hero__audience { margin-top: 14px; font-size: .65em; }
   .studio .hero__intro { grid-column: 1 / -1; }
   .studio .hero__explore { margin-top: 16px; }
-  .studio .hero__media { background-position: 58% center; }
+  .studio[data-page="home"] .hero__media {
+    bottom: calc(-1 * var(--hero-bleed));
+    background-position: 58% center;
+    pointer-events: none;
+  }
   .studio .hero__media::after {
     background: linear-gradient(90deg, rgba(28,28,28,.5), rgba(28,28,28,.22));
+  }
+  .studio[data-page="home"] .hero__media::before {
+    background: linear-gradient(180deg,
+      #1c1c1c 0px, #1c1c1c 88px, rgba(28,28,28,.58) 24%,
+      rgba(28,28,28,.10) 52%, rgba(58,58,60,.08) 74%,
+      rgba(58,58,60,.48) 90%, #3a3a3c 100%);
+  }
+  .studio[data-page="home"] .work {
+    background: transparent;
+    padding-top: 24px;
   }
 }
 
