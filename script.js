@@ -344,6 +344,37 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
   });
 });
 
+// ===== CAPABILITIES: WORK-CARD STYLE SCROLL REVEAL =====
+(() => {
+  const grid = document.querySelector('.capabilities-grid');
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll('.capability'));
+  if (!cards.length) return;
+
+  // Match the work-grid rhythm: cards in the same row cascade left -> right.
+  // On the single-column mobile layout every card starts immediately.
+  function rowIndex(el) {
+    const top = el.offsetTop;
+    let i = 0;
+    cards.forEach(sib => {
+      if (sib === el) return;
+      if (Math.abs(sib.offsetTop - top) <= 4 && sib.offsetLeft < el.offsetLeft) i++;
+    });
+    return i;
+  }
+
+  const capabilityIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.style.setProperty('--capdelay', (rowIndex(entry.target) * 0.11) + 's');
+      entry.target.classList.add('in');
+      capabilityIO.unobserve(entry.target);
+    });
+  }, { threshold: .16, rootMargin: '0px 0px -50px 0px' });
+
+  cards.forEach(card => capabilityIO.observe(card));
+})();
+
 // ===== SECTION ENTRANCE (hero/contact word choreography) =====
 const secIO = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
