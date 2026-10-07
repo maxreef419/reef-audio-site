@@ -90,6 +90,10 @@ const workIO = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){
     e.target.style.setProperty('--rowdelay', (rowIndex(e.target) * 0.11) + 's');
     e.target.classList.add('in');
+    // Finish the opening film reveal before introducing its section heading.
+    if (document.body.dataset.page === 'home' && e.target === grid.firstElementChild) {
+      document.querySelector('.work__head .reveal')?.classList.add('in');
+    }
     workIO.unobserve(e.target);
   }});
 },{threshold:.16, rootMargin:'0px 0px -60px 0px'});
@@ -331,6 +335,10 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
 },{threshold:.14, rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach((el,i)=>{
+  if (document.body.dataset.page === 'home' && el.matches('.work__head .reveal')) {
+    el.style.transitionDelay = '1.25s';
+    return;
+  }
   el.style.transitionDelay = (i % 4 * 0.06) + 's';
   io.observe(el);
 });
