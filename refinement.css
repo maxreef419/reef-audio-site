@@ -428,6 +428,8 @@
       rgba(58,58,60,.62) 88%, #3a3a3c 100%);
   }
   .studio[data-page="home"] .work { background: transparent; }
+  /* The opening cards reveal directly over the photograph, without gray plates. */
+  .studio[data-page="home"] .work__item:nth-child(-n + 2) { background: transparent; }
 }
 
 /* Fine, static film grain stays beneath the Hero copy. */
