@@ -247,6 +247,32 @@
   font-size: 15px; line-height: 1.55; color: var(--muted);
   margin: 0; max-width: 56ch;
 }
+
+/* Capabilities enter with the same bottom-up "kadr" reveal as work previews. */
+.studio .capability {
+  opacity: 0;
+  transform: translateY(24px) scale(.975);
+  clip-path: inset(88% 0 0 0 round 16px);
+  transition:
+    opacity .6s var(--ease-soft),
+    transform 1.05s cubic-bezier(.16,.68,.32,1),
+    clip-path 1.05s cubic-bezier(.16,.68,.32,1);
+  will-change: transform, clip-path, opacity;
+}
+.studio .capability.in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0 0 round 16px);
+  transition-delay: var(--capdelay, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio .capability {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
 .studio .capability__formats {
   margin: 20px 0 0; padding-left: 18px; font-size: 13px;
   line-height: 1.7; color: var(--muted);
