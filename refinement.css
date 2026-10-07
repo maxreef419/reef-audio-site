@@ -313,6 +313,7 @@
 
 /* Keep video reveals and the expanded player within the brand gray palette. */
 .studio .work__item { background: var(--bg); }
+.studio[data-page="home"] .work__item { background: transparent; }
 .studio .lightbox__backdrop { background: rgba(72,72,74,.96); }
 .studio .lightbox__close { background: #525254; }
 .studio .lightbox__close:hover { background: #626264; }
@@ -446,8 +447,8 @@
       rgba(58,58,60,.62) 88%, #3a3a3c 100%);
   }
   .studio[data-page="home"] .work { background: transparent; }
-  /* The opening cards reveal directly over the photograph, without gray plates. */
-  .studio[data-page="home"] .work__item:nth-child(-n + 2) { background: transparent; }
+  /* Home cards stay transparent while the inner media frame reveals,
+     so the photograph remains visible through the unopened part of each tile. */
 }
 
 /* Fine, static film grain stays beneath the Hero copy. */
