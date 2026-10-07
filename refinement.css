@@ -410,6 +410,26 @@
   background: radial-gradient(70% 90% at 50% 50%, rgba(20,20,20,.14), transparent 72%);
 }
 
+/* Carry the home photograph behind the heading and opening film frames.
+   Keep the existing mobile crop and overlays below the 600px breakpoint. */
+@media (min-width: 601px) {
+  .studio[data-page="home"] .hero {
+    --hero-bleed: clamp(180px, 16vw, 240px);
+    overflow: visible;
+  }
+  .studio[data-page="home"] .hero__media {
+    bottom: calc(-1 * var(--hero-bleed));
+    pointer-events: none;
+  }
+  .studio[data-page="home"] .hero__media::before {
+    background: linear-gradient(180deg,
+      #1c1c1c 0px, #1c1c1c 88px, rgba(28,28,28,.6) 26%,
+      rgba(28,28,28,.12) 48%, rgba(58,58,60,.15) 74%,
+      rgba(58,58,60,.62) 88%, #3a3a3c 100%);
+  }
+  .studio[data-page="home"] .work { background: transparent; }
+}
+
 /* Fine, static film grain stays beneath the Hero copy. */
 .studio .hero::after {
   content: ''; position: absolute; inset: 0; z-index: 1;
