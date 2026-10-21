@@ -645,3 +645,21 @@
     line-height: 1.38;
   }
 }
+
+/* Force the homepage section label to span the container and center its text,
+   including browsers retaining earlier flex alignment declarations. */
+.studio[data-page="home"] .work__head {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.studio[data-page="home"] .work__head > .section-heading {
+  display: block;
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+  font-size: 32px;
+}
+@media (max-width: 600px) {
+  .studio[data-page="home"] .work__head > .section-heading { font-size: 30px; }
+}
