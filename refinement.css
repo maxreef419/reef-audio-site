@@ -48,13 +48,13 @@
 }
 .studio .hero__lead { grid-column: 8/-1; align-self: center; font-size: 15px; line-height: 1.45; max-width: 44ch; }
 .studio .work { padding-bottom: 72px; }
-/* Two generous columns; one wide film and one portrait interrupt the pairs. */
+/* Wider, more cinematic previews; one wide film and one portrait interrupt the pairs. */
 @media (min-width: 601px) {
   .studio .work__grid,
   .studio[data-page="home"] .work__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-flow: row;
-    grid-auto-rows: calc(var(--cell, 480px) * .68);
+    grid-auto-rows: calc(var(--cell, 480px) * .5625);
   }
   .studio[data-page="home"] .work__item:nth-child(n) {
     grid-column: auto / span 1; grid-row: auto;
@@ -187,6 +187,8 @@
   .studio .hero__lead { font-size: 14px; line-height: 1.45; }
   .studio .work { padding-bottom: 48px; }
   .studio .work__head { margin-bottom: 22px; }
+  .studio .work__head, .studio .work__grid { padding-left: 16px; padding-right: 16px; }
+  .studio .work__item, .studio .work__item--wide, .studio[data-page="home"] .work__item { aspect-ratio: 16 / 9; }
   .studio[data-page="home"] .work__item { border-radius: var(--card-radius); }
   .studio .work__name { font-size: 15px; }
   .studio .work-index__title { font-size: 44px; }
@@ -466,6 +468,10 @@
     max-width: 1720px;
     padding-left: clamp(40px, 4.5vw, 80px);
     padding-right: clamp(40px, 4.5vw, 80px);
+  }
+  .studio .work__head, .studio .work__grid {
+    padding-left: clamp(32px, 3.25vw, 52px);
+    padding-right: clamp(32px, 3.25vw, 52px);
   }
 }
 
