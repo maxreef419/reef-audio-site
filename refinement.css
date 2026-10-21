@@ -95,7 +95,7 @@
 .studio .work-index__lead { font-size: 15px; line-height: 1.45; }
 .studio .clients { --clients-gap: 80px; padding-block: 56px 96px; border: 0; }
 .studio .clients__head { text-align: center; }
-.studio .clients__head .eyebrow { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; text-transform: none; color: var(--text); }
+.studio .clients__head .eyebrow { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; text-transform: none; color: var(--muted); }
 .studio .about {
   --editorial-text: #f4f6f6;
   --editorial-muted: #bfc1c1;
