@@ -482,3 +482,141 @@
 .studio .nav__links .nav__social-link { width: 36px; justify-content: center; }
 .studio .nav__social-link svg { display: block; width: 18px; height: 18px; }
 .studio .nav__social-link:first-child svg { fill: currentColor; }
+
+
+/* ===== HOMEPAGE HERO & SELECTED PROJECTS — PRIVATE REVIEW 2026-10-21 =====
+   Home-only overrides. All other pages and sections retain their existing styles. */
+.studio[data-page="home"] .hero {
+  min-height: clamp(510px, 66svh, 680px);
+  padding-top: clamp(138px, 10.8vw, 170px);
+  padding-bottom: clamp(68px, 7.5vw, 98px);
+}
+.studio[data-page="home"] .hero__inner {
+  align-items: start;
+  row-gap: clamp(20px, 2vw, 28px);
+}
+.studio[data-page="home"] .hero__title {
+  grid-column: 1 / -1;
+  max-width: 16ch;
+  font-size: clamp(60px, 6.6vw, 102px);
+  line-height: .97;
+  letter-spacing: -.042em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.studio[data-page="home"] .hero__intro {
+  grid-column: 1 / 8;
+  max-width: 660px;
+}
+.studio[data-page="home"] .hero__sub {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 1.55vw, 22px);
+  line-height: 1.43;
+  font-weight: 400;
+  letter-spacing: -.012em;
+  color: #f3f3f4;
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* Keep the first work section closer to the hero; align its title with cards. */
+.studio[data-page="home"] .work { padding-top: 12px; }
+.studio[data-page="home"] .work__head,
+.studio[data-page="home"] .work__grid {
+  max-width: 1880px;
+  padding-left: clamp(22px, 2.5vw, 48px);
+  padding-right: clamp(22px, 2.5vw, 48px);
+}
+.studio[data-page="home"] .work__head { margin-bottom: 20px; text-align: left; }
+.studio[data-page="home"] .work__grid { gap: clamp(12px, 1.1vw, 20px); }
+.studio[data-page="home"] .work__item,
+.studio[data-page="home"] .work__name { text-align: left; }
+.studio[data-page="home"] .work__overlay { justify-content: flex-start; }
+
+/* Portrait and ultra-wide crop modes would cut off 16:9 footage.
+   Keep every thumbnail/inline video visible inside its intended frame.
+   The film-frame reveal and autoplay behavior remain unchanged. */
+.studio[data-page="home"] .work__item img,
+.studio[data-page="home"] .work__item .work__video {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+
+@media (min-width: 601px) {
+  .studio[data-page="home"] .work__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: calc(var(--cell, 480px) * .5625);
+    grid-auto-flow: row;
+  }
+  /* A single double-width feature keeps its full landscape aspect,
+     rather than fitting 16:9 footage inside an ultra-wide shallow slot. */
+  .studio[data-page="home"] .work__item:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .studio[data-page="home"] .work__item[data-vimeo="969668366"] {
+    grid-column: 1 / -1;
+    grid-row: span 2;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .studio[data-page="home"] .hero { min-height: 520px; }
+  .studio[data-page="home"] .hero__title {
+    font-size: clamp(48px, 7.5vw, 68px);
+    max-width: 18ch;
+  }
+  .studio[data-page="home"] .hero__intro { grid-column: 1 / 11; }
+  .studio[data-page="home"] .work__head,
+  .studio[data-page="home"] .work__grid { padding-inline: clamp(22px, 3.5vw, 36px); }
+}
+
+@media (max-width: 600px) {
+  .studio[data-page="home"] .hero {
+    min-height: 0;
+    padding-top: 116px;
+    padding-bottom: 70px;
+  }
+  .studio[data-page="home"] .hero__inner { row-gap: 19px; }
+  .studio[data-page="home"] .hero__title {
+    grid-column: 1;
+    max-width: 15ch;
+    font-size: clamp(37px, 9.45vw, 48px);
+    line-height: 1.02;
+    letter-spacing: -.034em;
+  }
+  .studio[data-page="home"] .hero__intro {
+    grid-column: 1;
+    max-width: 37ch;
+  }
+  .studio[data-page="home"] .hero__sub {
+    font-size: 16px;
+    line-height: 1.48;
+    max-width: 37ch;
+  }
+  .studio[data-page="home"] .work { padding-top: 14px; }
+  .studio[data-page="home"] .work__head,
+  .studio[data-page="home"] .work__grid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .studio[data-page="home"] .work__head { margin-bottom: 18px; }
+  .studio[data-page="home"] .work__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+    gap: 12px;
+  }
+  .studio[data-page="home"] .work__item:nth-child(n) {
+    grid-column: 1;
+    grid-row: auto;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+  .studio[data-page="home"] .work__overlay { padding: 16px; }
+  .studio[data-page="home"] .work__name { font-size: 15px; }
+}
