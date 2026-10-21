@@ -641,3 +641,58 @@
   .studio[data-page="home"] .work__name { font-size: 15px; }
 }
 
+
+
+/* ===== REEF HOME — EDITORIAL TYPE FINAL PASS =====
+   Tight three-tier hierarchy: statement / quiet explanation / portfolio heading.
+   Explicit home-scoped overrides, with the actual 400-weight Archivo file
+   instead of Safiro Medium (which had been used for both 400 and 600).
+   No changes to the cards, photography, navigation or later sections. */
+.studio[data-page="home"] .hero__sub {
+  font-family: 'Archivo', Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(18px, 1.5vw, 20px);
+  line-height: 1.5;
+  letter-spacing: -.012em;
+  color: #dfdfe1;
+  max-width: 48ch;
+}
+.studio[data-page="home"] .work__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.studio[data-page="home"] .work__head > .section-heading {
+  display: block;
+  width: 100%;
+  margin: 0;
+  font-family: 'Archivo', Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(24px, 1.9vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -.025em;
+  color: #f0f0f1;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .studio[data-page="home"] .hero__title {
+    font-size: clamp(40px, 10.2vw, 44px);
+    font-weight: 600;
+    line-height: 1.03;
+    letter-spacing: -.045em;
+  }
+  .studio[data-page="home"] .hero__inner { row-gap: 23px; }
+  .studio[data-page="home"] .hero__sub {
+    font-size: 17px;
+    line-height: 1.48;
+    max-width: 35ch;
+    font-weight: 400;
+  }
+  .studio[data-page="home"] .work__head > .section-heading {
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+}
