@@ -33,10 +33,10 @@ const WORK = [
 ];
 
 const CLIENTS = [
-  {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"Toyota",f:"toyota"},{n:"IKEA",f:"ikea"},
-  {n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},{n:"Red Bull",f:"redbull"},{n:"Volkswagen",f:"volkswagen"},
-  {n:"Danone",f:"danone"},{n:"Yandex",f:"yandex"},{n:"Burger King",f:"burgerking"},{n:"KIA",f:"kia"},
-  {n:"Lay's",f:"lays"},{n:"HBO",f:"hbo"},{n:"Kaspersky",f:"kaspersky"},{n:"BBDO",f:"bbdo"},
+  {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"HBO",f:"hbo"},{n:"Toyota",f:"toyota"},
+  {n:"Red Bull",f:"redbull"},{n:"IKEA",f:"ikea"},{n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},
+  {n:"Volkswagen",f:"volkswagen"},{n:"Danone",f:"danone"},{n:"Yandex",f:"yandex"},{n:"Burger King",f:"burgerking"},
+  {n:"KIA",f:"kia"},{n:"Lay's",f:"lays"},{n:"Kaspersky",f:"kaspersky"},{n:"BBDO",f:"bbdo"},
   {n:"TBWA",f:"tbwa"},{n:"McCann",f:"mccann"},{n:"Leo Burnett",f:"leoburnett"},
   {n:"Saatchi & Saatchi",f:"saatchi"},{n:"Grey",f:"grey"},{n:"Dentsu",f:"dentsu"},{n:"Havas",f:"havas"}
 ];
@@ -58,10 +58,11 @@ if(document.fonts && document.fonts.ready){
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const FEATURED_WORK = WORK.slice(0, 12);
+const FEATURED_WORK = WORK.slice(0, document.body.classList.contains('reef-v2') ? 3 : 12);
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
+  const descriptor = w.name.includes('|') ? w.name.split('|').slice(1).join('|').trim() : '';
   const ratio = w.ratio || 'wide';
   const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   return `
@@ -69,7 +70,7 @@ function workCard(w){
     <span class="work__reveal">
     <img src="${asset(w.img)}" alt="${label} — REEF Audio project still" loading="lazy">
     <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" muted loop playsinline preload="none" aria-hidden="true"></video>
-    <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${escape(label)}</span></span></div>
+    <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${escape(label)}</span></span>${descriptor ? `<span class="work__credit">${escape(descriptor)}</span>` : ``}</div>
     </span>
   </button>`;
 }
