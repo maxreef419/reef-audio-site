@@ -492,7 +492,7 @@
    self-hosted, OFL-licensed Archivo (400/500/600/700).
    ================================================================ */
 .studio {
-  --reef-grotesk: 'Archivo', Arial, sans-serif;
+  --reef-grotesk: 'Schibsted Grotesk', 'Archivo', Arial, sans-serif;
   --font-display: var(--reef-grotesk);
   --font-body: var(--reef-grotesk);
   font-family: var(--reef-grotesk);
@@ -576,10 +576,10 @@
   max-width: 16ch;
   margin: 0;
   font-family: var(--reef-grotesk);
-  font-size: clamp(66px, 6vw, 90px);
-  font-weight: 700;
-  line-height: .96;
-  letter-spacing: -.055em;
+  font-size: clamp(78px, 7.2vw, 108px);
+  font-weight: 800;
+  line-height: .94;
+  letter-spacing: -.063em;
   text-wrap: balance;
 }
 .studio[data-page="home"] .hero__intro {
@@ -620,10 +620,10 @@
   margin: 0;
   text-align: center;
   font-family: var(--reef-grotesk);
-  font-size: clamp(28px, 2.25vw, 34px);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -.035em;
+  font-size: clamp(27px, 2.25vw, 32px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.045em;
   color: #f2f2f2;
 }
 .studio[data-page="home"] .work__grid { gap: clamp(12px, 1.1vw, 20px); }
@@ -679,10 +679,10 @@
   .studio[data-page="home"] .hero__title {
     grid-column: 1;
     max-width: 15ch;
-    font-size: clamp(40px, 10.55vw, 46px);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -.053em;
+    font-size: clamp(42px, 10.9vw, 48px);
+    font-weight: 800;
+    line-height: .98;
+    letter-spacing: -.06em;
   }
   .studio[data-page="home"] .hero__intro {
     grid-column: 1;
@@ -690,8 +690,8 @@
   }
   .studio[data-page="home"] .hero__sub {
     font-size: 16px;
-    line-height: 1.5;
-    max-width: 36ch;
+    line-height: 1.52;
+    max-width: 34ch;
   }
   .studio[data-page="home"] .work { padding-top: 14px; }
   .studio[data-page="home"] .work__head,
@@ -701,8 +701,8 @@
   }
   .studio[data-page="home"] .work__head { margin-bottom: 20px; }
   .studio[data-page="home"] .work__head > .section-heading {
-    font-size: 25px;
-    line-height: 1.13;
+    font-size: 23px;
+    line-height: 1.14;
   }
   .studio[data-page="home"] .work__grid {
     grid-template-columns: minmax(0, 1fr);

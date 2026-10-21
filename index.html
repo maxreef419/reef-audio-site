@@ -46,8 +46,41 @@
 <link rel="stylesheet" href="styles.css?v=50" />
 <link rel="stylesheet" href="studio.css?v=16" />
 <link rel="stylesheet" href="capabilities.css?v=13" />
-<link rel="stylesheet" href="refinement.css?v=34" />
+<link rel="stylesheet" href="refinement.css?v=35" />
 <link rel="preload" as="font" type="font/ttf" href="assets/fonts/archivo-600.ttf" crossorigin />
+
+<!-- Critical typographic controls are embedded to avoid stale mobile CSS. -->
+<style id="reef-antfood-type-v35">
+body.studio { --reef-grotesk: 'Schibsted Grotesk', 'Archivo', Arial, sans-serif; --font-display:var(--reef-grotesk); --font-body:var(--reef-grotesk); font-family:var(--reef-grotesk); }
+body.studio[data-page="home"] .hero__title {
+  font-family:var(--reef-grotesk); font-size:clamp(78px,7.2vw,108px); font-weight:800;
+  line-height:.94; letter-spacing:-.063em;
+}
+body.studio[data-page="home"] .hero__sub {
+  font-family:var(--reef-grotesk); font-weight:400; font-size:clamp(17px,1.5vw,20px);
+  line-height:1.48; letter-spacing:-.012em;
+}
+body.studio[data-page="home"] .work__head {
+  display:flex; justify-content:center; text-align:center;
+}
+body.studio[data-page="home"] .work__head > .section-heading {
+  display:block; width:100%; margin:0; text-align:center;
+  font-family:var(--reef-grotesk); font-size:clamp(27px,2.25vw,32px);
+  font-weight:700; line-height:1.1; letter-spacing:-.045em;
+}
+@media(max-width:900px) and (min-width:601px) {
+  body.studio[data-page="home"] .hero__title {font-size:clamp(52px,7.3vw,67px);}
+}
+@media(max-width:600px) {
+  body.studio[data-page="home"] .hero__title {
+    font-size:clamp(42px,10.9vw,48px); line-height:.98; letter-spacing:-.06em;
+  }
+  body.studio[data-page="home"] .hero__sub {
+    font-size:16px; line-height:1.52; max-width:34ch;
+  }
+  body.studio[data-page="home"] .work__head > .section-heading {font-size:23px;line-height:1.14;}
+}
+</style>
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
