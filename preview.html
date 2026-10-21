@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>REEF / Instrument Sans — Private Design Review</title>
+<style>
+*{box-sizing:border-box}html{background:#121212;color:#f2f2f2;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;min-height:100vh}button,a{font:inherit}
+.toolbar{position:sticky;top:0;z-index:5;background:#171717;border-bottom:1px solid #313131;padding:14px clamp(14px,3vw,32px);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:750;letter-spacing:-.06em;font-size:20px;white-space:nowrap}
+.badge{font-size:11px;letter-spacing:.035em;color:#c0c0c0;border:1px solid #505050;border-radius:50px;padding:5px 9px}
+.spacer{flex:1}.tabs{display:flex;gap:5px;background:#292929;padding:4px;border-radius:30px}
+button{border:none;border-radius:24px;cursor:pointer;color:#f1f1f1;background:none;font-size:12px;padding:9px 14px}
+button[aria-pressed="true"]{background:#e7e7e7;color:#151515}
+select{background:#292929;color:white;border:1px solid #4a4a4a;border-radius:20px;padding:9px 15px;font-size:12px}
+#full{font-size:12px;border:1px solid #555;padding:10px 13px;border-radius:25px;color:#f1f1f1;text-decoration:none}
+.intro{max-width:950px;margin:22px auto 16px;padding:0 18px;color:#c3c3c3;font-size:13px;line-height:1.5}
+.stage{min-height:60vh;display:flex;justify-content:center;padding:12px 15px 60px;overflow:auto}
+.frame{width:390px;max-width:100%;border:1px solid #4a4a4a;border-radius:17px;overflow:hidden;background:#080808;box-shadow:0 18px 60px #000a;transition:width .25s}
+.frame.desktop{width:1440px;max-width:none;flex:none}
+.frame iframe{display:block;border:none;width:100%;height:1350px;background:#080808}
+.frame.desktop iframe{height:1900px}
+@media(max-width:650px){.toolbar{gap:9px;padding:11px 12px}.badge{display:none}.spacer{flex-basis:100%;height:0}.tabs{order:3}select{order:4}#full{order:5}.stage{justify-content:flex-start;padding:8px 12px 40px}.frame.desktop{width:1200px}.intro{margin-top:16px}}
+</style></head>
+<body>
+<header class="toolbar">
+ <span class="brand">REEF</span><span class="badge">INSTRUMENT SANS / CONCEPT</span><span class="badge">ISOLATED REVIEW — NOT LIVE</span>
+ <span class="spacer"></span>
+ <div class="tabs" role="group" aria-label="Device width"><button id="mobile" aria-pressed="true">Mobile · 390</button><button id="desktop" aria-pressed="false">Desktop · 1440</button></div>
+ <select id="page" aria-label="Page">
+  <option value="index.html">Home</option>
+  <option value="work/index.html">Work</option>
+  <option value="sfx/index.html">Sound Design</option>
+  <option value="animation/index.html">Animation</option>
+  <option value="yandex/index.html">Yandex</option>
+ </select>
+ <a id="full" href="index.html" target="_blank" rel="noopener">Open full page ↗</a>
+</header>
+<p class="intro">Private interactive review of the Instrument Sans design branch. Switch between mobile and desktop or open a page directly. No changes to the production site.</p>
+<main class="stage"><div id="frame" class="frame"><iframe id="site" title="REEF design preview" src="index.html" loading="eager"></iframe></div></main>
+<script>
+const frame=document.getElementById('frame'),site=document.getElementById('site'),page=document.getElementById('page'),full=document.getElementById('full');
+const mob=document.getElementById('mobile'),desk=document.getElementById('desktop');
+function device(mode){frame.classList.toggle('desktop',mode==='desktop');mob.setAttribute('aria-pressed',String(mode==='mobile'));desk.setAttribute('aria-pressed',String(mode==='desktop'))}
+mob.onclick=()=>device('mobile');desk.onclick=()=>device('desktop');
+function loadPage(path){site.src=path;full.href=path}page.addEventListener('change',()=>loadPage(page.value));
+device(window.matchMedia('(max-width:650px)').matches?'mobile':'desktop');
+site.addEventListener('load',()=>{try{
+ // Adapt root-absolute links to this immutable preview revision, not thereefaudio.com.
+ const doc=site.contentDocument;
+ const root=new URL('./',location.href);
+ doc.querySelectorAll('a[href^="/"]').forEach(a=>{const p=a.getAttribute('href');if(p&&!p.startsWith('//'))a.href=new URL(p.slice(1),root).href});
+ doc.querySelectorAll('img[src^="/"]').forEach(el=>{const p=el.getAttribute('src');if(p&&!p.startsWith('//'))el.src=new URL(p.slice(1),root).href});
+ }catch(e){}});
+</script></body></html>
