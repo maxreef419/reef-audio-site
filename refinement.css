@@ -620,3 +620,28 @@
   .studio[data-page="home"] .work__overlay { padding: 16px; }
   .studio[data-page="home"] .work__name { font-size: 15px; }
 }
+
+/* Homepage hierarchy refinement: centered work heading; quieter section title. */
+.studio[data-page="home"] .work__head {
+  justify-content: center;
+  text-align: center;
+}
+.studio[data-page="home"] .work__head .section-heading {
+  font-size: 32px;
+  line-height: 1.1;
+}
+.studio[data-page="home"] .hero__sub {
+  font-size: clamp(22px, 1.65vw, 24px);
+  line-height: 1.38;
+}
+@media (max-width: 600px) {
+  .studio[data-page="home"] .work__head {
+    justify-content: center;
+    text-align: center;
+  }
+  .studio[data-page="home"] .work__head .section-heading { font-size: 30px; }
+  .studio[data-page="home"] .hero__sub {
+    font-size: 22px;
+    line-height: 1.38;
+  }
+}
