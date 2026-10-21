@@ -48,6 +48,13 @@
 }
 .studio .hero__lead { grid-column: 8/-1; align-self: center; font-size: 15px; line-height: 1.45; max-width: 44ch; }
 .studio .work { padding-bottom: 72px; }
+@media (min-width: 1000px) {
+  .studio .work__head, .studio .work__grid {
+    max-width: 1720px;
+    padding-left: clamp(32px, 3.25vw, 52px);
+    padding-right: clamp(32px, 3.25vw, 52px);
+  }
+}
 /* Wider, more cinematic previews; one wide film and one portrait interrupt the pairs. */
 @media (min-width: 601px) {
   .studio .work__grid,
@@ -461,18 +468,6 @@
   background-size: 180px 180px; mix-blend-mode: soft-light;
   -webkit-mask-image: linear-gradient(180deg, transparent 8%, #000 28%, #000 72%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 8%, #000 28%, #000 72%, transparent 100%);
-}
-@media (min-width: 1000px) {
-  .studio .work__head, .studio .work__grid,
-  .studio .work-index__intro, .studio .work-categories, .studio .work-audio {
-    max-width: 1720px;
-    padding-left: clamp(40px, 4.5vw, 80px);
-    padding-right: clamp(40px, 4.5vw, 80px);
-  }
-  .studio .work__head, .studio .work__grid {
-    padding-left: clamp(32px, 3.25vw, 52px);
-    padding-right: clamp(32px, 3.25vw, 52px);
-  }
 }
 
 .studio .nav__social { display: flex; align-items: center; gap: 4px; }
