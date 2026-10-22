@@ -61,3 +61,13 @@ body.studio[data-page="home"] .selected-projects-title {
   body.studio[data-page="home"] .selected-projects-title,
   .hero__scroll-cue svg { animation: none; }
 }
+
+/* Focused reels share the homepage's immediate, gentle heading entrance. */
+body.subsite .hero .rv {
+  opacity: 1;
+  transform: none;
+  animation: reef-heading-arrive .45s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.subsite .hero .rv { animation: none; }
+}

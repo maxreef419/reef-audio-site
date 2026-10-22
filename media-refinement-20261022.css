@@ -26,9 +26,10 @@ body.subsite--grid .work__item .work__reveal > .work__video {
   max-width: none !important;
   max-height: none !important;
   object-fit: cover !important;
-  object-position: center !important;
+  object-position: var(--reef-poster-position, center) !important;
   backface-visibility: hidden;
 }
+body.subsite--grid .work__item[data-id="554243009"] .work__reveal > img,
 body.studio .work__item[data-vimeo="554243009"] .work__reveal > img,
 body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
   top: -17% !important;

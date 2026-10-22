@@ -219,8 +219,8 @@ body.lb-open{overflow:hidden}
 <link rel="stylesheet" href="../visual-refresh.css?v=20261022-2" />
 <meta name="theme-color" content="#2e2e2e" />
 <link rel="stylesheet" href="../reef-charcoal-20261022.css?v=graphite-3" />
-<link rel="stylesheet" href="/media-refinement-20261022.css?v=3" />
-<link rel="stylesheet" href="/surface-scroll-20261022.css?v=2" />
+<link rel="stylesheet" href="/media-refinement-20261022.css?v=4" />
+<link rel="stylesheet" href="/surface-scroll-20261022.css?v=3" />
 </head>
 <body class="studio subsite subsite--grid">
 
@@ -324,7 +324,7 @@ CLIPS.forEach((c, i) => {
   el.style.setProperty('--poster-hover', (zoom * 1.04).toFixed(3));
   el.innerHTML = `
     <span class="work__reveal">
-      <img src="${posterUrl(c)}" alt="${c.title} — REEF Audio project still" loading="lazy"${c.posterPos ? ` style="object-position:${c.posterPos}"` : ''}>
+      <img src="${posterUrl(c)}" alt="${c.title} — REEF Audio project still" loading="lazy"${c.posterPos ? ` style="--reef-poster-position:${c.posterPos}"` : ''}>
       <div class="work__overlay">
         <span class="work__name-mask"><span class="work__name">${c.title}</span></span>
       </div>
