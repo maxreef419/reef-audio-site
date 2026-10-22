@@ -73,7 +73,9 @@ body.studio[data-page="home"] .hero__media::before {
   width: 100%;
   z-index: 0;
   background: url("assets/hero-home-v4.jpg") 53% center / cover no-repeat;
-  filter: contrast(1.13) saturate(1.15);
+  filter: none; /* original photographic grading, no artificial contrast/saturation */
+  transform: scale(1.035); /* discreet framing zoom from the native 3200×1800 source */
+  transform-origin: center center;
   pointer-events: none;
 }
 body.studio[data-page="home"] .hero__media::after {
@@ -101,3 +103,46 @@ body.studio[data-page="home"] .work { background: transparent; }
   body.studio[data-page="home"] .hero__media::before { background-position: 58% center; }
 }
 /* Mobile rounded 12px cards, tile spacing, videos and typography are retained. */
+
+/* 22 October: Whole Foods has a visible encoded edge on some viewport widths.
+   Bleed and zoom both poster and autoplay preview (including on Work archive).
+   The item's existing rounded mask clips all extra pixels safely. */
+body.studio .work__item[data-vimeo="554243009"] :is(img, .work__video) {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+  transform: translateY(var(--pz,0px)) scale(1.10);
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* Original HERO color, restrained analog-film texture; unlike a raster filter,
+   the procedural grain doesn't flatten the original reds. Apply it over the
+   complete bleed into Selected projects, and fade the texture out at the bottom. */
+body.studio[data-page="home"] .hero::after {
+  inset: 0 0 calc(-1 * var(--reef-hero-bleed)) 0;
+  opacity: .15;
+  background-size: 128px 128px;
+  mix-blend-mode: soft-light;
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 16%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 16%, #000 70%, transparent 100%);
+}
+/* The last part of the gradient must match the graphite page exactly. */
+body.studio[data-page="home"] .hero__media::after {
+  background: linear-gradient(180deg,
+    rgba(46,46,46,.16) 0%,
+    rgba(46,46,46,.02) 22%,
+    transparent 51%,
+    rgba(46,46,46,.10) 67%,
+    rgba(46,46,46,.46) 80%,
+    rgba(46,46,46,.90) 95%,
+    #2e2e2e 100%);
+}
