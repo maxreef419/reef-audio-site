@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="styles.css?v=50" />
 <link rel="stylesheet" href="studio.css?v=16" />
 <link rel="stylesheet" href="capabilities.css?v=13" />
-<link rel="stylesheet" href="refinement.css?v=37" />
+<link rel="stylesheet" href="refinement.css?v=38" />
 <link rel="preload" as="font" type="font/ttf" href="assets/fonts/archivo-600.ttf" crossorigin />
 
 <!-- Critical typographic controls are embedded to avoid stale mobile CSS. -->
@@ -79,6 +79,30 @@ body.studio[data-page="home"] .work__head > .section-heading {
     font-size:16px; line-height:1.52; max-width:34ch;
   }
   body.studio[data-page="home"] .work__head > .section-heading {font-size:23px;line-height:1.14;}
+}
+</style>
+<!-- Embedded critical art direction so mobile Safari cannot reuse stale external CSS. -->
+<style id="reef-live-contrast-and-cards-v38">
+body.studio[data-page="home"] { --bg:#050505;--editorial:#050505;background:#050505 }
+body.studio[data-page="home"] .hero {background:#050505;overflow:hidden}
+body.studio[data-page="home"] .hero__media {
+  bottom:0;opacity:1;background-position:53% center;
+  filter:contrast(1.13) saturate(1.15);
+}
+body.studio[data-page="home"] .hero__media::before {display:none}
+body.studio[data-page="home"] .hero__media::after {
+  background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.025) 24%,transparent 50%,rgba(0,0,0,.14) 65%,rgba(0,0,0,.72) 92%,#050505 100%)
+}
+body.studio[data-page="home"] :is(.work,.clients,.about) {background:#050505}
+body.studio[data-page="home"] .work__grid {gap:clamp(8px,.8vw,12px)}
+body.studio[data-page="home"] .nav {background:rgba(5,5,5,.28)}
+body.studio[data-page="home"] .nav--scrolled {background:rgba(5,5,5,.90)}
+@media (max-width:600px) {
+  body.studio[data-page="home"] .work__grid {padding-inline:0;gap:2px}
+  body.studio[data-page="home"] .work__item,
+  body.studio[data-page="home"] .work__reveal {border-radius:0}
+  body.studio[data-page="home"] .work__reveal {clip-path:inset(88% 0 0 0)}
+  body.studio[data-page="home"] .work__item.in .work__reveal {clip-path:inset(0 0 0 0)}
 }
 </style>
 </head>
