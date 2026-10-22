@@ -46,7 +46,7 @@
 <link rel="stylesheet" href="styles.css?v=50" />
 <link rel="stylesheet" href="studio.css?v=16" />
 <link rel="stylesheet" href="capabilities.css?v=13" />
-<link rel="stylesheet" href="refinement.css?v=35" />
+<link rel="stylesheet" href="refinement.css?v=36" />
 <link rel="preload" as="font" type="font/ttf" href="assets/fonts/archivo-600.ttf" crossorigin />
 
 <!-- Critical typographic controls are embedded to avoid stale mobile CSS. -->
@@ -61,10 +61,10 @@ body.studio[data-page="home"] .hero__sub {
   line-height:1.48; letter-spacing:-.012em;
 }
 body.studio[data-page="home"] .work__head {
-  display:flex; justify-content:center; text-align:center;
+  display:flex; justify-content:flex-start; text-align:left;
 }
 body.studio[data-page="home"] .work__head > .section-heading {
-  display:block; width:100%; margin:0; text-align:center;
+  display:block; width:100%; margin:0; text-align:left;
   font-family:var(--reef-grotesk); font-size:clamp(27px,2.25vw,32px);
   font-weight:700; line-height:1.1; letter-spacing:-.045em;
 }
@@ -161,11 +161,11 @@ body.studio[data-page="home"] .work__head > .section-heading {
 <section class="clients" id="clients">
   <div class="clients__inner">
     <div class="clients__head">
-      <p class="eyebrow reveal">Selected clients</p>
+      <p class="eyebrow reveal">Highlighted clients</p>
     </div>
   </div>
   <div class="marquee" id="clientMarquee">
-    <div class="marquee__track" id="clientTrack" aria-label="Selected clients"></div>
+    <div class="marquee__track" id="clientTrack" aria-label="Highlighted clients"></div>
   </div>
 </section>
 
