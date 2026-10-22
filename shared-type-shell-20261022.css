@@ -1,0 +1,59 @@
+/* Shared production typography and navigation; loaded last on every page. */
+@font-face{font-family:Archivo;font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/archivo-400.ttf') format('truetype')}
+@font-face{font-family:Archivo;font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/archivo-600.ttf') format('truetype')}
+body.studio,body.subsite {
+ --reef-grotesk:'Schibsted Grotesk','Archivo',Arial,sans-serif;
+ --font-display:var(--reef-grotesk);--font-body:var(--reef-grotesk);
+ --studio-gutter:clamp(24px,7vw,112px);
+ font-family:var(--reef-grotesk);font-synthesis:none;
+}
+body :is(.nav,.menu,.footer,.foot,h1,h2,h3,.hero__sub,.work-index__lead,.work__name,.clip__title,.eyebrow) {
+ font-family:var(--reef-grotesk);
+}
+body.studio .nav__brief,body.studio .footer__start {
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:46px;padding:12px 22px;gap:12px;border-radius:999px;
+ font-family:var(--reef-grotesk);font-size:14px;font-weight:600;
+ line-height:1.2;letter-spacing:0;text-transform:none;white-space:nowrap;
+ background:#00aeef;color:#071c23;border:1px solid #00aeef;
+ transition:background .2s,color .2s,border-color .2s;
+}
+body.studio .nav__brief:hover,body.studio .footer__start:hover {
+ background:#71d7f5;color:#071c23;border-color:#71d7f5;
+}
+body.studio :is(.nav__brief,.footer__start):focus-visible {outline:2px solid #00aeef;outline-offset:5px}
+body.studio .nav__links {font-family:var(--reef-grotesk)}
+body.studio .nav__social {display:flex;align-items:center;gap:4px}
+body.studio .nav__links .nav__social-link {width:36px;justify-content:center}
+body.studio .nav__social-link svg {display:block;width:18px;height:18px}
+body.studio .nav__social-link:first-child svg {fill:currentColor}
+body.studio.subsite .hero h1,body.studio .work-index__title {
+ font-family:var(--reef-grotesk);font-size:clamp(46px,4.6vw,64px);
+ font-weight:700;line-height:.98;letter-spacing:-.048em;
+ text-transform:none;max-width:none;white-space:normal;
+}
+body.studio.subsite .hero h1 .cy {
+ background:none;color:inherit;-webkit-text-fill-color:currentColor;
+}
+body.studio.subsite .hero__sub,body.studio .work-index__lead {
+ font-family:var(--reef-grotesk);font-size:17px;font-weight:400;
+ line-height:1.48;letter-spacing:-.012em;max-width:43ch;margin-top:26px;
+}
+body.studio.subsite .hero .eyebrow {
+ font-family:var(--reef-grotesk);font-weight:500;font-size:13px;letter-spacing:.06em;
+}
+body.studio .work__name {font-family:var(--reef-grotesk);font-size:clamp(15px,1.15vw,17px);font-weight:500;line-height:1.2;letter-spacing:-.01em}
+body.studio .footer__title {
+ font-family:var(--reef-grotesk);font-size:clamp(36px,3.2vw,48px);
+ font-weight:600;line-height:1.08;letter-spacing:-.015em;
+}
+@media(max-width:600px){
+ body.studio .nav__brief,body.studio .footer__start{min-height:42px;padding:10px 16px;font-size:14px}
+ body.studio.subsite .hero h1,body.studio .work-index__title{font-size:clamp(36px,10.9vw,44px)}
+ body.studio.subsite .hero__sub,body.studio .work-index__lead{font-size:16px;line-height:1.52;max-width:34ch}
+ body.studio .work__name{font-size:15px}
+ body.studio .footer__title{font-size:32px}
+}
+/* Cinema reel keeps its player geometry; only its shell is shared. */
+body.studio.subsite--cinema .hero{min-height:0;display:block;overflow:visible}
+body.studio.subsite--cinema .hero::after{content:none}
