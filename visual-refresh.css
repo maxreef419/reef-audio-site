@@ -88,15 +88,15 @@ body.subsite--404 .nf__wall { opacity: .6; }
   body.subsite--grid .reel .work__item,
   body.studio[data-page="work"] .work__reveal,
   body.subsite--grid .reel .work__reveal {
-    border-radius: 0;
+    border-radius: 12px;
   }
   body.studio[data-page="work"] .work__reveal,
   body.subsite--grid .reel .work__reveal {
-    clip-path: inset(88% 0 0 0);
+    clip-path: inset(88% 0 0 0 round 12px);
   }
   body.studio[data-page="work"] .work__item.in .work__reveal,
   body.subsite--grid .reel .work__item.in .work__reveal {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0 round 12px);
   }
   body.subsite--grid .reel .work__item {
     grid-column: 1;
@@ -110,7 +110,7 @@ body.subsite--404 .nf__wall { opacity: .6; }
   }
   body.subsite--cinema .clip__frame {
     border: 0;
-    border-radius: 0;
+    border-radius: 12px;
   }
   body.subsite--cinema .clip__caption {
     padding-inline: 16px;

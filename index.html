@@ -82,7 +82,7 @@ body.studio[data-page="home"] .work__head > .section-heading {
 }
 </style>
 <!-- Embedded critical art direction so mobile Safari cannot reuse stale external CSS. -->
-<style id="reef-live-contrast-and-cards-v38">
+<style id="reef-live-contrast-and-cards-v39">
 body.studio[data-page="home"] { --bg:#050505;--editorial:#050505;background:#050505 }
 body.studio[data-page="home"] .hero {background:#050505;overflow:hidden}
 body.studio[data-page="home"] .hero__media {
@@ -100,9 +100,9 @@ body.studio[data-page="home"] .nav--scrolled {background:rgba(5,5,5,.90)}
 @media (max-width:600px) {
   body.studio[data-page="home"] .work__grid {padding-inline:0;gap:2px}
   body.studio[data-page="home"] .work__item,
-  body.studio[data-page="home"] .work__reveal {border-radius:0}
-  body.studio[data-page="home"] .work__reveal {clip-path:inset(88% 0 0 0)}
-  body.studio[data-page="home"] .work__item.in .work__reveal {clip-path:inset(0 0 0 0)}
+  body.studio[data-page="home"] .work__reveal {border-radius:12px}
+  body.studio[data-page="home"] .work__reveal {clip-path:inset(88% 0 0 0 round 12px)}
+  body.studio[data-page="home"] .work__item.in .work__reveal {clip-path:inset(0 0 0 0 round 12px)}
 }
 </style>
 </head>
