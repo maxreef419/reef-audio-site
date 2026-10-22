@@ -57,3 +57,67 @@ body.studio .footer__title {
 /* Cinema reel keeps its player geometry; only its shell is shared. */
 body.studio.subsite--cinema .hero{min-height:0;display:block;overflow:visible}
 body.studio.subsite--cinema .hero::after{content:none}
+
+/* One footer composition and content across the entire production site. */
+body.studio .footer {
+ padding:56px var(--studio-gutter) 28px;
+ min-height:min(760px,calc(100svh - 112px));
+ display:grid;grid-template-columns:minmax(0,1fr);
+ grid-template-rows:minmax(300px,1fr) auto;
+ justify-content:stretch;row-gap:28px;border:0;
+}
+body.studio .footer__wall {
+ background:radial-gradient(90% 80% at 78% 12%,rgba(0,174,239,.08),transparent 55%),
+ radial-gradient(80% 70% at 12% 92%,rgba(129,193,65,.06),transparent 60%),
+ linear-gradient(to bottom,rgba(20,20,20,.45),rgba(20,20,20,.24) 45%,rgba(20,20,20,.55)),
+ url('/assets/contact-bg-v2.jpg') center/cover no-repeat;
+}
+body.studio .footer__wall::after{background:radial-gradient(70% 90% at 50% 50%,rgba(20,20,20,.14),transparent 72%)}
+body.studio .footer__inner {
+ display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(240px,1fr) auto;
+ gap:56px;align-items:center;width:100%;max-width:1256px;margin:0 auto;padding:0;border:0;background:transparent;
+}
+body.studio .footer__cta {
+ display:flex;flex-direction:column;align-items:center;grid-column:1;grid-row:1;
+ justify-self:center;width:100%;max-width:560px;text-align:center;
+}
+body.studio .footer__title{justify-content:center;margin:0 0 18px}
+body.studio .footer__prompt{font-size:15px;font-weight:400;line-height:1.45;letter-spacing:0;margin:0 0 28px}
+body.studio .footer__start{align-self:center}
+body.studio .footer__start svg{width:16px;height:16px}
+body.studio .footer__side {
+ display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:32px;
+ grid-column:1;grid-row:2;min-height:0;padding:0;
+}
+body.studio .footer__nav{display:flex;flex-direction:row;align-items:center;gap:28px;margin:0;padding:0}
+body.studio .footer__nav a{font-size:14px;font-weight:500;line-height:1.5}
+body.studio .footer__social{align-self:center;margin:0;padding:0}
+body.studio .footer__bottom {
+ width:100%;max-width:1256px;margin:0 auto;padding:0;border:0;
+ display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:18px;
+}
+body.studio .footer__wordmark{font-family:var(--reef-grotesk);font-size:14px}
+body.studio .footer__meta{font-size:14px;line-height:1.5;max-width:none}
+body.studio .work__item,body.studio .work__reveal{border-radius:16px}
+body.studio .work__reveal{clip-path:inset(88% 0 0 0 round 16px)}
+body.studio .work__item.in .work__reveal{clip-path:inset(0 0 0 0 round 16px)}
+@media(max-width:760px){
+ body.studio .footer{min-height:68svh;padding:48px var(--studio-gutter) 28px;display:flex;flex-direction:column;justify-content:center;gap:0}
+ body.studio .footer__inner{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;gap:36px;align-items:stretch}
+ body.studio .footer__cta{align-items:flex-start;text-align:left;justify-self:start;max-width:none}
+ body.studio .footer__title{justify-content:flex-start;margin-bottom:22px}
+ body.studio .footer__prompt{font-size:14px;margin-bottom:30px}
+ body.studio .footer__start{align-self:flex-start}
+ body.studio .footer__side{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:28px}
+ body.studio .footer__nav{flex-direction:column;align-items:flex-start;gap:14px}
+ body.studio .footer__nav a{font-size:16px}
+ body.studio .footer__social{align-self:flex-start}
+ body.studio .footer__bottom{margin-top:48px;padding-top:24px;flex-direction:column;align-items:flex-start;gap:12px}
+ body.studio .footer__meta{font-size:13px}
+}
+@media(max-width:600px){
+ body.studio .work__item,body.studio .work__reveal{border-radius:12px}
+ body.studio .work__reveal{clip-path:inset(88% 0 0 0 round 12px)}
+ body.studio .work__item.in .work__reveal{clip-path:inset(0 0 0 0 round 12px)}
+}
+@media(prefers-reduced-motion:reduce){body.studio .work__reveal{clip-path:none}}
