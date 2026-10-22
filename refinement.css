@@ -597,8 +597,8 @@
   color: #dedee0;
 }
 
-/* Editorial portfolio heading remains centered as agreed.
-   Card geometry, reveal and frame content are unchanged. */
+/* Editorial portfolio heading aligns to the video-card/text grid.
+   Card geometry, reveal and frame content remain unchanged. */
 .studio[data-page="home"] .work { padding-top: 12px; }
 .studio[data-page="home"] .work__head,
 .studio[data-page="home"] .work__grid {
@@ -610,15 +610,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 22px;
-  text-align: center;
+  text-align: left;
 }
 .studio[data-page="home"] .work__head > .section-heading {
   display: block;
   width: 100%;
   margin: 0;
-  text-align: center;
+  text-align: left;
   font-family: var(--reef-grotesk);
   font-size: clamp(27px, 2.25vw, 32px);
   font-weight: 700;
