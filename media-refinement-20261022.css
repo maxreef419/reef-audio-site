@@ -1,10 +1,15 @@
 /* REEF production media system — 22 October 2026. */
-:root { --reef-video-gap: 12px; }
+:root { --reef-video-gap: 16px; }
 
-/* One spacing value for both axes, every breakpoint and every video gallery. */
+/* Equal gutters and gaps: one spacing value at every viewport width. */
 body.studio[data-page] .work__grid,
 body.subsite--grid .reel,
 body.subsite--cinema .reel {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none !important;
+  margin-inline: 0;
+  padding-inline: var(--reef-video-gap) !important;
   gap: var(--reef-video-gap) !important;
 }
 
@@ -52,4 +57,10 @@ body.studio[data-page="home"] .hero::after {
   body.studio[data-page="home"] .hero__media::before {
     background-image: url("/assets/hero-cinema-20261022-1920.jpg") !important;
   }
+}
+
+/* Keep the portfolio label aligned with its outer card edge. */
+body.studio[data-page="home"] .work__head {
+  max-width: none;
+  padding-inline: var(--reef-video-gap);
 }
