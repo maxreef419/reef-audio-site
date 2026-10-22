@@ -1,5 +1,5 @@
 /* REEF production media system — 22 October 2026. */
-:root { --reef-video-gap: 16px; }
+:root { --reef-video-gap: 12px; }
 
 /* One spacing value for both axes, every breakpoint and every video gallery. */
 body.studio[data-page] .work__grid,

@@ -42,7 +42,7 @@ body.studio[data-page="home"] .selected-projects-title {
   width: 16px;
   height: 32px;
   stroke-width: 1;
-  animation: reef-scroll-hint 2.8s ease-in-out 3;
+  animation: reef-scroll-hint 2.8s ease-in-out infinite;
 }
 .hero__scroll-cue:hover { color: #fff; }
 .hero__scroll-cue:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; border-radius: 4px; }
