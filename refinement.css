@@ -722,3 +722,65 @@
   .studio .capability p { font-size: 14px; }
   .studio .footer__title { font-size: 32px; }
 }
+
+
+/* Oct 22 / Live home art direction: cinematic red hero, clean black canvas,
+   edge-to-edge mobile work reel. Other pages and typography are untouched. */
+.studio[data-page="home"] {
+  --bg: #050505;
+  --editorial: #050505;
+  background: #050505;
+}
+.studio[data-page="home"] .nav {
+  background: rgba(5, 5, 5, .28);
+}
+.studio[data-page="home"] .nav--scrolled {
+  background: rgba(5, 5, 5, .90);
+}
+.studio[data-page="home"] .hero {
+  background: #050505;
+  overflow: hidden;
+}
+.studio[data-page="home"] .hero__media {
+  bottom: 0;
+  opacity: 1;
+  background-position: 53% center;
+}
+.studio[data-page="home"] .hero__media::before {
+  display: none;
+}
+.studio[data-page="home"] .hero__media::after {
+  background: linear-gradient(180deg,
+    rgba(0,0,0,.42) 0%,
+    rgba(0,0,0,.03) 23%,
+    rgba(0,0,0,0) 49%,
+    rgba(0,0,0,.14) 64%,
+    rgba(0,0,0,.66) 91%,
+    #050505 100%);
+}
+.studio[data-page="home"] .work,
+.studio[data-page="home"] .clients,
+.studio[data-page="home"] .about {
+  background: #050505;
+}
+/* Make the cards feel like an image-led reel, not separated UI tiles. */
+.studio[data-page="home"] .work__grid {
+  gap: clamp(8px, .8vw, 12px);
+}
+@media (max-width: 600px) {
+  .studio[data-page="home"] .work__grid {
+    padding-left: 0;
+    padding-right: 0;
+    gap: 2px;
+  }
+  .studio[data-page="home"] .work__item,
+  .studio[data-page="home"] .work__reveal {
+    border-radius: 0;
+  }
+  .studio[data-page="home"] .work__reveal {
+    clip-path: inset(88% 0 0 0);
+  }
+  .studio[data-page="home"] .work__item.in .work__reveal {
+    clip-path: inset(0 0 0 0);
+  }
+}
