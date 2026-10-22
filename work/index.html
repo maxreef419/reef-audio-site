@@ -32,6 +32,25 @@
 <link rel="preload" as="font" type="font/ttf" href="../assets/fonts/archivo-600.ttf" crossorigin />
 <link rel="stylesheet" href="../visual-refresh.css?v=20261022-2" />
 <link rel="stylesheet" href="../reef-charcoal-20261022.css?v=hero-grain-4" />
+<meta name="reef-visual-revision" content="wfhero-r2-20261022" />
+<style id="reef-wholefoods-r2">
+/* Whole Foods: crop source-encoded border pixels using layout dimensions, not
+   transform. Works even with iOS Reduce Motion (which forces transform:none). */
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > img,
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
+  top: -8% !important;
+  left: -8% !important;
+  width: 116% !important;
+  height: 116% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transform: none !important;
+  backface-visibility: hidden;
+}
+
+</style>
 </head>
 <body class="studio" data-page="work" data-asset-root="../">
 

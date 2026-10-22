@@ -106,6 +106,63 @@ body.studio[data-page="home"] .nav--scrolled {background:rgba(5,5,5,.90)}
 }
 </style>
 <link rel="stylesheet" href="reef-charcoal-20261022.css?v=hero-grain-4" />
+<meta name="reef-visual-revision" content="wfhero-r2-20261022" />
+<style id="reef-hero-wholefoods-r2">
+/* Whole Foods: crop source-encoded border pixels using layout dimensions, not
+   transform. Works even with iOS Reduce Motion (which forces transform:none). */
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > img,
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
+  top: -8% !important;
+  left: -8% !important;
+  width: 116% !important;
+  height: 116% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transform: none !important;
+  backface-visibility: hidden;
+}
+
+/* Original source image, no added color-grade, and a continuous fade into gray. */
+body.studio[data-page="home"] .hero__media,
+body.studio[data-page="home"] .hero__media::before {
+  filter: none !important;
+}
+body.studio[data-page="home"] .hero__media::before {
+  transform: none !important;
+  background-image: url("assets/hero-home-v4.jpg") !important;
+  background-size: cover !important;
+}
+body.studio[data-page="home"] .hero__media::after {
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,.14) 0%,
+    transparent 19%,
+    transparent 54%,
+    rgba(46,46,46,.11) 68%,
+    rgba(46,46,46,.53) 86%,
+    #2e2e2e 100%) !important;
+}
+/* A separate, clearly visible but fine-grained overlay. Grain runs down with
+   the photograph into the Selected projects fade, not over the whole page. */
+body.studio[data-page="home"] .hero::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 0 calc(-1 * var(--reef-hero-bleed,235px)) 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background-image: url("assets/reef-film-grain.svg") !important;
+  background-size: 168px 168px !important;
+  background-repeat: repeat !important;
+  opacity: .32 !important;
+  mix-blend-mode: soft-light !important;
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 13%, #000 78%, transparent 100%) !important;
+  mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 13%, #000 78%, transparent 100%) !important;
+}
+
+</style>
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
