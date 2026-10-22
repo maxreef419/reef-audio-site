@@ -1,81 +1,103 @@
-/* REEF | Brand palette from Sean Heisler's "Logo Refinements" reference.
-   Cover: #221F20 (34,31,32). Option slide: #2E2E2D (46,46,45).
-   This is a visual-only production override: no type, layout, or media changes. */
+/* REEF | Neutral graphite palette, sampled from the user's REEF logo reference:
+   RGB (46,46,46) / #2e2e2e. UI backgrounds exclusively use its grayscale tones. */
 :root {
-  --reef-charcoal: #221f20;
-  --reef-charcoal-secondary: #2e2e2d;
+  --reef-gray: #2e2e2e;
+  --reef-gray-deep: #292929;
+  --reef-gray-raised: #363636;
+  --reef-gray-light: #3b3b3b;
 }
-html { background-color: var(--reef-charcoal); }
+html { background-color: var(--reef-gray); }
 body.studio[data-page="home"],
 body.studio[data-page="work"],
 body.subsite {
-  --bg: var(--reef-charcoal);
-  --bg-2: var(--reef-charcoal-secondary);
-  --bg-3: var(--reef-charcoal-secondary);
-  --editorial: var(--reef-charcoal-secondary);
-  background-color: var(--reef-charcoal);
+  --bg: var(--reef-gray);
+  --bg-2: var(--reef-gray-deep);
+  --bg-3: var(--reef-gray-raised);
+  --editorial: var(--reef-gray-raised);
+  --surface: var(--reef-gray-raised);
+  background: var(--reef-gray);
 }
-/* Homepage: a seamless photo-to-charcoal transition, then a second charcoal
-   surface for the editorial / About chapter. Keep hero image contrast intact. */
 body.studio[data-page="home"] .hero,
-body.studio[data-page="home"] .work,
-body.studio[data-page="home"] .clients {
-  background-color: var(--reef-charcoal);
-}
-body.studio[data-page="home"] .about {
-  background-color: var(--reef-charcoal-secondary);
-}
-body.studio[data-page="home"] .hero__media::after {
-  background: linear-gradient(180deg,
-    rgba(0,0,0,.42) 0%,
-    rgba(0,0,0,.025) 24%,
-    transparent 50%,
-    rgba(0,0,0,.14) 65%,
-    rgba(34,31,32,.72) 92%,
-    var(--reef-charcoal) 100%);
-}
-body.studio[data-page="home"] .hero__media::before { display:none; }
-body.studio[data-page="home"] .nav {
-  background-color: rgba(34,31,32,.28);
-}
-body.studio[data-page="home"] .nav--scrolled {
-  background-color: rgba(34,31,32,.93);
-}
-body.studio[data-page="home"] .footer {
-  background-color: var(--reef-charcoal-secondary);
-}
-/* Work archive: preserve tabs, player controls and the tight rounded tiles. */
-body.studio[data-page="work"] :is(.work,.work--index,.work-panel,.work-categories,.work-audio) {
-  background-color: var(--reef-charcoal);
-}
-body.studio[data-page="work"] .nav {
-  background-color: rgba(34,31,32,.94);
-}
-/* Focused sub-sites: same palette, typography and media treatment. */
-body.subsite :is(.hero,.reel,.nf,.nf__main,.sl-hero,.sl-list-wrap) {
-  background-color: var(--reef-charcoal);
-}
+body.studio[data-page="home"] .clients,
+body.studio[data-page="work"] :is(.work,.work--index,.work-panel,.work-categories,.work-audio),
+body.subsite :is(.hero,.reel,.nf,.nf__main,.sl-hero,.sl-list-wrap),
 body.subsite.subsite--grid .reel,
 body.subsite.subsite--cinema .reel {
-  background-color: var(--reef-charcoal);
+  background-color: var(--reef-gray);
 }
+body.studio[data-page="home"] .about,
+body.studio[data-page="home"] .footer,
 body.subsite :is(.foot,.footer) {
-  background-color: var(--reef-charcoal-secondary);
+  background-color: var(--reef-gray-deep);
 }
-body.subsite :is(.nav,.hdr,.sl-top) {
-  background: rgba(34,31,32,.94);
-}
-body.subsite .footer__wall {
-  background-color: var(--reef-charcoal-secondary);
-}
-/* Navigation overlay & temporary empty tiles use the secondary surface.
-   Video interiors and image content are deliberately left untouched. */
 body.studio[data-page="home"] .menu,
 body.studio[data-page="work"] .menu,
-body.subsite .menu {
-  background-color: var(--reef-charcoal-secondary);
-}
+body.subsite .menu { background: var(--reef-gray-deep); }
+body.studio[data-page="home"] .nav { background: rgba(46,46,46,.23); }
+body.studio[data-page="home"] .nav--scrolled,
+body.studio[data-page="work"] .nav,
+body.subsite :is(.nav,.hdr,.sl-top) { background: rgba(46,46,46,.94); }
+body.subsite .footer__wall { background-color: var(--reef-gray-deep); }
 body.studio[data-page="work"] .work__item,
-body.subsite--grid .reel .work__item {
-  background-color: var(--reef-charcoal-secondary);
+body.subsite--grid .reel .work__item { background-color: var(--reef-gray-raised); }
+
+/* Hero photograph now flows through the Selected projects heading and dies away
+   beneath the first portfolio frames. No hard bottom boundary. */
+body.studio[data-page="home"] .hero {
+  --reef-hero-bleed: clamp(230px,23vw,350px);
+  position: relative;
+  overflow: visible;
+  background: var(--reef-gray);
 }
+body.studio[data-page="home"] .hero__media {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: calc(-1 * var(--reef-hero-bleed));
+  left: 0;
+  background-image: none;
+  filter: none;
+  opacity: 1;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Photograph and fade use separate layers so photo contrast does not shift
+   the final gray swatch. This prevents a visible seam at the fade's end. */
+body.studio[data-page="home"] .hero__media::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  background: url("assets/hero-home-v4.jpg") 53% center / cover no-repeat;
+  filter: contrast(1.13) saturate(1.15);
+  pointer-events: none;
+}
+body.studio[data-page="home"] .hero__media::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg,
+    rgba(32,32,32,.32) 0%,
+    rgba(46,46,46,.025) 23%,
+    transparent 50%,
+    rgba(46,46,46,.10) 63%,
+    rgba(46,46,46,.46) 79%,
+    rgba(46,46,46,.88) 94%,
+    #2e2e2e 100%);
+  pointer-events: none;
+}
+body.studio[data-page="home"] .work { background: transparent; }
+@media (max-width: 900px) {
+  body.studio[data-page="home"] .hero { --reef-hero-bleed: 270px; }
+}
+@media (max-width: 600px) {
+  body.studio[data-page="home"] .hero { --reef-hero-bleed: 235px; }
+  body.studio[data-page="home"] .hero__media::before { background-position: 58% center; }
+}
+/* Mobile rounded 12px cards, tile spacing, videos and typography are retained. */
