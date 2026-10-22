@@ -1,0 +1,63 @@
+/* One neutral gray across sections and reveal placeholders. */
+:root {
+  --reef-gray: #2e2e2e;
+  --reef-gray-deep: #2e2e2e;
+  --reef-gray-raised: #2e2e2e;
+  --reef-gray-light: #2e2e2e;
+}
+body.studio .work__item,
+body.subsite .work__item,
+body.subsite .clip,
+body.subsite .clip__frame {
+  background-color: #2e2e2e !important;
+}
+body.studio .work__reveal,
+body.subsite .work__reveal {
+  background: transparent;
+}
+/* Present from first paint, independent of the first card's scroll observer. */
+body.studio[data-page="home"] .selected-projects-title {
+  opacity: 1;
+  transform: none;
+  animation: reef-heading-arrive .45s ease-out both;
+}
+@keyframes reef-heading-arrive {
+  from { opacity: .65; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero__scroll-cue {
+  position: absolute;
+  z-index: 3;
+  bottom: 12px;
+  left: 50%;
+  margin-left: -22px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+}
+.hero__scroll-cue svg {
+  width: 16px;
+  height: 32px;
+  stroke-width: 1;
+  animation: reef-scroll-hint 2.8s ease-in-out 3;
+}
+.hero__scroll-cue:hover { color: #fff; }
+.hero__scroll-cue:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; border-radius: 4px; }
+@keyframes reef-scroll-hint {
+  0%,100% { transform: translateY(-3px); opacity: .55; }
+  50% { transform: translateY(3px); opacity: .95; }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  body.studio[data-page="home"] .hero {
+    min-height: clamp(490px, 70svh, 560px);
+    padding-bottom: 72px;
+  }
+  body.studio[data-page="home"] .work { padding-top: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.studio[data-page="home"] .selected-projects-title,
+  .hero__scroll-cue svg { animation: none; }
+}
