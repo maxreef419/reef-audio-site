@@ -1,0 +1,118 @@
+/* REEF | Live subpages visual alignment — 22 Oct 2026.
+   Shares the production homepage's black canvas, punchier artwork,
+   and tighter image-led reels without importing the experimental design branch. */
+
+/* All subpages use one deep-black base, including mobile overscroll. */
+html { background: #050505; }
+body.studio[data-page="work"],
+body.subsite {
+  --bg: #050505;
+  --bg-2: #050505;
+  --bg-3: #0d0d0d;
+  --editorial: #050505;
+  --surface: #111;
+  background: #050505;
+}
+
+/* Eliminate the old charcoal section seams. */
+body.studio[data-page="work"] :is(.work, .work--index, .work-panel, .work-categories, .work-audio),
+body.subsite :is(.hero, .reel, .foot, .footer, .nf, .nf__main) {
+  background-color: #050505;
+}
+body.subsite.subsite--grid .reel,
+body.subsite.subsite--cinema .reel {
+  background: #050505;
+}
+body.studio[data-page="work"] .nav,
+body.subsite .nav,
+body.subsite .hdr {
+  background: rgba(5,5,5,.88);
+  border-color: rgba(255,255,255,.09);
+}
+body.subsite .footer__wall { background-color: #050505; }
+
+/* Work archive: preserve filters, lightbox and audio player behavior. */
+body.studio[data-page="work"] .work__grid {
+  max-width: 1880px;
+  padding-inline: clamp(22px,2.5vw,48px);
+  gap: clamp(8px,.8vw,12px);
+}
+body.studio[data-page="work"] .work-index__intro,
+body.studio[data-page="work"] .work-categories {
+  max-width: 1880px;
+  padding-inline: clamp(22px,2.5vw,48px);
+}
+body.studio[data-page="work"] .work__item img {
+  filter: contrast(1.11) saturate(1.10);
+}
+
+/* Animation and Yandex: a tighter poster grid, not separated interface tiles. */
+body.subsite--grid .reel {
+  max-width: 1880px;
+  padding-inline: clamp(22px,2.5vw,48px);
+  gap: clamp(8px,.8vw,12px);
+}
+body.subsite--grid .reel .work__item img {
+  filter: contrast(1.11) saturate(1.10);
+}
+
+/* SFX has captions below each player, so keep enough rhythm to read them. */
+body.subsite--cinema .reel {
+  max-width: 1760px;
+  padding-inline: clamp(22px,2.5vw,48px);
+  gap: clamp(28px,4vw,54px);
+}
+body.subsite--cinema .clip { gap: 13px; }
+body.subsite--cinema .clip__frame {
+  border-color: transparent;
+  box-shadow: none;
+}
+body.subsite--cinema .clip__frame::before {
+  filter: contrast(1.13) saturate(1.12);
+}
+body.subsite--404 .nf__wall { opacity: .6; }
+
+/* On phones, the video galleries continue flush to the screen edges.
+   Section headings and navigation retain their readable 16px gutters. */
+@media (max-width: 600px) {
+  body.studio[data-page="work"] .work-index__intro,
+  body.studio[data-page="work"] .work-categories {
+    padding-inline: 16px;
+  }
+  body.studio[data-page="work"] .work__grid,
+  body.subsite--grid .reel {
+    padding-inline: 0;
+    gap: 2px;
+  }
+  body.studio[data-page="work"] .work__item,
+  body.subsite--grid .reel .work__item,
+  body.studio[data-page="work"] .work__reveal,
+  body.subsite--grid .reel .work__reveal {
+    border-radius: 0;
+  }
+  body.studio[data-page="work"] .work__reveal,
+  body.subsite--grid .reel .work__reveal {
+    clip-path: inset(88% 0 0 0);
+  }
+  body.studio[data-page="work"] .work__item.in .work__reveal,
+  body.subsite--grid .reel .work__item.in .work__reveal {
+    clip-path: inset(0 0 0 0);
+  }
+  body.subsite--grid .reel .work__item {
+    grid-column: 1;
+    grid-row: auto;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+  body.subsite--cinema .reel {
+    padding-inline: 0;
+    gap: 28px;
+  }
+  body.subsite--cinema .clip__frame {
+    border: 0;
+    border-radius: 0;
+  }
+  body.subsite--cinema .clip__caption {
+    padding-inline: 16px;
+  }
+}
