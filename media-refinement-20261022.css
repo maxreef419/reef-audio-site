@@ -1,0 +1,55 @@
+/* REEF production media system — 22 October 2026. */
+:root { --reef-video-gap: 16px; }
+
+/* One spacing value for both axes, every breakpoint and every video gallery. */
+body.studio[data-page] .work__grid,
+body.subsite--grid .reel,
+body.subsite--cinema .reel {
+  gap: var(--reef-video-gap) !important;
+}
+
+/* Crop encoded edge artifacts with real dimensions, including reduced motion.
+   Vertical overscan also covers the existing 14px scroll parallax. */
+body.studio .work__item .work__reveal > img,
+body.studio .work__item .work__reveal > .work__video,
+body.subsite--grid .work__item .work__reveal > img,
+body.subsite--grid .work__item .work__reveal > .work__video {
+  top: calc(-6% - 16px) !important;
+  left: -6% !important;
+  width: 112% !important;
+  height: calc(112% + 32px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  backface-visibility: hidden;
+}
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > img,
+body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
+  top: -17% !important;
+  left: -17% !important;
+  width: 134% !important;
+  height: 134% !important;
+}
+
+/* SFX poster thumbnails only; the full player keeps all of its controls. */
+body.subsite--cinema .clip__frame::before {
+  inset: -6%;
+}
+
+/* Color and texture are prepared in the new image asset. Keep the existing
+   continuous graphite fade, independent of the photograph's color grade. */
+body.studio[data-page="home"] .hero__media::before {
+  background-image: url("/assets/hero-cinema-20261022-3840.jpg") !important;
+  filter: none !important;
+  transform: none !important;
+}
+body.studio[data-page="home"] .hero::after {
+  opacity: .16 !important;
+  background-size: 168px 168px !important;
+}
+@media (max-width: 600px) {
+  body.studio[data-page="home"] .hero__media::before {
+    background-image: url("/assets/hero-cinema-20261022-1920.jpg") !important;
+  }
+}
