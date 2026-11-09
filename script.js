@@ -378,7 +378,8 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
       entry.target.classList.add('in');
       capabilityIO.unobserve(entry.target);
     });
-  }, { threshold: .16, rootMargin: '0px 0px -50px 0px' });
+  // The initial clip exposes only 12% of a card; observe before that limit.
+  }, { threshold: .01, rootMargin: '0px 0px -50px 0px' });
 
   cards.forEach(card => capabilityIO.observe(card));
 })();
