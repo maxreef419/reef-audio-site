@@ -176,12 +176,12 @@ body.studio[data-page="home"] .hero__sub {
   text-shadow: 0 .5px 1px rgba(0, 0, 0, .12);
 }
 </style>
-<style id="reef-about-editorial-v2">
+<style id="reef-about-editorial-v3">
 /* Approved studio introduction only. Capability cards retain their existing styles. */
 body.studio[data-page="home"] .about__body--editorial {
-  width:100%;max-width:1600px;margin:0 auto;
-  padding:0 clamp(20px,4.5vw,80px);display:flex;flex-direction:column;
-  gap:48px;text-align:left;align-items:stretch;
+  width:100%;max-width:var(--studio-width);margin:0 auto;
+  padding:0 var(--studio-gutter);display:flex;flex-direction:column;
+  gap:40px;text-align:left;align-items:stretch;
 }
 body.studio[data-page="home"] .about__body--editorial .about__lead {
   font-family:'Safiro','Archivo',sans-serif;font-size:clamp(44px,5.3vw,76px);
@@ -190,7 +190,7 @@ body.studio[data-page="home"] .about__body--editorial .about__lead {
 }
 body.studio[data-page="home"] .about__body--editorial .about__copy {
   width:100%;max-width:none;display:grid;grid-template-columns:5fr 7fr;
-  gap:clamp(40px,7vw,112px);padding:0;border:0;margin:0;
+  gap:clamp(32px,5vw,80px);padding:0;border:0;margin:0;
   font-family:'Archivo',sans-serif;opacity:1;transform:none;text-align:left;
 }
 body.studio[data-page="home"] .about__body--editorial .about__copy p {
@@ -207,10 +207,12 @@ body.studio[data-page="home"] .about__body--editorial .namelink {
   color:#f4f6f6;text-decoration:underline;text-underline-offset:4px;
   text-decoration-color:#777;
 }
+body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
 @media(max-width:1000px) {
-  body.studio[data-page="home"] .about__body--editorial .about__copy {gap:40px}
+  body.studio[data-page="home"] .about__body--editorial .about__copy {gap:32px}
 }
 @media(max-width:760px) {
+  body.studio[data-page="home"] .about--editorial > .services {margin-top:40px}
   body.studio[data-page="home"] .about__body--editorial {gap:28px}
   body.studio[data-page="home"] .about__body--editorial .about__lead {font-size:40px;max-width:19ch}
   body.studio[data-page="home"] .about__body--editorial .about__copy {grid-template-columns:1fr;gap:24px}
@@ -310,7 +312,7 @@ body.studio[data-page="home"] .about__body--editorial .namelink {
 </section>
 
 <!-- ===== ABOUT ===== -->
-<section class="about" id="about" aria-labelledby="about-title">
+<section class="about about--editorial" id="about" aria-labelledby="about-title">
   <div class="about__body about__body--editorial">
     <h2 class="about__lead" id="about-title">Built on both sides of the brief.</h2>
     <div class="about__copy">
@@ -415,6 +417,6 @@ body.studio[data-page="home"] .about__body--editorial .namelink {
   </div>
 </div>
 
-<script src="script.js?v=62"></script>
+<script src="script.js?v=64"></script>
 </body>
 </html>
