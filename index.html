@@ -176,6 +176,48 @@ body.studio[data-page="home"] .hero__sub {
   text-shadow: 0 .5px 1px rgba(0, 0, 0, .12);
 }
 </style>
+<style id="reef-about-editorial-v1">
+/* Approved studio introduction only. Capability cards retain their existing styles. */
+body.studio[data-page="home"] .about__body--editorial {
+  width:100%;max-width:1600px;margin:0 auto;
+  padding:0 clamp(20px,4.5vw,80px);display:flex;flex-direction:column;
+  gap:48px;text-align:left;align-items:stretch;
+}
+body.studio[data-page="home"] .about__body--editorial .about__lead {
+  font-family:'Safiro','Archivo',sans-serif;font-size:clamp(44px,5.3vw,76px);
+  font-weight:500;line-height:1.06;letter-spacing:-.035em;
+  max-width:19ch;margin:0;opacity:1;transform:none;text-wrap:balance;
+}
+body.studio[data-page="home"] .about__body--editorial .about__copy {
+  width:100%;max-width:none;display:grid;grid-template-columns:5fr 7fr;
+  gap:clamp(40px,7vw,112px);padding:0;border:0;margin:0;
+  font-family:'Archivo',sans-serif;opacity:1;transform:none;text-align:left;
+}
+body.studio[data-page="home"] .about__body--editorial .about__copy p {
+  font-family:'Archivo',sans-serif;font-size:16px;font-weight:400;
+  line-height:1.65;color:#c0c3c3;max-width:none;margin:0;
+}
+body.studio[data-page="home"] .about__body--editorial .about__copy .about__founder {
+  font-size:22px;line-height:1.45;color:#f4f6f6;max-width:29ch;
+}
+body.studio[data-page="home"] .about__body--editorial .about__detail {
+  display:flex;flex-direction:column;gap:20px;max-width:65ch;
+}
+body.studio[data-page="home"] .about__body--editorial .namelink {
+  color:#f4f6f6;text-decoration:underline;text-underline-offset:4px;
+  text-decoration-color:#777;
+}
+@media(max-width:1000px) {
+  body.studio[data-page="home"] .about__body--editorial .about__copy {gap:40px}
+}
+@media(max-width:760px) {
+  body.studio[data-page="home"] .about__body--editorial {gap:28px}
+  body.studio[data-page="home"] .about__body--editorial .about__lead {font-size:40px;max-width:19ch}
+  body.studio[data-page="home"] .about__body--editorial .about__copy {grid-template-columns:1fr;gap:24px}
+  body.studio[data-page="home"] .about__body--editorial .about__copy p {font-size:15px}
+  body.studio[data-page="home"] .about__body--editorial .about__copy .about__founder {font-size:20px;max-width:29ch}
+}
+</style>
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
@@ -269,11 +311,14 @@ body.studio[data-page="home"] .hero__sub {
 
 <!-- ===== ABOUT ===== -->
 <section class="about" id="about" aria-labelledby="about-title">
-  <div class="about__body">
-    <h2 class="about__lead reveal" id="about-title">Built on both sides of the brief.</h2>
-    <div class="about__copy reveal">
-      <div><p>REEF is led by award-winning composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></a>.</p><p>Twenty years in music and advertising. Ten inside Leo Burnett, Saatchi &amp; Saatchi and Grey — experience that helps us carry an idea through production and approvals without losing what makes it work.</p></div>
-      <div><p>Each brief brings together a trusted circle of producers, musicians, vocalists, sound designers and engineers, with one clear creative direction from first idea to final master.</p></div>
+  <div class="about__body about__body--editorial">
+    <h2 class="about__lead" id="about-title">Built on both sides of the brief.</h2>
+    <div class="about__copy">
+      <p class="about__founder">REEF is led by award-winning composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>.</p>
+      <div class="about__detail">
+        <p>Twenty years in music and advertising. Ten inside Leo Burnett, Saatchi &amp; Saatchi and Grey — experience that helps us carry an idea through production and approvals without losing what makes it work.</p>
+        <p>Each brief brings together a trusted circle of producers, musicians, vocalists, sound designers and engineers, with one clear creative direction from first idea to final master.</p>
+      </div>
     </div>
   </div>
 
