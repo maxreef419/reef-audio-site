@@ -220,6 +220,44 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
   body.studio[data-page="home"] .about__body--editorial .about__copy .about__founder {font-size:20px;max-width:29ch}
 }
 </style>
+<style id="reef-home-refinements-20261114">
+/* Keep the established framing; give the opening copy a little more room. */
+body.studio[data-page="home"] .hero__inner { margin-top: 32px; }
+body.studio[data-page="home"] .brand__logo { height: 44px; width: auto; }
+body.studio[data-page="home"] .capability__number {
+  display: block; margin-bottom: 16px; color: #71d7f5;
+  font-size: 14px; font-weight: 500; line-height: 1.4;
+  font-variant-numeric: tabular-nums; letter-spacing: .04em;
+}
+/* Two lines enter like opening titles, then the supporting copy follows.
+   Text is visible by default, even when JavaScript is unavailable. */
+body.studio[data-page="home"] .hero__line {
+  display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em;
+}
+body.studio[data-page="home"] .hero__line-inner { display: block; }
+body.studio[data-page="home"] .hero__sub { opacity: 1; transform: none; transition: none; }
+@media (prefers-reduced-motion: no-preference) {
+  body.studio[data-page="home"] #hero.in .hero__line-inner {
+    animation: reef-text-arrive .75s cubic-bezier(.16,1,.3,1) both;
+  }
+  body.studio[data-page="home"] #hero.in .hero__line:nth-child(2) .hero__line-inner { animation-delay: .1s; }
+  body.studio[data-page="home"] #hero.in .hero__sub {
+    animation: reef-copy-arrive .65s cubic-bezier(.16,1,.3,1) .22s both;
+  }
+}
+@keyframes reef-text-arrive {
+  from { opacity: .25; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes reef-copy-arrive {
+  from { opacity: .3; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 600px) {
+  body.studio[data-page="home"] .hero__inner { margin-top: 20px; }
+  body.studio[data-page="home"] .brand__logo { height: 38px; }
+}
+</style>
 </head>
 <body class="studio" data-page="home" data-asset-root="">
 
@@ -274,7 +312,8 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
   <div class="hero__media" aria-hidden="true"></div>
   <div class="hero__inner">
     <h1 class="hero__title">
-      <span class="w">Boutique music<br><span class="amp">&amp;</span> sound studio</span>
+      <span class="hero__line"><span class="hero__line-inner">Boutique music</span></span>
+      <span class="hero__line"><span class="hero__line-inner"><span class="amp">&amp;</span> sound studio</span></span>
     </h1>
     <div class="hero__intro">
       <p class="hero__sub">Original music, sound design<br>
@@ -299,18 +338,6 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
 </section>
 
 
-<!-- ===== CLIENTS ===== -->
-<section class="clients" id="clients">
-  <div class="clients__inner">
-    <div class="clients__head">
-      <p class="eyebrow reveal">Highlighted clients</p>
-    </div>
-  </div>
-  <div class="marquee" id="clientMarquee">
-    <div class="marquee__track" id="clientTrack" aria-label="Highlighted clients"></div>
-  </div>
-</section>
-
 <!-- ===== ABOUT ===== -->
 <section class="about about--editorial" id="about" aria-labelledby="about-title">
   <div class="about__body about__body--editorial">
@@ -332,28 +359,45 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
       </div>
       <div class="capabilities-grid">
         <article class="capability" aria-labelledby="capability-1">
+          <span class="capability__number" aria-hidden="true">01</span>
           <h3 id="capability-1">Bespoke music</h3>
           <p>Original scores, songs and adaptations written to picture and delivered to broadcast spec.</p>
         </article>
         <article class="capability" aria-labelledby="capability-2">
+          <span class="capability__number" aria-hidden="true">02</span>
           <h3 id="capability-2">Sound design</h3>
           <p>Sound design and editing that bring character, detail and impact to the picture.</p>
         </article>
         <article class="capability" aria-labelledby="capability-3">
+          <span class="capability__number" aria-hidden="true">03</span>
           <h3 id="capability-3">Sonic branding &amp; strategy</h3>
           <p>Sonic identities, brand themes and systems across touchpoints. Music research, creative selection and direction.</p>
         </article>
         <article class="capability" aria-labelledby="capability-4">
+          <span class="capability__number" aria-hidden="true">04</span>
           <h3 id="capability-4">Artist search &amp; coordination</h3>
           <p>Casting and coordination of vocalists and musicians, including session planning and recording supervision.</p>
         </article>
         <article class="capability" aria-labelledby="capability-5">
+          <span class="capability__number" aria-hidden="true">05</span>
           <h3 id="capability-5">Mixing &amp; mastering</h3>
           <p>Final mixing, mastering and delivery across formats, with versions and stems prepared to technical specifications.</p>
         </article>
       </div>
     </div>
   </section>
+</section>
+
+<!-- ===== CLIENTS ===== -->
+<section class="clients" id="clients">
+  <div class="clients__inner">
+    <div class="clients__head">
+      <p class="eyebrow reveal">Highlighted clients</p>
+    </div>
+  </div>
+  <div class="marquee" id="clientMarquee">
+    <div class="marquee__track" id="clientTrack" aria-label="Highlighted clients"></div>
+  </div>
 </section>
 
 <!-- ===== STAGE IMAGE BAND ===== -->
@@ -418,5 +462,25 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
 </div>
 
 <script src="script.js?v=64"></script>
+<script>
+// One quiet editorial entrance when the studio introduction reaches the reader.
+(() => {
+  const heading = document.getElementById('about-title');
+  if (!heading || !heading.animate || !window.IntersectionObserver) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let entrance;
+  const observer = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    observer.disconnect();
+    if (motion.matches) return;
+    entrance = heading.animate([
+      { opacity: .45, transform: 'translateY(18px)', clipPath: 'inset(0 0 18% 0)' },
+      { opacity: 1, transform: 'translateY(0)', clipPath: 'inset(0)' }
+    ], { duration: 700, easing: 'cubic-bezier(.16,1,.3,1)' });
+  }, { threshold: .2 });
+  observer.observe(heading);
+  motion.addEventListener('change', () => { if (motion.matches) entrance?.cancel(); });
+})();
+</script>
 </body>
 </html>
