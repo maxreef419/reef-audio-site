@@ -15,14 +15,18 @@ body.subsite--cinema .reel {
 
 /* Crop encoded edge artifacts with real dimensions, including reduced motion.
    Vertical overscan also covers the existing 14px scroll parallax. */
+/* These four preview sources contain baked-in horizontal letterboxing. */
+body.studio .work__item:is([data-vimeo="402912100"], [data-vimeo="416039838"], [data-vimeo="357381676"], [data-vimeo="1246894477"]) {
+  --reef-media-bleed: 21%;
+}
 body.studio .work__item .work__reveal > img,
 body.studio .work__item .work__reveal > .work__video,
 body.subsite--grid .work__item .work__reveal > img,
 body.subsite--grid .work__item .work__reveal > .work__video {
-  top: calc(-6% - 16px) !important;
-  left: -6% !important;
-  width: 112% !important;
-  height: calc(112% + 32px) !important;
+  top: calc(-1 * var(--reef-media-bleed, 6%) - 16px) !important;
+  left: calc(-1 * var(--reef-media-bleed, 6%)) !important;
+  width: calc(100% + 2 * var(--reef-media-bleed, 6%)) !important;
+  height: calc(100% + 2 * var(--reef-media-bleed, 6%) + 32px) !important;
   max-width: none !important;
   max-height: none !important;
   object-fit: cover !important;
