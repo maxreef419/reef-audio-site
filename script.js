@@ -60,7 +60,7 @@ if (!document.documentElement.classList.contains('reef-intro-managed')) {
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
 const FEATURED_WORK = WORK.slice(0, 12);
-const WORK_BATCH_SIZE = 12;
+const WORK_BATCH_SIZE = 6;
 const workMore = document.getElementById('workMore');
 const workArchive = document.getElementById('workArchive');
 let shownWork = 0;
@@ -115,7 +115,7 @@ function appendWork(items){
   grid.insertAdjacentHTML('beforeend', items.map(workCard).join(''));
   shownWork += items.length;
   revealNewItems();
-  const hasMore = PAGE === 'home' && shownWork < WORK.length;
+  const hasMore = PAGE === 'home' && shownWork < FEATURED_WORK.length;
   if(workMore){
     workMore.hidden = !hasMore;
     workMore.classList.toggle('work__more--hidden', !hasMore);
@@ -126,12 +126,12 @@ function appendWork(items){
   }
 }
 if(grid){
-  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK);
+  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, WORK_BATCH_SIZE));
 }
 workMore?.addEventListener('click', () => {
-  if(!grid || PAGE !== 'home' || shownWork >= WORK.length) return;
+  if(!grid || PAGE !== 'home' || shownWork >= FEATURED_WORK.length) return;
   const firstNewIndex = shownWork;
-  appendWork(WORK.slice(shownWork, shownWork + WORK_BATCH_SIZE));
+  appendWork(FEATURED_WORK.slice(shownWork, shownWork + WORK_BATCH_SIZE));
   const firstNewCard = grid.children[firstNewIndex];
   if(!firstNewCard) return;
   firstNewCard.focus({preventScroll:true});
