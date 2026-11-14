@@ -29,7 +29,14 @@ const WORK = [
   {name:"Danone | Simply Good", img:"assets/work/v-380886455.jpg", vimeo:"380886455", ratio:"square"},
   {name:"KIA | The Flow", img:"assets/work/v-690914061.jpg", vimeo:"690914061", ratio:"wide"},
   {name:"Academy Sports | Further", img:"assets/work/v-568883704.jpg", vimeo:"568883704", ratio:"square"},
-  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"square"}
+  {name:"IKEA | Play And Study", img:"assets/work/v-367822805.jpg", vimeo:"367822805", ratio:"square"},
+  {name:"Fonbet", img:"assets/work/v-1211741208.jpg", vimeo:"1211741208", ratio:"square"},
+  {name:"Wildberries", img:"assets/work/v-1157265339.jpg", vimeo:"1157265339", ratio:"square"},
+  {name:"Nuttis Frutties", img:"assets/work/v-402511421.jpg", vimeo:"402511421", ratio:"wide"},
+  {name:"Gazprombank x Visa", img:"assets/work/v-583846533.jpg", vimeo:"583846533", ratio:"square"},
+  {name:"Greenfield", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"square"},
+  {name:"Volkswagen", img:"assets/work/v-416039838.jpg", vimeo:"416039838", ratio:"wide"},
+  {name:"Megafon", img:"assets/work/v-357381676.jpg", vimeo:"357381676", ratio:"square"}
 ];
 
 const CLIENTS = [
