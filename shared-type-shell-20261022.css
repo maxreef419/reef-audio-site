@@ -32,7 +32,37 @@ body.studio,body.subsite {
  --reef-grotesk:'Schibsted Grotesk','Archivo',Arial,sans-serif;
  --font-display:var(--reef-grotesk);--font-body:var(--reef-grotesk);
  --studio-gutter:clamp(24px,7vw,112px);
+ --reef-logo-height:44px;
  font-family:var(--reef-grotesk);font-synthesis:none;
+}
+body.studio .nav .brand { flex-shrink:0; }
+body.studio .nav .brand__logo {
+ height:var(--reef-logo-height);width:auto;flex-shrink:0;object-fit:contain;
+}
+body.studio[data-page="home"] .work__head {
+ display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+body.studio[data-page="home"] .work__head > .selected-projects-title {
+ width:auto;min-width:0;flex:0 1 auto;margin:0;
+}
+body.studio .work__all {
+ display:inline-flex;align-items:center;justify-content:center;flex:none;gap:8px;
+ min-height:44px;padding:10px 18px;border:1px solid rgba(255,255,255,.45);border-radius:999px;
+ color:var(--text);background:transparent;font-family:var(--reef-grotesk);
+ font-size:14px;font-weight:500;line-height:1.3;white-space:nowrap;
+ transition:color .2s,border-color .2s;
+}
+body.studio .work__all:hover { color:#71d7f5;border-color:#71d7f5; }
+body.studio .work__all:focus-visible { outline:2px solid #71d7f5;outline-offset:4px; }
+body.studio .work__all svg { flex:none;width:14px;height:14px; }
+@media(max-width:600px){body.studio{--reef-logo-height:38px}}
+@media(max-width:380px){
+ body.studio .nav{gap:12px}
+ body.studio .nav__actions{gap:8px}
+ body.studio .nav .nav__brief{padding:10px;font-size:13px;gap:6px}
+ body.studio[data-page="home"] .work__head{gap:12px}
+ body.studio[data-page="home"] .work__head > .selected-projects-title{font-size:20px}
+ body.studio .work__all{padding:10px 12px;font-size:13px;gap:6px}
 }
 body :is(.nav,.menu,.footer,.foot,h1,h2,h3,.hero__sub,.work-index__lead,.work__name,.clip__title,.eyebrow) {
  font-family:var(--reef-grotesk);
