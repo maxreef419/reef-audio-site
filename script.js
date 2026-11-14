@@ -36,7 +36,9 @@ const WORK = [
   {name:"Gazprombank x Visa", img:"assets/work/v-583846533.jpg", vimeo:"583846533", ratio:"square"},
   {name:"Greenfield", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"square"},
   {name:"Volkswagen", img:"assets/work/v-416039838.jpg", vimeo:"416039838", ratio:"wide"},
-  {name:"Megafon", img:"assets/work/v-357381676.jpg", vimeo:"357381676", ratio:"square"}
+  {name:"Megafon", img:"assets/work/v-357381676.jpg", vimeo:"357381676", ratio:"square"},
+  {name:"T-bank App", img:"assets/work/v-1216140122.jpg", vimeo:"1216140122", ratio:"square"},
+  {name:"Tele2", img:"assets/work/v-1246894477.jpg", vimeo:"1246894477", ratio:"square"}
 ];
 
 const CLIENTS = [
