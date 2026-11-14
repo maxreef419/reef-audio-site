@@ -222,7 +222,7 @@ body.studio[data-page="home"] .about--editorial > .services {margin-top:56px}
 </style>
 <style id="reef-home-refinements-20261114">
 /* Keep the established framing; give the opening copy a little more room. */
-body.studio[data-page="home"] .hero__inner { margin-top: 32px; }
+body.studio[data-page="home"] .hero__inner { margin-top: 104px; }
 body.studio[data-page="home"] .brand__logo { height: 44px; width: auto; }
 body.studio[data-page="home"] .capability__number {
   display: block; margin-bottom: 16px; color: #71d7f5;
@@ -238,23 +238,23 @@ body.studio[data-page="home"] .hero__line-inner { display: block; }
 body.studio[data-page="home"] .hero__sub { opacity: 1; transform: none; transition: none; }
 @media (prefers-reduced-motion: no-preference) {
   body.studio[data-page="home"] #hero.in .hero__line-inner {
-    animation: reef-text-arrive .75s cubic-bezier(.16,1,.3,1) both;
+    animation: reef-text-arrive 1.15s cubic-bezier(.16,1,.3,1) .12s both;
   }
-  body.studio[data-page="home"] #hero.in .hero__line:nth-child(2) .hero__line-inner { animation-delay: .1s; }
+  body.studio[data-page="home"] #hero.in .hero__line:nth-child(2) .hero__line-inner { animation-delay: .36s; }
   body.studio[data-page="home"] #hero.in .hero__sub {
-    animation: reef-copy-arrive .65s cubic-bezier(.16,1,.3,1) .22s both;
+    animation: reef-copy-arrive .95s cubic-bezier(.16,1,.3,1) .65s both;
   }
 }
 @keyframes reef-text-arrive {
-  from { opacity: .25; transform: translateY(105%); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(115%); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 @keyframes reef-copy-arrive {
-  from { opacity: .3; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(28px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 600px) {
-  body.studio[data-page="home"] .hero__inner { margin-top: 20px; }
+  body.studio[data-page="home"] .hero__inner { margin-top: 76px; }
   body.studio[data-page="home"] .brand__logo { height: 38px; }
 }
 </style>
@@ -343,7 +343,7 @@ body.studio[data-page="home"] .hero__sub { opacity: 1; transform: none; transiti
   <div class="about__body about__body--editorial">
     <h2 class="about__lead" id="about-title">Built on both sides of the brief.</h2>
     <div class="about__copy">
-      <p class="about__founder">REEF is led by award-winning composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>.</p>
+      <p class="about__founder">REEF was founded in 2014 by award-winning composer and producer <a href="https://www.maxkouznichenkov.com" target="_blank" rel="noopener" class="namelink">Max Kouznichenkov <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>.</p>
       <div class="about__detail">
         <p>Twenty years in music and advertising. Ten inside Leo Burnett, Saatchi &amp; Saatchi and Grey — experience that helps us carry an idea through production and approvals without losing what makes it work.</p>
         <p>Each brief brings together a trusted circle of producers, musicians, vocalists, sound designers and engineers, with one clear creative direction from first idea to final master.</p>
