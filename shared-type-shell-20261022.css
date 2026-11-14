@@ -1,4 +1,27 @@
 /* Shared production typography and navigation; loaded last on every page. */
+/* The expanded menu carries the same photograph as the homepage hero.
+   Blur the photograph alone so navigation and social icons stay crisp. */
+body.studio .menu { isolation:isolate; backdrop-filter:none; -webkit-backdrop-filter:none; }
+body.studio .menu::before {
+ content:"";position:fixed;inset:-32px;z-index:-2;pointer-events:none;
+ background:url('/assets/hero-cinema-20261022-1920.jpg') 53% center/cover no-repeat;
+ filter:blur(14px);
+}
+body.studio .menu::after {
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:rgba(5,12,18,.58);
+}
+body.studio .menu__meta { position:relative;flex-direction:column;align-items:center;gap:18px; }
+body.studio .menu__meta > a { color:#f4f6f6; }
+body.studio .menu__social { display:flex;align-items:center;justify-content:center;gap:16px; }
+body.studio .menu__social-link {
+ display:inline-flex;align-items:center;justify-content:center;
+ width:44px;height:44px;color:#f4f6f6;
+}
+body.studio .menu__social-link svg { display:block;width:24px;height:24px; }
+body.studio .menu__social-link:first-child svg { fill:currentColor; }
+body.studio .menu__meta a:hover { color:#71d7f5; }
+body.studio .menu__meta a:focus-visible { outline:2px solid #71d7f5;outline-offset:4px; }
 @font-face{font-family:Archivo;font-style:normal;font-weight:400;font-display:swap;src:url('/assets/fonts/archivo-400.ttf') format('truetype')}
 @font-face{font-family:Archivo;font-style:normal;font-weight:600;font-display:swap;src:url('/assets/fonts/archivo-600.ttf') format('truetype')}
 body.studio,body.subsite {
