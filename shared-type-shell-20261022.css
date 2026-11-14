@@ -1,4 +1,8 @@
 /* Shared production typography and navigation; loaded last on every page. */
+@font-face {
+ font-family:'Schibsted Grotesk';font-style:normal;font-weight:400 900;font-display:block;
+ src:url('/assets/fonts/schibsted-grotesk-latin-variable.woff2') format('woff2');
+}
 /* The expanded menu carries the same photograph as the homepage hero.
    Blur the photograph alone so navigation and social icons stay crisp. */
 body.studio .menu { isolation:isolate; backdrop-filter:none; -webkit-backdrop-filter:none; }

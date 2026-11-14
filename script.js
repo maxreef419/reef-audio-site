@@ -50,19 +50,11 @@ const CLIENTS = [
   {n:"Saatchi & Saatchi",f:"saatchi"},{n:"Grey",f:"grey"},{n:"Dentsu",f:"dentsu"},{n:"Havas",f:"havas"}
 ];
 
-// ===== HERO ENTRANCE =====
-function startHero(){
+// The homepage's early bootstrap owns font loading and its single entrance.
+// Keep the legacy fallback only for pages without that bootstrap.
+if (!document.documentElement.classList.contains('reef-intro-managed')) {
   const hero = document.getElementById('hero');
-  if(hero) requestAnimationFrame(()=> hero.classList.add('in'));
-}
-// Wait for fonts so the reveal animates in the final font (no swap reflow / judder)
-if(document.fonts && document.fonts.ready){
-  let started = false;
-  const go = ()=>{ if(started) return; started = true; startHero(); };
-  document.fonts.ready.then(go);
-  setTimeout(go, 700); // safety fallback if fonts stall
-}else{
-  startHero();
+  if (hero) requestAnimationFrame(() => hero.classList.add('in'));
 }
 
 // ===== RENDER WORK =====
@@ -479,6 +471,7 @@ if(contactSec) secIO.observe(contactSec);
     const enabled = !reduce.matches && height > 0 && height <= available;
     document.body.style.setProperty('--contact-height', height + 'px');
     document.body.classList.toggle('contact-reveal', enabled);
+    document.body.classList.toggle('contact-flow', !enabled);
   };
   const observer = new ResizeObserver(update);
   observer.observe(footer);
