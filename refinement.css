@@ -128,10 +128,10 @@
   min-height: min(640px, 76svh); display: flex; flex-direction: column; justify-content: center;
 }
 .studio .footer__inner, .studio .footer__bottom { width: 100%; }
-/* Reserve the footer's measured height; main is the opaque moving cover. */
-.studio.contact-reveal { padding-bottom: var(--contact-height); }
+/* Sticky Contact already occupies its own height in normal flow. */
+.studio.contact-reveal { padding-bottom: 0; }
 .studio.contact-reveal > .footer {
-  position: fixed; inset: auto 0 0; width: 100%; z-index: 0;
+  position: sticky; inset: auto; bottom: 0; width: 100%; z-index: 0;
 }
 
 .studio .footer__inner {
