@@ -392,7 +392,10 @@ body.studio[data-page="home"] .hero__sub { opacity: 1; transform: none; transiti
   </div>
   <div class="work__grid" id="workGrid"></div>
   <div class="work__more-wrap reveal">
-    <a class="work__more is-visible" id="workMore" href="work/">All work
+    <button type="button" class="work__more work__more--hidden is-visible" id="workMore" aria-controls="workGrid" hidden>Show more
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <a class="work__more is-visible" id="workArchive" href="/work/">All work
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
     </a>
   </div>
@@ -522,7 +525,7 @@ body.studio[data-page="home"] .hero__sub { opacity: 1; transform: none; transiti
   </div>
 </div>
 
-<script src="script.js?v=68"></script>
+<script src="script.js?v=69"></script>
 <script>
 // One quiet editorial entrance when the studio introduction reaches the reader.
 (() => {

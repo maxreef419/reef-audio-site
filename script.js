@@ -60,6 +60,10 @@ if (!document.documentElement.classList.contains('reef-intro-managed')) {
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
 const FEATURED_WORK = WORK.slice(0, 12);
+const WORK_BATCH_SIZE = 12;
+const workMore = document.getElementById('workMore');
+const workArchive = document.getElementById('workArchive');
+let shownWork = 0;
 
 function workCard(w){
   const label = w.name.split('|')[0].trim();
@@ -106,11 +110,37 @@ function revealNewItems(){
   });
   if(typeof observePreviews === 'function') observePreviews();
 }
-if(grid){
-  const visibleWork = PAGE === 'work' ? WORK : FEATURED_WORK;
-  grid.insertAdjacentHTML('beforeend', visibleWork.map(workCard).join(''));
+function appendWork(items){
+  if(!grid || !items.length) return;
+  grid.insertAdjacentHTML('beforeend', items.map(workCard).join(''));
+  shownWork += items.length;
   revealNewItems();
+  const hasMore = PAGE === 'home' && shownWork < WORK.length;
+  if(workMore){
+    workMore.hidden = !hasMore;
+    workMore.classList.toggle('work__more--hidden', !hasMore);
+  }
+  if(workArchive){
+    workArchive.hidden = hasMore;
+    workArchive.classList.toggle('work__more--hidden', hasMore);
+  }
 }
+if(grid){
+  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK);
+}
+workMore?.addEventListener('click', () => {
+  if(!grid || PAGE !== 'home' || shownWork >= WORK.length) return;
+  const firstNewIndex = shownWork;
+  appendWork(WORK.slice(shownWork, shownWork + WORK_BATCH_SIZE));
+  const firstNewCard = grid.children[firstNewIndex];
+  if(!firstNewCard) return;
+  firstNewCard.focus({preventScroll:true});
+  const headerHeight = document.getElementById('nav')?.offsetHeight || 0;
+  window.scrollTo({
+    top: window.scrollY + firstNewCard.getBoundingClientRect().top - headerHeight - 16,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  });
+});
 
 // Make every grid row exactly one column-width tall, so all tiles share one
 // uniform height: a single-column tile is a square, a two-column 'wide' tile is
