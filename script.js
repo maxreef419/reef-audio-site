@@ -69,7 +69,7 @@ function workCard(w){
   <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${escape(w.name)}">
     <span class="work__reveal">
     <img src="${asset(w.img)}" alt="${label} — REEF Audio project still" loading="lazy">
-    <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" muted loop playsinline preload="none" aria-hidden="true"></video>
+    <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>
     <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${escape(label)}</span></span></div>
     </span>
   </button>`;
@@ -142,23 +142,52 @@ if(grid){
 var observePreviews = function(){};
 (function(){
   if(!grid) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
+  // These are requested portfolio videos. Reduced motion still disables the
+  // interface's entrances/parallax, but must not turn every film into a still.
+  const visible = new Set();
+  const inFlight = new WeakSet();
+  let lightboxOpen = false;
+  const canPlay = item => visible.has(item) && !document.hidden && !lightboxOpen;
 
-  // Attach the source (and start decoding) BEFORE the card is fully in frame, so
-  // playback can begin the instant the reveal starts — no static-still gap.
+  function blocked(item){
+    if(!canPlay(item)) return;
+    item.classList.remove('is-previewing');
+  }
+  function playing(item){
+    if(!canPlay(item)){ stop(item); return; }
+    item.classList.add('is-previewing');
+  }
   function warm(item){
     const v = item.querySelector('.work__video');
     if(!v) return;
-    if(!v.src){ const s = v.getAttribute('data-prev'); if(s){ v.preload='auto'; v.src = s; try{v.load();}catch(e){} } }
+    // Safari needs the DOM properties set before assigning a dynamic source.
+    v.defaultMuted = true;
+    v.muted = true;
+    v.playsInline = true;
+    v.autoplay = true;
+    if(!v.src){
+      const source = v.getAttribute('data-prev');
+      if(source){ v.preload = 'auto'; v.src = source; }
+    }
   }
   function loadAndPlay(item){
     const v = item.querySelector('.work__video');
-    if(!v) return;
+    if(!v || !canPlay(item) || v.error || inFlight.has(v)) return;
     warm(item);
-    item.classList.add('is-previewing');
-    const p = v.play();
-    if(p && p.catch) p.catch(()=>{});
+    inFlight.add(v);
+    const failed = error => {
+      inFlight.delete(v);
+      if(error.name === 'NotAllowedError' || error.name === 'AbortError') blocked(item);
+    };
+    try{
+      const request = v.play();
+      if(request && typeof request.then === 'function'){
+        request.then(() => {
+          inFlight.delete(v);
+          if(!v.paused) playing(item);
+        }, failed);
+      }else{ inFlight.delete(v); }
+    }catch(error){ failed(error); }
   }
   function stop(item){
     const v = item.querySelector('.work__video');
@@ -167,36 +196,60 @@ var observePreviews = function(){};
     try{ v.pause(); }catch(e){}
   }
 
-  // Autoplay tied to the reveal, not after it. The video is pre-warmed the moment
-  // a card starts peeking in, then plays as soon as ~12% is visible — the same
-  // point the 'kadr' reveal begins — so motion is already running as the frame
-  // opens (no static still). Pauses when the card leaves the viewport.
+  // Preloading ahead of the viewport is separate from playback. Safari can
+  // reject playback outside the actual screen and never retry it on its own.
+  const warmIO = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting) warm(entry.target); });
+  }, {rootMargin:'200px 0px 200px 0px'});
   const previewIO = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
       const item = en.target;
-      const r = en.intersectionRatio;
-      if(en.isIntersecting && r > 0){ warm(item); }
-      if(en.isIntersecting && r >= 0.12){ loadAndPlay(item); }
-      else if(!en.isIntersecting){ stop(item); }
+      if(en.isIntersecting && en.intersectionRatio >= 0.12){
+        visible.add(item);
+        loadAndPlay(item);
+      }else{
+        visible.delete(item);
+        stop(item);
+      }
     });
-  }, {threshold:[0, 0.05, 0.12, 0.35, 0.6], rootMargin:'200px 0px 200px 0px'});
+  }, {threshold:[0, 0.12, 0.35, 0.6]});
 
   observePreviews = function(){
     grid.querySelectorAll('.work__item').forEach(el=>{
       if(el.dataset.prevObserved === '1') return;
       el.dataset.prevObserved = '1';
+      const video = el.querySelector('.work__video');
+      video.addEventListener('loadeddata', () => loadAndPlay(el));
+      video.addEventListener('canplay', () => loadAndPlay(el));
+      video.addEventListener('playing', () => playing(el));
+      video.addEventListener('pause', () => el.classList.remove('is-previewing'));
+      video.addEventListener('error', () => el.classList.remove('is-previewing'));
+      el.addEventListener('transitionend', event => {
+        if(event.target === el && event.propertyName === 'opacity') loadAndPlay(el);
+      });
+      warmIO.observe(el);
       previewIO.observe(el);
     });
   };
   observePreviews();
 
-  // Pause everything while the tab is hidden; resume the visible ones on return.
+  const retryVisible = () => visible.forEach(loadAndPlay);
   document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden){
-      grid.querySelectorAll('.work__item.is-previewing .work__video').forEach(v=>{ try{v.pause();}catch(e){} });
-    } else {
-      grid.querySelectorAll('.work__item.is-previewing .work__video').forEach(v=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); });
-    }
+    if(document.hidden) visible.forEach(stop);
+    else retryVisible();
+  });
+  window.addEventListener('pageshow', retryVisible);
+  document.addEventListener('reef:video-open', () => {
+    lightboxOpen = true;
+    visible.forEach(stop);
+  });
+  document.addEventListener('reef:video-close', () => {
+    lightboxOpen = false;
+    retryVisible();
+  });
+  // Keep play() synchronous with a trusted gesture when iOS blocks autoplay.
+  ['touchend', 'pointerup', 'keyup'].forEach(type => {
+    document.addEventListener(type, retryVisible, {passive:true});
   });
 
   // touch lightbox helper no longer gates on preview state
@@ -250,11 +303,11 @@ function trapFocus(container, event){
     document.body.classList.remove('lb-open');
     setInert(background, false);
     frameWrap.innerHTML = '';
+    document.dispatchEvent(new CustomEvent('reef:video-close'));
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
-  // Previews already autoplay inline everywhere, so a single click/tap opens the
-  // full video on every device.
+  // One click/tap always opens the full film.
   grid.addEventListener('click', (e)=>{
     const item = e.target.closest('.work__item');
     if(!item) return;
