@@ -178,3 +178,14 @@ body.studio .work__item.in .work__reveal{clip-path:inset(0 0 0 0 round 16px)}
  body.studio .work__item.in .work__reveal{clip-path:inset(0 0 0 0 round 12px)}
 }
 @media(prefers-reduced-motion:reduce){body.studio .work__reveal{clip-path:none}}
+
+/* Close each two-column composition with a complete final pair. */
+@media(min-width:601px){
+ body.studio[data-page="home"] .work__item:nth-child(4):nth-last-child(3){
+  grid-column:1 / -1;
+ }
+ body.studio[data-page="work"] .work__item:nth-child(5n){grid-column:1 / -1}
+ body.studio[data-page="work"] .work__item:nth-child(5n):is(:nth-last-child(2),:nth-last-child(4)){
+  grid-column:span 1;
+ }
+}

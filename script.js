@@ -59,8 +59,10 @@ if (!document.documentElement.classList.contains('reef-intro-managed')) {
 
 // ===== RENDER WORK =====
 const grid = document.getElementById('workGrid');
-const FEATURED_WORK = WORK.slice(0, 12);
-const WORK_BATCH_SIZE = 6;
+const FEATURED_WORK = WORK.slice(0, 24);
+const desktopWork = window.matchMedia('(min-width:901px)');
+const workBatchSize = () => desktopWork.matches ? 12 : 6;
+const featuredLimit = () => Math.min(FEATURED_WORK.length, desktopWork.matches ? 24 : 12);
 const workMore = document.getElementById('workMore');
 const workArchive = document.getElementById('workArchive');
 let shownWork = 0;
@@ -110,12 +112,8 @@ function revealNewItems(){
   });
   if(typeof observePreviews === 'function') observePreviews();
 }
-function appendWork(items){
-  if(!grid || !items.length) return;
-  grid.insertAdjacentHTML('beforeend', items.map(workCard).join(''));
-  shownWork += items.length;
-  revealNewItems();
-  const hasMore = PAGE === 'home' && shownWork < FEATURED_WORK.length;
+function updateWorkActions(){
+  const hasMore = PAGE === 'home' && shownWork < featuredLimit();
   if(workMore){
     workMore.hidden = !hasMore;
     workMore.classList.toggle('work__more--hidden', !hasMore);
@@ -125,13 +123,20 @@ function appendWork(items){
     workArchive.classList.toggle('work__more--hidden', hasMore);
   }
 }
+function appendWork(items){
+  if(!grid || !items.length) return;
+  grid.insertAdjacentHTML('beforeend', items.map(workCard).join(''));
+  shownWork += items.length;
+  revealNewItems();
+  updateWorkActions();
+}
 if(grid){
-  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, WORK_BATCH_SIZE));
+  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, workBatchSize()));
 }
 workMore?.addEventListener('click', () => {
-  if(!grid || PAGE !== 'home' || shownWork >= FEATURED_WORK.length) return;
+  if(!grid || PAGE !== 'home' || shownWork >= featuredLimit()) return;
   const firstNewIndex = shownWork;
-  appendWork(FEATURED_WORK.slice(shownWork, shownWork + WORK_BATCH_SIZE));
+  appendWork(FEATURED_WORK.slice(shownWork, Math.min(shownWork + workBatchSize(), featuredLimit())));
   const firstNewCard = grid.children[firstNewIndex];
   if(!firstNewCard) return;
   firstNewCard.focus({preventScroll:true});
@@ -140,6 +145,12 @@ workMore?.addEventListener('click', () => {
     top: window.scrollY + firstNewCard.getBoundingClientRect().top - headerHeight - 16,
     behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
   });
+});
+desktopWork.addEventListener('change', () => {
+  if(!grid || PAGE !== 'home') return;
+  // Expand the desktop selection without discarding anything already opened.
+  if(shownWork < workBatchSize()) appendWork(FEATURED_WORK.slice(shownWork, workBatchSize()));
+  else updateWorkActions();
 });
 
 // Make every grid row exactly one column-width tall, so all tiles share one
