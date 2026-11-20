@@ -43,14 +43,14 @@ const WORK = [
 
 
 const SELECTED_WORK = [
-  {name:"Haval H3", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
-  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", previewEmbed:"https://player.vimeo.com/video/665946854?autoplay=1&loop=1&muted=1&background=1&dnt=1", crop:"letterbox", ratio:"square"},
-  {name:"Danone — If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
+  {name:"Haval H3 / A Brighter Life", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
+  {name:"Ararat / Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", previewEmbed:"https://player.vimeo.com/video/665946854?autoplay=1&loop=1&muted=1&background=1&dnt=1", crop:"letterbox", ratio:"square"},
+  {name:"Danone / If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
   {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
-  {name:"Greenfield — One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
-  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess-hq.mp4", crop:"letterbox", ratio:"square"},
-  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor-hq.mp4", crop:"letterbox", ratio:"wide"},
-  {name:"LSR — Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr-hq.mp4", ratio:"square"}
+  {name:"Greenfield / One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
+  {name:"Velikoslavich / Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess-hq.mp4", crop:"letterbox", ratio:"square"},
+  {name:"Velikoslavich / Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor-hq.mp4", crop:"letterbox", ratio:"wide"},
+  {name:"LSR / Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr-hq.mp4", ratio:"square"}
 ];
 
 const CLIENTS = [
