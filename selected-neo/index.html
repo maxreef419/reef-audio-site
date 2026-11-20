@@ -57,6 +57,17 @@ body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
 body.studio[data-client-page="neo"] .work-index__intro.selected-neo-intro { display:grid; grid-template-columns:minmax(0,1fr); width:100%; max-width:none; padding:142px 16px 0; margin:0 auto 64px; }
 .selected-neo-intro .work-index__title { max-width:22ch !important; white-space:normal; text-wrap:balance; font-size:clamp(36px,4vw,64px); line-height:1.02; }
 .selected-neo-footer { width:100%; max-width:1880px; margin:32px auto 0; padding:0 16px; display:flex; justify-content:center; }
+@media(min-width:901px) {
+  body.studio[data-client-page="neo"] .work__grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  body.studio[data-client-page="neo"] .work__item[data-name="Haval H3 / A Brighter Life"] { grid-column:1 / span 2; grid-row:1; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Ararat / Under One Sky"] { grid-column:3; grid-row:1 / span 2; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Greenfield / One Day"] { grid-column:1 / span 2; grid-row:2; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Danone / If"] { grid-column:1; grid-row:3; }
+  body.studio[data-client-page="neo"] .work__item[data-name="LSR / Higher"] { grid-column:2; grid-row:3; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Velikoslavich / Chess"] { grid-column:3; grid-row:3; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Velikoslavich / Choir"] { grid-column:1 / span 2; grid-row:4; }
+  body.studio[data-client-page="neo"] .work__item[data-name="Kia K5 / Your Own Way"] { grid-column:3; grid-row:4; }
+}
 body.studio[data-client-page="neo"] .work__item[data-media-crop="letterbox"] { --reef-media-bleed:24%; }
 body.studio[data-client-page="neo"] .work__item .work__reveal > .work__video--embed { border:0; pointer-events:none; }
 @media(max-width:700px) {
@@ -186,7 +197,7 @@ body.studio[data-client-page="neo"] .work__item .work__reveal > .work__video--em
   </div>
 </div>
 
-<script src="../script.js?v=79"></script>
+<script src="../script.js?v=80"></script>
 <script src="../soundlogo/player.js?v=2"></script>
 </body>
 </html>
