@@ -11,11 +11,11 @@
   gtag('js', new Date());
   gtag('config', 'G-8PEQJ1SDGX');
 </script>
-<title>Selected Neo-Classical and Contemporary Classical Works — REEF Audio</title>
+<title>Selected Neo- and Contemporary Classical Works — REEF Audio</title>
 <meta name="robots" content="noindex, nofollow" />
 <meta name="description" content="A selection of neo-classical and contemporary classical music works by REEF Audio." />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Selected Neo-Classical and Contemporary Classical Works — REEF Audio" />
+<meta property="og:title" content="Selected Neo- and Contemporary Classical Works — REEF Audio" />
 <meta property="og:description" content="A selection of neo-classical and contemporary classical music works by REEF Audio." />
 <meta property="og:url" content="https://thereefaudio.com/selected-neo/" />
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
@@ -54,15 +54,14 @@ body.studio .work__item[data-vimeo="554243009"] .work__reveal > .work__video {
 <link rel="stylesheet" href="/shared-type-shell-20261022.css?v=6">
 <style>.lightbox__frame .reef-local-player{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}</style>
 <style id="selected-neo-refinements">
-body.studio[data-client-page="neo"] .work-index__intro.selected-neo-intro { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:28px; width:100%; max-width:none; padding:142px 16px 0; margin:0 auto 64px; }
+body.studio[data-client-page="neo"] .work-index__intro.selected-neo-intro { display:grid; grid-template-columns:minmax(0,1fr); width:100%; max-width:none; padding:142px 16px 0; margin:0 auto 64px; }
 .selected-neo-intro .work-index__title { max-width:22ch !important; white-space:normal; text-wrap:balance; font-size:clamp(36px,4vw,64px); line-height:1.02; }
-.selected-neo-all { flex:none; margin-bottom:4px; }
+.selected-neo-footer { width:100%; max-width:1880px; margin:32px auto 0; padding:0 16px; display:flex; justify-content:center; }
 body.studio[data-client-page="neo"] .work__item[data-media-crop="letterbox"] { --reef-media-bleed:24%; }
 body.studio[data-client-page="neo"] .work__item .work__reveal > .work__video--embed { border:0; pointer-events:none; }
 @media(max-width:700px) {
   body.studio[data-client-page="neo"] .work-index__intro.selected-neo-intro { grid-template-columns:minmax(0,1fr); gap:18px; padding-top:116px; margin-bottom:40px; }
   .selected-neo-intro .work-index__title { max-width:22ch !important; font-size:clamp(36px,9vw,44px); }
-  .selected-neo-all { justify-self:end; }
 }
 </style>
 </head>
@@ -122,15 +121,17 @@ body.studio[data-client-page="neo"] .work__item .work__reveal > .work__video--em
   <section class="work work--index" id="work">
     <div class="work-index__intro selected-neo-intro">
       <div>
-        <h1 class="work-index__title reveal">Selected Neo-Classical and Contemporary Classical Works</h1>
+        <h1 class="work-index__title reveal">Selected Neo- and Contemporary Classical Works</h1>
       </div>
-      <a class="nav__brief selected-neo-all" href="/work/" aria-label="All work">
-        All work
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
-      </a>
     </div>
     <div class="work-panel" role="region" aria-label="Selected video work">
       <div class="work__grid" id="workGrid"></div>
+    </div>
+    <div class="selected-neo-footer">
+      <a class="nav__brief" href="/work/" aria-label="All work">
+        All work
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
     </div>
   </section>
 </main>
