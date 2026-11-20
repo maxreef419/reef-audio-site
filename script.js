@@ -1,5 +1,5 @@
 // ===== DATA =====
-const PAGE = document.body.dataset.page || 'home';
+const PAGE = document.body.dataset.clientPage || document.body.dataset.page || 'home';
 const ASSET_ROOT = document.body.dataset.assetRoot || '';
 const asset = path => ASSET_ROOT + path;
 
@@ -41,6 +41,18 @@ const WORK = [
   {name:"Tele2", img:"assets/work/v-1246894477.jpg", vimeo:"1246894477", ratio:"square"}
 ];
 
+
+const BREST_WORK = [
+  {name:"Haval H3", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
+  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", ratio:"square"},
+  {name:"Danone — If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
+  {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
+  {name:"Greenfield — One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
+  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess.m4v", ratio:"square"},
+  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor.m4v", ratio:"wide"},
+  {name:"LSR — Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr.m4v", ratio:"square"}
+];
+
 const CLIENTS = [
   {n:"Google",f:"google"},{n:"Coca-Cola",f:"cocacola"},{n:"Toyota",f:"toyota"},{n:"IKEA",f:"ikea"},
   {n:"Visa",f:"visa"},{n:"McDonald's",f:"mcdonalds"},{n:"Red Bull",f:"redbull"},{n:"Volkswagen",f:"volkswagen"},
@@ -68,14 +80,18 @@ const workArchive = document.getElementById('workArchive');
 let shownWork = 0;
 
 function workCard(w){
-  const label = w.name.split('|')[0].trim();
+  const label = PAGE === 'brest-litovsk' ? w.name : w.name.split('|')[0].trim();
   const ratio = w.ratio || 'wide';
   const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const preview = w.preview || (w.vimeo ? `assets/work/preview/p-${w.vimeo}.mp4` : '');
+  const video = preview ? `<video class="work__video" data-prev="${asset(preview)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>` : '';
+  const localAttr = w.local ? ` data-local-video="${asset(w.local)}"` : '';
+  const vimeoAttr = w.vimeo ? ` data-vimeo="${w.vimeo}"` : '';
   return `
-  <button type="button" class="work__item work__item--new work__item--${ratio}" data-vimeo="${w.vimeo}" data-name="${label.replace(/"/g,'&quot;')}" aria-label="Play ${escape(w.name)}">
+  <button type="button" class="work__item work__item--new work__item--${ratio}"${vimeoAttr}${localAttr} data-name="${escape(label)}" aria-label="Play ${escape(label)}">
     <span class="work__reveal">
-    <img src="${asset(w.img)}" alt="${label} — REEF Audio project still" loading="lazy">
-    <video class="work__video" data-prev="${asset(`assets/work/preview/p-${w.vimeo}.mp4`)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>
+    <img src="${asset(w.img)}" alt="${escape(label)} — REEF Audio project still" loading="lazy">
+    ${video}
     <div class="work__overlay"><span class="work__name-mask"><span class="work__name">${escape(label)}</span></span></div>
     </span>
   </button>`;
@@ -131,7 +147,7 @@ function appendWork(items){
   updateWorkActions();
 }
 if(grid){
-  appendWork(PAGE === 'work' ? WORK : FEATURED_WORK.slice(0, workBatchSize()));
+  appendWork(PAGE === 'work' ? WORK : PAGE === 'brest-litovsk' ? BREST_WORK : FEATURED_WORK.slice(0, workBatchSize()));
 }
 workMore?.addEventListener('click', () => {
   if(!grid || PAGE !== 'home' || shownWork >= featuredLimit()) return;
@@ -324,14 +340,18 @@ function trapFocus(container, event){
   const background = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer'), document.getElementById('menu'), document.querySelector('.skip-link')];
   let lastFocus = null;
 
-  function open(vimeoId, name){
-    if(!vimeoId) return;
+  function open(vimeoId, name, localSrc){
+    if(!vimeoId && !localSrc) return;
     document.dispatchEvent(new CustomEvent('reef:video-open'));
-    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId, page: PAGE}); }
+    if(typeof gtag === 'function'){ gtag('event', 'clip_open', {clip_title: name || '', clip_id: vimeoId || 'local', page: PAGE}); }
     lastFocus = document.activeElement;
     titleEl.textContent = name || '';
-    const src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0&dnt=1`;
-    frameWrap.innerHTML = `<iframe src="${src}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${(name||'').replace(/"/g,'&quot;')}"></iframe>`;
+    if(localSrc){
+      frameWrap.innerHTML = `<video class="reef-local-player" src="${localSrc}" controls autoplay playsinline preload="metadata" aria-label="${(name||'').replace(/"/g,'&quot;')}"></video>`;
+    } else {
+      const src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&title=0&portrait=0&dnt=1`;
+      frameWrap.innerHTML = `<iframe src="${src}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${(name||'').replace(/"/g,'&quot;')}"></iframe>`;
+    }
     lb.classList.add('open');
     lb.setAttribute('aria-hidden','false');
     document.body.classList.add('lb-open');
@@ -353,7 +373,7 @@ function trapFocus(container, event){
     const item = e.target.closest('.work__item');
     if(!item) return;
     e.preventDefault();
-    open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'));
+    open(item.getAttribute('data-vimeo'), item.getAttribute('data-name'), item.getAttribute('data-local-video'));
   });
   closeBtn.addEventListener('click', close);
   document.addEventListener('reef:work-category-change', () => {
