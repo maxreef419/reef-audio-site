@@ -44,7 +44,7 @@ const WORK = [
 
 const BREST_WORK = [
   {name:"Haval H3", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
-  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", ratio:"square"},
+  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", preview:"", ratio:"square"},
   {name:"Danone — If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
   {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
   {name:"Greenfield — One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
@@ -83,7 +83,7 @@ function workCard(w){
   const label = PAGE === 'brest-litovsk' ? w.name : w.name.split('|')[0].trim();
   const ratio = w.ratio || 'wide';
   const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  const preview = w.preview || (w.vimeo ? `assets/work/preview/p-${w.vimeo}.mp4` : '');
+  const preview = Object.prototype.hasOwnProperty.call(w, 'preview') ? w.preview : (w.vimeo ? `assets/work/preview/p-${w.vimeo}.mp4` : '');
   const video = preview ? `<video class="work__video" data-prev="${asset(preview)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>` : '';
   const localAttr = w.local ? ` data-local-video="${asset(w.local)}"` : '';
   const vimeoAttr = w.vimeo ? ` data-vimeo="${w.vimeo}"` : '';
