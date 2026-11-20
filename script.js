@@ -42,14 +42,14 @@ const WORK = [
 ];
 
 
-const BREST_WORK = [
+const SELECTED_WORK = [
   {name:"Haval H3", img:"assets/work/v-969668366.jpg", vimeo:"969668366", ratio:"wide"},
-  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", preview:"", ratio:"square"},
+  {name:"Ararat — Under One Sky", img:"assets/work/v-665946854.jpg", vimeo:"665946854", previewEmbed:"https://player.vimeo.com/video/665946854?autoplay=1&loop=1&muted=1&background=1&dnt=1", crop:"letterbox", ratio:"square"},
   {name:"Danone — If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
   {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
   {name:"Greenfield — One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
-  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess.m4v", ratio:"square"},
-  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor.m4v", ratio:"wide"},
+  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess.m4v", crop:"letterbox", ratio:"square"},
+  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor.m4v", crop:"letterbox", ratio:"wide"},
   {name:"LSR — Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr.m4v", ratio:"square"}
 ];
 
@@ -80,15 +80,18 @@ const workArchive = document.getElementById('workArchive');
 let shownWork = 0;
 
 function workCard(w){
-  const label = PAGE === 'brest-litovsk' ? w.name : w.name.split('|')[0].trim();
+  const label = PAGE === 'neo' ? w.name : w.name.split('|')[0].trim();
   const ratio = w.ratio || 'wide';
   const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const preview = Object.prototype.hasOwnProperty.call(w, 'preview') ? w.preview : (w.vimeo ? `assets/work/preview/p-${w.vimeo}.mp4` : '');
-  const video = preview ? `<video class="work__video" data-prev="${asset(preview)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>` : '';
+  const video = w.previewEmbed
+    ? `<iframe class="work__video work__video--embed" data-prev="${escape(w.previewEmbed)}" title="${escape(label)} preview" allow="autoplay; fullscreen; picture-in-picture" aria-hidden="true" tabindex="-1"></iframe>`
+    : preview ? `<video class="work__video" data-prev="${asset(preview)}" autoplay muted loop playsinline webkit-playsinline preload="none" aria-hidden="true"></video>` : '';
   const localAttr = w.local ? ` data-local-video="${asset(w.local)}"` : '';
   const vimeoAttr = w.vimeo ? ` data-vimeo="${w.vimeo}"` : '';
+  const cropAttr = w.crop ? ` data-media-crop="${w.crop}"` : '';
   return `
-  <button type="button" class="work__item work__item--new work__item--${ratio}"${vimeoAttr}${localAttr} data-name="${escape(label)}" aria-label="Play ${escape(label)}">
+  <button type="button" class="work__item work__item--new work__item--${ratio}"${vimeoAttr}${localAttr}${cropAttr} data-name="${escape(label)}" aria-label="Play ${escape(label)}">
     <span class="work__reveal">
     <img src="${asset(w.img)}" alt="${escape(label)} — REEF Audio project still" loading="lazy">
     ${video}
@@ -147,7 +150,7 @@ function appendWork(items){
   updateWorkActions();
 }
 if(grid){
-  appendWork(PAGE === 'work' ? WORK : PAGE === 'brest-litovsk' ? BREST_WORK : FEATURED_WORK.slice(0, workBatchSize()));
+  appendWork(PAGE === 'work' ? WORK : PAGE === 'neo' ? SELECTED_WORK : FEATURED_WORK.slice(0, workBatchSize()));
 }
 workMore?.addEventListener('click', () => {
   if(!grid || PAGE !== 'home' || shownWork >= featuredLimit()) return;
@@ -216,7 +219,7 @@ var observePreviews = function(){};
   }
   function warm(item){
     const v = item.querySelector('.work__video');
-    if(!v) return;
+    if(!v || v.tagName === 'IFRAME') return;
     // Safari needs the DOM properties set before assigning a dynamic source.
     v.defaultMuted = true;
     v.muted = true;
@@ -229,7 +232,15 @@ var observePreviews = function(){};
   }
   function loadAndPlay(item){
     const v = item.querySelector('.work__video');
-    if(!v || !canPlay(item) || v.error || inFlight.has(v)) return;
+    if(!v || !canPlay(item)) return;
+    if(v.tagName === 'IFRAME') {
+      if(!v.getAttribute('src')) {
+        v.addEventListener('load', () => { if(canPlay(item)) playing(item); }, {once:true});
+        v.src = v.getAttribute('data-prev');
+      }
+      return;
+    }
+    if(v.error || inFlight.has(v)) return;
     warm(item);
     inFlight.add(v);
     const failed = error => {
@@ -250,6 +261,7 @@ var observePreviews = function(){};
     const v = item.querySelector('.work__video');
     if(!v) return;
     item.classList.remove('is-previewing');
+    if(v.tagName === 'IFRAME') { v.removeAttribute('src'); return; }
     try{ v.pause(); }catch(e){}
   }
 
@@ -276,11 +288,13 @@ var observePreviews = function(){};
       if(el.dataset.prevObserved === '1') return;
       el.dataset.prevObserved = '1';
       const video = el.querySelector('.work__video');
-      video.addEventListener('loadeddata', () => loadAndPlay(el));
-      video.addEventListener('canplay', () => loadAndPlay(el));
-      video.addEventListener('playing', () => playing(el));
-      video.addEventListener('pause', () => el.classList.remove('is-previewing'));
-      video.addEventListener('error', () => el.classList.remove('is-previewing'));
+      if(video && video.tagName !== 'IFRAME') {
+        video.addEventListener('loadeddata', () => loadAndPlay(el));
+        video.addEventListener('canplay', () => loadAndPlay(el));
+        video.addEventListener('playing', () => playing(el));
+        video.addEventListener('pause', () => el.classList.remove('is-previewing'));
+        video.addEventListener('error', () => el.classList.remove('is-previewing'));
+      }
       el.addEventListener('transitionend', event => {
         if(event.target === el && event.propertyName === 'opacity') loadAndPlay(el);
       });
