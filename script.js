@@ -48,9 +48,9 @@ const SELECTED_WORK = [
   {name:"Danone — If", img:"assets/work/v-373855292.jpg", vimeo:"373855292", ratio:"wide"},
   {name:"Kia K5", img:"assets/work/v-1053336088.jpg", vimeo:"1053336088", ratio:"square"},
   {name:"Greenfield — One Day", img:"assets/work/v-402912100.jpg", vimeo:"402912100", ratio:"wide"},
-  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess.m4v", crop:"letterbox", ratio:"square"},
-  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor.m4v", crop:"letterbox", ratio:"wide"},
-  {name:"LSR — Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr.m4v", ratio:"square"}
+  {name:"Velikoslavich — Chess", img:"assets/work/v-brest-chess.jpg", local:"assets/work/preview/p-brest-chess.m4v", preview:"assets/work/preview/p-brest-chess-hq.mp4", crop:"letterbox", ratio:"square"},
+  {name:"Velikoslavich — Choir", img:"assets/work/v-brest-chor.jpg", local:"assets/work/preview/p-brest-chor.m4v", preview:"assets/work/preview/p-brest-chor-hq.mp4", crop:"letterbox", ratio:"wide"},
+  {name:"LSR — Higher", img:"assets/work/v-brest-lsr.jpg", local:"assets/work/preview/p-brest-lsr.m4v", preview:"assets/work/preview/p-brest-lsr-hq.mp4", ratio:"square"}
 ];
 
 const CLIENTS = [
